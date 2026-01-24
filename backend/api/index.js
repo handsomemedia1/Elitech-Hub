@@ -82,8 +82,8 @@ app.use(helmet({
 
 // CORS - Restrict origins
 const allowedOrigins = isProduction
-    ? ['https://elitechhub.com', 'https://www.elitechhub.com']
-    : ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:3000'];
+    ? ['https://elitechub.com', 'https://www.elitechub.com', 'https://elitechcysb.netlify.app']
+    : ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:3000', 'http://127.0.0.1:3000'];
 
 app.use(cors({
     origin: function (origin, callback) {

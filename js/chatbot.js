@@ -8,9 +8,12 @@
 
     // Configuration
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    // Split Deployment: Frontend (Netlify) -> Backend (Vercel)
+    // We assume the backend is at https://elitech-hub.vercel.app based on repo name.
+    // IF THIS IS WRONG: Update this URL to your actual Vercel backend URL.
     const API_URL = isLocal
         ? 'http://localhost:3001/api/chatbot/chat'
-        : '/api/chatbot/chat';
+        : 'https://elitech-hub.vercel.app/api/chatbot/chat';
 
     // Chat history for context
     let chatHistory = [];
