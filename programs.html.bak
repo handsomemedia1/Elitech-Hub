@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cybersecurity Training Programs - 6-Week Bootcamp & 16-Week Professional. Guaranteed internship. 85% job placement rate.">
+    <meta name="keywords" content="cybersecurity bootcamp, cybersecurity training programs, 16 week cybersecurity, guaranteed internship">
+    <meta name="theme-color" content="#DC2626">
+    <title>Training Programs - Elitech Hub | 6-Week & 16-Week Cybersecurity</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub" style="height: 60px; width: auto; filter: brightness(0) invert(1);">
+                <div class="loader-logo-text">
+                    <span>E</span><span>l</span><span>i</span><span>t</span><span>e</span><span>c</span><span>h</span>
+                    <span>H</span><span>u</span><span>b</span>
+                </div>
+            </div>
+            <div class="loader-scanner">
+                <div class="scanner-grid"></div>
+                <div class="scanner-line"></div>
+                <div class="scanner-text">INITIALIZING SECURITY PROTOCOLS...</div>
+            </div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <div class="loader-text">Loading</div>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="assets/images/logo.png" alt="Elitech Hub" style="height: 40px; width: auto; margin-right: 0.5rem;"><span>Elitech<span class="logo-highlight">Hub</span></span></a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="programs.html" class="nav-link active">Programs</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a></li>
+            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;"><button id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button><button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button></div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="programs.html" class="nav-link active">Programs</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 65vh; position: relative; display: flex; align-items: center; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);">
+        <!-- Animated Background Pattern -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; background-image: radial-gradient(circle at 30% 40%, #008751 0%, transparent 50%), radial-gradient(circle at 70% 60%, #06B6D4 0%, transparent 50%); z-index: 0;"></div>
+
+        <!-- Dark Overlay for Better Text Readability -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.7) 100%); z-index: 1;"></div>
+
+        <div class="container" style="position: relative; z-index: 2;">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center; color: white;">
+                <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(0, 135, 81, 0.1); border: 1px solid rgba(0, 135, 81, 0.3); border-radius: 2rem; margin-bottom: 2rem;">
+                    <span style="color: #10B981; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em;">TRAINING PROGRAMS</span>
+                </div>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1;">
+                    Choose Your <span style="color: #DC2626;">Career Path</span>
+                </h1>
+                <p style="font-size: 1.3rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); max-width: 650px; margin: 0 auto 2rem;">
+                    Two programs designed to launch your cybersecurity career. From beginner to job-ready professional.
+                </p>
+                <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-check-circle" style="color: #10B981; font-size: 1.25rem;"></i>
+                        <span style="color: rgba(255, 255, 255, 0.9);">100% Internship Guarantee</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-check-circle" style="color: #10B981; font-size: 1.25rem;"></i>
+                        <span style="color: rgba(255, 255, 255, 0.9);">85% Job Placement Rate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 6rem 2rem; background: white;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+                <div style="background: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 2.5rem;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">6-Week Bootcamp</h3>
+                    <p style="color: #6B7280; margin-bottom: 2rem;">Fast-Track Skills</p>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #DC2626; margin-bottom: 2rem;">₦45K<span style="display: block; font-size: 0.875rem; color: #6B7280; font-weight: 500; margin-top: 0.5rem;">one-time payment</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>6 weeks intensive training</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Weekend classes</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Hands-on labs</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Industry project</li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Certificate</li>
+                    </ul>
+                    <a href="payment.html?program=6week" class="btn btn-outline" style="width: 100%; justify-content: center;">Enroll Now</a>
+                </div>
+
+                <div style="background: white; border: 2px solid #DC2626; border-radius: 1rem; padding: 2.5rem; position: relative; transform: scale(1.05); box-shadow: 0 20px 25px -5px rgb(220 38 38 / 0.1);">
+                    <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #DC2626; color: white; padding: 0.5rem 1.5rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700;">MOST POPULAR</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">16-Week Professional</h3>
+                    <p style="color: #6B7280; margin-bottom: 2rem;">Complete Career Transformation</p>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 3.5rem; font-weight: 700; color: #DC2626; margin-bottom: 2rem;">₦75K<span style="display: block; font-size: 0.875rem; color: #6B7280; font-weight: 500; margin-top: 0.5rem;">flexible payments</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Comprehensive 16-week program</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i><strong>Guaranteed internship</strong></li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Industry certifications</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>1-on-1 mentorship</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Job placement support</li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Alumni network</li>
+                    </ul>
+                    <a href="payment.html?program=16week" class="btn btn-primary" style="width: 100%; justify-content: center;">Get Started</a>
+                </div>
+
+                <div style="background: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 2.5rem;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">Corporate Training</h3>
+                    <p style="color: #6B7280; margin-bottom: 2rem;">Team Development</p>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; color: #008751; margin-bottom: 2rem;">Custom<span style="display: block; font-size: 0.875rem; color: #6B7280; font-weight: 500; margin-top: 0.5rem;">tailored to your needs</span></div>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Custom curriculum</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>On-site or virtual</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Team projects</li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid #F3F4F6; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Executive briefings</li>
+                        <li style="padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Ongoing support</li>
+                    </ul>
+                    <a href="services.html" class="btn" style="width: 100%; justify-content: center; background: #008751; color: white;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Program Details -->
+    <section style="padding: 6rem 2rem; background: #F9FAFB;">
+        <div class="container">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 3rem; text-align: center;">Comprehensive Program Breakdown</h2>
+
+            <!-- 6-Week Bootcamp Deep Dive -->
+            <div style="margin-bottom: 5rem; background: white; border-radius: 1rem; padding: 3rem; border-left: 6px solid #DC2626; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: #DC2626; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fas fa-bolt"></i> 6-Week Intensive Bootcamp
+                </h3>
+                <p style="font-size: 1.125rem; line-height: 1.8; color: #374151; margin-bottom: 2.5rem;">
+                    Our accelerated bootcamp is designed for professionals looking to quickly acquire fundamental cybersecurity skills. Perfect for career switchers, IT professionals expanding their expertise, or beginners wanting a solid foundation in cybersecurity.
+                </p>
+
+                <!-- Week-by-Week Curriculum -->
+                <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0A0A0A; margin: 2.5rem 0 1.5rem 0;">
+                    <i class="fas fa-calendar-alt" style="color: #DC2626;"></i> Week-by-Week Curriculum
+                </h4>
+                <div style="display: grid; gap: 1.5rem;">
+                    <!-- Week 1 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #DC2626;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #DC2626; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">1</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">Introduction to Cybersecurity</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>Cybersecurity fundamentals and threat landscape</li>
+                            <li>CIA Triad: Confidentiality, Integrity, Availability</li>
+                            <li>Types of cyber threats and attack vectors</li>
+                            <li>Security policies and compliance frameworks (NIST, ISO 27001)</li>
+                            <li>Hands-on: Setting up a home security lab</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 2 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #F59E0B;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #F59E0B; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">2</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">Network Security Essentials</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>TCP/IP protocol suite and network architecture</li>
+                            <li>Firewalls, IDS/IPS, and VPNs</li>
+                            <li>Network scanning and reconnaissance with Nmap</li>
+                            <li>Wireless security and common Wi-Fi attacks</li>
+                            <li>Hands-on: Network traffic analysis with Wireshark</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 3 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #10B981;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #10B981; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">3</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">Vulnerability Assessment & Penetration Testing</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>Vulnerability scanning with Nessus and OpenVAS</li>
+                            <li>Introduction to Kali Linux and penetration testing tools</li>
+                            <li>OWASP Top 10 vulnerabilities and exploitation</li>
+                            <li>SQL injection, XSS, and CSRF attacks</li>
+                            <li>Hands-on: Penetration testing on deliberately vulnerable systems (DVWA, Metasploitable)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 4 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #06B6D4;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #06B6D4; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">4</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">System Security & Hardening</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>Operating system security (Windows, Linux, macOS)</li>
+                            <li>Access control, authentication, and authorization</li>
+                            <li>System hardening techniques and best practices</li>
+                            <li>Malware analysis fundamentals</li>
+                            <li>Hands-on: Hardening a Linux server and Windows workstation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 5 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #8B5CF6;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #8B5CF6; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">5</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">Incident Response & Digital Forensics</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>Incident response lifecycle and procedures</li>
+                            <li>Digital forensics fundamentals and evidence handling</li>
+                            <li>Log analysis and SIEM tools (Splunk basics)</li>
+                            <li>Security monitoring and threat detection</li>
+                            <li>Hands-on: Investigating a simulated security breach</li>
+                        </ul>
+                    </div>
+
+                    <!-- Week 6 -->
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; border-left: 4px solid #DC2626;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #DC2626; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem;">6</div>
+                            <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: #0A0A0A; margin: 0;">Capstone Project & Career Preparation</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.5rem; color: #4B5563; line-height: 1.8;">
+                            <li>Final capstone project: Complete security assessment</li>
+                            <li>Professional security reporting and documentation</li>
+                            <li>Resume building and interview preparation</li>
+                            <li>Cybersecurity career paths and certifications roadmap</li>
+                            <li>Project presentation and peer review</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tools & Technologies -->
+                <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0A0A0A; margin: 2.5rem 0 1.5rem 0;">
+                    <i class="fas fa-tools" style="color: #DC2626;"></i> Tools & Technologies You'll Master
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div style="background: #FEE2E2; border: 1px solid #DC2626; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-terminal" style="color: #DC2626; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Kali Linux & Command Line</span>
+                    </div>
+                    <div style="background: #DBEAFE; border: 1px solid #06B6D4; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-network-wired" style="color: #06B6D4; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Nmap & Wireshark</span>
+                    </div>
+                    <div style="background: #D1FAE5; border: 1px solid #10B981; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-bug" style="color: #10B981; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Metasploit Framework</span>
+                    </div>
+                    <div style="background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-shield-alt" style="color: #F59E0B; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Burp Suite & OWASP ZAP</span>
+                    </div>
+                    <div style="background: #E0E7FF; border: 1px solid #8B5CF6; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-search" style="color: #8B5CF6; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Nessus & OpenVAS</span>
+                    </div>
+                    <div style="background: #FEE2E2; border: 1px solid #DC2626; border-radius: 0.5rem; padding: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                        <i class="fas fa-chart-line" style="color: #DC2626; font-size: 1.5rem;"></i>
+                        <span style="font-weight: 600; color: #0A0A0A;">Splunk & Log Analysis</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 16-Week Professional Program Deep Dive -->
+            <div style="margin-bottom: 5rem; background: white; border-radius: 1rem; padding: 3rem; border-left: 6px solid #008751; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: #008751; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fas fa-graduation-cap"></i> 16-Week Professional Program
+                </h3>
+                <p style="font-size: 1.125rem; line-height: 1.8; color: #374151; margin-bottom: 2.5rem;">
+                    Our flagship comprehensive program transforms complete beginners into job-ready cybersecurity professionals. With a guaranteed internship and 85% job placement rate, this program includes everything from foundational concepts to advanced penetration testing, security operations, and professional certifications.
+                </p>
+
+                <!-- Program Phases -->
+                <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0A0A0A; margin: 2.5rem 0 1.5rem 0;">
+                    <i class="fas fa-layer-group" style="color: #008751;"></i> Four-Phase Learning Journey
+                </h4>
+
+                <!-- Phase 1: Foundation (Weeks 1-4) -->
+                <div style="margin-bottom: 2.5rem;">
+                    <div style="background: linear-gradient(135deg, #008751, #006B3F); color: white; padding: 1.5rem; border-radius: 0.75rem 0.75rem 0 0;">
+                        <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0;">
+                            Phase 1: Foundation & Core Concepts (Weeks 1-4)
+                        </h5>
+                    </div>
+                    <div style="background: #F0FDF4; border: 2px solid #008751; border-top: none; border-radius: 0 0 0.75rem 0.75rem; padding: 2rem;">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 1-2: Cybersecurity Fundamentals</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Introduction to information security principles</li>
+                                    <li>Threat landscape and cyber attack methodologies</li>
+                                    <li>Security frameworks (NIST, ISO 27001, CIS Controls)</li>
+                                    <li>Risk management and security governance</li>
+                                    <li>Linux fundamentals and command-line mastery</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 3-4: Networking & System Administration</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>TCP/IP deep dive and network protocols</li>
+                                    <li>Network devices and architecture design</li>
+                                    <li>Windows and Linux system administration</li>
+                                    <li>Active Directory and domain management</li>
+                                    <li>Virtualization with VirtualBox and VMware</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Security Operations (Weeks 5-8) -->
+                <div style="margin-bottom: 2.5rem;">
+                    <div style="background: linear-gradient(135deg, #06B6D4, #0891B2); color: white; padding: 1.5rem; border-radius: 0.75rem 0.75rem 0 0;">
+                        <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0;">
+                            Phase 2: Security Operations & Defense (Weeks 5-8)
+                        </h5>
+                    </div>
+                    <div style="background: #ECFEFF; border: 2px solid #06B6D4; border-top: none; border-radius: 0 0 0.75rem 0.75rem; padding: 2rem;">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 5-6: Network Security & Defense</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Firewalls, IDS/IPS configuration and management</li>
+                                    <li>VPN technologies and secure remote access</li>
+                                    <li>Network segmentation and zero trust architecture</li>
+                                    <li>Wireless security and WPA3 implementation</li>
+                                    <li>Network traffic analysis with Wireshark advanced techniques</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 7-8: Security Monitoring & Incident Response</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>SIEM deployment and management (Splunk, ELK Stack)</li>
+                                    <li>Log analysis and correlation techniques</li>
+                                    <li>Threat hunting and proactive defense</li>
+                                    <li>Incident response procedures and playbooks</li>
+                                    <li>Digital forensics and evidence preservation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Offensive Security (Weeks 9-12) -->
+                <div style="margin-bottom: 2.5rem;">
+                    <div style="background: linear-gradient(135deg, #DC2626, #991B1B); color: white; padding: 1.5rem; border-radius: 0.75rem 0.75rem 0 0;">
+                        <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0;">
+                            Phase 3: Offensive Security & Penetration Testing (Weeks 9-12)
+                        </h5>
+                    </div>
+                    <div style="background: #FEF2F2; border: 2px solid #DC2626; border-top: none; border-radius: 0 0 0.75rem 0.75rem; padding: 2rem;">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 9-10: Vulnerability Assessment & Exploitation</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Advanced vulnerability scanning (Nessus, OpenVAS, Qualys)</li>
+                                    <li>OWASP Top 10 in-depth analysis and exploitation</li>
+                                    <li>Web application security testing (Burp Suite, OWASP ZAP)</li>
+                                    <li>SQL injection, XSS, CSRF, and XXE attacks</li>
+                                    <li>API security testing and GraphQL vulnerabilities</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 11-12: Advanced Penetration Testing</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Metasploit Framework mastery and exploit development</li>
+                                    <li>Active Directory attacks (Kerberoasting, Pass-the-Hash)</li>
+                                    <li>Privilege escalation techniques (Windows & Linux)</li>
+                                    <li>Post-exploitation and lateral movement</li>
+                                    <li>Social engineering and phishing campaigns</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Specialization (Weeks 13-16) -->
+                <div style="margin-bottom: 2.5rem;">
+                    <div style="background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: white; padding: 1.5rem; border-radius: 0.75rem 0.75rem 0 0;">
+                        <h5 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0;">
+                            Phase 4: Specialization & Career Launch (Weeks 13-16)
+                        </h5>
+                    </div>
+                    <div style="background: #F5F3FF; border: 2px solid #8B5CF6; border-top: none; border-radius: 0 0 0.75rem 0.75rem; padding: 2rem;">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 13-14: Specialized Security Tracks</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Cloud security (AWS, Azure security fundamentals)</li>
+                                    <li>Container security (Docker, Kubernetes)</li>
+                                    <li>Mobile application security (Android & iOS)</li>
+                                    <li>Malware analysis and reverse engineering basics</li>
+                                    <li>Cryptography and secure coding practices</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Week 15-16: Capstone Project & Career Preparation</h6>
+                                <ul style="margin: 0; padding-left: 1.5rem; color: #374151; line-height: 1.8;">
+                                    <li>Full-scale penetration testing capstone project</li>
+                                    <li>Professional reporting and client presentations</li>
+                                    <li>Resume building and LinkedIn optimization</li>
+                                    <li>Mock interviews and technical assessments</li>
+                                    <li>Certification exam preparation (Security+, CEH)</li>
+                                    <li><strong style="color: #008751;">Guaranteed internship placement</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications Preparation -->
+                <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0A0A0A; margin: 2.5rem 0 1.5rem 0;">
+                    <i class="fas fa-certificate" style="color: #008751;"></i> Industry Certifications Preparation
+                </h4>
+                <div style="background: #F0FDF4; border: 2px solid #10B981; border-radius: 0.75rem; padding: 2rem; margin-bottom: 2rem;">
+                    <p style="color: #374151; margin-bottom: 1.5rem;">Our program prepares you for the most sought-after cybersecurity certifications in the industry:</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                        <div style="background: white; border: 1px solid #10B981; border-radius: 0.5rem; padding: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-award" style="color: #10B981; font-size: 1.5rem;"></i>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin: 0;">CompTIA Security+</h6>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Foundation certification covering essential security concepts</p>
+                        </div>
+                        <div style="background: white; border: 1px solid #DC2626; border-radius: 0.5rem; padding: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-shield-alt" style="color: #DC2626; font-size: 1.5rem;"></i>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin: 0;">Certified Ethical Hacker (CEH)</h6>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Advanced penetration testing and ethical hacking</p>
+                        </div>
+                        <div style="background: white; border: 1px solid #06B6D4; border-radius: 0.5rem; padding: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-code" style="color: #06B6D4; font-size: 1.5rem;"></i>
+                                <h6 style="font-weight: 700; color: #0A0A0A; margin: 0;">OSCP (Recommended)</h6>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Hands-on penetration testing certification</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Support -->
+                <h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #0A0A0A; margin: 2.5rem 0 1.5rem 0;">
+                    <i class="fas fa-briefcase" style="color: #008751;"></i> Comprehensive Career Support
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #10B981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">1-on-1 Mentorship</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Personal guidance from industry professionals</p>
+                    </div>
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #DC2626; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">100% Internship Guarantee</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Real-world experience with our partner companies</p>
+                    </div>
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #06B6D4; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Resume & LinkedIn Optimization</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Professional profile building and personal branding</p>
+                    </div>
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #F59E0B; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Interview Preparation</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Mock interviews and technical assessment practice</p>
+                    </div>
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #8B5CF6; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">Alumni Network</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Lifetime access to our growing professional community</p>
+                    </div>
+                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; text-align: center;">
+                        <div style="background: #10B981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h6 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.5rem;">85% Job Placement Rate</h6>
+                        <p style="color: #6B7280; font-size: 0.875rem; margin: 0;">Proven track record of graduate employment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Success Stories -->
+            <div style="margin-bottom: 5rem; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); border-radius: 1rem; padding: 3rem; color: white;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-star" style="color: #F59E0B;"></i> Student Success Stories
+                </h3>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 3rem; font-size: 1.125rem;">Hear from our graduates who transformed their careers</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <!-- Testimonial 1 -->
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 2rem; backdrop-filter: blur(10px);">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                        </div>
+                        <p style="color: rgba(255, 255, 255, 0.9); font-style: italic; line-height: 1.8; margin-bottom: 1.5rem;">
+                            "I went from having zero IT experience to landing a Security Analyst role at a fintech company in just 5 months. The hands-on projects and guaranteed internship were game-changers. Best investment I've ever made!"
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #DC2626, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                                AO
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: white;">Adebayo Oluwaseun</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Security Analyst, PayStack</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 2rem; backdrop-filter: blur(10px);">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                        </div>
+                        <p style="color: rgba(255, 255, 255, 0.9); font-style: italic; line-height: 1.8; margin-bottom: 1.5rem;">
+                            "The instructors are phenomenal! They didn't just teach theory—every week was packed with real-world scenarios. I passed my CEH exam on the first try and now work as a Penetration Tester."
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #008751, #006B3F); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                                CN
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: white;">Chioma Nwosu</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">Penetration Tester, Andela</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; padding: 2rem; backdrop-filter: blur(10px);">
+                        <div style="display: flex; gap: 0.25rem; margin-bottom: 1rem;">
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                            <i class="fas fa-star" style="color: #F59E0B;"></i>
+                        </div>
+                        <p style="color: rgba(255, 255, 255, 0.9); font-style: italic; line-height: 1.8; margin-bottom: 1.5rem;">
+                            "Coming from a non-technical background, I was nervous. But the curriculum is so well-structured that I was building my own security lab by week 3. The career support team helped me land 3 job offers!"
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #06B6D4, #0891B2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                                IM
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: white;">Ibrahim Mohammed</div>
+                                <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">SOC Analyst, Interswitch</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div style="margin-bottom: 5rem;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">Program Comparison</h3>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); color: white;">
+                                <th style="padding: 1.25rem; text-align: left; font-family: 'Space Grotesk', sans-serif;">Feature</th>
+                                <th style="padding: 1.25rem; text-align: center; font-family: 'Space Grotesk', sans-serif;">6-Week Bootcamp</th>
+                                <th style="padding: 1.25rem; text-align: center; font-family: 'Space Grotesk', sans-serif; background: rgba(220, 38, 38, 0.2);">16-Week Professional</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Duration</td>
+                                <td style="padding: 1rem; text-align: center;">6 Weeks</td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;">16 Weeks</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Class Schedule</td>
+                                <td style="padding: 1rem; text-align: center;">Weekends Only</td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;">3x per week</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Price</td>
+                                <td style="padding: 1rem; text-align: center; color: #DC2626; font-weight: 700;">₦45,000</td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2; color: #DC2626; font-weight: 700;">₦75,000</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Hands-on Labs</td>
+                                <td style="padding: 1rem; text-align: center;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Industry Project</td>
+                                <td style="padding: 1rem; text-align: center;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Guaranteed Internship</td>
+                                <td style="padding: 1rem; text-align: center;"><i class="fas fa-times" style="color: #EF4444;"></i></td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;"><i class="fas fa-check" style="color: #10B981; font-weight: 700;"></i> <strong>Yes</strong></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">1-on-1 Mentorship</td>
+                                <td style="padding: 1rem; text-align: center;"><i class="fas fa-times" style="color: #EF4444;"></i></td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Certification Prep</td>
+                                <td style="padding: 1rem; text-align: center;">Basic</td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;">Security+, CEH, OSCP</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E5E7EB;">
+                                <td style="padding: 1rem; font-weight: 600;">Job Placement Support</td>
+                                <td style="padding: 1rem; text-align: center;">Basic Resume Help</td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;">Full Career Services</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; font-weight: 600;">Alumni Network Access</td>
+                                <td style="padding: 1rem; text-align: center;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                                <td style="padding: 1rem; text-align: center; background: #FEF2F2;"><i class="fas fa-check" style="color: #10B981;"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div style="background: white; border-radius: 1rem; padding: 3rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">
+                    <i class="fas fa-question-circle" style="color: #DC2626;"></i> Frequently Asked Questions
+                </h3>
+                <div style="display: grid; gap: 1.5rem;">
+                    <div style="border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">Do I need prior experience to enroll?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">No! Our programs are designed for complete beginners. We start with the fundamentals and progressively build your skills. If you can use a computer and have a passion for cybersecurity, you're ready to start.</p>
+                    </div>
+                    <div style="border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">What equipment do I need?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">A laptop with at least 8GB RAM (16GB recommended) and a stable internet connection. We'll guide you through setting up all necessary software including virtual machines and security tools—all free and open-source.</p>
+                    </div>
+                    <div style="border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">How does the guaranteed internship work?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">Upon successful completion of the 16-week program, we place you with one of our partner companies for a 3-6 month internship. This provides real-world experience and often leads to full-time employment (85% of our interns receive job offers).</p>
+                    </div>
+                    <div style="border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">Are the classes online or in-person?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">All classes are conducted live online via Zoom with interactive labs and breakout sessions. This allows you to learn from anywhere while still getting real-time interaction with instructors and peers. Recordings are available for review.</p>
+                    </div>
+                    <div style="border-bottom: 1px solid #E5E7EB; padding-bottom: 1.5rem;">
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">Can I pay in installments?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">Yes! The 16-week program offers flexible payment plans. You can pay in 2-3 installments. Contact our admissions team via WhatsApp to discuss payment options that work for your budget.</p>
+                    </div>
+                    <div>
+                        <h5 style="font-weight: 700; color: #0A0A0A; margin-bottom: 0.75rem; font-size: 1.125rem;">What's the difference between the 6-week and 16-week programs?</h5>
+                        <p style="color: #6B7280; line-height: 1.8; margin: 0;">The 6-week bootcamp is perfect for getting fundamental skills quickly and is ideal for professionals with time constraints. The 16-week program is comprehensive, includes guaranteed internship, advanced topics, certification prep, and full career services—making it ideal for complete career transformation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 6rem 2rem; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1.5rem;">Ready to Start?</h2>
+            <p style="font-size: 1.125rem; margin: 0 auto 3rem; max-width: 600px;">Join our next cohort and transform your career.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="payment.html?program=16week" class="btn btn-primary" style="padding: 1rem 2rem;"><i class="fas fa-rocket"></i> Enroll Now</a>
+                <a href="https://wa.me/2347081968062" class="btn btn-outline" style="padding: 1rem 2rem; color: white; border-color: white;"><i class="fab fa-whatsapp"></i> Ask Questions</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" style="background: #0A0A0A; color: white; padding: 4rem 2rem 2rem; border-top: 4px solid #DC2626;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <div class="logo" style="margin-bottom: 1rem; color: white;"><img src="assets/images/logo.png" alt="Elitech Hub" style="height: 35px; width: auto; margin-right: 0.5rem; display: inline-block; vertical-align: middle;"><span>Elitech<span class="logo-highlight">Hub</span></span></div>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem;">Securing Africa's Digital Future</p>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Programs</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="programs.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">6-Week Bootcamp</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="programs.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">16-Week Professional</a></li>
+                    </ul>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="about.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">About</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="blog.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Research</a></li>
+                    </ul>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Connect</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="https://wa.me/2347081968062" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5);">
+                <p>&copy; 2025 Elitech Hub Limited. RC: 8693883</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Certificate Badges -->
+    <div id="certificateBadges" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+        <div class="cert-badge" onclick="openCertModal('cac')" style="background: white; border: 2px solid #DC2626; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #DC2626, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">CAC Registered</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">RC: 8693883</div>
+            </div>
+        </div>
+
+        <div class="cert-badge" onclick="openCertModal('smedan')" style="background: white; border: 2px solid #008751; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #008751, #006B3F); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">SMEDAN Certified</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">Verified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; align-items: center; justify-content: center;" onclick="closeCertModal()">
+        <div style="position: relative; max-width: 90%; max-height: 90%; background: white; border-radius: 1rem; padding: 2rem;" onclick="event.stopPropagation()">
+            <button onclick="closeCertModal()" style="position: absolute; top: 1rem; right: 1rem; background: #DC2626; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="certModalContent" style="text-align: center;"></div>
+        </div>
+    </div>
+
+    <style>
+        .cert-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #certificateBadges {
+                bottom: 80px;
+                right: 10px;
+            }
+            .cert-badge {
+                font-size: 0.625rem !important;
+            }
+            .cert-badge > div:first-child {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.75rem !important;
+            }
+        }
+    </style>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Page Loader - Hide after page loads
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('pageLoader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section:not(.hero)');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+
+        // Certificate Modal Functions
+        function openCertModal(type) {
+            const modal = document.getElementById('certModal');
+            const content = document.getElementById('certModalContent');
+
+            if (type === 'cac') {
+                content.innerHTML = `
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #DC2626, #991B1B); padding: 2rem; border-radius: 1rem 1rem 0 0;">
+                            <i class="fas fa-certificate" style="font-size: 4rem; color: white; margin-bottom: 1rem;"></i>
+                            <h2 style="color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin: 0;">CAC Registration</h2>
+                        </div>
+                        <div style="padding: 2rem; background: #F9FAFB; border-radius: 0 0 1rem 1rem;">
+                            <div style="background: white; border: 2px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <h3 style="font-family: 'Space Grotesk', sans-serif; color: #0A0A0A; margin-bottom: 1rem;">Elitech Hub Limited</h3>
+                                <div style="display: grid; gap: 1rem; text-align: left;">
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Registration Number (RC)</div>
+                                        <div style="color: #DC2626; font-weight: 700; font-size: 1.5rem;">8693883</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Company Type</div>
+                                        <div style="color: #0A0A0A; font-weight: 600;">Limited by Shares</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Status</div>
+                                        <div style="color: #008751; font-weight: 600;"><i class="fas fa-check-circle"></i> Active & Registered</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem;">Officially registered with the Corporate Affairs Commission (CAC) of Nigeria</p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'smedan') {
+                content.innerHTML = `
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #008751, #006B3F); padding: 2rem; border-radius: 1rem 1rem 0 0;">
+                            <i class="fas fa-shield-alt" style="font-size: 4rem; color: white; margin-bottom: 1rem;"></i>
+                            <h2 style="color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin: 0;">SMEDAN Certification</h2>
+                        </div>
+                        <div style="padding: 2rem; background: #F9FAFB; border-radius: 0 0 1rem 1rem;">
+                            <div style="background: white; border: 2px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <h3 style="font-family: 'Space Grotesk', sans-serif; color: #0A0A0A; margin-bottom: 1rem;">Elitech Hub Limited</h3>
+                                <div style="display: grid; gap: 1rem; text-align: left;">
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Certification</div>
+                                        <div style="color: #008751; font-weight: 700; font-size: 1.25rem;">SMEDAN Verified</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Category</div>
+                                        <div style="color: #0A0A0A; font-weight: 600;">Education & Training Services</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Status</div>
+                                        <div style="color: #008751; font-weight: 600;"><i class="fas fa-check-circle"></i> Verified & Certified</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem;">Certified by the Small and Medium Enterprises Development Agency of Nigeria (SMEDAN)</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('certModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCertModal();
+            }
+        });
+    </script>
+</body>
+</html>

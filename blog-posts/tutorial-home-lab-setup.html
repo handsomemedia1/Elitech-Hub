@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Set Up a Home Lab for Cybersecurity Practice - Elitech Hub</title>
+    <meta name="description"
+        content="Learn how to build your own cybersecurity home lab for hands-on practice. Step-by-step guide covering virtualization, vulnerable VMs, and essential tools.">
+    <base href="../">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/blog-post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* Tutorial-specific styles */
+        .step-container {
+            counter-reset: step-counter;
+            margin: 2rem 0;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #c3151c, #e64545);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .step h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.75rem;
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            border: 1px solid #93c5fd;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .tip-box h4 {
+            color: #1d4ed8;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #1e40af;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7, #fffbeb);
+            border: 1px solid #fcd34d;
+            border-left: 4px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #b45309;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .warning-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #92400e;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .requirement-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .requirement-card i {
+            font-size: 2rem;
+            color: #c3151c;
+            margin-bottom: 0.75rem;
+        }
+
+        .requirement-card h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .requirement-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .difficulty-beginner {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .difficulty-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .table-of-contents {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .table-of-contents h3 {
+            margin: 0 0 1rem;
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+
+        .table-of-contents ol {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .table-of-contents li {
+            margin-bottom: 0.5rem;
+        }
+
+        .table-of-contents a {
+            color: #334155;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .table-of-contents a:hover {
+            color: #c3151c;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="post-navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Elitech<span>Hub</span></a>
+            <a href="blog.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Blog
+            </a>
+        </div>
+    </nav>
+
+    <!-- Article -->
+    <article class="post-article">
+        <a href="blog.html" class="breadcrumb">
+            <i class="fas fa-arrow-left"></i> All Posts
+        </a>
+
+        <span class="post-category">Tutorial</span>
+
+        <h1 class="post-title">How to Set Up a Home Lab for Cybersecurity Practice</h1>
+
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i> January 20, 2026</span>
+            <span><i class="far fa-clock"></i> 12 min read</span>
+            <span><i class="far fa-user"></i> Elitech Hub Team</span>
+        </div>
+
+        <div class="difficulty-badge difficulty-beginner">
+            <i class="fas fa-signal"></i> Beginner Friendly
+        </div>
+
+        <div class="post-content">
+            <p>
+                Building a home lab is one of the best investments you can make in your cybersecurity career. It gives
+                you a safe environment to practice hacking techniques, test security tools, and develop real-world
+                skills that employers value.
+            </p>
+
+            <p>
+                In this comprehensive guide, we'll walk you through setting up your own cybersecurity lab from scratch,
+                even if you're working with limited hardware.
+            </p>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents">
+                <h3>📑 What You'll Learn</h3>
+                <ol>
+                    <li><a href="#requirements">Hardware & Software Requirements</a></li>
+                    <li><a href="#virtualization">Setting Up Virtualization</a></li>
+                    <li><a href="#kali">Installing Kali Linux</a></li>
+                    <li><a href="#targets">Adding Vulnerable Targets</a></li>
+                    <li><a href="#network">Configuring the Network</a></li>
+                    <li><a href="#tools">Essential Security Tools</a></li>
+                </ol>
+            </div>
+
+            <!-- Requirements Section -->
+            <h2 id="requirements">What You'll Need</h2>
+
+            <p>Before we start, let's make sure you have the necessary resources. Don't worry - you don't need expensive
+                equipment to get started.</p>
+
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <i class="fas fa-microchip"></i>
+                    <h4>8GB+ RAM</h4>
+                    <p>16GB recommended</p>
+                </div>
+                <div class="requirement-card">
+                    <i class="fas fa-hdd"></i>
+                    <h4>100GB+ Storage</h4>
+                    <p>SSD preferred</p>
+                </div>
+                <div class="requirement-card">
+                    <i class="fas fa-desktop"></i>
+                    <h4>VirtualBox</h4>
+                    <p>Free & open source</p>
+                </div>
+                <div class="requirement-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>2-3 Hours</h4>
+                    <p>Setup time</p>
+                </div>
+            </div>
+
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Pro Tip</h4>
+                <p>If your computer has less than 8GB RAM, you can still follow along by running one VM at a time.
+                    Cloud-based labs like TryHackMe are also great alternatives.</p>
+            </div>
+
+            <!-- Step-by-Step Section -->
+            <h2 id="virtualization">Step-by-Step Setup</h2>
+
+            <div class="step-container">
+                <div class="step" id="step1">
+                    <h3>Download and Install VirtualBox</h3>
+                    <p>VirtualBox is a free hypervisor that lets you run multiple operating systems on your computer.
+                        It's perfect for creating isolated lab environments.</p>
+
+                    <ol>
+                        <li>Visit <a href="https://www.virtualbox.org/wiki/Downloads"
+                                target="_blank">virtualbox.org/wiki/Downloads</a></li>
+                        <li>Download the version for your operating system</li>
+                        <li>Run the installer with default settings</li>
+                        <li>Restart your computer when prompted</li>
+                    </ol>
+
+                    <div class="code-block" data-lang="Verify Installation">
+                        <code>VBoxManage --version</code>
+                    </div>
+                </div>
+
+                <div class="step" id="kali">
+                    <h3>Download Kali Linux</h3>
+                    <p>Kali Linux is the industry-standard penetration testing distribution. It comes pre-loaded with
+                        hundreds of security tools.</p>
+
+                    <ol>
+                        <li>Go to <a href="https://www.kali.org/get-kali/" target="_blank">kali.org/get-kali</a></li>
+                        <li>Select "Virtual Machines" → "VirtualBox"</li>
+                        <li>Download the 64-bit version (~3GB)</li>
+                        <li>Extract the .ova file from the download</li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important</h4>
+                        <p>Only download Kali from the official website. Third-party downloads may contain malware.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Import Kali into VirtualBox</h3>
+                    <p>Now let's get Kali running in your virtual environment.</p>
+
+                    <ol>
+                        <li>Open VirtualBox</li>
+                        <li>Go to <strong>File → Import Appliance</strong></li>
+                        <li>Select the Kali .ova file</li>
+                        <li>Adjust RAM to at least 4GB if possible</li>
+                        <li>Click "Import" and wait for completion</li>
+                    </ol>
+
+                    <p>Default credentials: <code>kali</code> / <code>kali</code></p>
+                </div>
+
+                <div class="step" id="targets">
+                    <h3>Add Vulnerable Practice Targets</h3>
+                    <p>You'll need intentionally vulnerable machines to practice on. Here are the best free options:</p>
+
+                    <ul>
+                        <li><strong>Metasploitable 2</strong> - Classic vulnerable Linux server</li>
+                        <li><strong>DVWA</strong> - Damn Vulnerable Web Application</li>
+                        <li><strong>VulnHub VMs</strong> - Hundreds of free boot2root challenges</li>
+                        <li><strong>DVCP</strong> - Damn Vulnerable Cloud Platform</li>
+                    </ul>
+
+                    <div class="code-block" data-lang="Download Metasploitable">
+                        <code># Download from SourceForge:
+https://sourceforge.net/projects/metasploitable/
+
+# Default credentials:
+Username: msfadmin
+Password: msfadmin</code>
+                    </div>
+                </div>
+
+                <div class="step" id="network">
+                    <h3>Configure an Isolated Network</h3>
+                    <p>Create a private network so your attack traffic stays contained.</p>
+
+                    <ol>
+                        <li>In VirtualBox, go to <strong>File → Host Network Manager</strong></li>
+                        <li>Click "Create" to add a new host-only network</li>
+                        <li>Note the IP range (usually 192.168.56.0/24)</li>
+                        <li>For each VM: <strong>Settings → Network → Adapter 1</strong></li>
+                        <li>Set "Attached to" to "Host-only Adapter"</li>
+                    </ol>
+
+                    <div class="tip-box">
+                        <h4><i class="fas fa-shield-alt"></i> Security Note</h4>
+                        <p>Using a host-only network ensures your attack traffic never reaches the internet or your home
+                            network.</p>
+                    </div>
+                </div>
+
+                <div class="step" id="tools">
+                    <h3>Verify Your Setup</h3>
+                    <p>Let's make sure everything is working correctly.</p>
+
+                    <div class="code-block" data-lang="bash">
+                        <code># From Kali, scan for your target VM
+nmap -sn 192.168.56.0/24
+
+# You should see your Metasploitable IP
+# Example output:
+# Nmap scan report for 192.168.56.101
+# Host is up</code>
+                    </div>
+
+                    <p>If you can see your target VM, congratulations! Your lab is ready for action. 🎉</p>
+                </div>
+            </div>
+
+            <div class="key-takeaways">
+                <h3>🎯 Next Steps</h3>
+                <p>Now that your lab is set up, start with these beginner-friendly exercises:</p>
+                <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                    <li>Run a full Nmap scan on Metasploitable</li>
+                    <li>Practice with DVWA SQL injection challenges</li>
+                    <li>Complete a VulnHub easy-rated machine</li>
+                    <li>Set up Wireshark and capture network traffic</li>
+                </ul>
+            </div>
+
+            <h2>Conclusion</h2>
+
+            <p>
+                You now have a fully functional cybersecurity home lab! This environment will serve as your training
+                ground for developing real-world penetration testing and defensive security skills.
+            </p>
+
+            <p>
+                Remember, the key to success is consistent practice. Aim to spend at least a few hours each week in your
+                lab, working through challenges and experimenting with new tools.
+            </p>
+        </div>
+
+        <!-- Share Section -->
+        <div class="post-share">
+            <span>Share this tutorial:</span>
+            <a href="https://api.whatsapp.com/send?text=How to Set Up a Home Lab for Cybersecurity Practice - "
+                target="_blank" title="Share on WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?text=How to Set Up a Home Lab for Cybersecurity Practice&url="
+                target="_blank" title="Share on Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=&title=Home Lab Setup Tutorial" target="_blank"
+                title="Share on LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" title="Share on Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="post-cta">
+            <h3>🚀 Ready for Guided, Hands-On Training?</h3>
+            <p>Join our 16-week bootcamp with expert instructors and real-world projects.</p>
+            <a href="programs.html" class="btn">
+                <i class="fas fa-graduation-cap"></i> Explore Bootcamp
+            </a>
+        </div>
+    </article>
+
+    <!-- Cookie Consent Banner -->
+    <script src="../js/cookie-consent.js"></script>
+</body>
+
+</html>

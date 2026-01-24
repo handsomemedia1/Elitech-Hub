@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Panel - Elitech Hub</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #c3151c;
+            --dark: #0A0A0A;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* Layout */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        /* Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), #e64545);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Forms */
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(195, 21, 28, 0.4);
+        }
+
+        .btn-secondary {
+            background: #E5E7EB;
+            color: var(--dark);
+        }
+
+        .btn-success {
+            background: #10B981;
+            color: white;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .tab:hover {
+            color: var(--dark);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Modules Builder */
+        .modules-builder {
+            border: 2px dashed #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .module-entry {
+            background: var(--light);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .module-entry .drag-handle {
+            color: var(--gray);
+            cursor: grab;
+        }
+
+        .module-entry input {
+            padding: 0.5rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.25rem;
+        }
+
+        .module-entry .remove-btn {
+            background: none;
+            border: none;
+            color: #EF4444;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: #10B981;
+        }
+
+        .toast.error {
+            background: #EF4444;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Login */
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--dark);
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box">
+            <h1>🛡️ Admin Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="admin@elitechhub.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-sign-in-alt"></i>
+                    Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-layout" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand"><img src="assets/images/logo.png" alt="Elitech Hub" style="height: 35px;"></div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="active" data-tab="dashboard"><i class="fas fa-chart-line"></i> Dashboard</a>
+                    </li>
+                    <li><a href="#" data-tab="courses"><i class="fas fa-graduation-cap"></i> Courses</a></li>
+                    <li><a href="#" data-tab="users"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="#" data-tab="writers"><i class="fas fa-pen-nib"></i> Writers</a></li>
+                    <li><a href="#" data-tab="researchers"><i class="fas fa-microscope"></i> Researchers</a></li>
+                    <li><a href="#" data-tab="payments"><i class="fas fa-credit-card"></i> Payments</a></li>
+                    <li><a href="#" data-tab="blog"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div id="dashboardTab" class="tab-content active">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="fas fa-users"></i></div>
+                        <h3 id="totalUsers">0</h3>
+                        <p>Total Users</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="fas fa-user-check"></i></div>
+                        <h3 id="activeUsers">0</h3>
+                        <p>Active (Paid) Users</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 id="totalCourses">0</h3>
+                        <p>Courses</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon"><i class="fas fa-naira-sign"></i></div>
+                        <h3 id="totalRevenue">₦0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="switchTab('courses')"><i class="fas fa-plus"></i> Add
+                            Course</button>
+                        <button class="btn btn-secondary" onclick="switchTab('users')"><i class="fas fa-user-plus"></i>
+                            Grant Access</button>
+                        <button class="btn btn-secondary" onclick="switchTab('blog')"><i class="fas fa-pen"></i> Write
+                            Blog</button>
+                    </div>
+                </div>
+
+                <!-- Recent Users -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-clock"></i> Recent Users</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentUsers">
+                                <tr>
+                                    <td colspan="4">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Tab -->
+            <div id="coursesTab" class="tab-content">
+                <div class="page-header">
+                    <h1 class="page-title">Courses</h1>
+                    <button class="btn btn-primary" onclick="showCourseForm()"><i class="fas fa-plus"></i> Add
+                        Course</button>
+                </div>
+
+                <!-- Course List -->
+                <div class="card" id="coursesList">
+                    <h3 class="card-title"><i class="fas fa-list"></i> All Courses</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Modules</th>
+                                    <th>Price (NGN)</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coursesTable">
+                                <tr>
+                                    <td colspan="5">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add/Edit Course Form -->
+                <div class="card" id="courseForm" style="display: none;">
+                    <h3 class="card-title"><i class="fas fa-graduation-cap"></i> <span id="courseFormTitle">Add New
+                            Course</span></h3>
+                    <form id="courseFormElement">
+                        <input type="hidden" id="courseId">
+                        <div class="form-group">
+                            <label>Course Title *</label>
+                            <input type="text" id="courseTitle" required placeholder="e.g., Cybersecurity Fundamentals">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="courseDescription" placeholder="Course description..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Thumbnail URL</label>
+                            <input type="url" id="courseThumbnail" placeholder="https://...">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Price (NGN) ₦</label>
+                                <input type="number" id="priceNgn" placeholder="75000">
+                            </div>
+                            <div class="form-group">
+                                <label>Price (USD) $</label>
+                                <input type="number" id="priceUsd" placeholder="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Price (EUR) €</label>
+                                <input type="number" id="priceEur" placeholder="45">
+                            </div>
+                            <div class="form-group">
+                                <label>Price (GBP) £</label>
+                                <input type="number" id="priceGbp" placeholder="40">
+                            </div>
+                        </div>
+
+                        <!-- Modules Builder -->
+                        <div class="modules-builder">
+                            <h4 style="margin-bottom: 1rem;"><i class="fas fa-list-ol"></i> Course Modules</h4>
+                            <div id="modulesContainer">
+                                <!-- Module entries will be added here -->
+                            </div>
+                            <button type="button" class="btn btn-secondary" onclick="addModuleEntry()">
+                                <i class="fas fa-plus"></i> Add Module
+                            </button>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save
+                                Course</button>
+                            <button type="button" class="btn btn-secondary" onclick="saveCourseAsDraft()"><i
+                                    class="fas fa-file"></i> Save as Draft</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideCourseForm()"><i
+                                    class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="usersTab" class="tab-content">
+                <div class="page-header">
+                    <h1 class="page-title">Users</h1>
+                </div>
+
+                <!-- Grant Access -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-key"></i> Grant Access</h3>
+                    <form id="grantAccessForm" style="display: flex; gap: 1rem; align-items: flex-end;">
+                        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                            <label>User Email</label>
+                            <input type="email" id="grantEmail" placeholder="student@email.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Grant Access</button>
+                    </form>
+                </div>
+
+                <!-- Users List -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-users"></i> All Users</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Country</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <tr>
+                                    <td colspan="5">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Tab -->
+            <div id="paymentsTab" class="tab-content">
+                <div class="page-header">
+                    <h1 class="page-title">Payments</h1>
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Plan</th>
+                                    <th>Amount</th>
+                                    <th>Provider</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTable">
+                                <tr>
+                                    <td colspan="6">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writers View -->
+            <div id="writersTab" class="tab-content">
+                <div class="header-flex"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h1 class="page-title">Writer Management</h1>
+                    <button class="btn btn-primary" onclick="openWriterModal()">
+                        <i class="fas fa-plus"></i> Add Writer
+                    </button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-nib"></i> All Writers</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Posting Schedule</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="writersList">
+                                <tr>
+                                    <td colspan="5">Loading writers...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Researchers View -->
+            <div id="researchersTab" class="tab-content">
+                <div class="header-flex"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h1 class="page-title">Researcher Management</h1>
+                    <div>
+                        <button class="btn btn-secondary" onclick="loadPendingPapers()" style="margin-right: 1rem;">
+                            <i class="fas fa-sync"></i> Refresh Queue
+                        </button>
+                        <button class="btn btn-primary" onclick="openResearcherModal()">
+                            <i class="fas fa-plus"></i> Add Researcher
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Queue -->
+                <div class="card" style="margin-bottom: 2rem; border-left: 4px solid var(--warning);">
+                    <h3 class="card-title">
+                        <i class="fas fa-clipboard-check"></i> Review Queue
+                        <span id="reviewCount" class="badge badge-warning"
+                            style="margin-left: 0.5rem; font-size: 0.8rem;">0</span>
+                    </h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Title</th>
+                                    <th>Researcher</th>
+                                    <th>Category</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviewQueueList">
+                                <tr>
+                                    <td colspan="5">No papers pending review.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-microscope"></i> All Researchers</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Affiliation</th>
+                                    <th>Stats</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="researchersList">
+                                <tr>
+                                    <td colspan="6">Loading researchers...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Tab -->
+            <div id="blogTab" class="tab-content">
+                <div class="page-header">
+                    <h1 class="page-title">Blog Posts</h1>
+                    <button class="btn btn-primary" onclick="showBlogForm()"><i class="fas fa-plus"></i> New
+                        Post</button>
+                </div>
+
+                <div class="card" id="blogPostForm" style="display: none;">
+                    <h3 class="card-title"><i class="fas fa-pen"></i> <span id="blogFormTitle">New Blog Post</span></h3>
+                    <form id="blogFormElement">
+                        <input type="hidden" id="blogId">
+                        <div class="form-group">
+                            <label>Title *</label>
+                            <input type="text" id="blogTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Slug *</label>
+                            <input type="text" id="blogSlug" required placeholder="my-blog-post-title">
+                        </div>
+                        <div class="form-group">
+                            <label>Excerpt</label>
+                            <textarea id="blogExcerpt" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Content (HTML)</label>
+                            <textarea id="blogContent" rows="10"></textarea>
+                        </div>
+                        <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="blogCategory">
+                                    <option value="cybersecurity">Cybersecurity</option>
+                                    <option value="scholarship">Scholarship</option>
+                                    <option value="news">News</option>
+                                    <option value="tutorial">Tutorial</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Thumbnail URL</label>
+                                <input type="url" id="blogThumbnail">
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
+                                Publish</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideBlogForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blogTable">
+                                <tr>
+                                    <td colspan="5">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Writer Modal -->
+    <div id="writerModal" class="modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div class="modal-content"
+            style="background: white; width: 90%; max-width: 500px; margin: 5% auto; padding: 2rem; border-radius: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 id="writerModalTitle" style="font-family: 'Space Grotesk', sans-serif;">Add New Writer</h2>
+                <span class="close-modal" onclick="closeWriterModal()"
+                    style="font-size: 1.5rem; cursor: pointer;">&times;</span>
+            </div>
+
+            <form id="writerForm">
+                <input type="hidden" id="writerId">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="writerName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="writerEmail" required placeholder="writer@elitechhub.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="writerPassword" placeholder="Initial password">
+                    <small style="color: var(--gray);">Leave blank to keep unchanged when editing</small>
+                </div>
+                <div class="form-group">
+                    <label>Posting Days (Select 3)</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <label><input type="checkbox" name="postingDays" value="Mon"> Mon</label>
+                        <label><input type="checkbox" name="postingDays" value="Tue"> Tue</label>
+                        <label><input type="checkbox" name="postingDays" value="Wed"> Wed</label>
+                        <label><input type="checkbox" name="postingDays" value="Thu"> Thu</label>
+                        <label><input type="checkbox" name="postingDays" value="Fri"> Fri</label>
+                        <label><input type="checkbox" name="postingDays" value="Sat"> Sat</label>
+                        <label><input type="checkbox" name="postingDays" value="Sun"> Sun</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Writer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Researcher Modal -->
+    <div id="researcherModal" class="modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div class="modal-content"
+            style="background: white; width: 90%; max-width: 500px; margin: 5% auto; padding: 2rem; border-radius: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif;">Add New Researcher</h2>
+                <span class="close-modal" onclick="closeResearcherModal()"
+                    style="font-size: 1.5rem; cursor: pointer;">&times;</span>
+            </div>
+
+            <form id="researcherForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="researcherName" required placeholder="Dr. Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email (Academic Only)</label>
+                    <input type="email" id="researcherEmail" required placeholder="jane@university.edu">
+                    <small style="color: var(--gray);">Must be .edu, .ac.uk, .edu.ng, etc.</small>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="researcherPassword" required placeholder="Initial password">
+                </div>
+                <div class="form-group">
+                    <label>Affiliation</label>
+                    <input type="text" id="researcherAffiliation" placeholder="University Name">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Researcher</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Reject with Strike Modal -->
+    <div id="rejectWithStrikeModal"
+        style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+        <div
+            style="background: white; border-radius: 1rem; max-width: 500px; width: 90%; padding: 2rem; box-shadow: 0 25px 50px rgba(0,0,0,0.2);">
+            <h3 id="rejectModalTitle" style="margin-bottom: 1.5rem; color: #EF4444;">
+                <i class="fas fa-exclamation-triangle"></i> Reject Paper
+            </h3>
+
+            <div style="background: #FEF2F2; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #6B7280;">Writer's Claimed Plagiarism:</span>
+                    <span id="claimedPlagDisplay" style="font-weight: 700; color: #10B981;">0%</span>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label style="font-weight: 600;">Actual Plagiarism (if different)</label>
+                    <input type="number" id="actualPlagiarism" min="0" max="100" step="0.1"
+                        placeholder="Enter verified %" style="width: 100%;">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="issueStrikeCheck" style="width: auto;">
+                    <span style="color: #EF4444;">Issue Strike (serious violation)</span>
+                </label>
+                <small style="color: #6B7280; display: block; margin-top: 0.25rem;">
+                    ⚠️ False reports = 2 strikes. Other violations = 1 strike. 3 strikes = BAN.
+                </small>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label style="font-weight: 600;">Rejection / Strike Reason</label>
+                <select id="strikeReason" style="width: 100%;">
+                    <option value="">Select reason...</option>
+                    <option value="false_plagiarism_report">False Plagiarism Report (2 strikes)</option>
+                    <option value="false_grammar_claim">False Grammar Score Claim (2 strikes)</option>
+                    <option value="high_plagiarism">Actual Plagiarism Too High (1 strike)</option>
+                    <option value="quality_issues">Quality Below Standards</option>
+                    <option value="inappropriate_content">Inappropriate Content (1 strike)</option>
+                    <option value="other">Other (no strike if unchecked)</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeRejectModal()">Cancel</button>
+                <button class="btn btn-danger" onclick="submitRejectWithStrike()">
+                    <i class="fas fa-times"></i> Reject Paper
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001/api'; // Local testing
+        let token = localStorage.getItem('elitech_admin_token');
+        let moduleCount = 0;
+
+        // Check if logged in
+        async function checkAuth() {
+            if (!token) {
+                showLogin();
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.user?.role !== 'admin') {
+                    showToast('Admin access required', 'error');
+                    showLogin();
+                    return;
+                }
+
+                showAdminPanel();
+                loadDashboard();
+            } catch (err) {
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        function showAdminPanel() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'grid';
+        }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const res = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (data.user?.role !== 'admin') {
+                    showToast('Admin access required', 'error');
+                    return;
+                }
+
+                token = data.token;
+                localStorage.setItem('elitech_admin_token', token);
+                showAdminPanel();
+                loadDashboard();
+                showToast('Welcome back!');
+            } catch (err) {
+                showToast('Login failed', 'error');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('elitech_admin_token');
+            token = null;
+            showLogin();
+        }
+
+        // Tab Navigation
+        document.querySelectorAll('.sidebar-nav a[data-tab]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab(link.dataset.tab);
+            });
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Load data for tab
+            if (tabName === 'courses') loadCourses();
+            if (tabName === 'users') loadUsers();
+            if (tabName === 'payments') loadPayments();
+            if (tabName === 'blog') loadBlogs();
+            if (tabName === 'researchers') loadResearchers();
+        }
+
+        // Dashboard
+        async function loadDashboard() {
+            try {
+                // Load users
+                const usersRes = await fetch(`${API_URL}/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const usersData = await usersRes.json();
+                const users = usersData.users || [];
+
+                document.getElementById('totalUsers').textContent = users.length;
+                document.getElementById('activeUsers').textContent = users.filter(u => u.has_access).length;
+
+                // Recent users table
+                document.getElementById('recentUsers').innerHTML = users.slice(0, 5).map(u => `
+                    <tr>
+                        <td>${u.name}</td>
+                        <td>${u.email}</td>
+                        <td><span class="badge ${u.has_access ? 'badge-success' : 'badge-warning'}">${u.has_access ? 'Active' : 'Pending'}</span></td>
+                        <td>${new Date(u.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="4">No users yet</td></tr>';
+
+                // Load payments
+                const paymentsRes = await fetch(`${API_URL}/admin/payments`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const paymentsData = await paymentsRes.json();
+                const payments = paymentsData.payments || [];
+
+                const totalNgn = payments.filter(p => p.currency === 'NGN' && p.status === 'completed')
+                    .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+                document.getElementById('totalRevenue').textContent = '₦' + totalNgn.toLocaleString();
+
+            } catch (err) {
+                console.error('Dashboard load error:', err);
+            }
+        }
+
+        // Courses
+        async function loadCourses() {
+            try {
+                const res = await fetch(`${API_URL}/courses`);
+                const data = await res.json();
+                const courses = data.courses || [];
+
+                document.getElementById('totalCourses').textContent = courses.length;
+
+                document.getElementById('coursesTable').innerHTML = courses.map(c => `
+                    <tr>
+                        <td>${c.title}</td>
+                        <td>${c.modules_count || 0}</td>
+                        <td>₦${(c.price_ngn || 0).toLocaleString()}</td>
+                        <td><span class="badge ${c.published ? 'badge-success' : 'badge-warning'}">${c.published ? 'Published' : 'Draft'}</span></td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.5rem;" onclick="editCourse('${c.id}')"><i class="fas fa-edit"></i></button>
+                        </td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5">No courses yet</td></tr>';
+            } catch (err) {
+                console.error('Courses load error:', err);
+            }
+        }
+
+        function showCourseForm() {
+            document.getElementById('courseForm').style.display = 'block';
+            document.getElementById('coursesList').style.display = 'none';
+            document.getElementById('courseFormTitle').textContent = 'Add New Course';
+            document.getElementById('courseFormElement').reset();
+            document.getElementById('courseId').value = '';
+            document.getElementById('modulesContainer').innerHTML = '';
+            moduleCount = 0;
+            addModuleEntry(); // Add first empty module
+        }
+
+        function hideCourseForm() {
+            document.getElementById('courseForm').style.display = 'none';
+            document.getElementById('coursesList').style.display = 'block';
+        }
+
+        function addModuleEntry() {
+            moduleCount++;
+            const container = document.getElementById('modulesContainer');
+            const entry = document.createElement('div');
+            entry.className = 'module-entry';
+            entry.innerHTML = `
+                <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+                <div style="display: grid; grid-template-columns: 1fr 2fr 80px; gap: 0.5rem;">
+                    <input type="text" name="module_title_${moduleCount}" placeholder="Module title" required>
+                    <input type="url" name="module_video_${moduleCount}" placeholder="Video URL (YouTube, Vimeo, etc.)">
+                    <input type="number" name="module_duration_${moduleCount}" placeholder="Min" style="width: 80px;">
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+            `;
+            container.appendChild(entry);
+        }
+
+        document.getElementById('courseFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await saveCourse(true);
+        });
+
+        async function saveCourseAsDraft() {
+            await saveCourse(false);
+        }
+
+        async function saveCourse(publish) {
+            const courseData = {
+                title: document.getElementById('courseTitle').value,
+                description: document.getElementById('courseDescription').value,
+                thumbnail: document.getElementById('courseThumbnail').value,
+                price_ngn: parseFloat(document.getElementById('priceNgn').value) || 0,
+                price_usd: parseFloat(document.getElementById('priceUsd').value) || 0,
+                price_eur: parseFloat(document.getElementById('priceEur').value) || 0,
+                price_gbp: parseFloat(document.getElementById('priceGbp').value) || 0,
+                published: publish
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/admin/courses`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(courseData)
+                });
+
+                if (res.ok) {
+                    showToast(publish ? 'Course published!' : 'Course saved as draft');
+                    hideCourseForm();
+                    loadCourses();
+                } else {
+                    showToast('Failed to save course', 'error');
+                }
+            } catch (err) {
+                showToast('Error saving course', 'error');
+            }
+        }
+
+        // Users
+        async function loadUsers() {
+            try {
+                const res = await fetch(`${API_URL}/admin/users`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                const users = data.users || [];
+
+                document.getElementById('usersTable').innerHTML = users.map(u => `
+                    <tr>
+                        <td>${u.name}</td>
+                        <td>${u.email}</td>
+                        <td>${u.country || 'N/A'}</td>
+                        <td><span class="badge ${u.has_access ? 'badge-success' : 'badge-warning'}">${u.has_access ? 'Active' : 'Pending'}</span></td>
+                        <td>
+                            ${u.has_access
+                        ? `<button class="btn btn-secondary" style="padding: 0.5rem;" onclick="revokeAccess('${u.id}')"><i class="fas fa-ban"></i> Revoke</button>`
+                        : `<button class="btn btn-success" style="padding: 0.5rem;" onclick="grantAccess('${u.id}')"><i class="fas fa-check"></i> Grant</button>`
+                    }
+                        </td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5">No users yet</td></tr>';
+            } catch (err) {
+                console.error('Users load error:', err);
+            }
+        }
+
+        document.getElementById('grantAccessForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('grantEmail').value;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/grant-access`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                if (res.ok) {
+                    showToast('Access granted!');
+                    document.getElementById('grantEmail').value = '';
+                    loadUsers();
+                } else {
+                    showToast('User not found', 'error');
+                }
+            } catch (err) {
+                showToast('Error granting access', 'error');
+            }
+        });
+
+        async function grantAccess(userId) {
+            try {
+                await fetch(`${API_URL}/admin/grant-access`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId })
+                });
+                showToast('Access granted!');
+                loadUsers();
+            } catch (err) {
+                showToast('Error', 'error');
+            }
+        }
+
+        async function revokeAccess(userId) {
+            if (!confirm('Revoke access for this user?')) return;
+            try {
+                await fetch(`${API_URL}/admin/revoke-access`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId })
+                });
+                showToast('Access revoked');
+                loadUsers();
+            } catch (err) {
+                showToast('Error', 'error');
+            }
+        }
+
+        // Payments
+        async function loadPayments() {
+            try {
+                const res = await fetch(`${API_URL}/admin/payments`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                const payments = data.payments || [];
+
+                document.getElementById('paymentsTable').innerHTML = payments.map(p => `
+                    <tr>
+                        <td>${p.users?.name || 'Unknown'}</td>
+                        <td>${p.plan}</td>
+                        <td>${p.currency} ${parseFloat(p.amount).toLocaleString()}</td>
+                        <td>${p.provider}</td>
+                        <td><span class="badge ${p.status === 'completed' ? 'badge-success' : 'badge-warning'}">${p.status}</span></td>
+                        <td>${new Date(p.created_at).toLocaleDateString()}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="6">No payments yet</td></tr>';
+            } catch (err) {
+                console.error('Payments load error:', err);
+            }
+        }
+
+        // Blog
+        async function loadBlogs() {
+            try {
+                const res = await fetch(`${API_URL}/blog`);
+                const data = await res.json();
+                const posts = data.posts || [];
+
+                document.getElementById('blogTable').innerHTML = posts.map(p => `
+                    <tr>
+                        <td>${p.title}</td>
+                        <td>${p.category}</td>
+                        <td><span class="badge ${p.published ? 'badge-success' : 'badge-warning'}">${p.published ? 'Published' : 'Draft'}</span></td>
+                        <td>${p.published_at ? new Date(p.published_at).toLocaleDateString() : '-'}</td>
+                        <td>
+                            <a href="blog-posts/${p.slug}.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem;"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5">No posts yet</td></tr>';
+            } catch (err) {
+                console.error('Blog load error:', err);
+            }
+        }
+
+        function showBlogForm() {
+            document.getElementById('blogPostForm').style.display = 'block';
+            document.getElementById('blogFormElement').reset();
+        }
+
+        function hideBlogForm() {
+            document.getElementById('blogPostForm').style.display = 'none';
+        }
+
+        document.getElementById('blogFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const blogData = {
+                title: document.getElementById('blogTitle').value,
+                slug: document.getElementById('blogSlug').value,
+                excerpt: document.getElementById('blogExcerpt').value,
+                content: document.getElementById('blogContent').value,
+                category: document.getElementById('blogCategory').value,
+                thumbnail: document.getElementById('blogThumbnail').value,
+                published: true
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/blog`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(blogData)
+                });
+
+                if (res.ok) {
+                    showToast('Post published!');
+                    hideBlogForm();
+                    loadBlogs();
+                } else {
+                    showToast('Failed to publish', 'error');
+                }
+            } catch (err) {
+                showToast('Error publishing post', 'error');
+            }
+        });
+
+        // Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.className = `toast show ${type}`;
+            document.getElementById('toastMessage').textContent = message;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Writers Management
+        async function loadWriters() {
+            try {
+                const res = await fetch(`${API_URL}/admin/writers`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                const html = data.writers.map(writer => `
+                    <tr>
+                        <td style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${writer.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600;">${writer.name}</div>
+                            </div>
+                        </td>
+                        <td>${writer.email}</td>
+                        <td>${writer.posting_days?.join(', ') || '<span style="color:var(--gray)">None</span>'}</td>
+                        <td>
+                            <span class="badge ${writer.active ? 'badge-success' : 'badge-danger'}">
+                                ${writer.active ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" 
+                                onclick="editWriter('${writer.id}', '${writer.name}', '${writer.email}', '${writer.posting_days}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm ${writer.active ? 'btn-danger' : 'btn-success'}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;" 
+                                onclick="toggleWriterStatus('${writer.id}', ${!writer.active})">
+                                <i class="fas fa-${writer.active ? 'ban' : 'check'}"></i> ${writer.active ? 'Deactivate' : 'Activate'}
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('writersList').innerHTML = html || '<tr><td colspan="5" style="text-align:center;">No writers found</td></tr>';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('writersList').innerHTML = '<tr><td colspan="5" style="text-align:center; color: red;">Failed to load writers</td></tr>';
+            }
+        }
+
+        function openWriterModal() {
+            document.getElementById('writerModal').style.display = 'block';
+            document.getElementById('writerForm').reset();
+            document.getElementById('writerId').value = '';
+            document.getElementById('writerModalTitle').textContent = 'Add New Writer';
+        }
+
+        function closeWriterModal() {
+            document.getElementById('writerModal').style.display = 'none';
+        }
+
+        function editWriter(id, name, email, days) {
+            openWriterModal();
+            document.getElementById('writerId').value = id;
+            document.getElementById('writerName').value = name;
+            document.getElementById('writerEmail').value = email;
+            document.getElementById('writerModalTitle').textContent = 'Edit Writer';
+
+            // Set checkboxes
+            const daysArr = (days && days !== 'null' && days !== 'undefined') ? days.split(',') : [];
+            document.querySelectorAll('input[name="postingDays"]').forEach(cb => {
+                cb.checked = daysArr.includes(cb.value);
+            });
+        }
+
+        document.getElementById('writerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('writerId').value;
+            const name = document.getElementById('writerName').value;
+            const email = document.getElementById('writerEmail').value;
+            const password = document.getElementById('writerPassword').value;
+
+            const postingDays = Array.from(document.querySelectorAll('input[name="postingDays"]:checked'))
+                .map(cb => cb.value);
+
+            const endpoint = id ? `${API_URL}/admin/writers/${id}` : `${API_URL}/admin/writers`;
+            const method = id ? 'PATCH' : 'POST';
+
+            try {
+                const res = await fetch(endpoint, {
+                    method,
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password, postingDays })
+                });
+
+                if (res.ok) {
+                    closeWriterModal();
+                    loadWriters();
+                    showToast(id ? 'Writer updated successfully' : 'Writer created successfully', 'success');
+                } else {
+                    const data = await res.json();
+                    showToast(data.error || 'Operation failed', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        });
+
+        async function toggleWriterStatus(id, active) {
+            if (!confirm(`Are you sure you want to ${active ? 'activate' : 'deactivate'} this writer?`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/writers/${id}/toggle-status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ active })
+                });
+
+                if (res.ok) {
+                    loadWriters();
+                    showToast(`Writer ${active ? 'activated' : 'deactivated'}`, 'success');
+                } else {
+                    showToast('Failed to update status', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        }
+
+        // Review Queue
+        async function loadPendingPapers() {
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers/papers/pending`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                const papers = data.papers || [];
+
+                document.getElementById('reviewCount').textContent = papers.length;
+
+                const html = papers.map(p => `
+                    <tr>
+                        <td>${new Date(p.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <div style="font-weight: 600;">${p.title}</div>
+                            <small style="color: var(--gray);">
+                                ${p.pdf_url ? '<a href="' + p.pdf_url + '" target="_blank">📄 View PDF</a>' : 'No PDF'}
+                                ${p.word_count ? ' • ' + p.word_count.toLocaleString() + ' words' : ''}
+                            </small>
+                        </td>
+                        <td>
+                            ${p.researchers?.name || 'Unknown'}<br>
+                            <small>${p.researchers?.affiliation || ''}</small>
+                        </td>
+                        <td>
+                            <span class="badge badge-secondary">${p.category}</span>
+                            <div style="margin-top: 0.5rem; font-size: 0.75rem;">
+                                <div style="color: ${(p.plagiarism_claimed || 0) <= 15 ? '#10B981' : '#EF4444'};">
+                                    📊 Plagiarism: ${p.plagiarism_claimed || 'N/A'}% (${p.plagiarism_tool || 'Unknown'})
+                                </div>
+                                <div style="color: ${(p.grammar_score || 0) >= 70 ? '#10B981' : '#EF4444'};">
+                                    ✍️ Grammar: ${p.grammar_score || 'N/A'}/100
+                                </div>
+                                ${p.plagiarism_report_url ? '<a href="' + p.plagiarism_report_url + '" target="_blank" style="color: #3B82F6;">📎 View Report</a>' : '<span style="color: #EF4444;">❌ No Report</span>'}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                                <button class="btn btn-sm btn-success" style="padding: 0.25rem 0.5rem;" 
+                                    onclick="reviewPaper('${p.id}', 'approve')">
+                                    <i class="fas fa-check"></i> Approve
+                                </button>
+                                <button class="btn btn-sm btn-secondary" style="padding: 0.25rem 0.5rem;" 
+                                    onclick="reviewPaper('${p.id}', 'reject')">
+                                    <i class="fas fa-times"></i> Reject
+                                </button>
+                                <button class="btn btn-sm btn-danger" style="padding: 0.25rem 0.5rem;" 
+                                    onclick="openRejectWithStrike('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.plagiarism_claimed || 0})">
+                                    <i class="fas fa-skull-crossbones"></i> Reject + Strike
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('reviewQueueList').innerHTML = html || '<tr><td colspan="5" style="text-align:center;">No papers pending review.</td></tr>';
+            } catch (err) {
+                console.error('Queue load error:', err);
+            }
+        }
+
+        async function reviewPaper(id, action, options = {}) {
+            const { issueStrike, strikeReason, actualPlagiarism } = options;
+
+            if (!issueStrike && !confirm(`Are you sure you want to ${action.toUpperCase()} this paper?`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers/papers/${id}/review`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action, issueStrike, strikeReason, actualPlagiarism })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    showToast(data.message || `Paper ${action}d successfully`);
+                    loadPendingPapers();
+                    loadResearchers();
+                    closeRejectModal();
+                } else {
+                    showToast(data.error || 'Failed to process review', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        }
+
+        // Reject with Strike modal
+        let currentRejectPaperId = null;
+        let currentRejectPaper = null;
+
+        function openRejectWithStrike(paperId, paperTitle, claimedPlag) {
+            currentRejectPaperId = paperId;
+            currentRejectPaper = { title: paperTitle, plagiarism_claimed: claimedPlag };
+
+            document.getElementById('rejectModalTitle').textContent = 'Reject: ' + paperTitle;
+            document.getElementById('claimedPlagDisplay').textContent = claimedPlag + '%';
+            document.getElementById('actualPlagiarism').value = '';
+            document.getElementById('strikeReason').value = '';
+            document.getElementById('issueStrikeCheck').checked = false;
+            document.getElementById('rejectWithStrikeModal').style.display = 'flex';
+        }
+
+        function closeRejectModal() {
+            document.getElementById('rejectWithStrikeModal').style.display = 'none';
+            currentRejectPaperId = null;
+        }
+
+        function submitRejectWithStrike() {
+            if (!currentRejectPaperId) return;
+
+            const actualPlag = parseFloat(document.getElementById('actualPlagiarism').value);
+            const reason = document.getElementById('strikeReason').value.trim();
+            const issueStrike = document.getElementById('issueStrikeCheck').checked;
+
+            if (issueStrike && !reason) {
+                alert('Please provide a reason for the strike');
+                return;
+            }
+
+            reviewPaper(currentRejectPaperId, 'reject', {
+                issueStrike,
+                strikeReason: reason,
+                actualPlagiarism: actualPlag || null
+            });
+        }
+
+        // Init
+        checkAuth();
+        // Researchers Management
+        async function loadResearchers() {
+            loadPendingPapers(); // Load queue too
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                const html = data.researchers.map(r => `
+                    <tr>
+                        <td style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div style="width: 32px; height: 32px; background: #7C3AED; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${r.name.charAt(0)}
+                            </div>
+                            <div style="font-weight: 600;">${r.name}</div>
+                        </td>
+                        <td>${r.email}</td>
+                        <td>${r.affiliation || '-'}</td>
+                        <td>
+                            <small>
+                                📚 ${r.publications_count || 0} Pubs<br>
+                                📖 ${r.total_citations || 0} Cites<br>
+                                📈 H-Index: ${r.h_index || 0}
+                            </small>
+                        </td>
+                        <td>
+                            <span class="badge ${r.active ? 'badge-success' : 'badge-danger'}">
+                                ${r.active ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm ${r.active ? 'btn-danger' : 'btn-success'}" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" 
+                                onclick="toggleResearcherStatus('${r.id}', ${!r.active})">
+                                <i class="fas fa-${r.active ? 'ban' : 'check'}"></i> ${r.active ? 'Deactivate' : 'Activate'}
+                            </button>
+                            <button class="btn btn-sm btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-left: 0.5rem;" 
+                                onclick="deleteResearcher('${r.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('researchersList').innerHTML = html || '<tr><td colspan="6" style="text-align:center;">No researchers found</td></tr>';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('researchersList').innerHTML = '<tr><td colspan="6" style="text-align:center; color: red;">Failed to load researchers</td></tr>';
+            }
+        }
+
+        function openResearcherModal() {
+            document.getElementById('researcherModal').style.display = 'block';
+            document.getElementById('researcherForm').reset();
+        }
+
+        function closeResearcherModal() {
+            document.getElementById('researcherModal').style.display = 'none';
+        }
+
+        document.getElementById('researcherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('researcherName').value;
+            const email = document.getElementById('researcherEmail').value;
+            const password = document.getElementById('researcherPassword').value;
+            const affiliation = document.getElementById('researcherAffiliation').value;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password, affiliation })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    closeResearcherModal();
+                    loadResearchers();
+                    showToast('Researcher account created!', 'success');
+                } else {
+                    showToast(data.error || 'Operation failed', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        });
+
+        async function toggleResearcherStatus(id, active) {
+            if (!confirm(`Are you sure you want to ${active ? 'activate' : 'deactivate'} this researcher?`)) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers/${id}/toggle`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    loadResearchers();
+                    showToast(`Researcher ${active ? 'activated' : 'deactivated'}`, 'success');
+                } else {
+                    showToast('Failed to update status', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        }
+
+        async function deleteResearcher(id) {
+            if (!confirm('Are you sure you want to PERMANENTLY delete this researcher and all their data?')) return;
+
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    loadResearchers();
+                    showToast('Researcher deleted', 'success');
+                } else {
+                    showToast('Failed to delete researcher', 'error');
+                }
+            } catch (err) {
+                showToast('Connection error', 'error');
+            }
+        }
+
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

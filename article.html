@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elitech Hub - Cybersecurity Article">
+    <title>Article - Elitech Hub</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/blog-modern.css">
+</head>
+
+<body>
+    <!-- Navbar (Same as other pages) -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 40px; width: auto; margin-right: 0.5rem;">
+                <span>Elitech<span class="logo-highlight">Hub</span></span>
+            </a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li><a href="programs.html" class="nav-link">Programs</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-detail" style="padding-top: 100px; min-height: 80vh;">
+        <div class="container" style="max-width: 800px; margin: 0 auto;">
+            <div id="article-loader" style="text-align: center; padding: 4rem;">
+                <i class="fas fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+                <p>Loading article...</p>
+            </div>
+
+            <div id="article-content" style="display: none;">
+                <!-- Header -->
+                <header style="margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <span class="badge badge-primary" id="article-category">Category</span>
+                        <span class="badge badge-light" id="article-date">Date</span>
+                    </div>
+                    <h1 id="article-title" style="font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2;"></h1>
+                    <div style="display: flex; align-items: center; gap: 1rem; color: var(--gray);">
+                        <span id="article-author"><i class="fas fa-user"></i> Author</span>
+                        <span id="article-views"><i class="fas fa-eye"></i> 0 views</span>
+                    </div>
+                </header>
+
+                <!-- Featured Image -->
+                <img id="article-image" src="" alt="Featured Image"
+                    style="width: 100%; border-radius: 1rem; margin-bottom: 2rem; border: 1px solid var(--gray-lighter);">
+
+                <!-- Body -->
+                <div id="article-body" style="line-height: 1.8; color: var(--text-color); font-size: 1.1rem;">
+                    <!-- Content injected here -->
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Script -->
+    <script src="js/article.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+/* ==================================
+   ELITECH HUB - THEME VARIABLES
+   Light Mode Only (Simplified)
+   ================================== */
+
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #F9FAFB;
+    --bg-tertiary: #F3F4F6;
+    --bg-dark: #0f172a;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --border-color: #e2e8f0;
+    --accent-red: #c3151c;
+    --accent-blue: #12346b;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Apply theme variables to body */
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Navbar */
+.navbar {
+    background: var(--bg-primary) !important;
+    border-bottom-color: var(--border-color) !important;
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent-red) !important;
+}
+
+.logo {
+    color: var(--text-primary) !important;
+}
+
+/* Mobile Navigation */
+.nav-mobile {
+    background: var(--bg-primary);
+    border-bottom-color: var(--border-color);
+}
+
+/* Buttons */
+.btn-outline {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+}
+
+.btn-outline:hover {
+    background: var(--accent-red);
+    color: white;
+}
+
+/* Certificate Badges */
+.cert-badge {
+    background: var(--bg-primary) !important;
+}
+
+/* Footer always has white text */
+footer,
+footer * {
+    color: white !important;
+}
+
+footer a:hover {
+    color: var(--accent-red) !important;
+}

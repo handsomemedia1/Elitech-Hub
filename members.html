@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Members Area - Elitech Hub</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #c3151c;
+            --dark: #0A0A0A;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 40px;
+        }
+
+        .access-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem;
+        }
+
+        .access-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .access-box .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), #991B1B);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .access-box h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .access-box p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(195, 21, 28, 0.4);
+        }
+
+        .error {
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Members Dashboard */
+        .members-dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: none;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--dark), #1a1a1a);
+            color: white;
+            padding: 3rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(195, 21, 28, 0.3) 0%, transparent 70%);
+        }
+
+        .welcome-banner h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .welcome-banner p {
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .member-tag {
+            display: inline-block;
+            background: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .resource-card .icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #e64545);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card p {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .resource-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html">
+            <img src="assets/images/logo.png" alt="Elitech Hub" class="logo">
+        </a>
+        <a href="dashboard.html" style="color: white; text-decoration: none;">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </header>
+
+    <!-- Access Page -->
+    <div id="accessPage" class="access-page">
+        <div class="access-box">
+            <div class="icon"><i class="fas fa-key"></i></div>
+            <h1>Members Area</h1>
+            <p>Enter your unique access tag to access exclusive training materials, schedule, and support.</p>
+
+            <div id="accessError" class="error hidden"></div>
+
+            <form id="accessForm">
+                <div class="form-group">
+                    <label>Access Tag</label>
+                    <input type="text" id="accessTag" placeholder="EH-XXXX-XXXX" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-unlock"></i> Access Portal
+                </button>
+            </form>
+
+            <p style="margin-top: 1.5rem; color: var(--gray); font-size: 0.875rem;">
+                Don't have a tag? <a href="payment.html" style="color: var(--primary);">Purchase a training package</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Members Dashboard -->
+    <div id="membersDashboard" class="members-dashboard">
+        <div class="welcome-banner">
+            <h1>Welcome, <span id="memberName">Member</span>! 🎉</h1>
+            <p>You have full access to all training resources and support.</p>
+            <div class="member-tag"><i class="fas fa-crown"></i> Premium Member</div>
+        </div>
+
+        <div class="resources-grid">
+            <!-- Schedule -->
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-calendar"></i></div>
+                <h3>Training Schedule</h3>
+                <p>View your upcoming live sessions, bootcamp dates, and 1-on-1 mentorship slots.</p>
+                <a href="#" id="scheduleLink" target="_blank">View Schedule <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Materials -->
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-book-open"></i></div>
+                <h3>Learning Materials</h3>
+                <p>Access slides, PDFs, lab guides, and supplementary resources for your training.</p>
+                <a href="#" onclick="showMaterials()">Browse Materials <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- E-books -->
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-book"></i></div>
+                <h3>E-Books Library</h3>
+                <p>Download exclusive e-books included with your premium membership.</p>
+                <a href="ebooks.html">View E-Books <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- WhatsApp Support -->
+            <div class="resource-card">
+                <div class="icon" style="background: linear-gradient(135deg, #25D366, #128C7E);">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3>Direct Support</h3>
+                <p>Ask questions, get feedback, and connect with your mentor directly.</p>
+                <a href="https://wa.me/2347081968062" target="_blank" id="chatLink">
+                    Chat Now <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Courses -->
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>All Courses</h3>
+                <p>As a premium member, you have access to all courses on the platform.</p>
+                <a href="dashboard.html">Go to Courses <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Certificate -->
+            <div class="resource-card">
+                <div class="icon"><i class="fas fa-certificate"></i></div>
+                <h3>Certificates</h3>
+                <p>Complete courses and download your official certificates.</p>
+                <a href="dashboard.html">View Certificates <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001/api';
+
+        // Check for stored access
+        const storedTag = localStorage.getItem('elitech_member_tag');
+        if (storedTag) {
+            verifyAccess(storedTag);
+        }
+
+        document.getElementById('accessForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const tag = document.getElementById('accessTag').value.toUpperCase();
+            await verifyAccess(tag);
+        });
+
+        async function verifyAccess(tag) {
+            try {
+                const res = await fetch(`${API_URL}/services/verify-tag`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tag })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || !data.valid) {
+                    document.getElementById('accessError').textContent = 'Invalid access tag. Please check and try again.';
+                    document.getElementById('accessError').classList.remove('hidden');
+                    return;
+                }
+
+                // Store tag
+                localStorage.setItem('elitech_member_tag', tag);
+
+                // Show dashboard
+                document.getElementById('accessPage').classList.add('hidden');
+                document.getElementById('membersDashboard').style.display = 'block';
+                document.getElementById('memberName').textContent = data.member?.name || 'Member';
+
+                if (data.member?.schedule_link) {
+                    document.getElementById('scheduleLink').href = data.member.schedule_link;
+                }
+            } catch (err) {
+                document.getElementById('accessError').textContent = 'Connection error. Please try again.';
+                document.getElementById('accessError').classList.remove('hidden');
+            }
+        }
+
+        function showMaterials() {
+            alert('Materials will be available in your email and WhatsApp group.');
+        }
+    </script>
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

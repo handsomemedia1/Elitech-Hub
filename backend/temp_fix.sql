@@ -1,0 +1,1 @@
+ALTER TABLE writers ADD COLUMN IF NOT EXISTS posting_days TEXT[] DEFAULT '{}';

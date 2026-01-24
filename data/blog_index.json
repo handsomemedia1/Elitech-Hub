@@ -1,0 +1,55 @@
+[
+  {
+    "title": "Introduction to Dast Tools Tutorial",
+    "slug": "tutorial-2026-01-21-introduction-to-dast-tools-tutorial",
+    "category": "tutorial",
+    "excerpt": "Learn Introduction to DAST Tools Tutorial with this comprehensive tutorial.",
+    "date": "2026-01-21",
+    "readTime": "8 min read",
+    "difficulty": "beginner"
+  },
+  {
+    "title": "Building Leadership Skills in Security",
+    "slug": "career-2026-01-20-building-leadership-skills-in-security",
+    "category": "career",
+    "excerpt": "Career advice: Building Leadership Skills in Security",
+    "date": "2026-01-20",
+    "readTime": "8 min read"
+  },
+  {
+    "title": "Mastering Kill Chain Analysis",
+    "slug": "tutorial-2026-01-20-mastering-kill-chain-analysis",
+    "category": "tutorial",
+    "excerpt": "Learn Mastering Kill Chain Analysis with this comprehensive tutorial.",
+    "date": "2026-01-20",
+    "readTime": "30 min read",
+    "difficulty": "advanced"
+  },
+  {
+    "title": "Asymmetric Encryption",
+    "slug": "tutorial-2026-01-20-asymmetric-encryption",
+    "category": "tutorial",
+    "excerpt": "Learn Asymmetric Encryption with this comprehensive cybersecurity tutorial. Step-by-step guide for intermediate level.",
+    "date": "2026-01-20",
+    "readTime": "12 min read",
+    "difficulty": "intermediate"
+  },
+  {
+    "title": "Introduction to Incident Response Plan",
+    "slug": "tutorial-2026-01-20-introduction-to-incident-response-plan",
+    "category": "tutorial",
+    "excerpt": "Learn Introduction to Incident Response Plan with this comprehensive cybersecurity tutorial. Step-by-step guide for beginner level.",
+    "date": "2026-01-20",
+    "readTime": "10 min read",
+    "difficulty": "beginner"
+  },
+  {
+    "title": "Understanding and Preventing SQL Injection",
+    "slug": "tutorial-2026-01-20-understanding-and-preventing-sql-injection",
+    "category": "tutorial",
+    "excerpt": "Learn web security with this comprehensive cybersecurity tutorial. Step-by-step guide for intermediate level.",
+    "date": "2026-01-20",
+    "readTime": "14 min read",
+    "difficulty": "intermediate"
+  }
+]

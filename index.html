@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Elitech Hub - Nigeria's #1 Cybersecurity Training. 16-week professional program with guaranteed internship. 85% job placement rate.">
+    <meta name="keywords"
+        content="cybersecurity training nigeria, ethical hacking course, penetration testing, security analyst training">
+    <meta name="theme-color" content="#c3151c">
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="piBoWaLCSxsP7CpAkK9fYvSfTCDTLABvvq5bmjYWa1U" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Elitech Hub",
+        "alternateName": "Elitech Hub Nigeria",
+        "url": "https://elitechhub.com",
+        "logo": "https://elitechhub.com/assets/images/logo.png",
+        "description": "Nigeria's #1 Cybersecurity Education and Training Platform",
+        "sameAs": [
+            "https://twitter.com/elitechhub",
+            "https://linkedin.com/company/elitechhub"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+234-708-196-8062",
+            "contactType": "customer service",
+            "areaServed": "NG",
+            "availableLanguage": "English"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Elitech Hub",
+        "url": "https://elitechhub.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://elitechhub.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <title>Elitech Hub - Nigeria's #1 Cybersecurity Training | Guaranteed Internship</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/advanced.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home-improved.css">
+    <link rel="stylesheet" href="css/programs-enhanced.css">
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <style>
+        /* Minimal critical CSS for above-fold content */
+        body {
+            margin: 0;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #ffffff;
+            color: #242424;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #242424;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-highlight {
+            color: #c3151c;
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-trigger {
+            background: none;
+            border: none;
+            color: #374151;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .search-trigger:hover {
+            color: #DC2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9375rem;
+            color: #374151;
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #DC2626;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #DC2626;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #DC2626;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #B91C1C;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgb(220 38 38 / 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #DC2626;
+            border: 2px solid #DC2626;
+        }
+
+        .btn-outline:hover {
+            background: #DC2626;
+            color: white;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #0A0A0A;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .nav-mobile.active {
+            max-height: 500px;
+            padding: 1rem 0;
+        }
+
+        .nav-mobile-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-mobile-links li {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .nav-mobile-links .nav-link {
+            display: block;
+            padding: 1rem 2rem;
+        }
+
+        .nav-mobile .btn {
+            margin: 1rem 2rem 0;
+            width: calc(100% - 4rem);
+            justify-content: center;
+        }
+
+        /* Dropdown Styles */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-trigger i {
+            font-size: 0.7rem;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-trigger i {
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 0.75rem 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+            border: 1px solid #e5e7eb;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: #374151;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.15s ease;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: #f8fafc;
+            color: #c3151c;
+        }
+
+        .nav-dropdown-menu a i {
+            width: 20px;
+            color: #c3151c;
+            font-size: 0.9rem;
+        }
+
+        .nav-dropdown-menu .dropdown-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-desktop {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-mobile {
+                display: block;
+            }
+        }
+
+        /* Mobile Dropdown Styles */
+        .mobile-dropdown {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .mobile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #374151;
+            transition: background 0.2s;
+        }
+
+        .mobile-dropdown-header:hover {
+            background: #f8fafc;
+        }
+
+        .mobile-dropdown-header i {
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-header i {
+            transform: rotate(180deg);
+        }
+
+        .mobile-dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f8fafc;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-dropdown.active .mobile-dropdown-menu {
+            max-height: 300px;
+        }
+
+        .mobile-dropdown-menu .nav-link {
+            padding: 0.75rem 2rem 0.75rem 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mobile-dropdown-menu .nav-link i {
+            color: #c3151c;
+            width: 20px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 135, 81, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Loader - Cybersecurity Simulation -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 60px; width: auto; filter: drop-shadow(0 0 20px rgba(195, 21, 28, 0.6)); margin-bottom: 0.5rem;">
+                <div class="loader-logo-text">
+                    <span>E</span><span>l</span><span>i</span><span>t</span><span>e</span><span>c</span><span>h</span><span>H</span><span>u</span><span>b</span>
+                </div>
+            </div>
+            <div class="loader-terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">root@elitech:~# security_init.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line line-1"><span class="prompt">[BOOT]</span> Initializing secure kernel...
+                    </div>
+                    <div class="terminal-line line-2"><span class="prompt">[CRYPTO]</span> AES-256 encryption: <span
+                            class="success">ENABLED</span></div>
+                    <div class="terminal-line line-3"><span class="prompt">[NET]</span> Scanning ports <span
+                            class="highlight">443, 22, 80</span>... <span class="success">SECURE</span></div>
+                    <div class="terminal-line line-4"><span class="prompt">[IDS]</span> Intrusion detection: <span
+                            class="success">ACTIVE</span></div>
+                    <div class="terminal-line line-5"><span class="prompt">[VPN]</span> Tunnel established: <span
+                            class="highlight">TLS 1.3</span></div>
+                    <div class="terminal-line line-6"><span class="prompt">[AUTH]</span> Certificate verified ✓</div>
+                    <div class="terminal-line line-7"><span class="prompt">[SYS]</span> Loading Elitech Hub<span
+                            class="cursor">_</span></div>
+                </div>
+            </div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <div class="loader-status">ACCESS GRANTED</div>
+        </div>
+    </div>
+
+
+    <!-- Navigation (Loaded dynamically) -->
+    <!-- Navigation (Direct Injection) -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 40px; width: auto; margin-right: 0.5rem;">
+                <span>Elitech<span class="logo-highlight">Hub</span></span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link active" data-page="home">Home</a></li>
+
+                <!-- Learn Dropdown -->
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">
+                        Learn <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
+                                class="fas fa-microscope"></i> Researcher Portal</a>
+                    </div>
+                </li>
+
+                <!-- Company Dropdown -->
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">
+                        Company <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &
+                            Trust</a>
+                    </div>
+                </li>
+
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                        data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+
+            <!-- Right Side Actions -->
+            <div class="nav-actions">
+                <button class="search-trigger" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <a href="apply.html" class="btn btn-primary">
+                    Apply Now
+                </a>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)">
+                        <span>Learn</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="programs.html" class="nav-link" data-page="programs"><i
+                                    class="fas fa-graduation-cap"></i> Programs</a></li>
+                        <li><a href="blog.html" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i>
+                                Blog</a></li>
+                        <li><a href="research.html" class="nav-link" data-page="research"><i class="fas fa-flask"></i>
+                                Research</a></li>
+                        <li><a href="researcher-guidelines.html" class="nav-link" data-page="researcher"
+                                style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)">
+                        <span>Company</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="about.html" class="nav-link" data-page="about"><i class="fas fa-users"></i> About
+                                Us</a></li>
+                        <li><a href="services.html" class="nav-link" data-page="services"><i class="fas fa-cogs"></i>
+                                Services</a></li>
+                        <li><a href="security.html" class="nav-link" data-page="security"><i
+                                    class="fas fa-shield-alt"></i> Security & Trust</a></li>
+                    </ul>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                        data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">
+                Apply Now
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Clean Video Background Design -->
+    <section class="hero-professional">
+        <!-- Video Background -->
+        <video class="hero-video-bg" autoplay muted loop playsinline>
+            <source src="assets/videos/Cybersecurity mersh.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Lighter Overlay for Video Visibility -->
+        <div class="hero-video-overlay"></div>
+
+        <div class="container">
+            <div class="hero-content" style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <!-- Trust Badges -->
+                <div class="trust-badges" style="justify-content: center;">
+                    <span class="trust-badge">
+                        <i class="fas fa-certificate" style="color: var(--primary-color);"></i>
+                        RC: 8693883
+                    </span>
+                    <span class="trust-badge">
+                        <i class="fas fa-shield-alt" style="color: var(--secondary-color);"></i>
+                        SMEDAN Certified
+                    </span>
+                    <span class="trust-badge">
+                        <i class="fas fa-handshake" style="color: var(--primary-color);"></i>
+                        100% Internship
+                    </span>
+                </div>
+
+                <!-- Main Heading - Smaller -->
+                <h1 class="hero-heading" style="font-size: clamp(1.75rem, 4vw, 3rem); margin-bottom: 1rem;">
+                    Best Defense Is Not Just
+                    <span class="highlight">Coding</span>
+                </h1>
+
+                <!-- Subtitle - Concise -->
+                <p class="hero-subtitle" style="font-size: 1rem; margin: 0 auto 2rem; max-width: 600px;">
+                    We teach you to <em>think</em> like a hacker, <em>research</em> like a scientist, and <em>build</em>
+                    like an engineer.
+                </p>
+
+                <!-- Stats Grid - Compact -->
+                <div class="hero-stats"
+                    style="display: inline-flex; gap: 3rem; padding: 1.5rem 3rem; margin-bottom: 2rem;">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" style="font-size: 2.5rem;">16</div>
+                        <div class="hero-stat-label">WEEKS</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" style="font-size: 2.5rem;">85%</div>
+                        <div class="hero-stat-label">JOB RATE</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number" style="font-size: 2.5rem;">₦75K</div>
+                        <div class="hero-stat-label">TOTAL COST</div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="hero-cta" style="justify-content: center;">
+                    <a href="#programs" class="btn-hero-primary">
+                        <i class="fas fa-rocket"></i>
+                        <span>Start Your Journey</span>
+                    </a>
+                    <a href="#about" class="btn-hero-outline">
+                        <i class="fas fa-play-circle"></i>
+                        <span>How It Works</span>
+                    </a>
+                </div>
+
+                <!-- Social Proof -->
+                <p class="hero-social-proof" style="font-size: 0.9rem; margin-top: 2rem;">
+                    <strong>300+</strong> students trained · <strong>85%</strong> got jobs within 6 months
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Research & Innovation Statement - Compact -->
+    <section style="padding: 3rem 2rem; background: linear-gradient(135deg, #c3151c 0%, #9e1115 100%);">
+        <div class="container">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center; color: white;">
+                <!-- Formula Row -->
+                <div
+                    style="display: inline-flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem;">
+                    <span
+                        style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); border-radius: 0.5rem;">Learning</span>
+                    <span style="font-size: 1.5rem; font-weight: 700;">+</span>
+                    <span
+                        style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); border-radius: 0.5rem;">Research</span>
+                    <span style="font-size: 1.5rem; font-weight: 700;">=</span>
+                    <span
+                        style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: white; color: #c3151c; border-radius: 0.5rem;">Innovation</span>
+                </div>
+                <!-- Description -->
+                <p style="font-size: 1rem; line-height: 1.6; opacity: 0.95; margin: 0;">
+                    We don't just teach cybersecurity — we research it, build systems, and publish findings.
+                    Our students work on real research projects like <strong>PSEDS</strong> and threat intelligence
+                    frameworks.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Programs Section - Modern Design -->
+    <section id="programs" style="padding: 5rem 2rem; background: #F8FAFC;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2
+                    style="font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+                    Choose Your Path
+                </h2>
+                <p style="font-size: 1.1rem; color: #64748b; max-width: 500px; margin: 0 auto;">
+                    Two programs. One goal: Get you a cybersecurity job.
+                </p>
+            </div>
+
+            <!-- Cards Grid -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; align-items: start;">
+
+                <!-- 6-Week Bootcamp -->
+                <div
+                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div
+                            style="width: 48px; height: 48px; background: linear-gradient(135deg, #12346b, #1a4a99); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-bolt" style="color: white; font-size: 1.25rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">6-Week Bootcamp
+                            </h3>
+                            <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Fast-Track Skills</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">₦45K</span>
+                        <span style="font-size: 0.875rem; color: #64748b; margin-left: 0.5rem;">one-time</span>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0; font-size: 0.9rem; color: #475569;">
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> 6 weeks intensive
+                            training
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Weekend classes
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Hands-on labs &
+                            projects
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Certificate of
+                            completion
+                        </li>
+                    </ul>
+
+                    <a href="programs.html"
+                        style="display: block; text-align: center; padding: 0.875rem 1.5rem; border: 2px solid #12346b; color: #12346b; border-radius: 0.5rem; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+                        Learn More
+                    </a>
+                </div>
+
+                <!-- 16-Week Professional (Featured) -->
+                <div
+                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 20px rgba(195, 21, 28, 0.15); position: relative; border-top: 4px solid #c3151c;">
+                    <div
+                        style="position: absolute; top: -12px; right: 1.5rem; background: #c3151c; color: white; padding: 0.375rem 1rem; border-radius: 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;">
+                        RECOMMENDED
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div
+                            style="width: 48px; height: 48px; background: linear-gradient(135deg, #c3151c, #9e1115); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-shield-alt" style="color: white; font-size: 1.25rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">16-Week
+                                Professional</h3>
+                            <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Complete Career Transformation
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">₦75K</span>
+                        <span style="font-size: 0.875rem; color: #64748b; margin-left: 0.5rem;">flexible payments</span>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0; font-size: 0.9rem; color: #475569;">
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> Comprehensive
+                            16-week program
+                        </li>
+                        <li
+                            style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #0f172a;">
+                            <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> Guaranteed
+                            internship
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> Industry
+                            certifications
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> 1-on-1 mentorship
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> Job placement
+                            support
+                        </li>
+                    </ul>
+
+                    <a href="programs.html"
+                        style="display: block; text-align: center; padding: 0.875rem 1.5rem; background: linear-gradient(135deg, #c3151c, #9e1115); color: white; border-radius: 0.5rem; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Corporate Training -->
+                <div
+                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div
+                            style="width: 48px; height: 48px; background: linear-gradient(135deg, #12346b, #1a4a99); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-building" style="color: white; font-size: 1.25rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Corporate
+                                Training</h3>
+                            <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Team Development</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <span style="font-size: 2.5rem; font-weight: 800; color: #12346b;">Custom</span>
+                        <span style="font-size: 0.875rem; color: #64748b; display: block; margin-top: 0.25rem;">tailored
+                            to your needs</span>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem 0; font-size: 0.9rem; color: #475569;">
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Customized
+                            curriculum
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> On-site or virtual
+                            delivery
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Team-based projects
+                        </li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check" style="color: #12346b; font-size: 0.75rem;"></i> Executive briefings
+                        </li>
+                    </ul>
+
+                    <a href="services.html"
+                        style="display: block; text-align: center; padding: 0.875rem 1.5rem; background: #12346b; color: white; border-radius: 0.5rem; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why We're Different - Unique Design -->
+    <section id="about" style="padding: 5rem 2rem; background: #0f172a; color: white;">
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+
+            <!-- Two Column Layout -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+
+                <!-- Left: Big Statement -->
+                <div>
+                    <p
+                        style="font-size: 0.875rem; font-weight: 600; color: #c3151c; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">
+                        What Sets Us Apart
+                    </p>
+                    <h2
+                        style="font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; color: #ffffff;">
+                        Others teach <span style="color: #ffffff; text-decoration: line-through;">tools</span>.<br>
+                        We teach <span style="color: #c3151c;">thinking</span>.
+                    </h2>
+                    <p style="font-size: 1.1rem; color: #e2e8f0; line-height: 1.7; margin-bottom: 2rem;">
+                        Understanding how attackers think is more important than memorizing commands. Our approach
+                        combines psychology, research methodology, and hands-on experience.
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 2rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">85%</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Job Rate</div>
+                        </div>
+                        <div style="width: 1px; height: 50px; background: #334155;"></div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">50+</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Partner
+                                Companies</div>
+                        </div>
+                        <div style="width: 1px; height: 50px; background: #334155;"></div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">300+</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase;">Graduates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Feature List with Icons -->
+                <div style="position: relative; padding-left: 2rem;">
+                    <!-- Vertical Line -->
+                    <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #c3151c;">
+                    </div>
+
+                    <!-- Feature 1 -->
+                    <div style="position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem;">
+                        <div
+                            style="position: absolute; left: -2.5rem; top: 0; width: 20px; height: 20px; background: #c3151c; border-radius: 50%; border: 3px solid #0f172a;">
+                        </div>
+                        <h3
+                            style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; color: #ffffff;">
+                            <i class="fas fa-brain" style="color: #c3151c;"></i>
+                            Psychology First
+                        </h3>
+                        <p style="color: #e2e8f0; line-height: 1.6; font-size: 0.95rem;">
+                            Learn the attacker mindset, not just the toolkit. We teach you to think critically and
+                            anticipate threats.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div style="position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem;">
+                        <div
+                            style="position: absolute; left: -2.5rem; top: 0; width: 20px; height: 20px; background: #c3151c; border-radius: 50%; border: 3px solid #0f172a;">
+                        </div>
+                        <h3
+                            style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; color: #ffffff;">
+                            <i class="fas fa-handshake" style="color: #c3151c;"></i>
+                            Guaranteed Internship
+                        </h3>
+                        <p style="color: #e2e8f0; line-height: 1.6; font-size: 0.95rem;">
+                            Every 16-week student gets placed with our partner companies. Real experience, not
+                            simulations.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div style="position: relative; padding-left: 1.5rem;">
+                        <div
+                            style="position: absolute; left: -2.5rem; top: 0; width: 20px; height: 20px; background: #c3151c; border-radius: 50%; border: 3px solid #0f172a;">
+                        </div>
+                        <h3
+                            style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; color: #ffffff;">
+                            <i class="fas fa-rocket" style="color: #c3151c;"></i>
+                            Career Launch Support
+                        </h3>
+                        <p style="color: #e2e8f0; line-height: 1.6; font-size: 0.95rem;">
+                            Resume reviews, interview prep, and direct connections to hiring managers in our network.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Transform Your Career CTA - Enhanced Design -->
+    <section style="padding: 5rem 2rem; background: #c3151c; color: white; position: relative; overflow: hidden;">
+        <!-- Decorative Circle -->
+        <div
+            style="position: absolute; bottom: -150px; left: -150px; width: 400px; height: 400px; border: 50px solid rgba(255,255,255,0.08); border-radius: 50%;">
+        </div>
+        <div
+            style="position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; border: 40px solid rgba(255,255,255,0.05); border-radius: 50%;">
+        </div>
+
+        <div class="container" style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;">
+
+            <!-- Two Column Layout -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+
+                <!-- Left: Content -->
+                <div>
+                    <!-- Urgency Badge -->
+                    <div
+                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.15); border-radius: 2rem; margin-bottom: 1.5rem; font-size: 0.8rem; font-weight: 600;">
+                        <span
+                            style="display: inline-block; width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                        Limited Spots Available
+                    </div>
+
+                    <h2
+                        style="font-family: 'Montserrat', sans-serif; font-size: 3.25rem; font-weight: 900; line-height: 1.05; margin-bottom: 1.5rem; color: white;">
+                        Transform Your<br>Career in <span
+                            style="text-decoration: underline; text-decoration-thickness: 4px; text-underline-offset: 8px;">16
+                            Weeks</span>
+                    </h2>
+                    <p style="font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.7; margin-bottom: 2rem;">
+                        Join Nigeria's #1 cybersecurity program with <strong>guaranteed internship</strong> and
+                        <strong>85% job placement rate</strong>.
+                    </p>
+
+                    <!-- Benefits Row -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle" style="color: white;"></i>
+                            <span style="font-weight: 500;">Internship Guaranteed</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle" style="color: white;"></i>
+                            <span style="font-weight: 500;">Industry Certifications</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle" style="color: white;"></i>
+                            <span style="font-weight: 500;">1-on-1 Mentorship</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="apply.html"
+                            style="padding: 1.25rem 2.5rem; background: white; color: #c3151c; text-decoration: none; border-radius: 0.5rem; font-weight: 800; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.75rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                            Apply Now <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="https://wa.me/2347081968062"
+                            style="padding: 1.25rem 2rem; background: transparent; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.75rem; border: 2px solid white;">
+                            <i class="fab fa-whatsapp" style="font-size: 1.25rem;"></i> Chat with Us
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Stats Card -->
+                <div
+                    style="background: #12346b; border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 25px 50px rgba(0,0,0,0.3);">
+
+                    <!-- Next Cohort -->
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <p
+                            style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7);">
+                            Next Cohort Starts</p>
+                        <p style="font-size: 2.25rem; font-weight: 800; color: white;">January 2026</p>
+                    </div>
+
+                    <!-- Featured Stat -->
+                    <div
+                        style="background: rgba(255,255,255,0.1); border-radius: 1rem; padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 4rem; font-weight: 900; color: white; line-height: 1;">85%</div>
+                        <div style="font-size: 1rem; color: rgba(255,255,255,0.85); margin-top: 0.5rem;">Job Placement
+                            Rate</div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
+                        <div>
+                            <div style="font-size: 1.75rem; font-weight: 800; color: white;">₦75K</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Total Cost</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.75rem; font-weight: 800; color: white;">300+</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Graduates</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.75rem; font-weight: 800; color: white;">50+</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Partners</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <a href="apply.html"
+                        style="display: block; text-align: center; margin-top: 2rem; padding: 1rem; background: white; color: #12346b; border-radius: 0.5rem; font-weight: 700; text-decoration: none;">
+                        Secure Your Spot <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer With Us Section -->
+    <section
+        style="padding: 5rem 2rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); position: relative; overflow: hidden;">
+        <!-- Decorative Elements -->
+        <div
+            style="position: absolute; top: 50%; left: 5%; transform: translateY(-50%); width: 200px; height: 200px; background: radial-gradient(circle, rgba(195, 21, 28, 0.15) 0%, transparent 70%); border-radius: 50%;">
+        </div>
+        <div
+            style="position: absolute; top: 20%; right: 10%; width: 150px; height: 150px; background: radial-gradient(circle, rgba(195, 21, 28, 0.1) 0%, transparent 70%); border-radius: 50%;">
+        </div>
+
+        <div class="container" style="max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+
+                <!-- Left: Content -->
+                <div>
+                    <div
+                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(195, 21, 28, 0.2); border: 1px solid rgba(195, 21, 28, 0.3); border-radius: 2rem; margin-bottom: 1.5rem; font-size: 0.85rem; font-weight: 600; color: #f87171;">
+                        <i class="fas fa-users"></i> Join Our Team
+                    </div>
+
+                    <h2
+                        style="font-family: 'Montserrat', sans-serif; font-size: 2.75rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; color: white;">
+                        Want to Gain<br><span style="color: #c3151c;">Real Experience?</span>
+                    </h2>
+
+                    <p style="font-size: 1.1rem; color: #94a3b8; line-height: 1.7; margin-bottom: 2rem;">
+                        Volunteer with Elitech Hub and gain <strong style="color: white;">hands-on experience</strong>,
+                        <strong style="color: white;">free premium courses</strong>, and <strong
+                            style="color: white;">professional certifications</strong>.
+                        Perfect for students and professionals looking to build their portfolio.
+                    </p>
+
+                    <!-- Benefits List -->
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; color: #e2e8f0;">
+                            <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                            <span>Access to paid Udemy courses - FREE</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem; color: #e2e8f0;">
+                            <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                            <span>LinkedIn recommendations & networking</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem; color: #e2e8f0;">
+                            <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                            <span>Certificate of completion (3 months)</span>
+                        </div>
+                    </div>
+
+                    <a href="volunteer.html"
+                        style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1.25rem 2.5rem; background: linear-gradient(135deg, #c3151c, #e64545); color: white; text-decoration: none; border-radius: 0.75rem; font-weight: 700; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(195, 21, 28, 0.4); transition: all 0.3s;">
+                        <i class="fas fa-hand-holding-heart"></i> Volunteer With Us
+                    </a>
+                </div>
+
+                <!-- Right: Roles Preview -->
+                <div
+                    style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1.5rem; padding: 2rem;">
+                    <h3
+                        style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 1.5rem; text-align: center;">
+                        <i class="fas fa-briefcase" style="color: #c3151c; margin-right: 0.5rem;"></i> Open Volunteer
+                        Roles
+                    </h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-palette" style="color: #c3151c;"></i> Graphic Designer
+                        </div>
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-video" style="color: #c3151c;"></i> Video Editor
+                        </div>
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-code" style="color: #c3151c;"></i> Web Developer
+                        </div>
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-user-secret" style="color: #c3151c;"></i> Pen Tester
+                        </div>
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-pen-fancy" style="color: #c3151c;"></i> Content Writer
+                        </div>
+                        <div
+                            style="background: rgba(195, 21, 28, 0.1); padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem; color: #e2e8f0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-robot" style="color: #c3151c;"></i> Automation Expert
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="volunteer.html"
+                            style="color: #c3151c; font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                            View All 11 Roles <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <style>
+        @keyframes ctaGlow {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-10deg);
+            }
+
+            75% {
+                transform: rotate(10deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            section>div>div:first-child {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+    </section>
+
+    <!-- Testimonials Section - Auto-Scrolling -->
+    <section style="padding: 0; background: white; overflow: hidden;">
+
+        <!-- Dark Header with Stats -->
+        <div style="background: #12346b; padding: 4rem 2rem; text-align: center;">
+            <p
+                style="font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem;">
+                Trusted by Professionals</p>
+            <h2
+                style="font-family: 'Montserrat', sans-serif; font-size: 2.75rem; font-weight: 800; color: white; margin-bottom: 2rem;">
+                What Our Graduates Say</h2>
+
+            <!-- Stats Row -->
+            <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: white;">300+</div>
+                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Graduates</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: #c3151c;">85%</div>
+                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Job Placement</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: 800; color: white;">4.9</div>
+                    <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto-Scrolling Testimonials -->
+        <div style="background: #f8fafc; padding: 3rem 0; overflow: hidden;">
+
+            <!-- Row 1 - Scrolling Left -->
+            <div class="scroll-row-left"
+                style="display: flex; animation: scrollLeft 40s linear infinite; width: max-content; margin-bottom: 1.5rem;">
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From zero IT
+                        experience to Security Analyst at PayStack in 5 months! Changed my life."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            AO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Adebayo Oluwaseun</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, PayStack</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Phenomenal
+                        instructors! Real-world scenarios every week. Passed CEH on my first attempt!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            CN</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Chioma Nwosu</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Pen Tester, Andela</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Non-technical
+                        background, zero coding. By week 3, I built my own security lab!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            IM</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ibrahim Mohammed</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">SOC Analyst, Interswitch</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Now earning 3x
+                        my previous salary! Networking with industry experts was invaluable."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            FA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Fatima Abubakar</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Consultant, Accenture</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Career
+                        switcher here! My internship turned into a full-time role. Forever grateful!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            OB</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Oluwatobi Bankole</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Threat Analyst, MTN</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
+                        unemployed graduate to Bug Bounty Hunter earning in dollars!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            NG</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ngozi Okafor</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Bug Hunter, HackerOne</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From zero IT
+                        experience to Security Analyst at PayStack in 5 months! Changed my life."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            AO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Adebayo Oluwaseun</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, PayStack</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Phenomenal
+                        instructors! Real-world scenarios every week. Passed CEH on my first attempt!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            CN</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Chioma Nwosu</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Pen Tester, Andela</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Non-technical
+                        background, zero coding. By week 3, I built my own security lab!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            IM</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ibrahim Mohammed</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">SOC Analyst, Interswitch</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Now earning 3x
+                        my previous salary! Networking with industry experts was invaluable."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            FA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Fatima Abubakar</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Consultant, Accenture</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Career
+                        switcher here! My internship turned into a full-time role. Forever grateful!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            OB</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Oluwatobi Bankole</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Threat Analyst, MTN</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
+                        unemployed graduate to Bug Bounty Hunter earning in dollars!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            NG</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ngozi Okafor</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Bug Hunter, HackerOne</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2 - Scrolling Right -->
+            <div class="scroll-row-right"
+                style="display: flex; animation: scrollRight 40s linear infinite; width: max-content;">
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The hands-on
+                        labs simulated real attacks. I felt job-ready before my internship!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            EO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Emmanuel Okonkwo</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Engineer, Flutterwave</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Best
+                        investment I've made. The mentorship connected me with industry veterans!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            AA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Amina Abdullahi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">GRC Analyst, KPMG</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The
+                        psychology-first approach helped me understand attackers' mindset. Game changer!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            TO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Tunde Ogunleye</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Threat Hunter, Access Bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Graduated on
+                        Friday, started my new role on Monday! Career support is unmatched."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            BN</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Blessing Nnamdi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, GTBank</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"I came in
+                        skeptical but left transformed. Community support continues after graduation!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            KA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Kayode Adeyemi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Red Team, Deloitte</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
+                        accountant to cybersecurity pro! The structured curriculum made the switch seamless."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            SE</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Sarah Eze</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Incident Responder, UBA</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The hands-on
+                        labs simulated real attacks. I felt job-ready before my internship!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            EO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Emmanuel Okonkwo</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Engineer, Flutterwave</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Best
+                        investment I've made. The mentorship connected me with industry veterans!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            AA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Amina Abdullahi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">GRC Analyst, KPMG</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The
+                        psychology-first approach helped me understand attackers' mindset. Game changer!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            TO</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Tunde Ogunleye</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Threat Hunter, Access Bank</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Graduated on
+                        Friday, started my new role on Monday! Career support is unmatched."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            BN</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Blessing Nnamdi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, GTBank</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"I came in
+                        skeptical but left transformed. Community support continues after graduation!"</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            KA</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Kayode Adeyemi</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Red Team, Deloitte</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
+                        accountant to cybersecurity pro! The structured curriculum made the switch seamless."</p>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div
+                            style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
+                            SE</div>
+                        <div>
+                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Sarah Eze</div>
+                            <div style="font-size: 0.7rem; color: #64748b;">Incident Responder, UBA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Companies Bar -->
+        <div style="padding: 2.5rem 2rem; border-top: 1px solid #e2e8f0; background: white;">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <p
+                    style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
+                    Where Our Graduates Work</p>
+                <div
+                    style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.5;">
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">PayStack</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">Andela</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">Interswitch</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">MTN</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">Flutterwave</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; color: #334155;">KPMG</span>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @keyframes scrollLeft {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            @keyframes scrollRight {
+                0% {
+                    transform: translateX(-50%);
+                }
+
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            .scroll-row-left:hover,
+            .scroll-row-right:hover {
+                animation-play-state: paused;
+            }
+        </style>
+    </section>
+
+
+
+
+
+    <!-- Footer - Clean Modern Design -->
+    <footer id="contact" style="background: #0f172a; color: white;">
+
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- Newsletter & CTA Section -->
+            <div style="padding: 4rem 0 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+                    <div>
+                        <h3
+                            style="font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 1rem; color: white;">
+                            Start Your Cybersecurity Journey Today
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.05rem; line-height: 1.7;">
+                            Join 300+ students building successful careers. Get updates on programs, cybersecurity tips,
+                            and exclusive opportunities.
+                        </p>
+                    </div>
+                    <div>
+                        <form style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <input type="email" placeholder="Enter your email"
+                                style="flex: 1; min-width: 200px; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 0.75rem; color: white; font-size: 1rem; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onfocus="this.style.borderColor='#c3151c'; this.style.background='rgba(255, 255, 255, 0.15)'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'; this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <button type="submit"
+                                style="padding: 1rem 2rem; background: #c3151c; border: none; border-radius: 0.5rem; color: white; font-weight: 700; font-size: 1rem; cursor: pointer;"
+                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(195, 21, 28, 0.4)'"
+                                onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(195, 21, 28, 0.3)'">
+                                Subscribe
+                            </button>
+                        </form>
+                        <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: 0.75rem;">
+                            <i class="fas fa-lock" style="margin-right: 0.25rem;"></i> We respect your privacy.
+                            Unsubscribe anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Footer Content -->
+            <div style="padding: 4rem 0 3rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                    <!-- Brand Column -->
+                    <div style="max-width: 380px;">
+                        <div class="logo" style="margin-bottom: 1.5rem; color: white; font-size: 1.75rem;">
+                            <img src="assets/images/logo.png" alt="Elitech Hub"
+                                style="height: 50px; width: auto; margin-right: 0.75rem; display: inline-block; vertical-align: middle; filter: drop-shadow(0 0 25px rgba(195, 21, 28, 0.4));">
+                            <span style="font-weight: 800;">Elitech<span style="color: #c3151c;">Hub</span></span>
+                        </div>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; font-size: 1.15rem; line-height: 1.6; font-weight: 600;">
+                            Nigeria's #1 Cybersecurity Training Company
+                        </p>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
+                            Transforming Africa's digital security landscape through world-class training, 85% job
+                            placement rate, and industry-recognized certifications.
+                        </p>
+
+                        <!-- Trust Badges -->
+                        <div
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+                            <div onclick="openCertModal('cac')"
+                                style="background: rgba(255, 255, 255, 0.08); border: 2px solid rgba(195, 21, 28, 0.3); border-radius: 0.75rem; padding: 0.75rem; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.borderColor='#c3151c'; this.style.transform='translateY(-3px)'"
+                                onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.borderColor='rgba(195, 21, 28, 0.3)'; this.style.transform=''">
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    CAC Registered</div>
+                                <div style="font-weight: 700; color: #c3151c; font-size: 0.95rem;"><i
+                                        class="fas fa-certificate"></i> RC: 8693883</div>
+                            </div>
+                            <div onclick="openCertModal('smedan')"
+                                style="background: rgba(255, 255, 255, 0.08); border: 2px solid rgba(195, 21, 28, 0.3); border-radius: 0.75rem; padding: 0.75rem; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.borderColor='#c3151c'; this.style.transform='translateY(-3px)'"
+                                onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.borderColor='rgba(195, 21, 28, 0.3)'; this.style.transform=''">
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    SMEDAN</div>
+                                <div style="font-weight: 700; color: #c3151c; font-size: 0.95rem;"><i
+                                        class="fas fa-shield-alt"></i> Certified</div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media - Compact -->
+                        <div>
+                            <div
+                                style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                                Follow Us</div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="https://wa.me/2347081968062"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-whatsapp"></i></a>
+                                <a href="mailto:info@elitechub.com"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Programs Column -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Training Programs
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: linear-gradient(90deg, #c3151c, transparent);"></span>
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="programs.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-graduation-cap"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>6-Week Cybersecurity Bootcamp</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="programs.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-user-shield"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>16-Week Professional Program</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-building"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Corporate Training Solutions</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-award" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Certification Preparation</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-briefcase"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Internship Opportunities</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Company Column -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Company
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: linear-gradient(90deg, #c3151c, transparent);"></span>
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="about.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-info-circle"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>About Elitech Hub</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="research.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-flask" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Research & Innovation</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="blog.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-blog" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Blog & Resources</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="contact.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-phone" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Contact Us</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="payment.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-credit-card"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Payment Options</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Column - Compact -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.25rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Get In Touch
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: #c3151c;"></span>
+                        </h4>
+
+                        <!-- Contact Info - Horizontal Row -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <a href="#"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fas fa-map-marker-alt" style="color: #c3151c;"></i>
+                                Lagos, Nigeria
+                            </a>
+                            <a href="https://wa.me/2347081968062"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fab fa-whatsapp" style="color: #c3151c;"></i>
+                                +234 708 196 8062
+                            </a>
+                            <a href="mailto:info@elitechub.com"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fas fa-envelope" style="color: #c3151c;"></i>
+                                info@elitechub.com
+                            </a>
+                        </div>
+
+
+                        <!-- Stats - Inline -->
+                        <div style="display: flex; gap: 2rem;">
+                            <div>
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #c3151c;">300+</div>
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase;">
+                                    Students</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #c3151c;">85%</div>
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase;">
+                                    Placement</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div style="padding: 2rem 0;">
+                <div
+                    style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                        <p style="margin: 0;">&copy; 2025 <span style="color: #c3151c; font-weight: 700;">Elitech Hub
+                                Limited</span>. All rights reserved.</p>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem;">RC: 8693883 | SMEDAN Certified | Securing
+                            Africa's Digital Future</p>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.875rem;">
+                        <a href="policies.html"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Privacy Policy</a>
+                        <a href="policies.html#terms"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Terms of Service</a>
+                        <a href="policies.html#cookies"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Cookie Policy</a>
+                        <a href="get-involved.html"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Get Involved</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Certificate Badges -->
+    <div id="certificateBadges"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+        <div class="cert-badge" onclick="openCertModal('cac')"
+            style="background: white; border: 2px solid #DC2626; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div
+                style="width: 40px; height: 40px; background: linear-gradient(135deg, #DC2626, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">CAC Registered</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">RC: 8693883</div>
+            </div>
+        </div>
+
+        <div class="cert-badge" onclick="openCertModal('smedan')"
+            style="background: white; border: 2px solid #008751; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div
+                style="width: 40px; height: 40px; background: linear-gradient(135deg, #008751, #006B3F); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">SMEDAN Certified</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">Verified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; align-items: center; justify-content: center;"
+        onclick="closeCertModal()">
+        <div style="position: relative; max-width: 90%; max-height: 90%; background: white; border-radius: 1rem; padding: 2rem;"
+            onclick="event.stopPropagation()">
+            <button onclick="closeCertModal()"
+                style="position: absolute; top: 1rem; right: 1rem; background: #DC2626; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="certModalContent" style="text-align: center;">
+                <!-- Certificate content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero>.container>div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .hero>.container>div>div:first-child>div:nth-child(4) {
+                grid-template-columns: 1fr !important;
+            }
+
+            #programs .container>div:last-child>div:nth-child(2) {
+                transform: none !important;
+            }
+        }
+
+        a:hover {
+            opacity: 0.9;
+        }
+
+        .cert-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #certificateBadges {
+                bottom: 80px;
+                right: 10px;
+            }
+
+            .cert-badge {
+                font-size: 0.625rem !important;
+            }
+
+            .cert-badge>div:first-child {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.75rem !important;
+            }
+        }
+    </style>
+
+    <script src="js/security.js"></script>
+    <script src="js/seo.js"></script>
+    <script src="js/certificates.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/hero-animation.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileNav = document.getElementById('mobileNav');
+            const icon = this.querySelector('i');
+
+            mobileNav.classList.toggle('active');
+
+            if (mobileNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-mobile-links a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.getElementById('mobileNav').classList.remove('active');
+                document.getElementById('mobileMenuBtn').querySelector('i').classList.remove('fa-times');
+                document.getElementById('mobileMenuBtn').querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // Mobile Dropdown Toggle Function
+        function toggleMobileDropdown(header) {
+            const dropdown = header.parentElement;
+            dropdown.classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Page Loader - Hide after page loads
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('pageLoader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500); // Show loader for 1.5 seconds minimum
+        });
+    </script>
+
+    <!-- Global Search -->
+    <script src="js/search.js"></script>
+
+
+    <!-- Navbar -->
+    <script src="js/navbar.js"></script>
+
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+
+    <!-- Chatbot Widget -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <script src="js/chatbot.js"></script>
+
+    <!-- Page Loader Hide Script -->
+    <script>
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 1800);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

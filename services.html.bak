@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cybersecurity Services - Corporate Training, Security Consulting, Penetration Testing. Protect your business with Elitech Hub.">
+    <meta name="theme-color" content="#DC2626">
+    <title>Services - Elitech Hub | Cybersecurity Solutions for Business</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub" style="height: 60px; width: auto; filter: brightness(0) invert(1);">
+                <div class="loader-logo-text">
+                    <span>E</span><span>l</span><span>i</span><span>t</span><span>e</span><span>c</span><span>h</span>
+                    <span>H</span><span>u</span><span>b</span>
+                </div>
+            </div>
+            <div class="loader-scanner">
+                <div class="scanner-grid"></div>
+                <div class="scanner-line"></div>
+                <div class="scanner-text">INITIALIZING SECURITY PROTOCOLS...</div>
+            </div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <div class="loader-text">Loading</div>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="assets/images/logo.png" alt="Elitech Hub" style="height: 40px; width: auto; margin-right: 0.5rem;"><span>Elitech<span class="logo-highlight">Hub</span></span></a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="programs.html" class="nav-link">Programs</a></li>
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a></li>
+            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;"><button id="themeToggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button><button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button></div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="programs.html" class="nav-link">Programs</a></li>
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="research.html" class="nav-link">Research</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a>
+        </div>
+    </nav>
+
+    <section class="hero" style="min-height: 65vh; position: relative; display: flex; align-items: center; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);">
+        <!-- Animated Background Pattern -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; background-image: radial-gradient(circle at 25% 35%, #DC2626 0%, transparent 50%), radial-gradient(circle at 75% 65%, #06B6D4 0%, transparent 50%), radial-gradient(circle at 50% 80%, #008751 0%, transparent 50%); z-index: 0;"></div>
+
+        <!-- Dark Overlay for Better Text Readability -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.7) 100%); z-index: 1;"></div>
+
+        <div class="container" style="position: relative; z-index: 2;">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center; color: white;">
+                <div style="display: inline-block; padding: 0.5rem 1.5rem; background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); border-radius: 2rem; margin-bottom: 2rem;">
+                    <span style="color: #DC2626; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.05em;">OUR SERVICES</span>
+                </div>
+                <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1;">
+                    Complete <span style="color: #DC2626;">Cybersecurity</span> Solutions
+                </h1>
+                <p style="font-size: 1.3rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 0 auto 2.5rem;">
+                    From education and training to security consulting and cutting-edge research — we cover all aspects of cybersecurity.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; max-width: 700px; margin: 0 auto;">
+                    <div style="background: rgba(220, 38, 38, 0.1); border: 1px solid rgba(220, 38, 38, 0.3); padding: 1rem; border-radius: 0.75rem;">
+                        <i class="fas fa-graduation-cap" style="color: #DC2626; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Education</div>
+                    </div>
+                    <div style="background: rgba(0, 135, 81, 0.1); border: 1px solid rgba(0, 135, 81, 0.3); padding: 1rem; border-radius: 0.75rem;">
+                        <i class="fas fa-shield-alt" style="color: #10B981; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Security</div>
+                    </div>
+                    <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.3); padding: 1rem; border-radius: 0.75rem;">
+                        <i class="fas fa-flask" style="color: #06B6D4; font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Research</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 6rem 2rem; background: white;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem;">Our Services</h2>
+                <p style="font-size: 1.125rem; color: #6B7280; max-width: 700px; margin: 0 auto;">Three core areas of expertise: Education, Security Solutions, and Research Innovation</p>
+            </div>
+
+            <!-- Major Service Categories -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; margin-bottom: 4rem;">
+                <!-- Category 1: Education & Training -->
+                <div style="background: white; border: 2px solid #DC2626; border-radius: 1rem; padding: 2.5rem; transition: all 0.3s; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);">
+                    <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #DC2626, #991B1B); color: white; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; color: #DC2626;">Education & Training</h3>
+                    <p style="color: #6B7280; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 600;">Comprehensive cybersecurity training for individuals and organizations</p>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">For Individuals:</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0 0 1rem 0;">
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>6-Week Bootcamp</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>16-Week Professional Program</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>Guaranteed Internship Placement</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>Career Support & Job Placement</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">For Organizations:</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>Corporate Training Programs</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>Security Awareness Training</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>Custom Curriculum Development</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #DC2626;"></i>On-site or Remote Delivery</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="programs.html" class="btn btn-primary" style="flex: 1; justify-content: center;">View Programs</a>
+                        <a href="https://wa.me/2347081968062" class="btn btn-outline" style="flex: 1; justify-content: center;">Get Quote</a>
+                    </div>
+                </div>
+
+                <!-- Category 2: Security Solutions for Organizations -->
+                <div style="background: white; border: 2px solid #008751; border-radius: 1rem; padding: 2.5rem; transition: all 0.3s; box-shadow: 0 4px 12px rgba(0, 135, 81, 0.1);">
+                    <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #008751, #006B3F); color: white; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; color: #008751;">Security Solutions</h3>
+                    <p style="color: #6B7280; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 600;">Custom security services for organizations</p>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">Custom Scripting:</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0 0 1rem 0;">
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Automation Tools Development</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Security Testing Scripts</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Custom Security Tools</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Integration Solutions</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">Security Consulting:</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Risk Assessment & Management</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Penetration Testing</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Security Architecture Design</li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #008751;"></i>Compliance & Audit Support</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://wa.me/2347081968062" class="btn" style="width: 100%; justify-content: center; background: #008751; color: white;">Request Consultation</a>
+                </div>
+
+                <!-- Category 3: Research (Bold) -->
+                <div style="background: white; border: 3px solid #06B6D4; border-radius: 1rem; padding: 2.5rem; transition: all 0.3s; box-shadow: 0 6px 16px rgba(6, 182, 212, 0.15);">
+                    <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #06B6D4, #0891B2); color: white; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.875rem; font-weight: 900; margin-bottom: 1rem; color: #06B6D4;">Research & Innovation</h3>
+                    <p style="color: #6B7280; line-height: 1.6; margin-bottom: 1.5rem; font-weight: 600;">Cutting-edge research and system development</p>
+
+                    <div style="background: #F0FDFA; border-left: 4px solid #06B6D4; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.5rem;">
+                        <p style="margin: 0; font-weight: 600; color: #0A0A0A;">We don't just teach security — we advance it through research, innovation, and real-world system development.</p>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin: 0 0 1.5rem;">
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>Threat Intelligence Research</li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>System Development (e.g., PSEDS)</li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>Vulnerability Analysis Tools</li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>Publishable Research Papers</li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>Beta Testing Programs</li>
+                        <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-check-circle" style="color: #06B6D4;"></i>Collaborative Research Partnerships</li>
+                    </ul>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="research.html" class="btn" style="flex: 1; justify-content: center; background: #06B6D4; color: white;">View Research</a>
+                        <a href="https://wa.me/2347081968062" class="btn btn-outline" style="flex: 1; justify-content: center; border-color: #06B6D4; color: #06B6D4;">Collaborate</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Service Descriptions -->
+            <div style="margin-top: 6rem;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 3rem; text-align: center;">Comprehensive Service Details</h2>
+
+                <!-- Corporate Training Deep Dive -->
+                <div style="margin-bottom: 4rem; background: #F9FAFB; border-radius: 1rem; padding: 3rem; border-left: 6px solid #DC2626;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; color: #DC2626; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-users"></i> Corporate Training Programs
+                    </h3>
+                    <p style="font-size: 1.125rem; line-height: 1.8; color: #374151; margin-bottom: 2rem;">
+                        Elevate your team's cybersecurity capabilities with our comprehensive corporate training programs. We design custom curricula tailored to your organization's specific security needs, industry requirements, and threat landscape.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h4 style="font-weight: 700; color: #DC2626; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-check-circle"></i> Security Awareness Training</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">Empower your entire workforce to recognize and respond to security threats. Our interactive sessions cover phishing detection, social engineering tactics, password security, and data protection best practices.</p>
+                        </div>
+                        <div>
+                            <h4 style="font-weight: 700; color: #DC2626; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-check-circle"></i> Technical Security Training</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">Deep-dive technical training for IT teams covering network security, application security, cloud security, incident response, and security operations. Hands-on labs with real-world scenarios included.</p>
+                        </div>
+                        <div>
+                            <h4 style="font-weight: 700; color: #DC2626; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-check-circle"></i> Compliance & Regulatory Training</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">Navigate complex compliance requirements (ISO 27001, NDPR, GDPR, etc.) with confidence. We help your team understand and implement security controls that meet regulatory standards.</p>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB;">
+                        <h4 style="font-weight: 700; margin-bottom: 1rem;">What's Included:</h4>
+                        <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.75rem; list-style: none; padding: 0; margin: 0;">
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>Customized training modules</span></li>
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>On-site or virtual delivery options</span></li>
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>Practical hands-on labs</span></li>
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>Assessment & certification</span></li>
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>Training materials & resources</span></li>
+                            <li style="display: flex; align-items: start; gap: 0.5rem;"><i class="fas fa-arrow-right" style="color: #DC2626; margin-top: 0.25rem;"></i><span>Post-training support (90 days)</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Penetration Testing Service -->
+                <div style="margin-bottom: 4rem; background: #F9FAFB; border-radius: 1rem; padding: 3rem; border-left: 6px solid #008751;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; color: #008751; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-user-secret"></i> Penetration Testing & Vulnerability Assessment
+                    </h3>
+                    <p style="font-size: 1.125rem; line-height: 1.8; color: #374151; margin-bottom: 2rem;">
+                        Identify and remediate security weaknesses before attackers exploit them. Our ethical hackers use industry-standard methodologies (OWASP, PTES, NIST) to simulate real-world attacks and provide actionable remediation guidance.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                        <div>
+                            <h4 style="font-weight: 700; color: #008751; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-network-wired"></i> Network Penetration Testing</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">Comprehensive assessment of your network infrastructure, including external and internal networks, wireless networks, and network devices. We identify misconfigurations, weak protocols, and exploitable vulnerabilities.</p>
+                        </div>
+                        <div>
+                            <h4 style="font-weight: 700; color: #008751; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-code"></i> Web Application Testing</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">In-depth security assessment of your web applications covering OWASP Top 10 vulnerabilities, business logic flaws, authentication/authorization issues, and API security. Includes both automated and manual testing.</p>
+                        </div>
+                        <div>
+                            <h4 style="font-weight: 700; color: #008751; margin-bottom: 0.75rem; font-size: 1.125rem;"><i class="fas fa-mobile-alt"></i> Mobile App Security Testing</h4>
+                            <p style="color: #6B7280; line-height: 1.6;">Security evaluation of Android and iOS applications covering insecure data storage, weak cryptography, insecure communication, and reverse engineering vulnerabilities. Complete with OWASP Mobile Top 10 assessment.</p>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB; margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 700; margin-bottom: 1rem; color: #008751;">Our Testing Methodology:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                            <div style="flex: 1; min-width: 200px; padding: 1rem; background: #F0FDF4; border-radius: 0.5rem;">
+                                <div style="font-weight: 700; color: #008751; margin-bottom: 0.5rem;">1. Reconnaissance</div>
+                                <p style="margin: 0; font-size: 0.875rem; color: #6B7280;">Information gathering and target profiling</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; padding: 1rem; background: #F0FDF4; border-radius: 0.5rem;">
+                                <div style="font-weight: 700; color: #008751; margin-bottom: 0.5rem;">2. Scanning & Enumeration</div>
+                                <p style="margin: 0; font-size: 0.875rem; color: #6B7280;">Identifying live systems and services</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; padding: 1rem; background: #F0FDF4; border-radius: 0.5rem;">
+                                <div style="font-weight: 700; color: #008751; margin-bottom: 0.5rem;">3. Vulnerability Analysis</div>
+                                <p style="margin: 0; font-size: 0.875rem; color: #6B7280;">Discovering security weaknesses</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; padding: 1rem; background: #F0FDF4; border-radius: 0.5rem;">
+                                <div style="font-weight: 700; color: #008751; margin-bottom: 0.5rem;">4. Exploitation</div>
+                                <p style="margin: 0; font-size: 0.875rem; color: #6B7280;">Safe exploitation to prove impact</p>
+                            </div>
+                            <div style="flex: 1; min-width: 200px; padding: 1rem; background: #F0FDF4; border-radius: 0.5rem;">
+                                <div style="font-weight: 700; color: #008751; margin-bottom: 0.5rem;">5. Reporting</div>
+                                <p style="margin: 0; font-size: 0.875rem; color: #6B7280;">Detailed findings with remediation steps</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #ECFDF5; border-left: 4px solid #008751; padding: 1.25rem; border-radius: 0.5rem;">
+                        <p style="margin: 0; font-weight: 600; color: #0A0A0A;"><i class="fas fa-shield-alt" style="color: #008751; margin-right: 0.5rem;"></i>Deliverable: Comprehensive penetration test report with executive summary, technical findings, risk ratings (CVSS), proof-of-concept exploits, and prioritized remediation recommendations.</p>
+                    </div>
+                </div>
+
+                <!-- Security Consulting -->
+                <div style="margin-bottom: 4rem; background: #F9FAFB; border-radius: 1rem; padding: 3rem; border-left: 6px solid #06B6D4;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.75rem; font-weight: 700; color: #06B6D4; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+                        <i class="fas fa-briefcase"></i> Security Consulting & Advisory Services
+                    </h3>
+                    <p style="font-size: 1.125rem; line-height: 1.8; color: #374151; margin-bottom: 2rem;">
+                        Strategic cybersecurity guidance from experienced professionals. We help organizations build robust security programs, achieve compliance, and establish security best practices across their entire infrastructure.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                        <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB;">
+                            <h4 style="font-weight: 700; color: #06B6D4; margin-bottom: 1rem; font-size: 1.125rem;"><i class="fas fa-chart-line"></i> Security Program Development</h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; color: #6B7280; line-height: 1.6;">
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Security strategy & roadmap</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Policy & procedure development</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Security governance framework</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Risk management framework</li>
+                            </ul>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB;">
+                            <h4 style="font-weight: 700; color: #06B6D4; margin-bottom: 1rem; font-size: 1.125rem;"><i class="fas fa-clipboard-check"></i> Compliance & Audit Support</h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; color: #6B7280; line-height: 1.6;">
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>ISO 27001 implementation</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>NDPR/GDPR compliance</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>PCI DSS assessment</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Gap analysis & remediation</li>
+                            </ul>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB;">
+                            <h4 style="font-weight: 700; color: #06B6D4; margin-bottom: 1rem; font-size: 1.125rem;"><i class="fas fa-shield-virus"></i> Incident Response Planning</h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; color: #6B7280; line-height: 1.6;">
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>IR plan development</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Tabletop exercises</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Crisis management support</li>
+                                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #06B6D4; margin-right: 0.5rem;"></i>Forensics & investigation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: #ECFEFF; border-left: 4px solid #06B6D4; padding: 1.25rem; border-radius: 0.5rem;">
+                        <p style="margin: 0; font-weight: 600; color: #0A0A0A;"><i class="fas fa-handshake" style="color: #06B6D4; margin-right: 0.5rem;"></i>Flexible Engagement Models: Hourly consulting, project-based, retainer agreements, or vCISO (virtual Chief Information Security Officer) services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 6rem 2rem; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1.5rem;">Need a Custom Solution?</h2>
+            <p style="font-size: 1.125rem; margin: 0 auto 3rem; max-width: 600px;">Contact us for a tailored cybersecurity solution for your organization.</p>
+            <a href="https://wa.me/2347081968062" class="btn btn-primary" style="padding: 1rem 2rem;"><i class="fab fa-whatsapp"></i> Contact Us</a>
+        </div>
+    </section>
+
+    <footer id="contact" style="background: #0A0A0A; color: white; padding: 4rem 2rem 2rem; border-top: 4px solid #DC2626;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <div class="logo" style="margin-bottom: 1rem; color: white;"><img src="assets/images/logo.png" alt="Elitech Hub" style="height: 35px; width: auto; margin-right: 0.5rem; display: inline-block; vertical-align: middle;"><span>Elitech<span class="logo-highlight">Hub</span></span></div>
+                    <p style="color: rgba(255, 255, 255, 0.7);">Securing Africa's Digital Future</p>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Services</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="services.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Corporate Training</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="services.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Security Consulting</a></li>
+                    </ul>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="about.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">About</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="blog.html" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Research</a></li>
+                    </ul>
+                </div>
+                <div><h4 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; color: #DC2626; margin-bottom: 1rem;">Connect</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="https://wa.me/2347081968062" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5);">
+                <p>&copy; 2025 Elitech Hub Limited. RC: 8693883</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Certificate Badges -->
+    <div id="certificateBadges" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px;">
+        <div class="cert-badge" onclick="openCertModal('cac')" style="background: white; border: 2px solid #DC2626; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #DC2626, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">CAC Registered</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">RC: 8693883</div>
+            </div>
+        </div>
+
+        <div class="cert-badge" onclick="openCertModal('smedan')" style="background: white; border: 2px solid #008751; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #008751, #006B3F); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+                <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">SMEDAN Certified</div>
+                <div style="font-size: 0.625rem; color: #6B7280;">Verified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; align-items: center; justify-content: center;" onclick="closeCertModal()">
+        <div style="position: relative; max-width: 90%; max-height: 90%; background: white; border-radius: 1rem; padding: 2rem;" onclick="event.stopPropagation()">
+            <button onclick="closeCertModal()" style="position: absolute; top: 1rem; right: 1rem; background: #DC2626; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="certModalContent" style="text-align: center;"></div>
+        </div>
+    </div>
+
+    <style>
+        .cert-badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #certificateBadges {
+                bottom: 80px;
+                right: 10px;
+            }
+            .cert-badge {
+                font-size: 0.625rem !important;
+            }
+            .cert-badge > div:first-child {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.75rem !important;
+            }
+        }
+    </style>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Page Loader - Hide after page loads
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('pageLoader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section:not(.hero)');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+
+        // Certificate Modal Functions
+        function openCertModal(type) {
+            const modal = document.getElementById('certModal');
+            const content = document.getElementById('certModalContent');
+
+            if (type === 'cac') {
+                content.innerHTML = `
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #DC2626, #991B1B); padding: 2rem; border-radius: 1rem 1rem 0 0;">
+                            <i class="fas fa-certificate" style="font-size: 4rem; color: white; margin-bottom: 1rem;"></i>
+                            <h2 style="color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin: 0;">CAC Registration</h2>
+                        </div>
+                        <div style="padding: 2rem; background: #F9FAFB; border-radius: 0 0 1rem 1rem;">
+                            <div style="background: white; border: 2px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <h3 style="font-family: 'Space Grotesk', sans-serif; color: #0A0A0A; margin-bottom: 1rem;">Elitech Hub Limited</h3>
+                                <div style="display: grid; gap: 1rem; text-align: left;">
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Registration Number (RC)</div>
+                                        <div style="color: #DC2626; font-weight: 700; font-size: 1.5rem;">8693883</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Company Type</div>
+                                        <div style="color: #0A0A0A; font-weight: 600;">Limited by Shares</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Status</div>
+                                        <div style="color: #008751; font-weight: 600;"><i class="fas fa-check-circle"></i> Active & Registered</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem;">Officially registered with the Corporate Affairs Commission (CAC) of Nigeria</p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'smedan') {
+                content.innerHTML = `
+                    <div style="max-width: 600px; margin: 0 auto;">
+                        <div style="background: linear-gradient(135deg, #008751, #006B3F); padding: 2rem; border-radius: 1rem 1rem 0 0;">
+                            <i class="fas fa-shield-alt" style="font-size: 4rem; color: white; margin-bottom: 1rem;"></i>
+                            <h2 style="color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin: 0;">SMEDAN Certification</h2>
+                        </div>
+                        <div style="padding: 2rem; background: #F9FAFB; border-radius: 0 0 1rem 1rem;">
+                            <div style="background: white; border: 2px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                <h3 style="font-family: 'Space Grotesk', sans-serif; color: #0A0A0A; margin-bottom: 1rem;">Elitech Hub Limited</h3>
+                                <div style="display: grid; gap: 1rem; text-align: left;">
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Certification</div>
+                                        <div style="color: #008751; font-weight: 700; font-size: 1.25rem;">SMEDAN Verified</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Category</div>
+                                        <div style="color: #0A0A0A; font-weight: 600;">Education & Training Services</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #6B7280; font-size: 0.875rem; margin-bottom: 0.25rem;">Status</div>
+                                        <div style="color: #008751; font-weight: 600;"><i class="fas fa-check-circle"></i> Verified & Certified</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="color: #6B7280; font-size: 0.875rem;">Certified by the Small and Medium Enterprises Development Agency of Nigeria (SMEDAN)</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertModal() {
+            const modal = document.getElementById('certModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCertModal();
+            }
+        });
+    </script>
+</body>
+</html>
