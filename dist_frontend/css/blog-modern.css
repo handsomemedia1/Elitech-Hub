@@ -530,9 +530,17 @@ body {
    ========================================= */
 .blog-grid-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2.5rem;
     margin-top: 3rem;
+}
+
+@media (max-width: 400px) {
+    .blog-grid-layout {
+        grid-template-columns: 1fr;
+        /* Force single column on Fold 4 Cover */
+        gap: 1.5rem;
+    }
 }
 
 .post-card {
