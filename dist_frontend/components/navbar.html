@@ -1,0 +1,102 @@
+<!-- Navigation Component -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="Elitech Hub"
+                style="height: 40px; width: auto; margin-right: 0.5rem;">
+            <span>Elitech<span class="logo-highlight">Hub</span></span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <ul class="nav-desktop">
+            <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+
+            <!-- Learn Dropdown -->
+            <li class="nav-dropdown">
+                <span class="nav-link nav-dropdown-trigger">
+                    Learn <i class="fas fa-chevron-down"></i>
+                </span>
+                <div class="nav-dropdown-menu">
+                    <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                    <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                    <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                    <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
+                            class="fas fa-microscope"></i> Researcher Portal</a>
+                </div>
+            </li>
+
+            <!-- Company Dropdown -->
+            <li class="nav-dropdown">
+                <span class="nav-link nav-dropdown-trigger">
+                    Company <i class="fas fa-chevron-down"></i>
+                </span>
+                <div class="nav-dropdown-menu">
+                    <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                    <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                    <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security & Trust</a>
+                </div>
+            </li>
+
+            <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                    data-page="get-involved">Get Involved</a></li>
+            <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+        </ul>
+
+        <!-- Right Side Actions -->
+        <div class="nav-actions">
+            <button class="search-trigger" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+            <a href="apply.html" class="btn btn-primary">
+                Apply Now
+            </a>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="nav-mobile" id="mobileNav">
+        <ul class="nav-mobile-links">
+            <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)">
+                    <span>Learn</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown-menu">
+                    <li><a href="programs.html" class="nav-link" data-page="programs"><i
+                                class="fas fa-graduation-cap"></i> Programs</a></li>
+                    <li><a href="blog.html" class="nav-link" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                    </li>
+                    <li><a href="research.html" class="nav-link" data-page="research"><i class="fas fa-flask"></i>
+                            Research</a></li>
+                    <li><a href="researcher-guidelines.html" class="nav-link" data-page="researcher"
+                            style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a></li>
+                </ul>
+            </li>
+            <li class="mobile-dropdown">
+                <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)">
+                    <span>Company</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <ul class="mobile-dropdown-menu">
+                    <li><a href="about.html" class="nav-link" data-page="about"><i class="fas fa-users"></i> About
+                            Us</a></li>
+                    <li><a href="services.html" class="nav-link" data-page="services"><i class="fas fa-cogs"></i>
+                            Services</a></li>
+                    <li><a href="security.html" class="nav-link" data-page="security"><i class="fas fa-shield-alt"></i>
+                            Security & Trust</a></li>
+                </ul>
+            </li>
+            <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                    data-page="get-involved">Get Involved</a></li>
+            <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+        </ul>
+        <a href="apply.html" class="btn btn-primary">
+            Apply Now
+        </a>
+    </div>
+</nav>

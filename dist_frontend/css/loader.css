@@ -1,0 +1,379 @@
+/* ============================================
+   ELITECH HUB - CYBERSECURITY SIMULATION LOADER
+   Terminal-style Loading Animation
+   ============================================ */
+
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0f1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Logo Section */
+.loader-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.loader-logo-text {
+    display: flex;
+    gap: 0.15rem;
+    font-family: 'Space Grotesk', 'Courier New', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.loader-logo-text span {
+    display: inline-block;
+    color: white;
+    animation: wave 1.5s ease-in-out infinite;
+}
+
+.loader-logo-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loader-logo-text span:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.loader-logo-text span:nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.loader-logo-text span:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.loader-logo-text span:nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.loader-logo-text span:nth-child(6) {
+    animation-delay: 0.25s;
+}
+
+.loader-logo-text span:nth-child(7) {
+    animation-delay: 0.3s;
+}
+
+.loader-logo-text span:nth-child(8) {
+    animation-delay: 0.35s;
+    color: #c3151c;
+}
+
+.loader-logo-text span:nth-child(9) {
+    animation-delay: 0.4s;
+    color: #c3151c;
+}
+
+.loader-logo-text span:nth-child(10) {
+    animation-delay: 0.45s;
+    color: #c3151c;
+}
+
+/* Terminal Window */
+.loader-terminal {
+    width: 520px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+
+.terminal-header {
+    background: #161b22;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #30363d;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-dot.red {
+    background: #ff5f56;
+}
+
+.terminal-dot.yellow {
+    background: #ffbd2e;
+}
+
+.terminal-dot.green {
+    background: #27c93f;
+}
+
+.terminal-title {
+    color: #8b949e;
+    font-size: 0.75rem;
+    font-family: 'Courier New', monospace;
+    margin-left: 10px;
+}
+
+.terminal-body {
+    padding: 15px;
+    text-align: left;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    min-height: 140px;
+}
+
+.terminal-line {
+    color: #c9d1d9;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: typeIn 0.3s ease forwards;
+}
+
+.terminal-line .prompt {
+    color: #c3151c;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.terminal-line .success {
+    color: #27c93f;
+    font-weight: bold;
+}
+
+.terminal-line .highlight {
+    color: #58a6ff;
+}
+
+/* Staggered line appearance */
+.line-1 {
+    animation-delay: 0.1s;
+}
+
+.line-2 {
+    animation-delay: 0.3s;
+}
+
+.line-3 {
+    animation-delay: 0.5s;
+}
+
+.line-4 {
+    animation-delay: 0.7s;
+}
+
+.line-5 {
+    animation-delay: 0.9s;
+}
+
+.line-6 {
+    animation-delay: 1.1s;
+}
+
+.line-7 {
+    animation-delay: 1.3s;
+}
+
+/* Blinking Cursor */
+.cursor {
+    animation: blink 0.7s step-end infinite;
+    color: #c3151c;
+    font-weight: bold;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+/* Progress Bar */
+.loader-bar-container {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+}
+
+.loader-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #c3151c, #e63e44, #c3151c);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    animation: loading-progress 1.5s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(195, 21, 28, 0.5);
+}
+
+.loader-status {
+    color: #c3151c;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards 1.6s;
+}
+
+/* Particles */
+.loader-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #c3151c;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float-particle 8s linear infinite;
+}
+
+.particle:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    left: 25%;
+    animation-delay: 1.5s;
+}
+
+.particle:nth-child(3) {
+    left: 40%;
+    animation-delay: 3s;
+}
+
+.particle:nth-child(4) {
+    left: 55%;
+    animation-delay: 4.5s;
+}
+
+.particle:nth-child(5) {
+    left: 70%;
+    animation-delay: 6s;
+}
+
+.particle:nth-child(6) {
+    left: 85%;
+    animation-delay: 7.5s;
+}
+
+/* Animations */
+@keyframes wave {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes typeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes loading-progress {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.4;
+    }
+
+    90% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .loader-terminal {
+        width: 320px;
+    }
+
+    .loader-logo-text {
+        font-size: 1.5rem;
+    }
+
+    .terminal-body {
+        font-size: 0.7rem;
+    }
+
+    .loader-bar-container {
+        width: 250px;
+    }
+}

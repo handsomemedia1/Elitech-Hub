@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Apply to become a Mentor at Elitech Hub. Guide the next generation of cybersecurity professionals.">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+
+    <title>Mentor Application - Elitech Hub</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #242424;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-highlight {
+            color: #c3151c;
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-trigger {
+            background: none;
+            border: none;
+            color: #374151;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .search-trigger:hover {
+            color: #DC2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 0.9375rem;
+            color: #374151;
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #DC2626;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #DC2626;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #B91C1C;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgb(220 38 38 / 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #0A0A0A;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .nav-mobile.active {
+            max-height: 500px;
+            padding: 1rem 0;
+        }
+
+        .nav-mobile-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-mobile-links li {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .nav-mobile-links .nav-link {
+            display: block;
+            padding: 1rem 2rem;
+        }
+
+        .nav-mobile .btn {
+            margin: 1rem 2rem 0;
+            width: calc(100% - 4rem);
+            justify-content: center;
+        }
+
+        @media (max-width: 1024px) {
+            .nav-desktop {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-mobile {
+                display: block;
+            }
+        }
+
+        /* Page Styles */
+        body {
+            background: linear-gradient(180deg, #fff 0%, #f8f9fc 50%, #fff 100%);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, rgba(195, 21, 28, 0.95), rgba(15, 23, 42, 0.98));
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 3rem;
+            border-top: 4px solid #c3151c;
+        }
+
+        .section-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-card h2 i {
+            color: #c3151c;
+            font-size: 1.5rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .requirement-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid #c3151c;
+        }
+
+        .requirement-item h4 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .requirement-item p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .expectations-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .expectations-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .expectations-list li:last-child {
+            border-bottom: none;
+        }
+
+        .expectations-list i {
+            color: #10b981;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label span {
+            color: #c3151c;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #c3151c;
+            box-shadow: 0 0 0 3px rgba(195, 21, 28, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .file-upload {
+            border: 2px dashed #e2e8f0;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #c3151c;
+            background: rgba(195, 21, 28, 0.02);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: #c3151c;
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #c3151c, #a01118);
+            color: white;
+            border: none;
+            padding: 1.25rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(195, 21, 28, 0.35);
+        }
+
+        .benefits-banner {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-banner h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .benefit-item i {
+            color: #c3151c;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation (Loaded dynamically) -->
+        <!-- Navigation (Direct Injection) -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub" style="height: 40px; width: auto; margin-right: 0.5rem;">
+                <span>Elitech<span class="logo-highlight">Hub</span></span>
+            </a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Learn <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Company <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;" data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Learn</span><i class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="programs.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Programs</a></li>
+                        <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                        <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                        <li><a href="researcher-guidelines.html" class="nav-link" style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Company</span><i class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a></li>
+                    </ul>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Apply Now</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <span
+                style="display: inline-block; background: rgba(255,255,255,0.15); padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                <i class="fas fa-chalkboard-teacher" style="margin-right: 0.5rem;"></i> Volunteer Opportunity
+            </span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Become a
+                Mentor</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9; line-height: 1.7;">
+                Shape the future of cybersecurity by guiding passionate learners. Your experience can accelerate
+                someone's career and change lives.
+            </p>
+        </div>
+    </header>
+
+    <div class="content-container">
+        <!-- Benefits Banner -->
+        <div class="benefits-banner">
+            <h3><i class="fas fa-gift" style="margin-right: 0.75rem;"></i> Why Mentor with Us?</h3>
+            <div class="benefits-grid">
+                <div class="benefit-item"><i class="fas fa-certificate"></i><span>Certificate of Recognition</span>
+                </div>
+                <div class="benefit-item"><i class="fas fa-users"></i><span>Expand Your Network</span></div>
+                <div class="benefit-item"><i class="fas fa-bullhorn"></i><span>Featured on Our Platform</span></div>
+                <div class="benefit-item"><i class="fas fa-heart"></i><span>Give Back to Community</span></div>
+            </div>
+        </div>
+
+        <!-- What We Expect -->
+        <div class="section-card">
+            <h2><i class="fas fa-clipboard-list"></i> What We Expect from Mentors</h2>
+            <ul class="expectations-list">
+                <li><i class="fas fa-check-circle"></i>
+                    <div><strong>Dedicated Time Commitment</strong>
+                        <p style="color: #64748b; margin-top: 0.25rem;">Minimum 4-6 hours per month for mentorship
+                            sessions and guidance calls.</p>
+                    </div>
+                </li>
+                <li><i class="fas fa-check-circle"></i>
+                    <div><strong>Career Guidance & Advice</strong>
+                        <p style="color: #64748b; margin-top: 0.25rem;">Help mentees navigate career decisions,
+                            certifications, and professional development.</p>
+                    </div>
+                </li>
+                <li><i class="fas fa-check-circle"></i>
+                    <div><strong>Project Review & Feedback</strong>
+                        <p style="color: #64748b; margin-top: 0.25rem;">Review lab assignments and provide constructive,
+                            actionable feedback.</p>
+                    </div>
+                </li>
+                <li><i class="fas fa-check-circle"></i>
+                    <div><strong>Professionalism & Reliability</strong>
+                        <p style="color: #64748b; margin-top: 0.25rem;">Maintain clear communication and uphold Elitech
+                            Hub's values.</p>
+                    </div>
+                </li>
+                <li><i class="fas fa-check-circle"></i>
+                    <div><strong>Encouragement & Motivation</strong>
+                        <p style="color: #64748b; margin-top: 0.25rem;">Be a source of inspiration and help mentees
+                            build confidence.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Requirements -->
+        <div class="section-card">
+            <h2><i class="fas fa-user-check"></i> Mentor Requirements</h2>
+            <p style="color: #475569; margin-bottom: 1.5rem;">To ensure quality mentorship, we look for:</p>
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <h4><i class="fas fa-briefcase" style="color: #c3151c; margin-right: 0.5rem;"></i> Experience</h4>
+                    <p>Minimum <strong>3+ years</strong> hands-on experience in cybersecurity.</p>
+                </div>
+                <div class="requirement-item">
+                    <h4><i class="fas fa-graduation-cap" style="color: #c3151c; margin-right: 0.5rem;"></i> Education
+                    </h4>
+                    <p>Degree in CS/IT or equivalent experience. Certifications (CEH, CISSP, Security+) are a plus.</p>
+                </div>
+                <div class="requirement-item">
+                    <h4><i class="fas fa-comments" style="color: #c3151c; margin-right: 0.5rem;"></i> Communication</h4>
+                    <p>Excellent verbal/written skills. Ability to explain complex concepts simply.</p>
+                </div>
+                <div class="requirement-item">
+                    <h4><i class="fas fa-clock" style="color: #c3151c; margin-right: 0.5rem;"></i> Availability</h4>
+                    <p>At least <strong>4-6 hours per month</strong> over a 3-month cycle.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Form -->
+        <div class="section-card" id="apply">
+            <h2><i class="fas fa-edit"></i> Mentor Application Form</h2>
+            <p style="color: #475569; margin-bottom: 2rem;">Fill out the form below. We'll review and respond within 5-7
+                business days.</p>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                <h3
+                    style="font-size: 1.1rem; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+                    Personal Information</h3>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Full Name <span>*</span></label><input type="text"
+                            class="form-input" name="fullName" placeholder="Enter your full name" required></div>
+                    <div class="form-group"><label class="form-label">Email Address <span>*</span></label><input
+                            type="email" class="form-input" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Phone Number <span>*</span></label><input
+                            type="tel" class="form-input" name="phone" placeholder="+234 xxx xxx xxxx" required></div>
+                    <div class="form-group"><label class="form-label">LinkedIn Profile</label><input type="url"
+                            class="form-input" name="linkedin" placeholder="https://linkedin.com/in/yourprofile"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Location <span>*</span></label><input type="text"
+                        class="form-input" name="location" placeholder="City, Country" required></div>
+
+                <h3
+                    style="font-size: 1.1rem; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; margin: 2rem 0 1.5rem;">
+                    Professional Background</h3>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Current Job Title <span>*</span></label><input
+                            type="text" class="form-input" name="jobTitle" placeholder="e.g., Senior Security Analyst"
+                            required></div>
+                    <div class="form-group"><label class="form-label">Company/Organization</label><input type="text"
+                            class="form-input" name="company" placeholder="Where you currently work"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Years of Experience <span>*</span></label>
+                        <select class="form-select" name="experience" required>
+                            <option value="">Select experience</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-8">5-8 years</option>
+                            <option value="8-12">8-12 years</option>
+                            <option value="12+">12+ years</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Primary Expertise <span>*</span></label>
+                        <select class="form-select" name="expertise" required>
+                            <option value="">Select specialty</option>
+                            <option value="penetration-testing">Penetration Testing / Red Team</option>
+                            <option value="soc-analysis">SOC / Blue Team Analysis</option>
+                            <option value="grc">GRC / Compliance</option>
+                            <option value="network-security">Network Security</option>
+                            <option value="cloud-security">Cloud Security</option>
+                            <option value="incident-response">Incident Response</option>
+                            <option value="application-security">Application Security</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Certifications</label><input type="text"
+                        class="form-input" name="certifications"
+                        placeholder="e.g., CEH, CISSP, Security+ (comma separated)">
+                    <p class="form-hint">List relevant certifications.</p>
+                </div>
+                <div class="form-group"><label class="form-label">Upload CV/Resume <span>*</span></label>
+                    <div class="file-upload" id="fileUpload"><i class="fas fa-cloud-upload-alt"></i>
+                        <p><strong>Click to upload</strong> or drag and drop</p>
+                        <p style="font-size: 0.85rem; color: #94a3b8;">PDF, DOC, DOCX (Max 5MB)</p><input type="file"
+                            name="cv" accept=".pdf,.doc,.docx" style="display: none;" id="cvInput" required>
+                    </div>
+                </div>
+
+                <h3
+                    style="font-size: 1.1rem; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; margin: 2rem 0 1.5rem;">
+                    Mentorship Details</h3>
+                <div class="form-group"><label class="form-label">Why do you want to mentor at Elitech Hub?
+                        <span>*</span></label><textarea class="form-textarea" name="motivation"
+                        placeholder="Tell us what motivates you to mentor..." required></textarea>
+                    <p class="form-hint">Minimum 100 words. Be genuine.</p>
+                </div>
+                <div class="form-group"><label class="form-label">What unique skills can you bring?
+                        <span>*</span></label><textarea class="form-textarea" name="uniqueAbilities"
+                        placeholder="Describe your unique abilities or teaching style..." required></textarea></div>
+                <div class="form-group"><label class="form-label">Your proposed mentorship plan for students?
+                        <span>*</span></label><textarea class="form-textarea" name="mentorshipPlan"
+                        placeholder="Outline session structure, topics, and goals..." required
+                        style="min-height: 200px;"></textarea>
+                    <p class="form-hint">Be as detailed as possible.</p>
+                </div>
+                <div class="form-group"><label class="form-label">Previous mentoring experience?</label><textarea
+                        class="form-textarea" name="previousExperience"
+                        placeholder="Describe any past mentoring or teaching experience..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Preferred Communication <span>*</span></label>
+                        <select class="form-select" name="communicationMethod" required>
+                            <option value="">Select preference</option>
+                            <option value="video-call">Video Calls (Zoom/Meet)</option>
+                            <option value="phone">Phone Calls</option>
+                            <option value="chat">Chat (Slack/WhatsApp)</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label class="form-label">Mentee Capacity <span>*</span></label>
+                        <select class="form-select" name="menteeCapacity" required>
+                            <option value="">Select capacity</option>
+                            <option value="1-2">1-2 mentees</option>
+                            <option value="3-4">3-4 mentees</option>
+                            <option value="5+">5+ mentees</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label class="form-label">Anything else?</label><textarea class="form-textarea"
+                        name="additionalInfo" placeholder="Any other information or questions..."></textarea></div>
+                <div class="form-group" style="margin-top: 2rem;"><label
+                        style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;"><input
+                            type="checkbox" name="agreement" required style="margin-top: 4px;"><span
+                            style="font-size: 0.9rem; color: #475569;">I confirm the information is accurate and commit
+                            to 4-6 hours/month of mentorship. <span style="color: #c3151c;">*</span></span></label>
+                </div>
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"
+                        style="margin-right: 0.5rem;"></i> Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: white; padding: 4rem 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <p>&copy; 2026 Elitech Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () { document.getElementById('mobileNav').classList.toggle('active'); });
+        document.getElementById('fileUpload').addEventListener('click', function () { document.getElementById('cvInput').click(); });
+        document.getElementById('cvInput').addEventListener('change', function () { if (this.files.length > 0) { document.querySelector('#fileUpload p strong').textContent = this.files[0].name; } });
+        window.addEventListener('scroll', function () { const navbar = document.getElementById('navbar'); if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
+    </script>
+    <!-- Navbar -->
+    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="css/chatbot.css">
+    <script src="js/chatbot.js"></script>
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

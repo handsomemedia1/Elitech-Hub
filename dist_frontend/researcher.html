@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Researcher Dashboard - ElitechHub</title>
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #5B21B6;
+            --dark: #0A0A0A;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F3F4F6;
+            color: var(--dark);
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #E5E7EB;
+            color: var(--dark);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .error-message {
+            background: #FEE2E2;
+            color: #DC2626;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Dashboard Layout */
+        .app-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: linear-gradient(180deg, #1F2937 0%, #111827 100%);
+            color: white;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .sidebar-brand {
+            padding: 1rem 0 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-brand img {
+            height: 40px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(124, 58, 237, 0.2);
+            color: white;
+        }
+
+        .researcher-info {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .researcher-info p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .main-content {
+            padding: 2rem;
+            background: #F3F4F6;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card.purple {
+            border-left: 4px solid var(--primary);
+        }
+
+        .stat-card.green {
+            border-left: 4px solid var(--success);
+        }
+
+        .stat-card.orange {
+            border-left: 4px solid var(--warning);
+        }
+
+        .stat-card.blue {
+            border-left: 4px solid #3B82F6;
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Papers List */
+        .papers-list {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .paper-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #E5E7EB;
+            transition: background 0.2s;
+        }
+
+        .paper-item:hover {
+            background: #F9FAFB;
+        }
+
+        .paper-info h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .paper-info span {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .paper-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .paper-status.published {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .paper-status.draft {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .paper-status.under_review {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        /* Leaderboard */
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: white;
+            border-radius: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .leaderboard-item.top {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 2px solid #F59E0B;
+        }
+
+        .leaderboard-rank {
+            font-size: 1.5rem;
+            font-weight: 700;
+            width: 50px;
+            text-align: center;
+        }
+
+        /* Badges */
+        .badge-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-card.earned {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .badge-card.locked {
+            opacity: 0.5;
+            border: 2px dashed #D1D5DB;
+        }
+
+        .badge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Login/Signup Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box" style="max-width: 450px;">
+            <!-- Tab Toggle -->
+            <div style="display: flex; margin-bottom: 1.5rem; border-bottom: 2px solid #E5E7EB;">
+                <button id="tabLogin" onclick="showAuthTab('login')"
+                    style="flex: 1; padding: 0.75rem; border: none; background: transparent; font-weight: 600; color: var(--primary); border-bottom: 3px solid var(--primary); cursor: pointer;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button id="tabSignup" onclick="showAuthTab('signup')"
+                    style="flex: 1; padding: 0.75rem; border: none; background: transparent; font-weight: 600; color: var(--gray); border-bottom: 3px solid transparent; cursor: pointer;">
+                    <i class="fas fa-user-plus"></i> Join as Researcher
+                </button>
+            </div>
+
+            <h1 style="font-size: 1.5rem;">🔬 <span id="authTitle">Researcher Login</span></h1>
+            <div id="loginError" class="error-message hidden"></div>
+            <div id="successMessage" class="success-message hidden"
+                style="background: #D1FAE5; color: #065F46; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required placeholder="researcher@university.edu">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <!-- Signup Form (Hidden by default) -->
+            <form id="signupForm" class="hidden">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="signupName" required placeholder="Dr. Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label>Email * <small style="color: var(--gray);">(Academic email preferred)</small></label>
+                    <input type="email" id="signupEmail" required placeholder="jane.doe@university.edu">
+                </div>
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" id="signupPassword" required minlength="8" placeholder="Min 8 characters">
+                </div>
+                <div class="form-group">
+                    <label>Affiliation / Institution *</label>
+                    <input type="text" id="signupAffiliation" required placeholder="University of Lagos">
+                </div>
+                <div class="form-group">
+                    <label>Research Area * <small style="color: var(--gray);">(Select primary focus)</small></label>
+                    <select id="signupResearchArea" required>
+                        <option value="">Select your field...</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                        <option value="cyberpsychology">Cyberpsychology</option>
+                        <option value="security-engineering">Security Engineering</option>
+                        <option value="artificial-intelligence">Artificial Intelligence (AI)</option>
+                        <option value="machine-learning">Machine Learning</option>
+                        <option value="data-science">Data Science</option>
+                        <option value="network-security">Network Security</option>
+                        <option value="digital-forensics">Digital Forensics</option>
+                        <option value="cryptography">Cryptography</option>
+                        <option value="software-engineering">Software Engineering</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ORCID ID <small style="color: var(--gray);">(Optional)</small></label>
+                    <input type="text" id="signupOrcid" placeholder="0000-0001-2345-6789">
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" id="signupTerms" required style="width: auto; margin-top: 0.25rem;">
+                        <span style="font-size: 0.875rem; color: var(--gray);">
+                            I agree to the <a href="terms.html" target="_blank" style="color: var(--primary);">Terms of
+                                Service</a> and
+                            <a href="privacy.html" target="_blank" style="color: var(--primary);">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> Create Researcher Account
+                </button>
+            </form>
+
+            <p style="margin-top: 1.5rem; text-align: center; color: var(--gray); font-size: 0.875rem;">
+                Questions? <a href="contact.html" style="color: var(--primary);">Contact us</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Researcher Dashboard -->
+    <div id="researcherPanel" class="app-layout hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="assets/images/logo.png" alt="Elitech Hub">
+            </div>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="active" data-view="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
+                    </li>
+                    <li><a href="#" data-view="papers"><i class="fas fa-file-alt"></i> My Papers</a></li>
+                    <li><a href="#" data-view="new-paper"><i class="fas fa-plus-circle"></i> New Paper</a></li>
+                    <li><a href="#" data-view="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="#" data-view="badges"><i class="fas fa-medal"></i> Badges</a></li>
+                    <li><a href="#" data-view="profile"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+            <div class="researcher-info">
+                <p>Logged in as</p>
+                <strong id="researcherName">Researcher</strong>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboardView">
+                <div class="page-header">
+                    <h1 class="page-title">📊 Research Dashboard</h1>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card purple">
+                        <h3>📚 Publications</h3>
+                        <div class="value" id="statPublications">0</div>
+                    </div>
+                    <div class="stat-card green">
+                        <h3>📖 Citations</h3>
+                        <div class="value" id="statCitations">0</div>
+                    </div>
+                    <div class="stat-card orange">
+                        <h3>📥 Downloads</h3>
+                        <div class="value" id="statDownloads">0</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <h3>📈 H-Index</h3>
+                        <div class="value" id="statHIndex">0</div>
+                    </div>
+                </div>
+
+                <!-- Recent Papers -->
+                <h3 style="margin-bottom: 1rem;">Recent Publications</h3>
+                <div id="recentPapers" class="papers-list">
+                    <p style="padding: 2rem; text-align: center; color: var(--gray);">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Papers View -->
+            <div id="papersView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">📄 My Papers</h1>
+                    <button class="btn btn-primary" onclick="switchView('new-paper')">
+                        <i class="fas fa-plus"></i> New Paper
+                    </button>
+                </div>
+                <div id="papersList" class="papers-list">
+                    <p style="padding: 2rem; text-align: center; color: var(--gray);">Loading...</p>
+                </div>
+            </div>
+
+            <!-- New Paper View - Multi-Step Wizard -->
+            <div id="newPaperView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">📝 Submit Research Paper</h1>
+                </div>
+
+                <!-- Progress Bar -->
+                <div style="background: white; border-radius: 1rem; padding: 1.5rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span id="stepLabel">Step 1 of 6: Basic Information</span>
+                        <span id="stepPercent">17%</span>
+                    </div>
+                    <div style="background: #E5E7EB; border-radius: 0.5rem; height: 8px;">
+                        <div id="progressBar"
+                            style="background: linear-gradient(90deg, #7C3AED, #A855F7); border-radius: 0.5rem; height: 100%; width: 17%; transition: width 0.3s;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Basic Information -->
+                <div id="wizardStep1" class="wizard-step"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #1F2937;">📄 Basic Information</h2>
+
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="paperTitle" placeholder="Full research paper title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Abstract * <span id="abstractCount"
+                                style="color: var(--gray); font-weight: normal;">(0/300 words)</span></label>
+                        <textarea id="paperAbstract" rows="6" placeholder="150-300 word summary of your research..."
+                            oninput="updateAbstractCount()"></textarea>
+                        <small style="color: var(--gray);">Minimum 150 words, maximum 300 words</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keywords * (5-8 keywords, comma-separated)</label>
+                        <input type="text" id="paperKeywords"
+                            placeholder="phishing, psychology, Nigeria, behavioral security, social engineering">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Primary Category *</label>
+                            <select id="paperCategory">
+                                <option value="cybersecurity">Cybersecurity</option>
+                                <option value="cyberpsychology">Cyberpsychology</option>
+                                <option value="security-engineering">Security Engineering</option>
+                                <option value="artificial-intelligence">Artificial Intelligence (AI)</option>
+                                <option value="machine-learning">Machine Learning</option>
+                                <option value="data-science">Data Science</option>
+                                <option value="network-security">Network Security</option>
+                                <option value="digital-forensics">Digital Forensics</option>
+                                <option value="cryptography">Cryptography</option>
+                                <option value="software-engineering">Software Engineering</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Research Type *</label>
+                            <select id="paperType">
+                                <option value="original">Original Research</option>
+                                <option value="review">Literature Review / Meta-Analysis</option>
+                                <option value="case-study">Case Study</option>
+                                <option value="survey">Survey / Empirical Study</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: flex-end;">
+                        <button class="btn btn-secondary" onclick="switchView('papers')">Cancel</button>
+                        <button class="btn btn-primary" onclick="nextStep(2)">Next: Author Info →</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Author Information -->
+                <div id="wizardStep2" class="wizard-step hidden"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #1F2937;">👤 Author Information</h2>
+
+                    <div style="background: #F3F4F6; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem;">Lead Author</h4>
+                        <p style="margin: 0; color: var(--gray);">Name: <span id="leadAuthorName">Loading...</span></p>
+                        <p style="margin: 0; color: var(--gray);">Email: <span id="leadAuthorEmail">Loading...</span>
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ORCID (Recommended)</label>
+                        <input type="text" id="paperOrcid" placeholder="0000-0001-2345-6789">
+                        <small style="color: var(--gray);"><a href="https://orcid.org/register" target="_blank">Get an
+                                ORCID</a> - Free unique researcher ID</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Affiliation / Institution *</label>
+                        <input type="text" id="paperAffiliation" placeholder="University of Lagos, Nigeria">
+                    </div>
+
+                    <div id="coAuthorsContainer">
+                        <h4 style="margin-top: 1.5rem;">Co-Authors (Optional)</h4>
+                        <div id="coAuthorsList"></div>
+                        <button type="button" class="btn btn-secondary" onclick="addCoAuthor()"
+                            style="margin-top: 0.5rem;">
+                            <i class="fas fa-plus"></i> Add Co-Author
+                        </button>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="prevStep(1)">← Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(3)">Next: Content →</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Content -->
+                <div id="wizardStep3" class="wizard-step hidden"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #1F2937;">📝 Paper Content</h2>
+
+                    <div class="form-group">
+                        <label>Full Paper Content *</label>
+                        <p style="color: var(--gray); font-size: 0.875rem; margin-bottom: 0.5rem;">
+                            Include all sections: Introduction, Literature Review, Methodology, Results, Discussion,
+                            Conclusion
+                        </p>
+                        <textarea id="paperContent" rows="20" placeholder="Paste or write your full paper content here...
+
+1. INTRODUCTION
+[Your introduction text...]
+
+2. LITERATURE REVIEW
+[Your literature review...]
+
+3. METHODOLOGY
+[Your methodology...]
+
+4. RESULTS
+[Your results...]
+
+5. DISCUSSION
+[Your discussion...]
+
+6. CONCLUSION
+[Your conclusion...]"></textarea>
+                        <div id="wordCountDisplay" style="text-align: right; color: var(--gray); margin-top: 0.5rem;">
+                            Word count: 0 (Minimum: 2,000)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>PDF Upload (Optional)</label>
+                        <input type="url" id="paperPdfUrl" placeholder="https://drive.google.com/... or Dropbox link">
+                        <small style="color: var(--gray);">Upload your PDF to Google Drive/Dropbox and paste the
+                            link</small>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(4)">Next: References →</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: References -->
+                <div id="wizardStep4" class="wizard-step hidden"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #1F2937;">📚 References</h2>
+
+                    <div class="form-group">
+                        <label>Citation Style *</label>
+                        <select id="citationStyle">
+                            <option value="apa7">APA 7th Edition</option>
+                            <option value="harvard">Harvard</option>
+                            <option value="ieee">IEEE</option>
+                            <option value="chicago">Chicago</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>References * (One per line)</label>
+                        <textarea id="paperReferences" rows="12" placeholder="Paste your references here, one per line. Example:
+
+Adeniran, K., & Okafor, C. (2024). Cybersecurity challenges in Nigerian enterprises. African Journal of Information Security, 12(3), 45-67. https://doi.org/10.xxxx/ajis.2024.003
+
+Johnson, M., & Smith, R. (2020). Cognitive biases in security decision-making. Journal of Cybersecurity Psychology, 8(2), 112-134.
+
+..."></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Journal/Conference</label>
+                            <input type="text" id="paperJournal" placeholder="Elitech Hub Research Journal">
+                        </div>
+                        <div class="form-group">
+                            <label>DOI (if assigned)</label>
+                            <input type="text" id="paperDoi" placeholder="10.52843/elitech.2026.001">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(5)">Next: Quality Check →</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Quality Self-Declaration -->
+                <div id="wizardStep5" class="wizard-step hidden"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1rem; color: #1F2937;">⚠️ Mandatory Quality Checks</h2>
+                    <p style="color: #DC2626; margin-bottom: 1.5rem; font-weight: 500;">
+                        You MUST complete these checks before submitting. False reports will result in strikes and
+                        potential ban.
+                    </p>
+
+                    <!-- Plagiarism Section -->
+                    <div
+                        style="background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem;">1. Plagiarism Check (REQUIRED)</h4>
+                        <p style="font-size: 0.875rem; color: #92400E; margin-bottom: 1rem;">
+                            Check your paper using: Turnitin, Grammarly, Copyscape, Quetext, or any other tool.
+                            <strong>Maximum allowed: 15%</strong>
+                        </p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Plagiarism Score (%) *</label>
+                                <input type="number" id="plagiarismScore" min="0" max="100" placeholder="e.g., 8"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tool Used *</label>
+                                <select id="plagiarismTool" required>
+                                    <option value="">Select...</option>
+                                    <option value="turnitin">Turnitin</option>
+                                    <option value="grammarly">Grammarly</option>
+                                    <option value="copyscape">Copyscape</option>
+                                    <option value="quetext">Quetext</option>
+                                    <option value="plagscan">PlagScan</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Plagiarism Report (Screenshot/PDF URL) *</label>
+                            <input type="url" id="plagiarismReportUrl"
+                                placeholder="https://drive.google.com/... (Upload your report and paste link)">
+                            <small style="color: #92400E;">Upload your plagiarism report to Google Drive and share the
+                                link. This WILL be verified.</small>
+                        </div>
+                    </div>
+
+                    <!-- Grammar Section -->
+                    <div
+                        style="background: #DBEAFE; border-left: 4px solid #3B82F6; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin-bottom: 0.5rem;">2. Grammar Check (REQUIRED)</h4>
+                        <p style="font-size: 0.875rem; color: #1E40AF; margin-bottom: 1rem;">
+                            Check using: Grammarly, ProWritingAid, LanguageTool. <strong>Minimum score: 70/100</strong>
+                        </p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Grammar Score (/100) *</label>
+                                <input type="number" id="grammarScore" min="0" max="100" placeholder="e.g., 89"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tool Used *</label>
+                                <select id="grammarTool">
+                                    <option value="">Select...</option>
+                                    <option value="grammarly">Grammarly</option>
+                                    <option value="prowritingaid">ProWritingAid</option>
+                                    <option value="languagetool">LanguageTool</option>
+                                    <option value="msword">Microsoft Word</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Declarations -->
+                    <div style="background: #F3F4F6; padding: 1rem; border-radius: 0.5rem;">
+                        <h4 style="margin-bottom: 1rem;">3. Declarations</h4>
+
+                        <div class="form-group">
+                            <label>Ethics Approval</label>
+                            <select id="ethicsApproval">
+                                <option value="not-required">Not required (desk research)</option>
+                                <option value="obtained">Obtained (for human subjects research)</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Conflicts of Interest</label>
+                            <select id="conflictsOfInterest">
+                                <option value="none">None declared</option>
+                                <option value="declared">I have conflicts to declare</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>License</label>
+                            <select id="paperLicense">
+                                <option value="CC-BY-4.0">CC BY 4.0 (Open Access - Recommended)</option>
+                                <option value="CC-BY-NC-4.0">CC BY-NC 4.0 (Non-commercial)</option>
+                                <option value="all-rights">All Rights Reserved</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="prevStep(4)">← Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(6)">Next: Preview →</button>
+                    </div>
+                </div>
+
+                <!-- Step 6: Preview & Submit -->
+                <div id="wizardStep6" class="wizard-step hidden"
+                    style="background: white; border-radius: 1rem; padding: 2rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #1F2937;">✅ Review & Submit</h2>
+
+                    <div id="validationResults" style="margin-bottom: 1.5rem;"></div>
+
+                    <div style="background: #F3F4F6; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                        <h4>Originality Declaration</h4>
+                        <div style="margin-top: 1rem;">
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="declareOriginal" required>
+                                <span>I confirm this is my original work</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="declareCitations" required>
+                                <span>I have properly cited all sources</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="declarePlagiarism" required>
+                                <span>My plagiarism score is accurate and below 15%</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <input type="checkbox" id="declareCoAuthors" required>
+                                <span>All co-authors have approved this submission</span>
+                            </label>
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                <input type="checkbox" id="declareConsequences" required>
+                                <span style="color: #DC2626; font-weight: 500;">I understand false declarations may
+                                    result in permanent ban</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="prevStep(5)">← Back</button>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn btn-secondary" onclick="saveDraft()">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button class="btn btn-primary" onclick="submitForReview()"
+                                style="background: linear-gradient(90deg, #059669, #10B981);">
+                                <i class="fas fa-paper-plane"></i> Submit for Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard View -->
+            <div id="leaderboardView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">🏆 Researcher Leaderboard</h1>
+                </div>
+                <div id="leaderboardList">
+                    <p style="text-align: center; color: var(--gray);">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Badges View -->
+            <div id="badgesView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">🎖️ Your Badges</h1>
+                </div>
+                <h3 style="margin-bottom: 1rem;">Earned</h3>
+                <div id="earnedBadges"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                    <p style="color: var(--gray);">No badges yet</p>
+                </div>
+                <h3 style="margin-bottom: 1rem; color: var(--gray);">Available</h3>
+                <div id="availableBadges"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; opacity: 0.6;">
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profileView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">👤 My Profile</h1>
+                </div>
+                <div style="background: white; border-radius: 1rem; padding: 2rem; max-width: 600px;">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="profileName">
+                    </div>
+                    <div class="form-group">
+                        <label>Affiliation / Institution</label>
+                        <input type="text" id="profileAffiliation" placeholder="e.g., University of Lagos">
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea id="profileBio" rows="3" placeholder="Brief bio..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Research Interests (comma-separated)</label>
+                        <input type="text" id="profileInterests" placeholder="cybersecurity, machine learning">
+                    </div>
+                    <div class="form-group">
+                        <label>ORCID</label>
+                        <input type="text" id="profileOrcid" placeholder="0000-0000-0000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label>Google Scholar URL</label>
+                        <input type="url" id="profileScholar" placeholder="https://scholar.google.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>ResearchGate URL</label>
+                        <input type="url" id="profileResearchgate" placeholder="https://researchgate.net/...">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveProfile()">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001/api';
+        let token = localStorage.getItem('elitech_researcher_token');
+        let currentResearcher = null;
+
+        // Initialize
+        async function init() {
+            if (!token) {
+                showLogin();
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!data.researcher) {
+                    showLogin();
+                    return;
+                }
+
+                currentResearcher = data.researcher;
+                document.getElementById('researcherName').textContent = data.researcher.name;
+                showPanel();
+                loadDashboard();
+            } catch (err) {
+                showLogin();
+            }
+        }
+
+        function showLogin() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('researcherPanel').classList.add('hidden');
+        }
+
+        function showPanel() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('researcherPanel').classList.remove('hidden');
+        }
+
+        // Auth Tab Switching
+        function showAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const tabLogin = document.getElementById('tabLogin');
+            const tabSignup = document.getElementById('tabSignup');
+            const authTitle = document.getElementById('authTitle');
+            const errorEl = document.getElementById('loginError');
+            const successEl = document.getElementById('successMessage');
+
+            errorEl.classList.add('hidden');
+            successEl.classList.add('hidden');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabLogin.style.color = 'var(--primary)';
+                tabLogin.style.borderBottomColor = 'var(--primary)';
+                tabSignup.style.color = 'var(--gray)';
+                tabSignup.style.borderBottomColor = 'transparent';
+                authTitle.textContent = 'Researcher Login';
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabSignup.style.color = 'var(--primary)';
+                tabSignup.style.borderBottomColor = 'var(--primary)';
+                tabLogin.style.color = 'var(--gray)';
+                tabLogin.style.borderBottomColor = 'transparent';
+                authTitle.textContent = 'Join as Researcher';
+            }
+        }
+
+        // Signup Form
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorEl = document.getElementById('loginError');
+            const successEl = document.getElementById('successMessage');
+            errorEl.classList.add('hidden');
+            successEl.classList.add('hidden');
+
+            const signupData = {
+                name: document.getElementById('signupName').value.trim(),
+                email: document.getElementById('signupEmail').value.trim(),
+                password: document.getElementById('signupPassword').value,
+                affiliation: document.getElementById('signupAffiliation').value.trim(),
+                research_area: document.getElementById('signupResearchArea').value,
+                orcid: document.getElementById('signupOrcid').value.trim() || null
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(signupData)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    errorEl.textContent = data.error || 'Registration failed';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                successEl.textContent = data.message || 'Account created! You can now login.';
+                successEl.classList.remove('hidden');
+                document.getElementById('signupForm').reset();
+
+                // Auto switch to login after 2 seconds
+                setTimeout(() => showAuthTab('login'), 2000);
+            } catch (err) {
+                errorEl.textContent = 'Connection error. Please try again.';
+                errorEl.classList.remove('hidden');
+            }
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    document.getElementById('loginError').textContent = data.error || 'Login failed';
+                    document.getElementById('loginError').classList.remove('hidden');
+                    return;
+                }
+
+                token = data.token;
+                localStorage.setItem('elitech_researcher_token', token);
+                currentResearcher = data.researcher;
+                document.getElementById('researcherName').textContent = data.researcher.name;
+                showPanel();
+                loadDashboard();
+            } catch (err) {
+                document.getElementById('loginError').textContent = 'Connection error';
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('elitech_researcher_token');
+            token = null;
+            currentResearcher = null;
+            showLogin();
+        }
+
+        // Navigation
+        document.querySelectorAll('[data-view]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchView(link.dataset.view);
+            });
+        });
+
+        function switchView(view) {
+            document.querySelectorAll('[data-view]').forEach(l => l.classList.remove('active'));
+            document.querySelector(`[data-view="${view}"]`)?.classList.add('active');
+
+            // Hide all views
+            ['dashboardView', 'papersView', 'newPaperView', 'leaderboardView', 'badgesView', 'profileView'].forEach(v => {
+                document.getElementById(v).classList.add('hidden');
+            });
+
+            // Show selected
+            const viewMap = {
+                'dashboard': 'dashboardView',
+                'papers': 'papersView',
+                'new-paper': 'newPaperView',
+                'leaderboard': 'leaderboardView',
+                'badges': 'badgesView',
+                'profile': 'profileView'
+            };
+
+            if (viewMap[view]) {
+                document.getElementById(viewMap[view]).classList.remove('hidden');
+            }
+
+            // Load data
+            if (view === 'dashboard') loadDashboard();
+            if (view === 'papers') loadPapers();
+            if (view === 'leaderboard') loadLeaderboard();
+            if (view === 'badges') loadBadges();
+            if (view === 'profile') loadProfile();
+        }
+
+        // Load Dashboard
+        async function loadDashboard() {
+            try {
+                const res = await fetch(`${API_URL}/researchers/stats`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.stats) {
+                    document.getElementById('statPublications').textContent = data.stats.publishedPapers || 0;
+                    document.getElementById('statCitations').textContent = data.stats.totalCitations || 0;
+                    document.getElementById('statDownloads').textContent = data.stats.totalDownloads || 0;
+                    document.getElementById('statHIndex').textContent = data.stats.hIndex || 0;
+                }
+
+                // Recent papers
+                const container = document.getElementById('recentPapers');
+                if (!data.recentPapers || data.recentPapers.length === 0) {
+                    container.innerHTML = '<p style="padding: 2rem; text-align: center; color: var(--gray);">No publications yet. Start by adding a paper!</p>';
+                } else {
+                    container.innerHTML = data.recentPapers.map(paper => `
+                        <div class="paper-item">
+                            <div class="paper-info">
+                                <h4>${paper.title}</h4>
+                                <span>${paper.citations || 0} citations • ${paper.downloads || 0} downloads</span>
+                            </div>
+                            <span class="paper-status published">Published</span>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                console.error('Dashboard error:', err);
+            }
+        }
+
+        // Load Papers
+        async function loadPapers() {
+            try {
+                const res = await fetch(`${API_URL}/researchers/papers`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                const container = document.getElementById('papersList');
+                if (!data.papers || data.papers.length === 0) {
+                    container.innerHTML = '<p style="padding: 2rem; text-align: center; color: var(--gray);">No papers yet. Click "New Paper" to add one.</p>';
+                    return;
+                }
+
+                container.innerHTML = data.papers.map(paper => `
+                    <div class="paper-item">
+                        <div class="paper-info">
+                            <h4>${paper.title}</h4>
+                            <span>${paper.category} • ${paper.citations || 0} citations • ${new Date(paper.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <span class="paper-status ${paper.status}">${paper.status.replace('_', ' ')}</span>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('Papers error:', err);
+            }
+        }
+
+        // Save Paper
+        async function savePaper() {
+            const paper = {
+                title: document.getElementById('paperTitle').value,
+                abstract: document.getElementById('paperAbstract').value,
+                category: document.getElementById('paperCategory').value,
+                type: document.getElementById('paperType').value,
+                keywords: document.getElementById('paperKeywords').value.split(',').map(k => k.trim()).filter(k => k),
+                pdf_url: document.getElementById('paperPdfUrl').value,
+                youtube_url: document.getElementById('paperYoutubeUrl').value,
+                journal: document.getElementById('paperJournal').value,
+                doi: document.getElementById('paperDoi').value,
+                status: document.getElementById('paperStatus').value
+            };
+
+            if (!paper.title) {
+                alert('Title is required');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/papers`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paper)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert(data.error || 'Failed to save paper');
+                    return;
+                }
+
+                alert('Paper saved successfully!');
+                // Clear form
+                ['paperTitle', 'paperAbstract', 'paperKeywords', 'paperPdfUrl', 'paperYoutubeUrl', 'paperJournal', 'paperDoi'].forEach(id => {
+                    document.getElementById(id).value = '';
+                });
+                switchView('papers');
+            } catch (err) {
+                alert('Failed to save paper');
+            }
+        }
+
+        // Load Leaderboard
+        async function loadLeaderboard() {
+            try {
+                const res = await fetch(`${API_URL}/researchers/leaderboard`);
+                const data = await res.json();
+
+                const container = document.getElementById('leaderboardList');
+                if (!data.leaderboard || data.leaderboard.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--gray);">No researchers yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = data.leaderboard.map((r, index) => `
+                    <div class="leaderboard-item ${index < 3 ? 'top' : ''}">
+                        <div class="leaderboard-rank">
+                            ${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '#' + (index + 1)}
+                        </div>
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0;">${r.name}</h4>
+                            <span style="font-size: 0.875rem; color: var(--gray);">${r.affiliation || 'Independent'}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700;">${r.total_citations || 0} citations</div>
+                            <div style="font-size: 0.875rem; color: var(--gray);">${r.publications_count || 0} papers</div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error('Leaderboard error:', err);
+            }
+        }
+
+        // Load Badges
+        async function loadBadges() {
+            try {
+                const res = await fetch(`${API_URL}/researchers/badges`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                const earnedContainer = document.getElementById('earnedBadges');
+                if (data.earned && data.earned.length > 0) {
+                    earnedContainer.innerHTML = data.earned.map(badge => `
+                        <div class="badge-card earned">
+                            <div class="badge-icon">${badge.icon}</div>
+                            <h4>${badge.name}</h4>
+                            <p style="font-size: 0.75rem; opacity: 0.9;">${badge.description}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    earnedContainer.innerHTML = '<p style="color: var(--gray);">No badges earned yet. Keep researching!</p>';
+                }
+
+                const availableContainer = document.getElementById('availableBadges');
+                if (data.available) {
+                    availableContainer.innerHTML = data.available.map(badge => `
+                        <div class="badge-card locked">
+                            <div class="badge-icon" style="filter: grayscale(100%);">${badge.icon}</div>
+                            <h4 style="color: var(--gray);">${badge.name}</h4>
+                            <p style="font-size: 0.75rem; color: var(--gray);">${badge.description}</p>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                console.error('Badges error:', err);
+            }
+        }
+
+        // Load Profile
+        function loadProfile() {
+            if (!currentResearcher) return;
+            document.getElementById('profileName').value = currentResearcher.name || '';
+            document.getElementById('profileAffiliation').value = currentResearcher.affiliation || '';
+            document.getElementById('profileBio').value = currentResearcher.bio || '';
+            document.getElementById('profileInterests').value = (currentResearcher.research_interests || []).join(', ');
+            document.getElementById('profileOrcid').value = currentResearcher.orcid || '';
+            document.getElementById('profileScholar').value = currentResearcher.google_scholar_url || '';
+            document.getElementById('profileResearchgate').value = currentResearcher.researchgate_url || '';
+        }
+
+        // Save Profile
+        async function saveProfile() {
+            const profile = {
+                name: document.getElementById('profileName').value,
+                affiliation: document.getElementById('profileAffiliation').value,
+                bio: document.getElementById('profileBio').value,
+                research_interests: document.getElementById('profileInterests').value.split(',').map(i => i.trim()).filter(i => i),
+                orcid: document.getElementById('profileOrcid').value,
+                google_scholar_url: document.getElementById('profileScholar').value,
+                researchgate_url: document.getElementById('profileResearchgate').value
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/me`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(profile)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert(data.error || 'Failed to save profile');
+                    return;
+                }
+
+                currentResearcher = data.researcher;
+                document.getElementById('researcherName').textContent = data.researcher.name;
+                alert('Profile saved!');
+            } catch (err) {
+                alert('Failed to save profile');
+            }
+        }
+
+        // ================================
+        // SUBMISSION WIZARD FUNCTIONS
+        // ================================
+
+        let currentStep = 1;
+        let coAuthorCount = 0;
+
+        function updateProgressBar(step) {
+            currentStep = step;
+            const percent = Math.round((step / 6) * 100);
+            const stepNames = {
+                1: 'Basic Information',
+                2: 'Author Info',
+                3: 'Content',
+                4: 'References',
+                5: 'Quality Check',
+                6: 'Review & Submit'
+            };
+
+            document.getElementById('stepLabel').textContent = `Step ${step} of 6: ${stepNames[step]}`;
+            document.getElementById('stepPercent').textContent = `${percent}%`;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= 6; i++) {
+                const stepEl = document.getElementById(`wizardStep${i}`);
+                if (stepEl) stepEl.classList.add('hidden');
+            }
+            // Show current step
+            const currentStepEl = document.getElementById(`wizardStep${step}`);
+            if (currentStepEl) currentStepEl.classList.remove('hidden');
+
+            updateProgressBar(step);
+
+            // Populate lead author info on step 2
+            if (step === 2 && currentResearcher) {
+                document.getElementById('leadAuthorName').textContent = currentResearcher.name || 'Unknown';
+                document.getElementById('leadAuthorEmail').textContent = currentResearcher.email || 'Unknown';
+                if (currentResearcher.affiliation) {
+                    document.getElementById('paperAffiliation').value = currentResearcher.affiliation;
+                }
+            }
+
+            // Run validation on step 6
+            if (step === 6) {
+                runFinalValidation();
+            }
+        }
+
+        function nextStep(step) {
+            // Validate current step before proceeding
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            showStep(step);
+        }
+
+        function prevStep(step) {
+            showStep(step);
+        }
+
+        function validateStep(step) {
+            switch (step) {
+                case 1:
+                    const title = document.getElementById('paperTitle').value.trim();
+                    const abstract = document.getElementById('paperAbstract').value.trim();
+                    const keywords = document.getElementById('paperKeywords').value.trim();
+
+                    if (!title) {
+                        alert('Title is required');
+                        return false;
+                    }
+
+                    const abstractWords = abstract.split(/\s+/).filter(w => w).length;
+                    if (abstractWords < 50) {
+                        alert(`Abstract must be at least 150 words. Current: ${abstractWords} words`);
+                        return false;
+                    }
+
+                    const keywordCount = keywords.split(',').filter(k => k.trim()).length;
+                    if (keywordCount < 3) {
+                        alert('Please provide at least 5 keywords');
+                        return false;
+                    }
+                    return true;
+
+                case 2:
+                    const affiliation = document.getElementById('paperAffiliation').value.trim();
+                    if (!affiliation) {
+                        alert('Affiliation/Institution is required');
+                        return false;
+                    }
+                    return true;
+
+                case 3:
+                    const content = document.getElementById('paperContent').value.trim();
+                    const wordCount = content.split(/\s+/).filter(w => w).length;
+                    if (wordCount < 500) {
+                        alert(`Paper content must be at least 2,000 words. Current: ${wordCount} words`);
+                        return false;
+                    }
+                    return true;
+
+                case 4:
+                    const refs = document.getElementById('paperReferences').value.trim();
+                    if (!refs || refs.split('\n').filter(r => r.trim()).length < 3) {
+                        alert('Please include at least 5 references');
+                        return false;
+                    }
+                    return true;
+
+                case 5:
+                    const plagScore = parseFloat(document.getElementById('plagiarismScore').value);
+                    const plagTool = document.getElementById('plagiarismTool').value;
+                    const plagReport = document.getElementById('plagiarismReportUrl').value.trim();
+                    const gramScore = parseInt(document.getElementById('grammarScore').value);
+                    const gramTool = document.getElementById('grammarTool').value;
+
+                    if (isNaN(plagScore)) {
+                        alert('Plagiarism score is required');
+                        return false;
+                    }
+                    if (plagScore > 15) {
+                        alert(`Plagiarism score (${plagScore}%) exceeds maximum allowed (15%). Please revise your paper.`);
+                        return false;
+                    }
+                    if (!plagTool) {
+                        alert('Please select the plagiarism tool used');
+                        return false;
+                    }
+                    if (!plagReport) {
+                        alert('Plagiarism report URL is required. Upload your report and paste the link.');
+                        return false;
+                    }
+                    if (isNaN(gramScore)) {
+                        alert('Grammar score is required');
+                        return false;
+                    }
+                    if (gramScore < 70) {
+                        alert(`Grammar score (${gramScore}/100) is below minimum (70/100). Please improve your writing.`);
+                        return false;
+                    }
+                    if (!gramTool) {
+                        alert('Please select the grammar tool used');
+                        return false;
+                    }
+                    return true;
+
+                default:
+                    return true;
+            }
+        }
+
+        function runFinalValidation() {
+            const results = document.getElementById('validationResults');
+            let html = '<div style="margin-bottom: 1rem;">';
+
+            // Check all fields
+            const title = document.getElementById('paperTitle').value.trim();
+            const abstractWords = document.getElementById('paperAbstract').value.trim().split(/\s+/).filter(w => w).length;
+            const contentWords = document.getElementById('paperContent').value.trim().split(/\s+/).filter(w => w).length;
+            const plagScore = parseFloat(document.getElementById('plagiarismScore').value) || 0;
+            const gramScore = parseInt(document.getElementById('grammarScore').value) || 0;
+            const hasReport = document.getElementById('plagiarismReportUrl').value.trim();
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${title ? '#10B981' : '#EF4444'};">${title ? '✅' : '❌'}</span>
+                <span>Title: ${title || 'Missing'}</span>
+            </div>`;
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${abstractWords >= 150 ? '#10B981' : '#EF4444'};">${abstractWords >= 150 ? '✅' : '❌'}</span>
+                <span>Abstract: ${abstractWords} words ${abstractWords >= 150 ? '(OK)' : '(Min: 150)'}</span>
+            </div>`;
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${contentWords >= 2000 ? '#10B981' : '#F59E0B'};">${contentWords >= 2000 ? '✅' : '⚠️'}</span>
+                <span>Word Count: ${contentWords.toLocaleString()} ${contentWords >= 2000 ? '(OK)' : '(Min: 2,000)'}</span>
+            </div>`;
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${plagScore <= 15 ? '#10B981' : '#EF4444'};">${plagScore <= 15 ? '✅' : '❌'}</span>
+                <span>Plagiarism: ${plagScore}% ${plagScore <= 15 ? '(OK)' : '(Max: 15%)'}</span>
+            </div>`;
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${gramScore >= 70 ? '#10B981' : '#EF4444'};">${gramScore >= 70 ? '✅' : '❌'}</span>
+                <span>Grammar: ${gramScore}/100 ${gramScore >= 70 ? '(OK)' : '(Min: 70)'}</span>
+            </div>`;
+
+            html += `<div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="color: ${hasReport ? '#10B981' : '#EF4444'};">${hasReport ? '✅' : '❌'}</span>
+                <span>Plagiarism Report: ${hasReport ? 'Uploaded' : 'Missing'}</span>
+            </div>`;
+
+            html += '</div>';
+            results.innerHTML = html;
+        }
+
+        function updateAbstractCount() {
+            const abstract = document.getElementById('paperAbstract').value;
+            const words = abstract.trim().split(/\s+/).filter(w => w).length;
+            const countEl = document.getElementById('abstractCount');
+            countEl.textContent = `(${words}/300 words)`;
+            countEl.style.color = words >= 150 && words <= 300 ? '#10B981' : words > 300 ? '#EF4444' : '#6B7280';
+        }
+
+        function addCoAuthor() {
+            coAuthorCount++;
+            const container = document.getElementById('coAuthorsList');
+            const html = `
+                <div id="coAuthor${coAuthorCount}" style="background: #F9FAFB; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                        <input type="text" placeholder="Name" class="coAuthorName">
+                        <input type="email" placeholder="Email" class="coAuthorEmail">
+                        <input type="text" placeholder="Affiliation" class="coAuthorAffiliation">
+                        <input type="text" placeholder="ORCID (optional)" class="coAuthorOrcid">
+                    </div>
+                    <button type="button" onclick="removeCoAuthor(${coAuthorCount})" style="margin-top: 0.5rem; color: #EF4444; background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeCoAuthor(id) {
+            document.getElementById(`coAuthor${id}`)?.remove();
+        }
+
+        function collectCoAuthors() {
+            const coAuthors = [];
+            document.querySelectorAll('#coAuthorsList > div').forEach(div => {
+                const name = div.querySelector('.coAuthorName')?.value;
+                const email = div.querySelector('.coAuthorEmail')?.value;
+                const affiliation = div.querySelector('.coAuthorAffiliation')?.value;
+                const orcid = div.querySelector('.coAuthorOrcid')?.value;
+                if (name) {
+                    coAuthors.push({ name, email, affiliation, orcid });
+                }
+            });
+            return coAuthors;
+        }
+
+        async function saveDraft() {
+            await submitPaper('draft');
+        }
+
+        async function submitForReview() {
+            // Check all declarations
+            const checkboxes = ['declareOriginal', 'declareCitations', 'declarePlagiarism', 'declareCoAuthors', 'declareConsequences'];
+            for (const id of checkboxes) {
+                if (!document.getElementById(id).checked) {
+                    alert('Please check all declarations before submitting');
+                    return;
+                }
+            }
+
+            await submitPaper('under_review');
+        }
+
+        async function submitPaper(status) {
+            const paperData = {
+                title: document.getElementById('paperTitle').value.trim(),
+                abstract: document.getElementById('paperAbstract').value.trim(),
+                description: document.getElementById('paperContent').value.trim(),
+                category: document.getElementById('paperCategory').value,
+                type: document.getElementById('paperType').value,
+                keywords: document.getElementById('paperKeywords').value.split(',').map(k => k.trim()).filter(k => k),
+                pdf_url: document.getElementById('paperPdfUrl').value.trim(),
+                journal: document.getElementById('paperJournal').value.trim(),
+                doi: document.getElementById('paperDoi').value.trim(),
+                orcid: document.getElementById('paperOrcid').value.trim(),
+                co_authors: collectCoAuthors(),
+                plagiarism_claimed: parseFloat(document.getElementById('plagiarismScore').value) || 0,
+                plagiarism_tool: document.getElementById('plagiarismTool').value,
+                plagiarism_report_url: document.getElementById('plagiarismReportUrl').value.trim(),
+                grammar_score: parseInt(document.getElementById('grammarScore').value) || 0,
+                grammar_tool: document.getElementById('grammarTool').value,
+                ethics_approval: document.getElementById('ethicsApproval').value,
+                conflicts_of_interest: document.getElementById('conflictsOfInterest').value,
+                license: document.getElementById('paperLicense').value,
+                citation_style: document.getElementById('citationStyle').value,
+                references_json: document.getElementById('paperReferences').value.split('\n').filter(r => r.trim()),
+                word_count: document.getElementById('paperContent').value.trim().split(/\s+/).filter(w => w).length,
+                status: status
+            };
+
+            try {
+                const res = await fetch(`${API_URL}/researchers/papers`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paperData)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    if (status === 'draft') {
+                        alert('Draft saved successfully!');
+                    } else {
+                        alert('Paper submitted for review! You will be notified when it is reviewed.');
+                    }
+                    // Reset wizard
+                    currentStep = 1;
+                    showStep(1);
+                    switchView('papers');
+                } else {
+                    if (data.details) {
+                        alert(`Submission Failed:\n${data.error}\n\nDetails:\n- ${data.details.join('\n- ')}`);
+                    } else {
+                        alert(data.error || 'Failed to submit paper');
+                    }
+                }
+            } catch (err) {
+                console.error('Submit error:', err);
+                alert('Connection error. Please try again.');
+            }
+        }
+
+        // Update word count in content textarea
+        document.getElementById('paperContent')?.addEventListener('input', function () {
+            const words = this.value.trim().split(/\s+/).filter(w => w).length;
+            const display = document.getElementById('wordCountDisplay');
+            if (display) {
+                display.textContent = `Word count: ${words.toLocaleString()} ${words >= 2000 ? '✅' : '(Minimum: 2,000)'}`;
+                display.style.color = words >= 2000 ? '#10B981' : '#6B7280';
+            }
+        });
+
+        // Init
+        init();
+    </script>
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

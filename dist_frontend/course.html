@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Course Player - Elitech Hub Cybersecurity Training">
+    <meta name="theme-color" content="#c3151c">
+    <title>Course Player - Elitech Hub</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        :root {
+            --primary: #c3151c;
+            --dark: #0A0A0A;
+            --light: #F9FAFB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .course-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 1024px) {
+            .course-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .course-sidebar {
+                display: none;
+            }
+
+            .course-sidebar.mobile-open {
+                display: block;
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                z-index: 100;
+            }
+        }
+
+        /* Video Section */
+        .video-section {
+            background: #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-header .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            margin-right: 2rem;
+        }
+
+        .video-header h1 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .video-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .video-container video,
+        .video-container iframe {
+            width: 100%;
+            max-height: 70vh;
+        }
+
+        .video-controls {
+            padding: 1.5rem;
+            background: var(--dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .module-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-meta {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #e64545);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(195, 21, 28, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Sidebar */
+        .course-sidebar {
+            background: #111;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-progress-text {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .modules-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .module-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .module-item.active {
+            background: rgba(195, 21, 28, 0.2);
+            border: 1px solid var(--primary);
+        }
+
+        .module-item.completed {
+            opacity: 0.7;
+        }
+
+        .module-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .module-item.completed .module-check {
+            background: #10B981;
+            border-color: #10B981;
+        }
+
+        .module-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .module-info span {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Certificate Banner */
+        .certificate-banner {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), #991B1B);
+            text-align: center;
+            display: none;
+        }
+
+        .certificate-banner.visible {
+            display: block;
+        }
+
+        .certificate-banner h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-banner p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(195, 21, 28, 0.5);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+
+        /* Access Denied */
+        .access-denied {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .access-denied-content {
+            max-width: 500px;
+        }
+
+        .access-denied-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .access-denied h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .access-denied p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="coursePlayer">
+        <!-- Loading -->
+        <div id="loadingState" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+            <div style="text-align: center;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+                <p style="margin-top: 1rem; color: rgba(255,255,255,0.7);">Loading course...</p>
+            </div>
+        </div>
+
+        <!-- Access Denied (hidden by default) -->
+        <div id="accessDenied" class="access-denied" style="display: none;">
+            <div class="access-denied-content">
+                <div class="access-denied-icon"><i class="fas fa-lock"></i></div>
+                <h1>Access Required</h1>
+                <p>You need to complete payment or have access granted to view this course.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <a href="payment.html" class="btn btn-primary"><i class="fas fa-credit-card"></i> View Payment
+                        Options</a>
+                    <a href="contact.html" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Player (hidden by default) -->
+        <div id="mainPlayer" class="course-layout" style="display: none;">
+            <!-- Video Section -->
+            <div class="video-section">
+                <div class="video-header">
+                    <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+                    <h1 id="courseName">Course Title</h1>
+                    <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-list"></i></button>
+                </div>
+
+                <div class="video-container">
+                    <div id="videoPlayer">
+                        <!-- Video will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="video-controls">
+                    <h2 class="module-title" id="moduleTitle">Module Title</h2>
+                    <p class="module-meta" id="moduleMeta">Module 1 of 10 • 15 min</p>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+
+                    <div class="video-actions">
+                        <button class="btn btn-primary" id="completeBtn" onclick="markComplete()">
+                            <i class="fas fa-check"></i> Mark as Complete
+                        </button>
+                        <button class="btn btn-secondary" id="nextBtn" onclick="nextModule()">
+                            <i class="fas fa-arrow-right"></i> Next Module
+                        </button>
+                        <button class="btn btn-secondary" id="prevBtn" onclick="prevModule()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="course-sidebar" id="courseSidebar">
+                <div class="sidebar-header">
+                    <h2>Course Contents</h2>
+                    <p class="course-progress-text" id="progressText">0% Complete</p>
+                </div>
+
+                <div class="modules-list" id="modulesList">
+                    <!-- Modules will be inserted here -->
+                </div>
+
+                <div class="certificate-banner" id="certificateBanner">
+                    <h3>🎉 Course Complete!</h3>
+                    <p>You've completed all modules. Download your certificate.</p>
+                    <a href="#" class="btn btn-secondary" onclick="downloadCertificate()">
+                        <i class="fas fa-certificate"></i> Get Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3001/api'; // Local testing
+        let courseData = null;
+        let modules = [];
+        let currentModuleIndex = 0;
+        let token = localStorage.getItem('elitech_token');
+
+        async function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+            const moduleId = urlParams.get('module');
+
+            if (!courseId) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            if (!token) {
+                showAccessDenied();
+                return;
+            }
+
+            try {
+                // Check user access
+                const userRes = await fetch(`${API_URL}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const userData = await userRes.json();
+
+                if (!userData.user?.has_access) {
+                    showAccessDenied();
+                    return;
+                }
+
+                // Load course
+                const courseRes = await fetch(`${API_URL}/courses/${courseId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                courseData = (await courseRes.json()).course;
+
+                if (!courseData) {
+                    alert('Course not found');
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+
+                // Load user progress
+                const progressRes = await fetch(`${API_URL}/users/progress/${courseId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const progressData = await progressRes.json();
+                modules = progressData.modules || courseData.modules || [];
+
+                // Find starting module
+                if (moduleId) {
+                    currentModuleIndex = modules.findIndex(m => m.id === moduleId);
+                    if (currentModuleIndex === -1) currentModuleIndex = 0;
+                }
+
+                showPlayer();
+                renderModulesList();
+                loadModule(currentModuleIndex);
+            } catch (err) {
+                console.error('Error loading course:', err);
+                showAccessDenied();
+            }
+        }
+
+        function showAccessDenied() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('accessDenied').style.display = 'flex';
+        }
+
+        function showPlayer() {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('mainPlayer').style.display = 'grid';
+            document.getElementById('courseName').textContent = courseData.title;
+        }
+
+        function renderModulesList() {
+            const container = document.getElementById('modulesList');
+            container.innerHTML = modules.map((module, index) => `
+                <div class="module-item ${module.completed ? 'completed' : ''} ${index === currentModuleIndex ? 'active' : ''}"
+                     onclick="loadModule(${index})" data-index="${index}">
+                    <div class="module-check">
+                        ${module.completed ? '<i class="fas fa-check" style="color: white; font-size: 0.75rem;"></i>' : ''}
+                    </div>
+                    <div class="module-info">
+                        <h4>${module.title}</h4>
+                        <span>${module.duration_min || 10} min</span>
+                    </div>
+                </div>
+            `).join('');
+
+            updateProgress();
+        }
+
+        function loadModule(index) {
+            if (index < 0 || index >= modules.length) return;
+
+            currentModuleIndex = index;
+            const module = modules[index];
+
+            // Update active state
+            document.querySelectorAll('.module-item').forEach(el => el.classList.remove('active'));
+            document.querySelector(`[data-index="${index}"]`)?.classList.add('active');
+
+            // Update UI
+            document.getElementById('moduleTitle').textContent = module.title;
+            document.getElementById('moduleMeta').textContent = `Module ${index + 1} of ${modules.length} • ${module.duration_min || 10} min`;
+
+            // Load video
+            const videoContainer = document.getElementById('videoPlayer');
+            if (module.video_url) {
+                if (module.video_url.includes('youtube') || module.video_url.includes('youtu.be')) {
+                    const videoId = extractYouTubeId(module.video_url);
+                    videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen style="width: 100%; height: 60vh;"></iframe>`;
+                } else if (module.video_url.includes('vimeo')) {
+                    const videoId = module.video_url.split('/').pop();
+                    videoContainer.innerHTML = `<iframe src="https://player.vimeo.com/video/${videoId}" frameborder="0" allowfullscreen style="width: 100%; height: 60vh;"></iframe>`;
+                } else {
+                    videoContainer.innerHTML = `<video src="${module.video_url}" controls style="width: 100%; max-height: 60vh;"></video>`;
+                }
+            } else {
+                videoContainer.innerHTML = `
+                    <div style="text-align: center; padding: 4rem; color: rgba(255,255,255,0.5);">
+                        <i class="fas fa-video-slash" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <p>No video available for this module</p>
+                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">Check the course materials or content below</p>
+                    </div>
+                `;
+            }
+
+            // Update complete button
+            const completeBtn = document.getElementById('completeBtn');
+            if (module.completed) {
+                completeBtn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                completeBtn.disabled = true;
+                completeBtn.style.opacity = '0.6';
+            } else {
+                completeBtn.innerHTML = '<i class="fas fa-check"></i> Mark as Complete';
+                completeBtn.disabled = false;
+                completeBtn.style.opacity = '1';
+            }
+
+            // Update URL
+            history.replaceState(null, '', `?id=${courseData.id}&module=${module.id}`);
+        }
+
+        function extractYouTubeId(url) {
+            const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+            return match ? match[1] : '';
+        }
+
+        async function markComplete() {
+            const module = modules[currentModuleIndex];
+            if (module.completed) return;
+
+            try {
+                await fetch(`${API_URL}/courses/modules/${module.id}/complete`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                module.completed = true;
+                renderModulesList();
+                loadModule(currentModuleIndex);
+
+                // Check if course complete
+                if (modules.every(m => m.completed)) {
+                    document.getElementById('certificateBanner').classList.add('visible');
+                }
+            } catch (err) {
+                console.error('Error marking complete:', err);
+                alert('Failed to mark as complete. Please try again.');
+            }
+        }
+
+        function nextModule() {
+            if (currentModuleIndex < modules.length - 1) {
+                loadModule(currentModuleIndex + 1);
+            }
+        }
+
+        function prevModule() {
+            if (currentModuleIndex > 0) {
+                loadModule(currentModuleIndex - 1);
+            }
+        }
+
+        function updateProgress() {
+            const completed = modules.filter(m => m.completed).length;
+            const total = modules.length;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').textContent = `${percent}% Complete (${completed}/${total})`;
+
+            if (percent === 100) {
+                document.getElementById('certificateBanner').classList.add('visible');
+            }
+        }
+
+        async function downloadCertificate() {
+            try {
+                const res = await fetch(`${API_URL}/certificates/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ courseId: courseData.id })
+                });
+                const data = await res.json();
+
+                if (data.certificate) {
+                    window.open(`${API_URL}/certificates/${data.certificate.id}/download`, '_blank');
+                }
+            } catch (err) {
+                console.error('Certificate error:', err);
+                alert('Failed to generate certificate. Please try again.');
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('courseSidebar').classList.toggle('mobile-open');
+        }
+
+        // Initialize
+        init();
+    </script>
+    <!-- Cookie Consent Banner -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

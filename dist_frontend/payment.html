@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Secure Payment for Elitech Hub Cybersecurity Training Programs. Pay with Paystack, Flutterwave, or Selar.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Payment - Elitech Hub</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/theme.css">
+
+    <!-- Paystack SDK -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <!-- Flutterwave SDK -->
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+    <style>
+        :root {
+            --primary: #c3151c;
+            --primary-dark: #9e1115;
+            --secondary: #12346b;
+            --dark: #0A0A0A;
+            --light: #F9FAFB;
+            --gray: #6B7280;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .payment-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .payment-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .payment-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Order Summary Card */
+        .order-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .order-summary h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .program-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .program-features {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .program-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .program-features li i {
+            color: var(--success);
+        }
+
+        .price-breakdown {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .price-total {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--success);
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Payment Methods Card */
+        .payment-methods {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            color: var(--dark);
+        }
+
+        .payment-methods h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .customer-form {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary);
+            background: rgba(195, 21, 28, 0.05);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background: rgba(195, 21, 28, 0.1);
+        }
+
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+
+        .payment-option .radio-circle {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #D1D5DB;
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .payment-option.selected .radio-circle {
+            border-color: var(--primary);
+        }
+
+        .payment-option.selected .radio-circle::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .payment-option .gateway-logo {
+            height: 30px;
+            margin-right: 1rem;
+        }
+
+        .payment-option .gateway-info {
+            flex: 1;
+        }
+
+        .payment-option .gateway-name {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .payment-option .gateway-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .btn-pay {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(195, 21, 28, 0.4);
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .security-badge i {
+            color: var(--success);
+        }
+
+        /* Selar Widget Styles */
+        .selar-widget {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: #F9FAFB;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .selar-widget p {
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .selar-widget a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #5B21B6;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .selar-widget a:hover {
+            background: #4C1D95;
+        }
+
+        /* Success Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            max-width: 500px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .modal-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .modal-content h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-modal {
+            padding: 0.875rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <!-- Navigation (Direct Injection) -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 40px; width: auto; margin-right: 0.5rem;">
+                <span>Elitech<span class="logo-highlight">Hub</span></span>
+            </a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Learn <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
+                                class="fas fa-microscope"></i> Researcher Portal</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Company <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp;
+                            Trust</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                        data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i
+                        class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Learn</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="programs.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        </li>
+                        <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                        <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                        <li><a href="researcher-guidelines.html" class="nav-link" style="color: #7C3AED;"><i
+                                    class="fas fa-microscope"></i> Researcher Portal</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Company</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp;
+                                Trust</a></li>
+                    </ul>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get
+                        Involved</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Apply Now</a>
+        </div>
+    </nav>
+
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1>💳 Complete Your Payment</h1>
+            <p>Secure payment powered by trusted payment providers</p>
+        </div>
+
+        <div class="payment-grid">
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2><i class="fas fa-receipt"></i> Order Summary</h2>
+
+                <div class="program-card">
+                    <span class="program-badge" id="programBadge">16 WEEKS</span>
+                    <div class="program-title" id="programTitle">Professional Cybersecurity Program</div>
+                    <ul class="program-features" id="programFeatures">
+                        <li><i class="fas fa-check"></i> Comprehensive 16-week training</li>
+                        <li><i class="fas fa-check"></i> Guaranteed internship placement</li>
+                        <li><i class="fas fa-check"></i> Industry certifications</li>
+                        <li><i class="fas fa-check"></i> 1-on-1 mentorship</li>
+                        <li><i class="fas fa-check"></i> Job placement support</li>
+                    </ul>
+                </div>
+
+                <div class="price-breakdown">
+                    <div class="price-row">
+                        <span>Program Fee</span>
+                        <span id="programFee">₦200,000</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Discount</span>
+                        <span id="discount" style="color: var(--success);">-₦0</span>
+                    </div>
+                    <div class="price-row price-total">
+                        <span>Total</span>
+                        <span id="totalAmount">₦200,000</span>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.2); border-radius: 0.75rem; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <p style="font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-info-circle" style="color: var(--success);"></i>
+                        Payment plans available. Contact us for flexible options.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h2><i class="fas fa-credit-card" style="color: var(--primary);"></i> Payment Details</h2>
+
+                <form id="paymentForm" class="customer-form">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="customerName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="customerEmail" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="customerPhone" required placeholder="+234 800 000 0000">
+                    </div>
+                </form>
+
+                <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--dark);">Select Payment
+                    Method</h3>
+
+                <div class="payment-options">
+                    <!-- Paystack -->
+                    <label class="payment-option selected" data-gateway="paystack">
+                        <input type="radio" name="gateway" value="paystack" checked>
+                        <div class="radio-circle"></div>
+                        <img src="https://website-v3-assets.s3.amazonaws.com/assets/img/hero/Paystack-mark-white-twitter.png"
+                            alt="Paystack" class="gateway-logo"
+                            style="background: #00C3F7; padding: 5px; border-radius: 4px;">
+                        <div class="gateway-info">
+                            <div class="gateway-name">Paystack</div>
+                            <div class="gateway-desc">Cards, Bank Transfer, USSD</div>
+                        </div>
+                    </label>
+
+                    <!-- Flutterwave -->
+                    <label class="payment-option" data-gateway="flutterwave">
+                        <input type="radio" name="gateway" value="flutterwave">
+                        <div class="radio-circle"></div>
+                        <img src="https://flutterwave.com/images/logo/full.svg" alt="Flutterwave" class="gateway-logo"
+                            style="height: 24px;">
+                        <div class="gateway-info">
+                            <div class="gateway-name">Flutterwave</div>
+                            <div class="gateway-desc">Cards, Mobile Money, Bank</div>
+                        </div>
+                    </label>
+
+                    <!-- Selar -->
+                    <label class="payment-option" data-gateway="selar">
+                        <input type="radio" name="gateway" value="selar">
+                        <div class="radio-circle"></div>
+                        <div
+                            style="width: 30px; height: 30px; background: #5B21B6; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">
+                            <i class="fas fa-shopping-cart" style="color: white; font-size: 14px;"></i>
+                        </div>
+                        <div class="gateway-info">
+                            <div class="gateway-name">Selar</div>
+                            <div class="gateway-desc">Buy directly on Selar marketplace</div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Selar Widget (hidden by default) -->
+                <div class="selar-widget" id="selarWidget">
+                    <p>You'll be redirected to Selar to complete your purchase</p>
+                    <a href="#" id="selarLink" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Continue to Selar
+                    </a>
+                </div>
+
+                <button type="button" class="btn-pay" id="payBtn" onclick="processPayment()">
+                    <i class="fas fa-lock"></i>
+                    <span>Pay ₦<span id="btnAmount">200,000</span></span>
+                </button>
+
+                <div class="security-badges">
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i> 256-bit SSL
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-lock"></i> PCI DSS Compliant
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-check-circle"></i> Secure Checkout
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Payment Successful!</h2>
+            <p>Thank you for your payment. You'll receive a confirmation email shortly with your enrollment details.</p>
+            <button class="btn-modal" onclick="closeModal()">Go to Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Navbar Script -->
+    <script src="js/navbar.js"></script>
+
+    <script>
+        // Configuration - Replace with your actual keys
+        const CONFIG = {
+            paystack: {
+                publicKey: 'pk_test_xxxxxxxxxx'
+            },
+            flutterwave: {
+                publicKey: 'FLWPUBK-492c41a83d130518ddc962ac8b03df60-X'
+            },
+            selar: {
+                // Selar product links
+                '6week': 'https://selar.co/your-6week-product-link',
+                '16week': 'https://selar.co/your-16week-product-link'
+            }
+        };
+
+        const CURRENCY_CONFIG = {
+            'NGN': { symbol: '₦', rate: 1 },
+            'USD': { symbol: '$', rate: 0.00065 }, // 1 NGN -> USD
+            'GBP': { symbol: '£', rate: 0.00051 }, // 1 NGN -> GBP
+            'EUR': { symbol: '€', rate: 0.00060 }  // 1 NGN -> EUR
+        };
+
+        // Program pricing
+        const PROGRAMS = {
+            '6week': {
+                name: '6-Week Bootcamp',
+                badge: '6 WEEKS',
+                price: 70000, // Base price in NGN
+                features: [
+                    '6 weeks intensive training',
+                    'Weekend classes',
+                    'Hands-on labs & projects',
+                    'Certificate of completion',
+                    'Alumni network access'
+                ]
+            },
+            '16week': {
+                name: '16-Week Professional Program',
+                badge: '16 WEEKS • FLAGSHIP',
+                price: 200000, // Base price in NGN
+                features: [
+                    'Comprehensive 16-week training',
+                    'Guaranteed internship placement',
+                    'Industry certifications',
+                    '1-on-1 mentorship',
+                    'Job placement support'
+                ]
+            }
+        };
+
+        let selectedProgram = '16week';
+        let selectedGateway = 'paystack';
+        let currentCurrency = 'NGN';
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get params from URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Program
+            const program = params.get('program');
+            if (program && PROGRAMS[program]) {
+                selectedProgram = program;
+            }
+
+            // User Info
+            if (params.get('name')) document.getElementById('customerName').value = params.get('name');
+            if (params.get('email')) document.getElementById('customerEmail').value = params.get('email');
+
+            // Currency (passed from services/pricing manager or auto-detected)
+            const currencyParam = params.get('currency');
+            const storedCurrency = localStorage.getItem('elitech_user_currency');
+
+            if (currencyParam && CURRENCY_CONFIG[currencyParam]) {
+                currentCurrency = currencyParam;
+            } else if (storedCurrency && CURRENCY_CONFIG[storedCurrency]) {
+                currentCurrency = storedCurrency;
+            }
+
+            updateProgramDisplay();
+
+            // Payment option selection
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    this.querySelector('input').checked = true;
+                    selectedGateway = this.dataset.gateway;
+
+                    // Show/hide Selar widget
+                    const selarWidget = document.getElementById('selarWidget');
+                    const payBtn = document.getElementById('payBtn');
+                    if (selectedGateway === 'selar') {
+                        selarWidget.style.display = 'block';
+                        payBtn.style.display = 'none';
+                        document.getElementById('selarLink').href = CONFIG.selar[selectedProgram];
+                    } else {
+                        selarWidget.style.display = 'none';
+                        payBtn.style.display = 'flex';
+                    }
+                });
+            });
+        });
+
+        function getConvertedPrice(basePriceNGN) {
+            if (currentCurrency === 'NGN') return basePriceNGN;
+
+            // Convert and round
+            const rate = CURRENCY_CONFIG[currentCurrency].rate;
+            const converted = basePriceNGN * rate;
+
+            // Round to sensible numbers (nearest 5 or 10)
+            return Math.ceil(converted / 5) * 5;
+        }
+
+        function formatCurrency(amount) {
+            const symbol = CURRENCY_CONFIG[currentCurrency].symbol;
+            return symbol + amount.toLocaleString();
+        }
+
+        function updateProgramDisplay() {
+            const program = PROGRAMS[selectedProgram];
+            const price = getConvertedPrice(program.price);
+
+            document.getElementById('programBadge').textContent = program.badge;
+            document.getElementById('programTitle').textContent = program.name;
+
+            document.getElementById('programFee').textContent = formatCurrency(price);
+            document.getElementById('totalAmount').textContent = formatCurrency(price);
+            document.getElementById('btnAmount').textContent = price.toLocaleString();
+
+            // Update currency symbol in button
+            const btnPay = document.getElementById('payBtn');
+            btnPay.innerHTML = `<i class="fas fa-lock"></i> <span>Pay ${formatCurrency(price)}</span>`;
+
+            const featuresHtml = program.features.map(f =>
+                `<li><i class="fas fa-check"></i> ${f}</li>`
+            ).join('');
+            document.getElementById('programFeatures').innerHTML = featuresHtml;
+
+            // Update Selar link
+            document.getElementById('selarLink').href = CONFIG.selar[selectedProgram];
+        }
+
+        function processPayment() {
+            // Validate form
+            const name = document.getElementById('customerName').value.trim();
+            const email = document.getElementById('customerEmail').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const program = PROGRAMS[selectedProgram];
+
+            // Payment gateways usually expect amount in base currency or specific format
+            // For NGN, passed as is. For USD, gateways handle it differently.
+            // Simplified: We pass the converted amount and specified currency
+
+            const amount = getConvertedPrice(program.price);
+
+            if (selectedGateway === 'paystack') {
+                payWithPaystack(email, amount, name, phone);
+            } else if (selectedGateway === 'flutterwave') {
+                payWithFlutterwave(email, amount, name, phone);
+            }
+        }
+
+        // Paystack Payment
+        function payWithPaystack(email, amount, name, phone) {
+            // Paystack expects amount in kobo/cents
+            const amountInSubunits = amount * 100;
+
+            const handler = PaystackPop.setup({
+                key: CONFIG.paystack.publicKey,
+                email: email,
+                amount: amountInSubunits,
+                currency: currentCurrency, // Support NGN, USD, GHS, ZAR etc
+                metadata: {
+                    custom_fields: [
+                        { display_name: "Mobile Number", variable_name: "mobile_number", value: phone },
+                        { display_name: "Program", variable_name: "program", value: PROGRAMS[selectedProgram].name }
+                    ]
+                },
+                callback: function (response) {
+                    // Verify transaction on backend
+                    document.getElementById('successModal').classList.add('active');
+                },
+                onClose: function () {
+                    alert('Transaction was not completed, window closed.');
+                }
+            });
+            handler.openIframe();
+        }
+
+        // Flutterwave Payment
+        function payWithFlutterwave(email, amount, name, phone) {
+            FlutterwaveCheckout({
+                public_key: CONFIG.flutterwave.publicKey,
+                tx_ref: "ELITECH_" + Math.floor((Math.random() * 1000000000) + 1),
+                amount: amount,
+                currency: currentCurrency,
+                payment_options: "card, mobilemoneyghana, ussd",
+                customer: {
+                    email: email,
+                    phone_number: phone,
+                    name: name,
+                },
+                meta: {
+                    program: PROGRAMS[selectedProgram].name
+                },
+                customizations: {
+                    title: "Elitech Hub",
+                    description: "Payment for " + PROGRAMS[selectedProgram].name,
+                    logo: "https://elitechhub.com/assets/images/logo.png",
+                },
+                callback: function (data) {
+                    document.getElementById('successModal').classList.add('active');
+                    // close modal automatically handled
+                }
+            });
+        }
+
+
+        // Save payment to backend
+        async function savePaymentToBackend(reference, gateway, email, name, phone) {
+            try {
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                // Split Deployment: Point to Vercel Backend
+                const apiUrl = isLocal
+                    ? 'http://localhost:3001/api/payments'
+                    : 'https://elitech-hub.vercel.app/api/payments';
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        reference,
+                        gateway,
+                        email,
+                        name,
+                        phone,
+                        program: selectedProgram,
+                        amount: PROGRAMS[selectedProgram].price
+                    })
+                });
+                const data = await response.json();
+                console.log('Payment saved:', data);
+            } catch (err) {
+                console.error('Failed to save payment:', err);
+            }
+        }
+
+        function showSuccessModal() {
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+            window.location.href = 'index.html';
+        }
+
+        function redirectToThankYou(reference) {
+            const program = PROGRAMS[selectedProgram];
+            const params = new URLSearchParams({
+                reference: reference,
+                type: 'course',
+                name: program.name,
+                amount: program.price.toLocaleString(),
+                currency: 'NGN'
+            });
+            window.location.href = 'thank-you.html?' + params.toString();
+        }
+    </script>
+
+    <!-- Cookie Consent -->
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

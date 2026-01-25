@@ -15,30 +15,42 @@
    1. TABLET & UP (min-width: 768px)
    ============================================ */
 @media (min-width: 768px) {
+
     /* Container adjustments */
     .container {
         padding-left: var(--space-6);
         padding-right: var(--space-6);
+        max-width: 100%;
+        /* Ensure fluid width on tablets */
     }
 
-    /* Typography */
-    h1 { font-size: var(--text-5xl); }
-    h2 { font-size: var(--text-4xl); }
-    h3 { font-size: var(--text-3xl); }
+    /* Typography scale */
+    h1 {
+        font-size: var(--text-5xl);
+    }
+
+    h2 {
+        font-size: var(--text-4xl);
+    }
+
+    h3 {
+        font-size: var(--text-3xl);
+    }
 
     /* Hero adjustments */
     .hero {
-        min-height: 90vh;
+        min-height: 80vh;
+        /* Slightly reduced from 90vh */
     }
 
-    /* Stats grid */
+    /* Stats grid - Safer Auto-fit */
     .stats-box {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 
-    /* Footer grid */
+    /* Footer grid - Safer Auto-fit */
     .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
@@ -46,6 +58,7 @@
    2. DESKTOP & UP (min-width: 1024px)
    ============================================ */
 @media (min-width: 1024px) {
+
     /* Container */
     .container {
         padding-left: var(--space-8);
@@ -71,8 +84,13 @@
     }
 
     /* Typography */
-    h1 { font-size: var(--text-6xl); }
-    h2 { font-size: var(--text-5xl); }
+    h1 {
+        font-size: var(--text-6xl);
+    }
+
+    h2 {
+        font-size: var(--text-5xl);
+    }
 
     /* Footer grid */
     .footer-grid {
@@ -84,20 +102,27 @@
    3. LARGE DESKTOP & UP (min-width: 1280px)
    ============================================ */
 @media (min-width: 1280px) {
+
     /* Container max width */
     .container {
         max-width: var(--container-xl);
     }
 
     /* Typography */
-    h1 { font-size: var(--text-7xl); }
-    h2 { font-size: var(--text-6xl); }
+    h1 {
+        font-size: var(--text-7xl);
+    }
+
+    h2 {
+        font-size: var(--text-6xl);
+    }
 }
 
 /* ============================================
    4. MOBILE & TABLET ONLY (max-width: 1023px)
    ============================================ */
 @media (max-width: 1023px) {
+
     /* Hide desktop navigation */
     .nav-desktop {
         display: none;
@@ -145,6 +170,7 @@
    5. MOBILE ONLY (max-width: 767px)
    ============================================ */
 @media (max-width: 767px) {
+
     /* Root font size */
     html {
         font-size: 15px;
@@ -157,10 +183,21 @@
     }
 
     /* Typography */
-    h1 { font-size: var(--text-4xl); }
-    h2 { font-size: var(--text-3xl); }
-    h3 { font-size: var(--text-2xl); }
-    h4 { font-size: var(--text-xl); }
+    h1 {
+        font-size: var(--text-4xl);
+    }
+
+    h2 {
+        font-size: var(--text-3xl);
+    }
+
+    h3 {
+        font-size: var(--text-2xl);
+    }
+
+    h4 {
+        font-size: var(--text-xl);
+    }
 
     /* Navigation adjustments */
     .nav-container {
@@ -246,50 +283,56 @@
 }
 
 /* ============================================
-   6. SMALL MOBILE (max-width: 480px)
+   6. SMALL MOBILE (SAMSUNG FOLD COVER) (max-width: 400px)
    ============================================ */
-@media (max-width: 480px) {
-    /* Even smaller font size */
-    html {
-        font-size: 14px;
-    }
+@media (max-width: 400px) {
 
-    /* Container */
+    /* Ultra-narrow container */
     .container {
         padding-left: var(--space-3);
         padding-right: var(--space-3);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
     }
 
-    /* Typography */
-    h1 { font-size: var(--text-3xl); }
-    h2 { font-size: var(--text-2xl); }
-    h3 { font-size: var(--text-xl); }
-
-    /* Hero */
-    .hero {
-        padding: var(--space-20) 0 var(--space-12);
+    /* Reduce font sizes mainly for headers */
+    h1 {
+        font-size: var(--text-2xl) !important;
     }
 
-    /* Section padding */
-    .section {
-        padding-top: var(--space-10);
-        padding-bottom: var(--space-10);
+    h2 {
+        font-size: var(--text-xl) !important;
     }
 
-    /* Cards */
-    .card {
-        padding: var(--space-4);
+    h3 {
+        font-size: var(--text-lg) !important;
     }
 
-    /* Buttons smaller */
+    /* Fix Hero Section */
+    .hero-title {
+        font-size: 2.5rem !important;
+        /* Force smaller title */
+        word-break: break-word;
+        /* Prevent overflow */
+    }
+
+    .hero-stats {
+        padding: var(--space-3);
+    }
+
+    /* Buttons full width */
     .btn {
-        padding: var(--space-2) var(--space-4);
-        font-size: 0.8125rem;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
     }
 
-    /* Stats */
-    .stat-number {
-        font-size: var(--text-4xl);
+    /* Hide complex floating elements */
+    .skill-cards,
+    .hero-video-overlay::before {
+        display: none !important;
     }
 }
 
@@ -297,6 +340,7 @@
    7. LANDSCAPE ORIENTATION
    ============================================ */
 @media (max-width: 1023px) and (orientation: landscape) {
+
     /* Reduce hero height in landscape */
     .hero {
         min-height: auto;
@@ -324,6 +368,7 @@
    8. PRINT STYLES
    ============================================ */
 @media print {
+
     /* Hide interactive elements */
     .navbar,
     .mobile-menu-btn,
@@ -355,7 +400,9 @@
 /* ============================================
    9. HIGH RESOLUTION DISPLAYS
    ============================================ */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
     /* Optimize for Retina displays */
     body {
         -webkit-font-smoothing: antialiased;
@@ -373,6 +420,7 @@
    10. TOUCH DEVICES
    ============================================ */
 @media (hover: none) and (pointer: coarse) {
+
     /* Larger touch targets */
     .btn {
         min-height: 44px;
@@ -397,7 +445,8 @@
     .form-textarea,
     .form-select {
         min-height: 44px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: 16px;
+        /* Prevents zoom on iOS */
     }
 }
 
@@ -413,6 +462,7 @@
    12. REDUCED DATA MODE
    ============================================ */
 @media (prefers-reduced-data: reduce) {
+
     /* Reduce heavy assets */
     .hero::before {
         display: none;
@@ -429,6 +479,7 @@
    13. CONTRAST PREFERENCES
    ============================================ */
 @media (prefers-contrast: high) {
+
     /* Increase contrast for accessibility */
     .btn-outline {
         border-width: 3px;
