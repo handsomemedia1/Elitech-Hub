@@ -151,6 +151,10 @@ body {
     background-clip: text;
     position: relative;
     display: inline-block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
 }
 
 /* Gradient underline animation */

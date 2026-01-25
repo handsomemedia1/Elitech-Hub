@@ -1979,20 +1979,10 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Hide badges on mobile screens to prevent overlapping content */
         @media (max-width: 768px) {
             #certificateBadges {
-                bottom: 80px;
-                right: 10px;
-            }
-
-            .cert-badge {
-                font-size: 0.625rem !important;
-            }
-
-            .cert-badge>div:first-child {
-                width: 30px !important;
-                height: 30px !important;
-                font-size: 0.75rem !important;
+                display: none !important;
             }
         }
     </style>
