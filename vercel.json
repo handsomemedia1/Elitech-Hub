@@ -1,5 +1,17 @@
 {
     "version": 2,
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "https://elitechub.com",
+            "permanent": true
+        },
+        {
+            "source": "/((?!api).*)",
+            "destination": "https://elitechub.com/$1",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/api/(.*)",
