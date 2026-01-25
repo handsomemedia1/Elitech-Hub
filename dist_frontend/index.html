@@ -72,10 +72,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    <!-- Font Awesome - Deferred Loading -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    </noscript>
 
     <!-- External CSS -->
     <link rel="stylesheet" href="css/core.css">
@@ -2095,11 +2099,11 @@
         }
     </style>
 
-    <script src="js/security.js"></script>
-    <script src="js/seo.js"></script>
-    <script src="js/certificates.js"></script>
+    <script src="js/security.js" defer></script>
+    <script src="js/seo.js" defer></script>
+    <script src="js/certificates.js" defer></script>
     <script src="js/main.js"></script>
-    <script src="js/hero-animation.js"></script>
+    <script src="js/hero-animation.js" defer></script>
     <script>
         // Mobile Dropdown Toggle Function
         function toggleMobileDropdown(header) {
@@ -2117,14 +2121,14 @@
     </script>
 
     <!-- Global Search -->
-    <script src="js/search.js"></script>
+    <script src="js/search.js" defer></script>
 
     <!-- Cookie Consent Banner -->
-    <script src="js/cookie-consent.js"></script>
+    <script src="js/cookie-consent.js" defer></script>
 
     <!-- Chatbot Widget -->
     <link rel="stylesheet" href="css/chatbot.css">
-    <script src="js/chatbot.js"></script>
+    <script src="js/chatbot.js" defer></script>
 
     <!-- Page Loader Hide Script -->
     <script>
