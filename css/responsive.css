@@ -334,6 +334,42 @@
     .hero-video-overlay::before {
         display: none !important;
     }
+
+    /* Override inline styles for every element with excessive padding */
+    * [style*="padding: 2rem"],
+    * [style*="padding: 3rem"],
+    * [style*="padding: 4rem"],
+    * [style*="gap: 3rem"] {
+        padding: 1rem !important;
+        gap: 1rem !important;
+    }
+
+    /* Force max-width on everything to prevent overflow */
+    * [style*="max-width"],
+    * [style*="min-width"],
+    * {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    /* Ensure no element causes horizontal scroll */
+    html,
+    body {
+        overflow-x: hidden !important;
+    }
+
+    /* Make all grids single column */
+    [style*="grid-template-columns"],
+    [style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stack flex containers */
+    [style*="display: flex"] {
+        flex-direction: column !important;
+    }
 }
 
 /* ============================================

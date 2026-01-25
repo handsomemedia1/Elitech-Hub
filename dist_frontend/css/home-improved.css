@@ -35,12 +35,10 @@
 .hero-video-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(18, 52, 107, 0.4) 0%,
-        rgba(12, 35, 70, 0.35) 50%,
-        rgba(195, 21, 28, 0.3) 100%
-    );
+    background: linear-gradient(135deg,
+            rgba(18, 52, 107, 0.4) 0%,
+            rgba(12, 35, 70, 0.35) 50%,
+            rgba(195, 21, 28, 0.3) 100%);
     z-index: 1;
 }
 
@@ -94,7 +92,7 @@
 .trust-badge:hover {
     transform: translateY(-3px);
     background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .trust-badge i {
@@ -132,8 +130,13 @@
 }
 
 @keyframes expandWidth {
-    from { width: 0; }
-    to { width: 100px; }
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100px;
+    }
 }
 
 /* Hero Subtitle */
@@ -204,8 +207,15 @@
 }
 
 @keyframes countUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* CTA Buttons */
@@ -388,8 +398,13 @@
 }
 
 @keyframes scanline {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(100vh); }
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
 }
 
 /* ============================================
@@ -577,7 +592,7 @@
     right: -10%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     border-radius: 50%;
 }
 
@@ -603,7 +618,8 @@
 
 .testimonial-card {
     flex: 0 0 calc(33.333% - 1.5rem);
-    min-width: 350px;
+    min-width: 280px;
+    /* Reduced from 350px for narrow screens */
     scroll-snap-align: start;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
@@ -611,6 +627,15 @@
     border-radius: 1.5rem;
     padding: 3rem;
     transition: all 0.3s ease;
+}
+
+/* Force single card on very narrow screens */
+@media (max-width: 400px) {
+    .testimonial-card {
+        flex: 0 0 100%;
+        min-width: 100%;
+        padding: 2rem;
+    }
 }
 
 .testimonial-card:hover {
@@ -711,6 +736,7 @@
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -722,6 +748,7 @@
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -733,6 +760,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
