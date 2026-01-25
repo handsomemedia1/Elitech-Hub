@@ -311,3 +311,31 @@
         display: block;
     }
 }
+
+/* Enhancements for Fold 4 and Small Mobiles */
+@media (max-width: 450px) {
+    .nav-container {
+        padding: 0.75rem 1rem;
+        /* Reduce padding from 2rem */
+    }
+
+    .logo {
+        font-size: 1.25rem;
+        /* Smaller logo text */
+    }
+
+    /* Hide the "Apply Now" button in header on small screens to make room for menu */
+    .nav-actions .btn {
+        display: none;
+    }
+
+    /* Ensure the search button stays visible */
+    .search-trigger {
+        display: block;
+    }
+
+    /* Boost Z-Index */
+    .navbar {
+        z-index: 9999;
+    }
+}
