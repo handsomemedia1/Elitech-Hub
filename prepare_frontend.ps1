@@ -16,4 +16,10 @@ foreach ($folder in $folders) {
     }
 }
 
+# Copy _redirects file for Netlify API proxying
+if (Test-Path "$source\_redirects") {
+    Copy-Item -Path "$source\_redirects" -Destination "$dest\_redirects"
+    Write-Host "✅ Copied _redirects for Netlify"
+}
+
 Write-Host "Frontend build ready at: $dest"

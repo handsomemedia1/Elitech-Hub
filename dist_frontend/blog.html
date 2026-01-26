@@ -537,6 +537,12 @@
     <link rel="stylesheet" href="css/chatbot.css">
     <script src="js/chatbot.js"></script>
     <script>
+        // Mobile Dropdown Toggle Function
+        function toggleMobileDropdown(header) {
+            const dropdown = header.parentElement;
+            dropdown.classList.toggle('active');
+        }
+
         // Hide loader when page loads
         window.addEventListener('load', function () {
             document.getElementById('pageLoader').classList.add('hidden');
