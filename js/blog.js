@@ -29,7 +29,7 @@ class BlogManager {
 
             // Determine API URL based on environment
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-                ? 'http://localhost:3001/api/blog/trending'
+                ? 'https://elitech-hub.vercel.app/api/blog/trending'
                 : '/api/blog/trending';
 
             const response = await fetch(API_URL);
@@ -60,7 +60,7 @@ class BlogManager {
         try {
             // Determine API URL based on environment
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-                ? 'http://localhost:3001/api/blog'
+                ? 'https://elitech-hub.vercel.app/api/blog'
                 : '/api/blog';
 
             const response = await fetch(API_URL);

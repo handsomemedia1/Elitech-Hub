@@ -25,7 +25,7 @@
     }
 
     // Custom view tracking for blog posts
-    const API_URL = 'http://localhost:3001/api'; // Update for production
+    const API_URL = 'https://elitech-hub.vercel.app/api'; // Update for production
 
     // Track page view (for blog posts)
     window.trackPageView = async function (postId, postSlug) {

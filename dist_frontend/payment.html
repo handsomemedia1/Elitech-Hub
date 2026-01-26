@@ -904,7 +904,7 @@
                 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
                 // Split Deployment: Point to Vercel Backend
                 const apiUrl = isLocal
-                    ? 'http://localhost:3001/api/payments'
+                    ? 'https://elitech-hub.vercel.app/api/payments'
                     : 'https://elitech-hub.vercel.app/api/payments';
 
                 const response = await fetch(apiUrl, {

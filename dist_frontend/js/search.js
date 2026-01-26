@@ -5,7 +5,7 @@
 
 class ElitechSearch {
     constructor() {
-        this.apiUrl = 'http://localhost:3001/api'; // Local testing
+        this.apiUrl = 'https://elitech-hub.vercel.app/api'; // Local testing
         this.isOpen = false;
         this.searchTimeout = null;
         this.init();

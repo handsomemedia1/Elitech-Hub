@@ -2108,7 +2108,7 @@
             };
 
             try {
-                const res = await fetch('http://localhost:3001/api/inquiries/student', {
+                const res = await fetch('https://elitech-hub.vercel.app/api/inquiries/student', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)

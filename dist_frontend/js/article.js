@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             // For now, let's try to fetch by slug if possible, else fetch list.
             // Actually, simplest is to assume /api/blog/:id works if backend updated, or just fetch list and find.
             // Let's rely on the list fetch for ID since backend showed /:slug.
-            url = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/blog' : '/api/blog';
+            url = window.location.hostname === 'localhost' ? 'https://elitech-hub.vercel.app/api/blog' : '/api/blog';
         } else {
-            url = window.location.hostname === 'localhost' ? `http://localhost:3001/api/blog/${slug}` : `/api/blog/${slug}`;
+            url = window.location.hostname === 'localhost' ? `https://elitech-hub.vercel.app/api/blog/${slug}` : `/api/blog/${slug}`;
         }
 
         // FETCH CONTENT
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // We only track if we haven't tracked this session to avoid spamming
         const sessionKey = `viewed_post_${post.id}`;
         if (!sessionStorage.getItem(sessionKey)) {
-            const trackUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001/api/blog/track-view' : '/api/blog/track-view';
+            const trackUrl = window.location.hostname === 'localhost' ? 'https://elitech-hub.vercel.app/api/blog/track-view' : '/api/blog/track-view';
             await fetch(trackUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
