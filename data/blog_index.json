@@ -1,5 +1,32 @@
 [
   {
+    "title": "CISO priorities for 2025",
+    "slug": "ciso-priorities-for-2025",
+    "category": "career",
+    "excerpt": "Guide on CISO priorities for 2025",
+    "date": "2026-02-01",
+    "readTime": "3 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "Top Cybersecurity Scholarships for 2026 (Week of 11/01/2026)",
+    "slug": "scholarship-template-example",
+    "category": "scholarship",
+    "excerpt": "Latest cybersecurity scholarships for 2026. Apply for 10 new opportunities this week.",
+    "date": "2026-02-01",
+    "readTime": "4 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "How to Set Up a Home Lab for Cybersecurity Practice",
+    "slug": "tutorial-home-lab-setup",
+    "category": "tutorial",
+    "excerpt": "Learn how to build your own cybersecurity home lab for hands-on practice. Step-by-step guide covering virtualization, vulnerable VMs, and essential tools.",
+    "date": "2026-02-01",
+    "readTime": "6 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
     "title": "Introduction to Dast Tools Tutorial",
     "slug": "tutorial-2026-01-21-introduction-to-dast-tools-tutorial",
     "category": "tutorial",
@@ -51,5 +78,50 @@
     "date": "2026-01-20",
     "readTime": "14 min read",
     "difficulty": "intermediate"
+  },
+  {
+    "title": "Cybersecurity jobs available right now: January 20, 2026",
+    "slug": "news-2026-01-20-cybersecurity-jobs-available-right-now-january-20-",
+    "category": "news",
+    "excerpt": "Here are the worldwide cybersecurity job openings available as of January 20, 2026, including on-site, hybrid, and remote roles.",
+    "date": "2026-01-20",
+    "readTime": "3 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "Top Cybersecurity Scholarships for 2026 (Week of 01/20/2026)",
+    "slug": "scholarship-roundup-2026-01-20",
+    "category": "scholarship",
+    "excerpt": "Comprehensive guide to cybersecurity scholarships with application strategies, eligibility requirements, and expert tips. Updated January 20, 2026.",
+    "date": "2026-01-20",
+    "readTime": "7 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "Tech Billionaire Calls for Government Control of Social Media Platforms",
+    "slug": "news-2026-01-11-futurism",
+    "category": "news",
+    "excerpt": "A prominent tech billionaire's controversial statement about suspending freedom of speech on social platforms has sparked widespread debate in the cybersecurity community.",
+    "date": "2026-01-11",
+    "readTime": "3 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "How to Change Your Location with a VPN",
+    "slug": "news-2026-01-11-slashdot.org",
+    "category": "news",
+    "excerpt": "Learn how to change your virtual location with a VPN to bypass geo-restrictions, protect your privacy, and access content from anywhere in the world.",
+    "date": "2026-01-11",
+    "readTime": "3 min read",
+    "image": "assets/images/logo.png"
+  },
+  {
+    "title": "Top Cybersecurity Scholarships for 2026 (Week of 11/01/2026)",
+    "slug": "scholarship-roundup-2026-01-11",
+    "category": "scholarship",
+    "excerpt": "Latest cybersecurity scholarships for 2026. Apply for 10 new opportunities this week.",
+    "date": "2026-01-11",
+    "readTime": "6 min read",
+    "image": "assets/images/logo.png"
   }
 ]
