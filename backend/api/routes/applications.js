@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             fullName,
             email,
             phone,
-            state,
+            country,
             education,
             occupation,
             motivation
@@ -42,8 +42,8 @@ router.post('/', async (req, res) => {
 
         // Get program details
         const programDetails = {
-            'bootcamp': { name: '6-Week Bootcamp', price: 45000 },
-            'professional': { name: '16-Week Professional Program', price: 75000 }
+            'bootcamp': { name: '6-Week Bootcamp', price: 70000 },
+            'professional': { name: '16-Week Professional Program', price: 200000 }
         };
 
         const selectedProgram = programDetails[program] || programDetails['professional'];
@@ -57,7 +57,7 @@ router.post('/', async (req, res) => {
                 full_name: fullName,
                 email: email,
                 phone: phone,
-                state: state || null,
+                country: country || null,
                 education: education || null,
                 occupation: occupation || null,
                 motivation: motivation || null,
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
             applicantName: fullName,
             email: email,
             phone: phone,
-            state: state,
+            state: country,
             education: education,
             occupation: occupation,
             program: selectedProgram.name,

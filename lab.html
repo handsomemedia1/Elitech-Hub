@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Elitech Hub Cybersecurity Lab — Active R&D in detection engineering, threat analysis, defensive infrastructure, and secure development. Evidence-based experimentation, not theory.">
+    <meta name="keywords"
+        content="cybersecurity lab, detection engineering, threat analysis, MITRE ATT&CK, YARA rules, incident response, cybersecurity R&D Nigeria">
+    <meta name="theme-color" content="#06B6D4">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://elitechub.com/lab.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cybersecurity Lab — Elitech Hub">
+    <meta property="og:description"
+        content="Where we actively test, build, and validate cybersecurity solutions. Detection engineering, threat analysis, and defensive infrastructure research.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elitechub.com/lab.html">
+    <meta property="og:image" content="https://elitechub.com/assets/images/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cybersecurity Lab — Elitech Hub">
+    <meta name="twitter:description"
+        content="Active R&D in detection engineering, threat analysis, and secure development.">
+
+    <title>Cybersecurity Lab — Elitech Hub | Active R&D & Experimentation</title>
+
+    <!-- Schema: ResearchOrganization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ResearchOrganization",
+        "name": "Elitech Hub Cybersecurity Lab",
+        "url": "https://elitechub.com/lab.html",
+        "parentOrganization": {
+            "@type": "Organization",
+            "name": "Elitech Hub",
+            "url": "https://elitechub.com"
+        },
+        "description": "Applied cybersecurity research lab focused on detection engineering, threat analysis, defensive infrastructure testing, and secure development practices.",
+        "areaServed": "NG",
+        "knowsAbout": ["Detection Engineering", "Threat Analysis", "MITRE ATT&CK", "Incident Response", "DevSecOps"]
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/advanced.css">
+    <link rel="stylesheet" href="css/programs-enhanced.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/lab.css">
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img loading="lazy" src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 60px; width: auto; filter: drop-shadow(0 0 20px rgba(195, 21, 28, 0.6)); margin-bottom: 0.5rem;">
+                <div class="loader-logo-text">
+                    <span>E</span><span>l</span><span>i</span><span>t</span><span>e</span><span>c</span><span>h</span><span>H</span><span>u</span><span>b</span>
+                </div>
+            </div>
+            <div class="loader-terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">root@elitech:~# lab_init.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line line-1"><span class="prompt">[LAB]</span> Initializing research
+                        environment...</div>
+                    <div class="terminal-line line-2"><span class="prompt">[DETECT]</span> Detection engine: <span
+                            class="success">ACTIVE</span></div>
+                    <div class="terminal-line line-3"><span class="prompt">[THREAT]</span> Threat feeds synced: <span
+                            class="highlight">42 sources</span></div>
+                    <div class="terminal-line line-4"><span class="prompt">[SANDBOX]</span> Sandbox ready: <span
+                            class="success">ISOLATED</span></div>
+                    <div class="terminal-line line-5"><span class="prompt">[YARA]</span> Rules loaded: <span
+                            class="highlight">128 active</span></div>
+                    <div class="terminal-line line-6"><span class="prompt">[SIGMA]</span> Detection logic: ✓</div>
+                    <div class="terminal-line line-7"><span class="prompt">[SYS]</span> Lab environment ready<span
+                            class="cursor">_</span></div>
+                </div>
+            </div>
+            <div class="loader-bar-container">
+                <div class="loader-bar"></div>
+            </div>
+            <div class="loader-status">LAB ACCESS GRANTED</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img loading="lazy" src="assets/images/logo.png" alt="Elitech Hub"
+                    style="height: 40px; width: auto; margin-right: 0.5rem;">
+                <span>Elitech<span class="logo-highlight">Hub</span></span>
+            </a>
+            <ul class="nav-desktop">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Learn <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="lab.html" data-page="lab" style="color: #06B6D4;"><i class="fas fa-vial"></i> Lab</a>
+                        <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
+                                class="fas fa-microscope"></i> Researcher Portal</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Company <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp;
+                            Trust</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                        data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i
+                        class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Learn</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="programs.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        </li>
+                        <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                        <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                        <li><a href="lab.html" class="nav-link" style="color: #06B6D4;"><i class="fas fa-vial"></i>
+                                Lab</a></li>
+                        <li><a href="researcher-guidelines.html" class="nav-link" style="color: #7C3AED;"><i
+                                    class="fas fa-microscope"></i> Researcher Portal</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Company</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp;
+                                Trust</a></li>
+                    </ul>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get
+                        Involved</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Apply Now</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="lab-hero">
+        <div class="container">
+            <div class="lab-hero-content">
+                <div class="lab-badge"><span>🔬 CYBERSECURITY LAB</span></div>
+                <h1>Where We <span>Build, Test & Validate</span></h1>
+                <p>The Elitech Hub Lab is where research meets execution. We experiment with real-world threats, develop
+                    detection logic, and validate defensive controls — grounded in evidence, not assumptions.</p>
+                <div class="lab-hero-stats">
+                    <div class="lab-hero-stat">
+                        <i class="fas fa-vial" style="color: #06B6D4;"></i>
+                        <div>
+                            <div style="color: white; font-weight: 800;" id="statLabUnits">4</div>
+                            <div class="stat-label">Lab Units</div>
+                        </div>
+                    </div>
+                    <div class="lab-hero-stat">
+                        <i class="fas fa-file-alt" style="color: #8B5CF6;"></i>
+                        <div>
+                            <div style="color: white; font-weight: 800;" id="statPapers">—</div>
+                            <div class="stat-label">Papers</div>
+                        </div>
+                    </div>
+                    <div class="lab-hero-stat">
+                        <i class="fas fa-users" style="color: #10B981;"></i>
+                        <div>
+                            <div style="color: white; font-weight: 800;" id="statResearchers">—</div>
+                            <div class="stat-label">Researchers</div>
+                        </div>
+                    </div>
+                    <div class="lab-hero-stat">
+                        <i class="fas fa-eye" style="color: #F59E0B;"></i>
+                        <div>
+                            <div style="color: white; font-weight: 800;" id="statViews">—</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LAB OVERVIEW ========== -->
+    <section class="lab-overview lab-reveal">
+        <div class="container">
+            <div class="lab-overview-content">
+                <h2>Lab Overview</h2>
+                <p>The Elitech Hub Cybersecurity Lab exists to experiment, test, and validate cybersecurity defenses
+                    against real-world threats. Our work is not academic theory — it is grounded in practical
+                    application, real incident data, and reproducible methodology.</p>
+                <p>Every experiment in this lab serves a clear purpose: improve detection accuracy, test defensive
+                    controls under stress, and produce artifacts that practitioners can use. We prioritize depth over
+                    breadth, and evidence over opinion.</p>
+                <div class="lab-overview-pillars">
+                    <div class="lab-pillar"><i class="fas fa-crosshairs"></i><span>Detection Engineering</span></div>
+                    <div class="lab-pillar"><i class="fas fa-bug"></i><span>Incident Response Simulation</span></div>
+                    <div class="lab-pillar"><i class="fas fa-server"></i><span>Secure Infrastructure Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LAB FOCUS AREAS ========== -->
+    <section class="lab-focus lab-reveal">
+        <div class="container">
+            <div class="lab-focus-header">
+                <h2>Lab Focus Areas</h2>
+                <p>Four active lab units, each focused on a distinct problem domain within cybersecurity defense.</p>
+            </div>
+            <div class="lab-units">
+                <!-- Unit 1: Detection Engineering -->
+                <div class="lab-unit">
+                    <div class="lab-unit-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Detection Engineering Lab</h3>
+                    <div class="lab-unit-section">
+                        <h4>What Happens Here</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Development and testing of detection logic (YARA, Sigma)
+                            </li>
+                            <li><i class="fas fa-circle"></i>Evaluation of false positives vs true positives</li>
+                            <li><i class="fas fa-circle"></i>Mapping attacker behavior to detection rules</li>
+                        </ul>
+                    </div>
+                    <div class="lab-unit-section">
+                        <h4>Outputs</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Sample detection rules</li>
+                            <li><i class="fas fa-circle"></i>Case-based detection notes</li>
+                            <li><i class="fas fa-circle"></i>Dashboards and logic diagrams</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Unit 2: Threat Analysis -->
+                <div class="lab-unit">
+                    <div class="lab-unit-icon"><i class="fas fa-spider"></i></div>
+                    <h3>Threat Analysis Lab</h3>
+                    <div class="lab-unit-section">
+                        <h4>What Happens Here</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Analysis of real-world incidents and attack chains</li>
+                            <li><i class="fas fa-circle"></i>Deconstruction of malware behavior</li>
+                            <li><i class="fas fa-circle"></i>Mapping techniques to MITRE ATT&amp;CK</li>
+                        </ul>
+                    </div>
+                    <div class="lab-unit-section">
+                        <h4>Outputs</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Incident breakdowns</li>
+                            <li><i class="fas fa-circle"></i>Threat models</li>
+                            <li><i class="fas fa-circle"></i>Behavioral analysis reports</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Unit 3: Defensive Infrastructure -->
+                <div class="lab-unit">
+                    <div class="lab-unit-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Defensive Infrastructure Lab</h3>
+                    <div class="lab-unit-section">
+                        <h4>What Happens Here</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Testing security controls in simulated environments</li>
+                            <li><i class="fas fa-circle"></i>Evaluating endpoint, network, and cloud defenses</li>
+                            <li><i class="fas fa-circle"></i>Failure-mode analysis of common security setups</li>
+                        </ul>
+                    </div>
+                    <div class="lab-unit-section">
+                        <h4>Outputs</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Hardening guides</li>
+                            <li><i class="fas fa-circle"></i>Configuration experiments</li>
+                            <li><i class="fas fa-circle"></i>Control effectiveness summaries</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Unit 4: Secure Development & DevSecOps -->
+                <div class="lab-unit">
+                    <div class="lab-unit-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>Secure Development &amp; DevSecOps Lab</h3>
+                    <div class="lab-unit-section">
+                        <h4>What Happens Here</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Code review and vulnerability analysis</li>
+                            <li><i class="fas fa-circle"></i>Secure CI/CD experimentation</li>
+                            <li><i class="fas fa-circle"></i>Evaluation of common dev security failures</li>
+                        </ul>
+                    </div>
+                    <div class="lab-unit-section">
+                        <h4>Outputs</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i>Secure coding patterns</li>
+                            <li><i class="fas fa-circle"></i>Vulnerability case studies</li>
+                            <li><i class="fas fa-circle"></i>Pipeline security notes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== METHODOLOGY ========== -->
+    <section class="lab-methodology lab-reveal">
+        <div class="container">
+            <div class="lab-methodology-header">
+                <h2>Our Methodology</h2>
+                <p>How we select, execute, and validate every experiment.</p>
+            </div>
+            <div class="methodology-steps">
+                <div class="methodology-step">
+                    <div class="methodology-step-number">1</div>
+                    <h3>Case Selection</h3>
+                    <p>Cases are drawn from real incidents, simulated attack scenarios, and anonymized data from partner
+                        organizations. We prioritize threats with high relevance to the African digital landscape.</p>
+                </div>
+                <div class="methodology-step">
+                    <div class="methodology-step-number">2</div>
+                    <h3>Experimentation</h3>
+                    <p>Experiments are conducted in isolated sandboxes, virtual lab environments, and test networks. We
+                        document every step, tool, and configuration used for full reproducibility.</p>
+                </div>
+                <div class="methodology-step">
+                    <div class="methodology-step-number">3</div>
+                    <h3>Validation</h3>
+                    <p>Conclusions are validated through repetition, peer review, and comparison against established
+                        frameworks such as MITRE ATT&amp;CK. We publish only what we can defend.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== LAB ARTIFACTS ========== -->
+    <section class="lab-artifacts lab-reveal">
+        <div class="container">
+            <div class="lab-artifacts-header">
+                <h2>Lab Artifacts</h2>
+                <p>Evidence of work. Published research from our active lab experiments.</p>
+            </div>
+            <div class="artifacts-grid" id="artifactsGrid">
+                <!-- Dynamic papers will be loaded here -->
+                <!-- Static fallback cards shown if API returns nothing -->
+                <div class="artifact-card artifact-fallback">
+                    <div class="artifact-card-header"><i class="fas fa-file-code"></i>
+                        <h3>YARA Detection Rule (Sample)</h3>
+                    </div>
+                    <div class="artifact-code">
+                        <span class="keyword">rule</span> Suspicious_PowerShell_Execution {<br>
+                        &nbsp;&nbsp;<span class="comment">// Detects encoded PowerShell commands</span><br>
+                        &nbsp;&nbsp;<span class="keyword">strings:</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;$enc <span class="operator">=</span> <span
+                            class="string">"encodedcommand"</span> <span class="keyword">nocase</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;$bypass <span class="operator">=</span> <span
+                            class="string">"executionpolicy bypass"</span> <span class="keyword">nocase</span><br>
+                        &nbsp;&nbsp;<span class="keyword">condition:</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">any of</span> them<br>
+                        }
+                    </div>
+                    <span class="artifact-tag">Detection Engineering</span>
+                </div>
+                <div class="artifact-card artifact-fallback">
+                    <div class="artifact-card-header"><i class="fas fa-sitemap"></i>
+                        <h3>Attack Chain Diagram</h3>
+                    </div>
+                    <p>Mapped attack flow from initial phishing email to lateral movement, documented using MITRE
+                        ATT&amp;CK technique IDs. Used in training curriculum to illustrate real-world kill chain
+                        progression.</p>
+                    <span class="artifact-tag">Threat Analysis</span>
+                </div>
+                <div class="artifact-card artifact-fallback">
+                    <div class="artifact-card-header"><i class="fas fa-shield-alt"></i>
+                        <h3>Hardening Checklist</h3>
+                    </div>
+                    <p>Configuration baseline for Windows Server 2022 in a domain environment. Covers group policy,
+                        audit logging, credential guard, and network segmentation rules — tested in our lab
+                        infrastructure.</p>
+                    <span class="artifact-tag">Defensive Infrastructure</span>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="research.html" class="lab-cta-btn secondary"><i class="fas fa-flask"></i> View All Research</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESEARCH ↔ TRAINING ========== -->
+    <section class="lab-relationship lab-reveal">
+        <div class="container">
+            <div class="lab-relationship-content">
+                <div class="lab-relationship-text">
+                    <h2>How Lab Informs Training</h2>
+                    <p>Our lab work directly feeds into curriculum design. Detection rules tested here become exercises.
+                        Threat models become case studies. Hardening guides become hands-on labs.</p>
+                    <p>Training participants may contribute to lab work under supervision, creating a feedback loop
+                        between research outputs and educational quality.</p>
+                    <p style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">Training is downstream of
+                        research, not the other way around.</p>
+                </div>
+                <div class="lab-relationship-diagram">
+                    <div class="relationship-flow">
+                        <div class="flow-node research-node"><i class="fas fa-flask"
+                                style="margin-right: 0.5rem;"></i>Research</div>
+                        <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                        <div class="flow-node lab-node"><i class="fas fa-vial" style="margin-right: 0.5rem;"></i>Lab
+                        </div>
+                        <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                        <div class="flow-node training-node"><i class="fas fa-graduation-cap"
+                                style="margin-right: 0.5rem;"></i>Training</div>
+                        <div class="flow-arrow"><i class="fas fa-arrow-up"></i> <span
+                                style="font-size: 0.75rem; color: #64748b;">Feedback</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ETHICS ========== -->
+    <section class="lab-ethics lab-reveal">
+        <div class="container">
+            <div class="lab-ethics-content">
+                <div class="lab-ethics-left">
+                    <h2>Ethics &amp; Responsibility</h2>
+                    <p>All lab work is conducted under strict ethical guidelines. We exist to defend, not exploit.</p>
+                </div>
+                <div class="ethics-items">
+                    <div class="ethics-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Responsible Disclosure</h4>
+                            <p>Vulnerabilities found are reported through proper channels before any publication.</p>
+                        </div>
+                    </div>
+                    <div class="ethics-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>No Live Exploits</h4>
+                            <p>We never publish working exploit code or tools that could be weaponized.</p>
+                        </div>
+                    </div>
+                    <div class="ethics-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Data Privacy</h4>
+                            <p>No sensitive victim data is exposed. All case data is anonymized and sanitized.</p>
+                        </div>
+                    </div>
+                    <div class="ethics-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Defensive Intent</h4>
+                            <p>All research is conducted for educational and defensive purposes only.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="lab-cta lab-reveal">
+        <div class="container">
+            <div class="lab-cta-content">
+                <h2>Collaborate With Our Lab</h2>
+                <p>Whether you're a researcher, security professional, or organization with a problem to solve — we
+                    welcome collaboration on applied cybersecurity challenges.</p>
+                <div class="lab-cta-buttons">
+                    <a href="contact.html" class="lab-cta-btn primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+                    <a href="researcher-guidelines.html" class="lab-cta-btn secondary"><i class="fas fa-microscope"></i>
+                        Researcher Portal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer id="contact" style="background: #0f172a; color: white;">
+        <div
+            style="background: linear-gradient(135deg, rgba(195, 21, 28, 0.9), rgba(15, 23, 42, 0.95)); padding: 4rem 2rem;">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+                    <div>
+                        <h3
+                            style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 1rem;">
+                            Stay Ahead in Cybersecurity</h3>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.7;">Join 300+
+                            students building successful careers. Get updates on programs, cybersecurity tips, and
+                            exclusive opportunities.</p>
+                    </div>
+                    <div>
+                        <form style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <input type="email" placeholder="Enter your email"
+                                style="flex: 1; min-width: 200px; padding: 1rem 1.5rem; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 0.75rem; color: white; font-size: 1rem;">
+                            <button type="submit"
+                                style="padding: 1rem 2rem; background: #c3151c; border: none; border-radius: 0.5rem; color: white; font-weight: 700; font-size: 1rem; cursor: pointer;">Subscribe</button>
+                        </form>
+                        <p style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 0.75rem;"><i
+                                class="fas fa-lock" style="margin-right: 0.25rem;"></i> We respect your privacy.
+                            Unsubscribe anytime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 4rem 0 3rem;">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                    <div style="max-width: 380px;">
+                        <div class="logo" style="margin-bottom: 1.5rem; color: white; font-size: 1.75rem;">
+                            <img loading="lazy" src="assets/images/logo.png" alt="Elitech Hub"
+                                style="height: 50px; width: auto; margin-right: 0.75rem; display: inline-block; vertical-align: middle; filter: drop-shadow(0 0 25px rgba(195, 21, 28, 0.4));">
+                            <span style="font-weight: 800;">Elitech<span style="color: #c3151c;">Hub</span></span>
+                        </div>
+                        <p
+                            style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; font-size: 1.15rem; line-height: 1.6; font-weight: 600;">
+                            Nigeria's #1 Cybersecurity Training &amp; Research Company</p>
+                        <p
+                            style="color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
+                            Transforming Africa's digital security landscape through world-class training, applied
+                            research, and industry-recognized certifications.</p>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Quick Links</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="research.html"
+                                    style="color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;"><i
+                                        class="fas fa-flask"
+                                        style="color: #c3151c; margin-right: 0.5rem;"></i>Research</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="lab.html"
+                                    style="color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;"><i
+                                        class="fas fa-vial" style="color: #06B6D4; margin-right: 0.5rem;"></i>Lab</a>
+                            </li>
+                            <li style="margin-bottom: 0.5rem;"><a href="programs.html"
+                                    style="color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;"><i
+                                        class="fas fa-graduation-cap"
+                                        style="color: #c3151c; margin-right: 0.5rem;"></i>Programs</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="blog.html"
+                                    style="color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;"><i
+                                        class="fas fa-newspaper"
+                                        style="color: #c3151c; margin-right: 0.5rem;"></i>Blog</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="contact.html"
+                                    style="color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;"><i
+                                        class="fas fa-phone"
+                                        style="color: #c3151c; margin-right: 0.5rem;"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Get In Touch</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <a href="#"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fas fa-map-marker-alt" style="color: #c3151c;"></i>Lagos, Nigeria</a>
+                            <a href="https://wa.me/2347081968062"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fab fa-whatsapp" style="color: #c3151c;"></i>+234 708 196 8062</a>
+                            <a href="mailto:info@elitechub.com"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fas fa-envelope" style="color: #c3151c;"></i>info@elitechub.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div style="padding: 2rem 0;">
+                <div
+                    style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.875rem;">
+                        <p style="margin: 0;">&copy; 2025 <span style="color: #c3151c; font-weight: 700;">Elitech Hub
+                                Limited</span>. All rights reserved.</p>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem;">RC: 8693883 | SMEDAN Certified | Securing
+                            Africa's Digital Future</p>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.875rem;">
+                        <a href="policies.html" style="color: rgba(255,255,255,0.6); text-decoration: none;">Privacy
+                            Policy</a>
+                        <a href="policies.html" style="color: rgba(255,255,255,0.6); text-decoration: none;">Terms of
+                            Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function toggleMobileDropdown(header) {
+            const dropdown = header.parentElement;
+            dropdown.classList.toggle('active');
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    const icon = this.querySelector('i');
+                    mobileNav.classList.toggle('active');
+                    if (mobileNav.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+            // Scroll reveal for lab sections
+            const reveals = document.querySelectorAll('.lab-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
+    <script src="js/navbar.js"></script>
+    <script src="js/security.js"></script>
+    <script src="js/seo.js"></script>
+    <script src="js/certificates.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Lab Dynamic Data Loader -->
+    <script>
+        (function () {
+            const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+            const API = isLocal ? 'http://localhost:3001' : 'https://elitech-hub-api.vercel.app';
+
+            // Category icon mapping
+            const categoryIcons = {
+                'detection_engineering': 'fa-crosshairs',
+                'threat_analysis': 'fa-spider',
+                'defensive_infrastructure': 'fa-network-wired',
+                'devsecops': 'fa-code-branch',
+                'general': 'fa-flask',
+                'malware_analysis': 'fa-bug',
+                'incident_response': 'fa-fire-extinguisher',
+                'vulnerability_research': 'fa-search'
+            };
+
+            function getCategoryLabel(cat) {
+                return (cat || 'general').replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+            }
+
+            function animateCount(el, target) {
+                let current = 0;
+                const step = Math.max(1, Math.floor(target / 30));
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = current.toLocaleString();
+                }, 30);
+            }
+
+            fetch(`${API}/api/lab/stats`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success) return;
+
+                    // Update hero stats with animated counting
+                    const s = data.stats;
+                    const papersEl = document.getElementById('statPapers');
+                    const researchersEl = document.getElementById('statResearchers');
+                    const viewsEl = document.getElementById('statViews');
+
+                    if (papersEl && s.totalPapers > 0) animateCount(papersEl, s.totalPapers);
+                    else if (papersEl) papersEl.textContent = '0';
+
+                    if (researchersEl && s.totalResearchers > 0) animateCount(researchersEl, s.totalResearchers);
+                    else if (researchersEl) researchersEl.textContent = '0';
+
+                    if (viewsEl && s.totalViews > 0) animateCount(viewsEl, s.totalViews);
+                    else if (viewsEl) viewsEl.textContent = '0';
+
+                    // Render latest papers as artifact cards
+                    if (data.latestPapers && data.latestPapers.length > 0) {
+                        const grid = document.getElementById('artifactsGrid');
+                        if (!grid) return;
+
+                        // Hide fallback cards
+                        grid.querySelectorAll('.artifact-fallback').forEach(el => el.style.display = 'none');
+
+                        // Add real paper cards
+                        data.latestPapers.forEach(paper => {
+                            const icon = categoryIcons[paper.category] || 'fa-file-alt';
+                            const card = document.createElement('div');
+                            card.className = 'artifact-card';
+                            card.innerHTML = `
+                            <div class="artifact-card-header">
+                                <i class="fas ${icon}"></i>
+                                <h3>${paper.title}</h3>
+                            </div>
+                            <p>${paper.description || 'Published research from our cybersecurity lab.'}</p>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto;">
+                                <span class="artifact-tag">${getCategoryLabel(paper.category)}</span>
+                                <span style="font-size:0.75rem; color:#64748b;">
+                                    <i class="fas fa-eye" style="margin-right:4px;"></i>${(paper.views || 0).toLocaleString()}
+                                </span>
+                            </div>
+                        `;
+                            card.style.cursor = 'pointer';
+                            card.addEventListener('click', () => {
+                                window.location.href = `research-paper.html?slug=${paper.slug}`;
+                            });
+                            grid.appendChild(card);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.warn('Lab stats unavailable (showing fallback):', err.message);
+                    // Fallback cards remain visible
+                });
+        })();
+    </script>
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <script src="js/chatbot.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('pageLoader');
+            setTimeout(() => { loader.classList.add('hidden'); }, 1500);
+        });
+    </script>
+    <script src="js/popup-engine.js"></script>
+    <script src="js/cookie-consent.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,403 @@
+/* ============================================
+   SMART POP-UP STYLES
+   Contextual Lead Capture — Elitech Hub
+   ============================================ */
+
+/* Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    padding: 1rem;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Pop-up Card */
+.popup-card {
+    background: white;
+    border-radius: 1.25rem;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+}
+
+.popup-overlay.active .popup-card {
+    transform: scale(1) translateY(0);
+}
+
+/* Accent bar */
+.popup-accent {
+    height: 5px;
+    width: 100%;
+}
+
+.popup-accent.homepage {
+    background: linear-gradient(90deg, #c3151c, #e63946);
+}
+
+.popup-accent.programs {
+    background: linear-gradient(90deg, #06B6D4, #0891b2);
+}
+
+.popup-accent.content {
+    background: linear-gradient(90deg, #8B5CF6, #7C3AED);
+}
+
+.popup-accent.business {
+    background: linear-gradient(90deg, #10B981, #059669);
+}
+
+/* Close button */
+.popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #64748b;
+    transition: all 0.2s;
+    z-index: 2;
+}
+
+.popup-close:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Body */
+.popup-body {
+    padding: 2.5rem 2rem 2rem;
+}
+
+.popup-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.popup-icon.homepage {
+    background: rgba(195, 21, 28, 0.1);
+    color: #c3151c;
+}
+
+.popup-icon.programs {
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+}
+
+.popup-icon.content {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8B5CF6;
+}
+
+.popup-icon.business {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+.popup-body h2 {
+    font-family: 'Space Grotesk', 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.popup-body .popup-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Form */
+.popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.popup-input-group {
+    position: relative;
+}
+
+.popup-input-group i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.popup-input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #0f172a;
+    background: #f8fafc;
+    transition: all 0.2s;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.popup-input:focus {
+    border-color: #06B6D4;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+}
+
+.popup-input::placeholder {
+    color: #94a3b8;
+}
+
+/* Optional WhatsApp field label */
+.popup-optional {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: -0.25rem;
+}
+
+.popup-optional i {
+    font-size: 0.7rem;
+}
+
+/* Consent checkbox */
+.popup-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    line-height: 1.45;
+}
+
+.popup-consent input[type="checkbox"] {
+    margin-top: 0.15rem;
+    accent-color: #06B6D4;
+    flex-shrink: 0;
+}
+
+.popup-consent a {
+    color: #06B6D4;
+    text-decoration: none;
+}
+
+/* Submit button */
+.popup-submit {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.popup-submit.homepage {
+    background: linear-gradient(135deg, #c3151c, #e63946);
+}
+
+.popup-submit.programs {
+    background: linear-gradient(135deg, #06B6D4, #0891b2);
+}
+
+.popup-submit.content {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+}
+
+.popup-submit.business {
+    background: linear-gradient(135deg, #10B981, #059669);
+}
+
+.popup-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.popup-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Trust signals */
+.popup-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.popup-trust span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    color: #94a3b8;
+}
+
+.popup-trust i {
+    font-size: 0.65rem;
+}
+
+/* ===== SUCCESS STATE ===== */
+.popup-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.popup-success.active {
+    display: block;
+    animation: popupFadeIn 0.4s ease;
+}
+
+.popup-success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    animation: popupBounce 0.5s ease 0.2s both;
+}
+
+.popup-success h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.popup-success p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popupBounce {
+    0% {
+        transform: scale(0);
+    }
+
+    60% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Returning visitor badge */
+.popup-returning {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    padding: 0.3rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #D97706;
+    margin-bottom: 0.75rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 520px) {
+    .popup-card {
+        border-radius: 1.25rem 1.25rem 0 0;
+        max-width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(100%);
+    }
+
+    .popup-overlay.active .popup-card {
+        transform: translateY(0);
+    }
+
+    .popup-body {
+        padding: 2rem 1.25rem 1.5rem;
+    }
+
+    .popup-body h2 {
+        font-size: 1.2rem;
+    }
+
+    .popup-trust {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+}

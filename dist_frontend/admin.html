@@ -439,6 +439,7 @@
             margin-bottom: 2rem;
         }
     </style>
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
@@ -521,6 +522,34 @@
                             Grant Access</button>
                         <button class="btn btn-secondary" onclick="switchTab('blog')"><i class="fas fa-pen"></i> Write
                             Blog</button>
+                        <button class="btn btn-secondary" onclick="switchTab('researchers')"><i
+                                class="fas fa-microscope"></i>
+                            Review Papers</button>
+                    </div>
+                </div>
+
+                <!-- Lab & Research Stats -->
+                <div class="card" id="labStatsCard">
+                    <h3 class="card-title"><i class="fas fa-flask" style="color: #7C3AED;"></i> Lab & Research</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1rem; background: #F9FAFB; border-radius: 0.75rem;">
+                            <div id="labPapers" style="font-size: 1.5rem; font-weight: 700; color: #7C3AED;">—</div>
+                            <div style="font-size: 0.75rem; color: var(--gray);">Published Papers</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: #F9FAFB; border-radius: 0.75rem;">
+                            <div id="labResearchers" style="font-size: 1.5rem; font-weight: 700; color: #06B6D4;">—
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--gray);">Researchers</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: #F9FAFB; border-radius: 0.75rem;">
+                            <div id="labViews" style="font-size: 1.5rem; font-weight: 700; color: #10B981;">—</div>
+                            <div style="font-size: 0.75rem; color: var(--gray);">Total Views</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: #FEF3C7; border-radius: 0.75rem; cursor: pointer;"
+                            onclick="switchTab('researchers')">
+                            <div id="labPending" style="font-size: 1.5rem; font-weight: 700; color: #92400E;">—</div>
+                            <div style="font-size: 0.75rem; color: #92400E;">Pending Review</div>
+                        </div>
                     </div>
                 </div>
 
@@ -1709,6 +1738,28 @@
 
         // Init
         checkAuth();
+
+        // Load lab stats for dashboard widget
+        (async function loadLabStats() {
+            try {
+                const res = await fetch(`${API_URL.replace('/api', '')}/api/lab/stats`);
+                const data = await res.json();
+                if (data.success) {
+                    const el = id => document.getElementById(id);
+                    if (el('labPapers')) el('labPapers').textContent = data.stats.totalPapers || 0;
+                    if (el('labResearchers')) el('labResearchers').textContent = data.stats.totalResearchers || 0;
+                    if (el('labViews')) el('labViews').textContent = (data.stats.totalViews || 0).toLocaleString();
+                }
+            } catch (e) { /* silent */ }
+            try {
+                const res = await fetch(`${API_URL}/admin/researchers/papers/pending`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                const el = document.getElementById('labPending');
+                if (el) el.textContent = (data.papers || []).length;
+            } catch (e) { /* silent */ }
+        })();
         // Researchers Management
         async function loadResearchers() {
             loadPendingPapers(); // Load queue too
@@ -1843,6 +1894,7 @@
     </script>
 
     <!-- Cookie Consent Banner -->
+    <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
 </body>
 

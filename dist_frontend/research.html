@@ -102,6 +102,7 @@
                         <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
                         <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
                         <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="lab.html" data-page="lab" style="color: #06B6D4;"><i class="fas fa-vial"></i> Lab</a>
                         <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
                                 class="fas fa-microscope"></i> Researcher Portal</a>
                     </div>
@@ -137,6 +138,7 @@
                         </li>
                         <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
                         <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                        <li><a href="lab.html" class="nav-link" style="color: #06B6D4;"><i class="fas fa-vial"></i> Lab</a></li>
                         <li><a href="researcher-guidelines.html" class="nav-link" style="color: #7C3AED;"><i
                                     class="fas fa-microscope"></i> Researcher Portal</a></li>
                     </ul>
@@ -222,8 +224,21 @@
                     <i class="fas fa-rocket" style="font-size: 8rem; color: white;"></i>
                 </div>
 
-                <div
+                <div class="collab-grid"
                     style="position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: center; padding: 3rem;">
+                    <style>
+                        @media (max-width: 768px) {
+                            .collab-grid {
+                                grid-template-columns: 1fr !important;
+                                gap: 2rem !important;
+                                padding: 1.5rem !important;
+                            }
+
+                            .collab-grid h3 {
+                                font-size: 1.5rem !important;
+                            }
+                        }
+                    </style>
                     <!-- Left Content -->
                     <div>
                         <div
@@ -633,6 +648,36 @@
         </div>
     </footer>
 
+    <!-- Mobile Navbar Script -->
+    <script>
+        // Mobile dropdown toggle for inline navbar
+        function toggleMobileDropdown(header) {
+            const dropdown = header.parentElement;
+            dropdown.classList.toggle('active');
+        }
+
+        // Initialize mobile menu button
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    const icon = this.querySelector('i');
+                    mobileNav.classList.toggle('active');
+
+                    if (mobileNav.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        });
+    </script>
+
     <!-- Scripts -->
     <script src="js/navbar.js"></script>
     <script src="js/security.js"></script>
@@ -642,6 +687,7 @@
     <script src="js/main.js"></script>
 
     <!-- Chatbot Widget -->
+    <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/chatbot.css">
     <script src="js/chatbot.js"></script>
     <script>
@@ -654,6 +700,7 @@
         });
     </script>
     <!-- Cookie Consent Banner -->
+    <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
 </body>
 

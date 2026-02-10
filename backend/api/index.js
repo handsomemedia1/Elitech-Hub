@@ -34,6 +34,8 @@ import writersPerformanceRoutes from './routes/writers-performance.js';
 import researchersRoutes from './routes/researchers.js';
 import researchersAdminRoutes from './routes/researchers-admin.js';
 import applicationsRoutes from './routes/applications.js';
+import leadsRoutes from './routes/leads.js';
+import labStatsRoutes from './routes/lab-stats.js';
 import { initReminderCron } from './services/reminder-cron.js';
 
 // ... (middleware setup) ...
@@ -173,6 +175,9 @@ app.use('/api/inquiries', inquiriesRoutes);
 app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/services', pricingRoutes);
 app.use('/api/admin/services', pricingRoutes);
+app.use('/api/applications', applicationsRoutes);
+app.use('/api/leads', leadsRoutes);
+app.use('/api/lab', labStatsRoutes);
 
 // ============================================
 // ERROR HANDLING

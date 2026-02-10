@@ -1,0 +1,33 @@
+## Elitech Hub — Netlify Security Headers
+## Deploy this file at the root of your site
+
+/*
+  # Prevent clickjacking
+  X-Frame-Options: SAMEORIGIN
+
+  # Prevent MIME-type sniffing
+  X-Content-Type-Options: nosniff
+
+  # XSS Protection (legacy browsers)
+  X-XSS-Protection: 1; mode=block
+
+  # Referrer policy — send origin only on cross-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # HTTPS strict transport — force HTTPS for 1 year + subdomains
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Permissions policy — disable unnecessary browser features
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+  # Content Security Policy — balanced for functionality + security
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.supabase.co; frame-ancestors 'self'
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/*
+  Cache-Control: public, max-age=604800
+
+/js/*
+  Cache-Control: public, max-age=604800

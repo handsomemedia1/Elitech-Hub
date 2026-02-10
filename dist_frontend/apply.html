@@ -296,6 +296,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
@@ -305,7 +306,8 @@
     <!-- Hero -->
     <section class="apply-hero">
         <h1><i class="fas fa-rocket"></i> Apply Now</h1>
-        <p>Join Nigeria's #1 cybersecurity training program and start your journey to becoming a certified professional
+        <p>Join our world-class cybersecurity training program and start your journey to becoming a certified
+            professional
         </p>
     </section>
 
@@ -322,7 +324,8 @@
                 <div class="program-icon"><i class="fas fa-bolt"></i></div>
                 <div class="program-title">6-Week Bootcamp</div>
                 <div class="program-duration"><i class="fas fa-clock"></i> Fast-Track Skills</div>
-                <div class="program-price">₦45,000</div>
+                <div class="program-price" data-price-ngn="70000" data-price-usd="70" data-price-gbp="55"
+                    data-price-eur="65">₦70,000</div>
                 <ul class="program-features">
                     <li><i class="fas fa-check"></i> Cybersecurity fundamentals</li>
                     <li><i class="fas fa-check"></i> Hands-on labs</li>
@@ -336,7 +339,8 @@
                 <div class="program-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="program-title">16-Week Professional</div>
                 <div class="program-duration"><i class="fas fa-clock"></i> Career-Ready Program</div>
-                <div class="program-price">₦75,000</div>
+                <div class="program-price" data-price-ngn="200000" data-price-usd="200" data-price-gbp="160"
+                    data-price-eur="185">₦200,000</div>
                 <ul class="program-features">
                     <li><i class="fas fa-check"></i> Comprehensive training</li>
                     <li><i class="fas fa-check"></i> <strong>Guaranteed internship</strong></li>
@@ -370,19 +374,22 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+234 XXX XXX XXXX">
+                        <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
                     </div>
                     <div class="form-group">
-                        <label>State of Residence *</label>
-                        <select id="state" name="state" required>
-                            <option value="">Select your state</option>
-                            <option value="Lagos">Lagos</option>
-                            <option value="Abuja">Abuja (FCT)</option>
-                            <option value="Rivers">Rivers</option>
-                            <option value="Oyo">Oyo</option>
-                            <option value="Kano">Kano</option>
-                            <option value="Kaduna">Kaduna</option>
-                            <option value="Ogun">Ogun</option>
+                        <label>Country of Residence *</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select your country</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Germany">Germany</option>
+                            <option value="India">India</option>
+                            <option value="UAE">United Arab Emirates</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -393,11 +400,12 @@
                         <label>Highest Education *</label>
                         <select id="education" name="education" required>
                             <option value="">Select education level</option>
-                            <option value="SSCE">SSCE / O-Level</option>
-                            <option value="ND/NCE">ND / NCE</option>
-                            <option value="HND/BSc">HND / BSc</option>
-                            <option value="MSc/MBA">MSc / MBA</option>
-                            <option value="PhD">PhD</option>
+                            <option value="High School">High School / Secondary School</option>
+                            <option value="Diploma">Diploma / Associate Degree</option>
+                            <option value="Bachelors">Bachelor's Degree</option>
+                            <option value="Masters">Master's Degree / MBA</option>
+                            <option value="PhD">PhD / Doctorate</option>
+                            <option value="Self-Taught">Self-Taught / Certifications</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -467,6 +475,8 @@
 
     <!-- Scripts -->
     <script src="js/navbar.js"></script>
+    <script src="js/pricing-manager.js"></script>
+    <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
     <script>
         let selectedProgram = 'professional';
@@ -500,7 +510,7 @@
                 fullName: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                state: document.getElementById('state').value,
+                country: document.getElementById('country').value,
                 education: document.getElementById('education').value,
                 occupation: document.getElementById('occupation').value,
                 motivation: document.getElementById('motivation').value

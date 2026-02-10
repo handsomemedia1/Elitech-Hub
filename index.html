@@ -11,8 +11,14 @@
     <meta name="theme-color" content="#c3151c">
     <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-    <!-- Google Search Console Verification -->
+    <!-- Search Engine Verification Tags -->
     <meta name="google-site-verification" content="piBoWaLCSxsP7CpAkK9fYvSfTCDTLABvvq5bmjYWa1U" />
+    <!-- Bing Webmaster Tools -->
+    <meta name="msvalidate.01" content="5C9DBFD3E865819C65965645EF87729F" />
+    <!-- Yandex Webmaster (file verification used instead, see yandex_6d910a5f997cec90.html) -->
+    <meta name="yandex-verification" content="6d910a5f997cec90" />
+    <!-- Pinterest: https://pinterest.com/settings → Claim Website → Get code → paste below -->
+    <meta name="p:domain_verify" content="YOUR_PINTEREST_VERIFICATION_CODE" />
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
@@ -531,6 +537,7 @@
                         <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
                         <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
                         <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="lab.html" data-page="lab" style="color: #06B6D4;"><i class="fas fa-vial"></i> Lab</a>
                         <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
                                 class="fas fa-microscope"></i> Researcher Portal</a>
                     </div>
@@ -1816,6 +1823,157 @@
         </style>
     </section>
 
+    <!-- ========== R&D SHOWCASE ========== -->
+    <div id="rndSection"
+        style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); padding: 6rem 0; position: relative; overflow: hidden;">
+        <!-- Animated background particles -->
+        <div style="position: absolute; inset: 0; overflow: hidden; pointer-events: none;">
+            <div
+                style="position: absolute; top: 10%; left: 5%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(6, 182, 212, 0.08), transparent 70%); border-radius: 50%; animation: float 8s ease-in-out infinite;">
+            </div>
+            <div
+                style="position: absolute; bottom: 15%; right: 10%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%); border-radius: 50%; animation: float 10s ease-in-out infinite reverse;">
+            </div>
+        </div>
+
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- Section Header -->
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <div
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); padding: 0.5rem 1.25rem; border-radius: 2rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-flask" style="color: #06B6D4; font-size: 0.85rem;"></i>
+                    <span
+                        style="color: #06B6D4; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Research
+                        & Development</span>
+                </div>
+                <h2
+                    style="font-family: 'Montserrat', sans-serif; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; color: white; margin-bottom: 1rem;">
+                    Our Lab Drives Everything We <span
+                        style="background: linear-gradient(135deg, #06B6D4, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Teach</span>
+                </h2>
+                <p
+                    style="color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.7;">
+                    Real-world cybersecurity research informs our curriculum. Our lab tests, validates, and publishes
+                    findings that become the exercises our students practice.
+                </p>
+            </div>
+
+            <!-- Lab Focus Cards -->
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;"
+                    onmouseover="this.style.borderColor='#06B6D4'; this.style.transform='translateY(-4px)'; this.style.background='rgba(6, 182, 212, 0.05)'"
+                    onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.transform=''; this.style.background='rgba(255, 255, 255, 0.04)'">
+                    <i class="fas fa-crosshairs" style="color: #06B6D4; font-size: 1.75rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem;">Detection
+                        Engineering</h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; line-height: 1.6;">YARA rules, Sigma
+                        detection logic, and false positive analysis.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;"
+                    onmouseover="this.style.borderColor='#8B5CF6'; this.style.transform='translateY(-4px)'; this.style.background='rgba(139, 92, 246, 0.05)'"
+                    onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.transform=''; this.style.background='rgba(255, 255, 255, 0.04)'">
+                    <i class="fas fa-spider" style="color: #8B5CF6; font-size: 1.75rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem;">Threat
+                        Analysis</h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; line-height: 1.6;">Real incident
+                        deconstruction mapped to MITRE ATT&CK.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;"
+                    onmouseover="this.style.borderColor='#10B981'; this.style.transform='translateY(-4px)'; this.style.background='rgba(16, 185, 129, 0.05)'"
+                    onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.transform=''; this.style.background='rgba(255, 255, 255, 0.04)'">
+                    <i class="fas fa-network-wired"
+                        style="color: #10B981; font-size: 1.75rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem;">Defensive
+                        Infrastructure</h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; line-height: 1.6;">Security control
+                        testing and hardening guides.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;"
+                    onmouseover="this.style.borderColor='#F59E0B'; this.style.transform='translateY(-4px)'; this.style.background='rgba(245, 158, 11, 0.05)'"
+                    onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.transform=''; this.style.background='rgba(255, 255, 255, 0.04)'">
+                    <i class="fas fa-code-branch" style="color: #F59E0B; font-size: 1.75rem; margin-bottom: 1rem;"></i>
+                    <h4 style="color: white; font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem;">DevSecOps
+                    </h4>
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; line-height: 1.6;">Secure coding
+                        patterns and CI/CD pipeline security.</p>
+                </div>
+            </div>
+
+            <!-- Latest Research (Dynamic) -->
+            <div id="homeResearchGrid" style="display: none; margin-bottom: 3rem;">
+                <h3
+                    style="color: white; font-weight: 700; font-size: 1.25rem; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-file-alt" style="color: #06B6D4; margin-right: 0.5rem;"></i>Latest Published
+                    Research
+                </h3>
+                <div id="homeResearchCards"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem;">
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="lab.html"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: linear-gradient(135deg, #06B6D4, #0891B2); border-radius: 0.75rem; color: white; font-weight: 700; text-decoration: none; font-size: 0.95rem; transition: all 0.3s;"
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(6, 182, 212, 0.3)'"
+                    onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                    <i class="fas fa-vial"></i> Explore Our Lab
+                </a>
+                <a href="research.html"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 0.75rem; color: white; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.3s;"
+                    onmouseover="this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.1)'"
+                    onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.background='rgba(255,255,255,0.06)'">
+                    <i class="fas fa-flask"></i> View Research Papers
+                </a>
+                <a href="researcher-guidelines.html"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 0.75rem; color: white; font-weight: 600; text-decoration: none; font-size: 0.95rem; transition: all 0.3s;"
+                    onmouseover="this.style.borderColor='rgba(255,255,255,0.3)'; this.style.background='rgba(255,255,255,0.1)'"
+                    onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.background='rgba(255,255,255,0.06)'">
+                    <i class="fas fa-microscope"></i> Become a Researcher
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- R&D Data Loader Script -->
+    <script>
+        (function () {
+            const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+            const API = isLocal ? 'http://localhost:3001' : 'https://elitech-hub-api.vercel.app';
+
+            fetch(`${API}/api/lab/latest?limit=3`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success || !data.papers || data.papers.length === 0) return;
+
+                    const grid = document.getElementById('homeResearchGrid');
+                    const cards = document.getElementById('homeResearchCards');
+                    if (!grid || !cards) return;
+
+                    grid.style.display = 'block';
+
+                    data.papers.forEach(paper => {
+                        const card = document.createElement('a');
+                        card.href = `research-paper.html?slug=${paper.slug}`;
+                        card.style.cssText = 'background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 0.75rem; padding: 1.5rem; text-decoration: none; transition: all 0.3s; display: block;';
+                        card.onmouseover = function () { this.style.borderColor = '#06B6D4'; this.style.transform = 'translateY(-2px)'; };
+                        card.onmouseout = function () { this.style.borderColor = 'rgba(255,255,255,0.08)'; this.style.transform = ''; };
+                        card.innerHTML = `
+                        <h4 style="color: white; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.4;">${paper.title}</h4>
+                        <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">${(paper.description || '').substring(0, 120)}${paper.description?.length > 120 ? '...' : ''}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.75rem; color: #06B6D4; font-weight: 600; text-transform: capitalize;">${(paper.category || 'research').replace(/_/g, ' ')}</span>
+                            <span style="font-size: 0.75rem; color: rgba(255,255,255,0.4);"><i class="fas fa-eye" style="margin-right: 4px;"></i>${(paper.views || 0).toLocaleString()}</span>
+                        </div>
+                    `;
+                        cards.appendChild(card);
+                    });
+                })
+                .catch(() => { /* fail silently */ });
+        })();
+    </script>
+
 
 
 
@@ -2259,6 +2417,7 @@
     <script src="js/cookie-consent.js" defer></script>
 
     <!-- Chatbot Widget -->
+    <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/chatbot.css">
     <script src="js/chatbot.js" defer></script>
 

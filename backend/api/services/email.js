@@ -166,7 +166,7 @@ export async function sendApplicationNotification(appData) {
                                 <td style="padding: 8px 0; font-weight: 500;">${phone}</td>
                             </tr>
                             <tr>
-                                <td style="padding: 8px 0; color: #6b7280;">State:</td>
+                                <td style="padding: 8px 0; color: #6b7280;">Country:</td>
                                 <td style="padding: 8px 0; font-weight: 500;">${state || 'N/A'}</td>
                             </tr>
                             <tr>

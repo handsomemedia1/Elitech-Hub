@@ -1,0 +1,170 @@
+{
+  "posts": [
+    {
+      "title": "CISO priorities for 2025",
+      "slug": "ciso-priorities-for-2025",
+      "date": "2026-02-03T03:47:02.784124",
+      "category": "career",
+      "readTime": "1 min read",
+      "excerpt": "Stay ahead of the curve with our expert guide to CISO priorities for 2025, covering AI-powered attacks, Zero Trust Architecture, and supply chain security.",
+      "image": "assets/images/logo.png",
+      "tags": [
+        "CISO",
+        "cybersecurity",
+        "AI-powered attacks",
+        "Zero Trust Architecture",
+        "supply chain security",
+        "ransomware",
+        "security strategy"
+      ]
+    },
+    {
+      "title": "The Future of AI in Cybersecurity: Predictions for 2026",
+      "slug": "the-future-of-ai-in-cybersecurity-predictions-for-2026",
+      "date": "2026-02-03T03:20:30.761611",
+      "category": "cybersecurity",
+      "readTime": "1 min read",
+      "excerpt": "Discover the latest trends and predictions for AI in cybersecurity in 2026, and learn how to stay ahead of the threats.",
+      "image": "assets/images/logo.png",
+      "tags": [
+        "cybersecurity",
+        "AI",
+        "machine learning",
+        "threat intelligence",
+        "Zero Trust Architecture"
+      ]
+    },
+    {
+      "title": "5 Essential Cybersecurity Tips for Small Businesses in 2026",
+      "slug": "5-essential-cybersecurity-tips-for-small-businesses-in-2026",
+      "date": "2026-02-02T19:32:32.005685",
+      "category": "cybersecurity",
+      "readTime": "1 min read",
+      "excerpt": "Boost your small business's cybersecurity with these expert tips, tackling AI-powered threats, Zero Trust Architecture, and more.",
+      "image": "assets/images/logo.png",
+      "tags": [
+        "cybersecurity",
+        "small business",
+        "AI-powered attacks",
+        "Zero Trust Architecture",
+        "supply chain security"
+      ]
+    },
+    {
+      "title": "Top Cybersecurity Scholarships for 2026 (Week of 11/01/2026)",
+      "slug": "scholarship-template-example",
+      "category": "scholarship",
+      "excerpt": "Latest cybersecurity scholarships for 2026. Apply for 10 new opportunities this week.",
+      "date": "2026-02-01",
+      "readTime": "4 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "How to Set Up a Home Lab for Cybersecurity Practice",
+      "slug": "tutorial-home-lab-setup",
+      "category": "tutorial",
+      "excerpt": "Learn how to build your own cybersecurity home lab for hands-on practice. Step-by-step guide covering virtualization, vulnerable VMs, and essential tools.",
+      "date": "2026-02-01",
+      "readTime": "6 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "Introduction to Dast Tools Tutorial",
+      "slug": "tutorial-2026-01-21-introduction-to-dast-tools-tutorial",
+      "category": "tutorial",
+      "excerpt": "Learn Introduction to DAST Tools Tutorial with this comprehensive tutorial.",
+      "date": "2026-01-21",
+      "readTime": "8 min read",
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Building Leadership Skills in Security",
+      "slug": "career-2026-01-20-building-leadership-skills-in-security",
+      "category": "career",
+      "excerpt": "Career advice: Building Leadership Skills in Security",
+      "date": "2026-01-20",
+      "readTime": "8 min read"
+    },
+    {
+      "title": "Mastering Kill Chain Analysis",
+      "slug": "tutorial-2026-01-20-mastering-kill-chain-analysis",
+      "category": "tutorial",
+      "excerpt": "Learn Mastering Kill Chain Analysis with this comprehensive tutorial.",
+      "date": "2026-01-20",
+      "readTime": "30 min read",
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Asymmetric Encryption",
+      "slug": "tutorial-2026-01-20-asymmetric-encryption",
+      "category": "tutorial",
+      "excerpt": "Learn Asymmetric Encryption with this comprehensive cybersecurity tutorial. Step-by-step guide for intermediate level.",
+      "date": "2026-01-20",
+      "readTime": "12 min read",
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Introduction to Incident Response Plan",
+      "slug": "tutorial-2026-01-20-introduction-to-incident-response-plan",
+      "category": "tutorial",
+      "excerpt": "Learn Introduction to Incident Response Plan with this comprehensive cybersecurity tutorial. Step-by-step guide for beginner level.",
+      "date": "2026-01-20",
+      "readTime": "10 min read",
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Understanding and Preventing SQL Injection",
+      "slug": "tutorial-2026-01-20-understanding-and-preventing-sql-injection",
+      "category": "tutorial",
+      "excerpt": "Learn web security with this comprehensive cybersecurity tutorial. Step-by-step guide for intermediate level.",
+      "date": "2026-01-20",
+      "readTime": "14 min read",
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Cybersecurity jobs available right now: January 20, 2026",
+      "slug": "news-2026-01-20-cybersecurity-jobs-available-right-now-january-20-",
+      "category": "news",
+      "excerpt": "Here are the worldwide cybersecurity job openings available as of January 20, 2026, including on-site, hybrid, and remote roles.",
+      "date": "2026-01-20",
+      "readTime": "3 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "Top Cybersecurity Scholarships for 2026 (Week of 01/20/2026)",
+      "slug": "scholarship-roundup-2026-01-20",
+      "category": "scholarship",
+      "excerpt": "Comprehensive guide to cybersecurity scholarships with application strategies, eligibility requirements, and expert tips. Updated January 20, 2026.",
+      "date": "2026-01-20",
+      "readTime": "7 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "Tech Billionaire Calls for Government Control of Social Media Platforms",
+      "slug": "news-2026-01-11-futurism",
+      "category": "news",
+      "excerpt": "A prominent tech billionaire's controversial statement about suspending freedom of speech on social platforms has sparked widespread debate in the cybersecurity community.",
+      "date": "2026-01-11",
+      "readTime": "3 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "How to Change Your Location with a VPN",
+      "slug": "news-2026-01-11-slashdot.org",
+      "category": "news",
+      "excerpt": "Learn how to change your virtual location with a VPN to bypass geo-restrictions, protect your privacy, and access content from anywhere in the world.",
+      "date": "2026-01-11",
+      "readTime": "3 min read",
+      "image": "assets/images/logo.png"
+    },
+    {
+      "title": "Top Cybersecurity Scholarships for 2026 (Week of 11/01/2026)",
+      "slug": "scholarship-roundup-2026-01-11",
+      "category": "scholarship",
+      "excerpt": "Latest cybersecurity scholarships for 2026. Apply for 10 new opportunities this week.",
+      "date": "2026-01-11",
+      "readTime": "6 min read",
+      "image": "assets/images/logo.png"
+    }
+  ]
+}

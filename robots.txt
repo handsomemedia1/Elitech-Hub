@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin and backend paths
+Disallow: /admin.html
+Disallow: /backend/
+Disallow: /dashboard.html
+Disallow: /login.html
+Disallow: /dist_frontend/
+
+# Sitemap
+Sitemap: https://elitechub.com/sitemap.xml

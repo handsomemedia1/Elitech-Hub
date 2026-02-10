@@ -58,47 +58,106 @@ class BlogManager {
 
     async loadArticles() {
         try {
-            // Determine API URL based on environment
+            // Load from both sources in parallel
+            const [apiArticles, staticArticles] = await Promise.all([
+                this.loadFromAPI(),
+                this.loadFromStaticIndex()
+            ]);
+
+            // Merge and deduplicate (API takes priority, then static)
+            const articleMap = new Map();
+
+            // Add static articles first (lower priority)
+            staticArticles.forEach(article => {
+                articleMap.set(article.slug, article);
+            });
+
+            // Add API articles (higher priority, overwrites duplicates)
+            apiArticles.forEach(article => {
+                articleMap.set(article.slug || article.id, article);
+            });
+
+            this.articles = Array.from(articleMap.values());
+
+            // Sort by date (newest first)
+            this.articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            console.log(`📚 Loaded ${apiArticles.length} from API, ${staticArticles.length} from static index`);
+            console.log(`📚 Total unique articles: ${this.articles.length}`);
+
+        } catch (e) {
+            console.error('Error loading articles:', e);
+            this.articles = [];
+        }
+
+        this.filteredArticles = [...this.articles];
+    }
+
+    async loadFromAPI() {
+        try {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'https://elitech-hub.vercel.app/api/blog'
                 : '/api/blog';
 
             const response = await fetch(API_URL);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch articles');
-            }
+            if (!response.ok) throw new Error('API fetch failed');
 
             const data = await response.json();
 
             if (data.posts && data.posts.length > 0) {
-                this.articles = data.posts.map(post => ({
+                return data.posts.map(post => ({
                     id: post.id,
                     title: post.title,
                     excerpt: post.excerpt,
                     content: post.content || '',
                     category: post.category,
-                    author: post.author,
-                    date: post.published_at,
+                    author: post.author || 'Elitech Hub',
+                    date: post.published_at || post.date,
                     readTime: this.estimateReadingTime(post.content || ''),
-                    image: post.thumbnail || 'images/blog/placeholder.jpg',
+                    image: post.thumbnail || 'assets/images/logo.png',
                     tags: post.tags || [post.category],
                     views: post.views || 0,
                     featured: post.featured || false,
-                    slug: post.slug
+                    slug: post.slug,
+                    source: 'api'
                 }));
-                console.log(`📚 Loaded ${this.articles.length} articles from backend`);
-            } else {
-                this.articles = [];
-                console.log('ℹ️ No articles found in backend');
             }
         } catch (e) {
-            console.error('Error loading articles:', e);
-            // Fallback to empty array or show error state
-            this.articles = [];
+            console.warn('⚠️ API fetch failed, using static only:', e.message);
         }
+        return [];
+    }
 
-        this.filteredArticles = [...this.articles];
+    async loadFromStaticIndex() {
+        try {
+            const response = await fetch('data/blog_index.json');
+            if (!response.ok) throw new Error('Static index fetch failed');
+
+            const data = await response.json();
+            const posts = data.posts || data;
+
+            if (posts && posts.length > 0) {
+                return posts.map(post => ({
+                    id: post.slug,
+                    title: post.title,
+                    excerpt: post.excerpt || '',
+                    content: '',
+                    category: post.category || 'general',
+                    author: post.author || 'Elitech Hub',
+                    date: post.date,
+                    readTime: post.readTime || '3 min',
+                    image: post.image || 'assets/images/logo.png',
+                    tags: post.tags || [post.category],
+                    views: 0,
+                    featured: false,
+                    slug: post.slug,
+                    source: 'static'
+                }));
+            }
+        } catch (e) {
+            console.warn('⚠️ Static index fetch failed:', e.message);
+        }
+        return [];
     }
 
     estimateReadingTime(content) {
@@ -252,13 +311,18 @@ class BlogManager {
         card.dataset.articleId = article.id;
         if (article.featured) card.classList.add('featured');
 
+        // Use different URL based on source
+        const articleUrl = article.source === 'static'
+            ? `blog-posts/${article.slug}.html`
+            : `article.html?id=${article.id}`;
+
         card.innerHTML = `
             <div class="article-image">
                 <img src="${article.image}" alt="${article.title}" loading="lazy" 
-                     onerror="this.src='images/blog/placeholder.jpg'">
+                     onerror="this.src='assets/images/logo.png'">
                 ${article.featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}
                 <div class="article-overlay">
-                    <a href="article.html?id=${article.id}" class="read-more-btn">
+                    <a href="${articleUrl}" class="read-more-btn">
                         Read Article <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -269,7 +333,7 @@ class BlogManager {
                     <span class="article-date"><i class="far fa-calendar"></i> ${this.formatDate(article.date)}</span>
                 </div>
                 <h3 class="article-title">
-                    <a href="article.html?id=${article.id}">${article.title}</a>
+                    <a href="${articleUrl}">${article.title}</a>
                 </h3>
                 <p class="article-excerpt">${article.excerpt}</p>
                 <div class="article-footer">
@@ -518,8 +582,8 @@ class SocialShare {
 let blogManager;
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize blog manager
-    if (document.querySelector('.articles-grid, .blog-section, .article-content')) {
+    // Initialize blog manager - include #blog-list and .blog-grid-layout to match blog.html
+    if (document.querySelector('.articles-grid, .blog-section, .article-content, #blog-list, .blog-grid-layout')) {
         blogManager = new BlogManager();
     }
 
@@ -556,7 +620,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Global filterPosts function for inline onclick handlers in blog.html
+function filterPosts(category) {
+    if (blogManager) {
+        blogManager.filterByCategory(category);
+    }
+}
+
 // Export for use as module
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { BlogManager, SocialShare };
+    module.exports = { BlogManager, SocialShare, filterPosts };
 }
