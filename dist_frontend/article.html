@@ -2,10 +2,23 @@
 <html lang="en">
 
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDFJL7WM7Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-JDFJL7WM7Y');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Elitech Hub - Cybersecurity Article">
-    <title>Article - Elitech Hub</title>
+    <meta name="description" id="meta-description" content="Elitech Hub - Cybersecurity Article">
+    <meta name="theme-color" content="#c3151c">
+    <title id="page-title">Article - Elitech Hub</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -14,65 +27,525 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/blog-modern.css">
+    <link rel="stylesheet" href="css/blog-post.css">
     <link rel="stylesheet" href="css/popup.css">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" id="og-title" content="Article - Elitech Hub">
+    <meta property="og:description" id="og-description" content="">
+    <meta property="og:image" id="og-image" content="">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #c3151c, #e63946, #ff6b6b);
+            z-index: 9999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(195, 21, 28, 0.5);
+        }
+
+        /* Tags Display */
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .post-tags .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, rgba(195, 21, 28, 0.08), rgba(230, 57, 70, 0.05));
+            border: 1px solid rgba(195, 21, 28, 0.15);
+            color: #c3151c;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .post-tags .tag:hover {
+            background: #c3151c;
+            color: white;
+            border-color: #c3151c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(195, 21, 28, 0.25);
+        }
+
+        /* Estimated reading time pill */
+        .reading-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(195, 21, 28, 0.08);
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #c3151c;
+        }
+
+        /* Loading Skeleton */
+        .article-skeleton {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .article-skeleton .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(195, 21, 28, 0.15);
+            border-top-color: #c3151c;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .article-skeleton p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        /* Error State */
+        .article-error {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .article-error i {
+            font-size: 3rem;
+            color: #c3151c;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .article-error h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .article-error p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-error a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: #c3151c;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .article-error a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(195, 21, 28, 0.3);
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer (matches blog.html) */
+        .site-footer {
+            background: #0f172a;
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: #c3151c;
+        }
+
+        /* Copy link tooltip */
+        .copy-tooltip {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #0f172a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .copy-tooltip.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .post-share {
+                flex-wrap: wrap;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .footer-newsletter-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navbar (Same as other pages) -->
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Copy Tooltip -->
+    <div class="copy-tooltip" id="copyTooltip"><i class="fas fa-check"></i> Link copied to clipboard!</div>
+
+    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="Elitech Hub"
+                <img fetchpriority="high" src="assets/images/logo.png" alt="Elitech Hub"
                     style="height: 40px; width: auto; margin-right: 0.5rem;">
                 <span>Elitech<span class="logo-highlight">Hub</span></span>
             </a>
             <ul class="nav-desktop">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="blog.html" class="nav-link active">Blog</a></li>
-                <li><a href="programs.html" class="nav-link">Programs</a></li>
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Learn <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
+                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
+                        <a href="lab.html" data-page="lab" style="color: #06B6D4;"><i class="fas fa-vial"></i> Lab</a>
+                        <a href="researcher-guidelines.html" data-page="researcher" style="color: #7C3AED;"><i
+                                class="fas fa-microscope"></i> Researcher Portal</a>
+                    </div>
+                </li>
+                <li class="nav-dropdown">
+                    <span class="nav-link nav-dropdown-trigger">Company <i class="fas fa-chevron-down"></i></span>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
+                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp;
+                            Trust</a>
+                    </div>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
+                        data-page="get-involved">Get Involved</a></li>
+                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i
+                        class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        <div class="nav-mobile" id="mobileNav">
+            <ul class="nav-mobile-links">
+                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Learn</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="programs.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Programs</a>
+                        </li>
+                        <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
+                        <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
+                        <li><a href="lab.html" class="nav-link" style="color: #06B6D4;"><i class="fas fa-vial"></i>
+                                Lab</a></li>
+                        <li><a href="researcher-guidelines.html" class="nav-link" style="color: #7C3AED;"><i
+                                    class="fas fa-microscope"></i> Researcher Portal</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-dropdown">
+                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Company</span><i
+                            class="fas fa-chevron-down"></i></div>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
+                        <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp;
+                                Trust</a></li>
+                    </ul>
+                </li>
+                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get
+                        Involved</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
+            <a href="apply.html" class="btn btn-primary">Apply Now</a>
         </div>
     </nav>
 
     <!-- Article Content -->
-    <article class="article-detail" style="padding-top: 100px; min-height: 80vh;">
-        <div class="container" style="max-width: 800px; margin: 0 auto;">
-            <div id="article-loader" style="text-align: center; padding: 4rem;">
-                <i class="fas fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
-                <p>Loading article...</p>
+    <article class="post-article">
+        <!-- Loading State -->
+        <div id="article-loader" class="article-skeleton">
+            <div class="spinner"></div>
+            <p>Loading article...</p>
+        </div>
+
+        <!-- Error State (hidden by default) -->
+        <div id="article-error" class="article-error" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Article not found</h2>
+            <p>The article you're looking for doesn't exist or has been removed.</p>
+            <a href="blog.html"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+        </div>
+
+        <!-- Article Body (hidden until loaded) -->
+        <div id="article-content" style="display: none;" class="fade-in">
+            <!-- Breadcrumb -->
+            <a href="blog.html" class="breadcrumb">
+                <i class="fas fa-arrow-left"></i> All Posts
+            </a>
+
+            <!-- Category Badge -->
+            <span class="post-category" id="article-category">Category</span>
+
+            <!-- Title -->
+            <h1 class="post-title" id="article-title"></h1>
+
+            <!-- Post Meta -->
+            <div class="post-meta">
+                <span id="article-author"><i class="fas fa-user-circle"></i> Author</span>
+                <span id="article-date"><i class="far fa-calendar-alt"></i> Date</span>
+                <span id="article-reading-time" class="reading-pill"><i class="far fa-clock"></i> 5 min read</span>
+                <span id="article-views"><i class="fas fa-eye"></i> 0 views</span>
             </div>
 
-            <div id="article-content" style="display: none;">
-                <!-- Header -->
-                <header style="margin-bottom: 2rem;">
-                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                        <span class="badge badge-primary" id="article-category">Category</span>
-                        <span class="badge badge-light" id="article-date">Date</span>
-                    </div>
-                    <h1 id="article-title" style="font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.2;"></h1>
-                    <div style="display: flex; align-items: center; gap: 1rem; color: var(--gray);">
-                        <span id="article-author"><i class="fas fa-user"></i> Author</span>
-                        <span id="article-views"><i class="fas fa-eye"></i> 0 views</span>
-                    </div>
-                </header>
+            <!-- Featured Image -->
+            <img id="article-image" src="" alt="Featured Image" class="post-featured-image">
 
-                <!-- Featured Image -->
-                <img id="article-image" src="" alt="Featured Image"
-                    style="width: 100%; border-radius: 1rem; margin-bottom: 2rem; border: 1px solid var(--gray-lighter);">
+            <!-- Main Content Body -->
+            <div id="article-body" class="post-content">
+                <!-- Content injected here -->
+            </div>
 
-                <!-- Body -->
-                <div id="article-body" style="line-height: 1.8; color: var(--text-color); font-size: 1.1rem;">
-                    <!-- Content injected here -->
+            <!-- Tags -->
+            <div class="post-tags" id="article-tags">
+                <!-- Tags injected here -->
+            </div>
+
+            <!-- Share Buttons -->
+            <div class="post-share">
+                <span>Share this article:</span>
+                <a href="#" id="share-twitter" title="Share on Twitter" target="_blank" rel="noopener">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="#" id="share-linkedin" title="Share on LinkedIn" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" id="share-facebook" title="Share on Facebook" target="_blank" rel="noopener">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" id="share-whatsapp" title="Share on WhatsApp" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" id="share-copy" title="Copy Link" onclick="copyArticleLink(event)">
+                    <i class="fas fa-link"></i>
+                </a>
+            </div>
+
+            <!-- Author Box -->
+            <div class="post-author" id="author-box">
+                <img src="assets/images/logo.png" alt="Author" id="author-avatar">
+                <div class="post-author-info">
+                    <h4 id="author-name">Elitech Hub</h4>
+                    <p id="author-bio">Expert insights on cybersecurity, career growth, and scholarship opportunities
+                        from the Elitech Hub team.</p>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="post-cta">
+                <h3>Ready to start your cybersecurity career?</h3>
+                <p>Join our professional training program and build the skills employers are looking for.</p>
+                <a href="programs.html" class="btn"><i class="fas fa-rocket"></i> Explore Programs</a>
+            </div>
+
+            <!-- Related Posts -->
+            <div class="related-posts" id="related-posts" style="display: none;">
+                <h3><i class="fas fa-newspaper" style="color: #c3151c; margin-right: 0.5rem;"></i> Related Articles</h3>
+                <div class="related-grid" id="related-grid">
+                    <!-- Related posts injected here -->
                 </div>
             </div>
         </div>
     </article>
 
-    <!-- Script -->
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div style="padding: 4rem 0 3rem;">
+            <div class="container">
+                <div class="footer-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                    <div style="max-width: 380px;">
+                        <div class="logo" style="margin-bottom: 1.5rem; color: white; font-size: 1.75rem;">
+                            <img loading="lazy" src="assets/images/logo.png" alt="Elitech Hub"
+                                style="height: 50px; width: auto; margin-right: 0.75rem; display: inline-block; vertical-align: middle; filter: drop-shadow(0 0 25px rgba(195, 21, 28, 0.4));">
+                            <span style="font-weight: 800;">Elitech<span style="color: #c3151c;">Hub</span></span>
+                        </div>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; font-size: 1.15rem; line-height: 1.6; font-weight: 600;">
+                            Nigeria's #1 Cybersecurity Training Company</p>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
+                            Transforming Africa's digital security landscape through world-class training, 85% job
+                            placement rate, and industry-recognized certifications.</p>
+                        <div>
+                            <div
+                                style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                                Follow Us</div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="https://wa.me/2347081968062"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-whatsapp"></i></a>
+                                <a href="mailto:info@elitechub.com"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Quick Links</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.75rem;"><a href="programs.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; font-size: 0.95rem;">Programs</a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;"><a href="blog.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; font-size: 0.95rem;">Blog</a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;"><a href="about.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; font-size: 0.95rem;">About
+                                    Us</a></li>
+                            <li style="margin-bottom: 0.75rem;"><a href="contact.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; font-size: 0.95rem;">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Get In Touch</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <a href="#"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fas fa-map-marker-alt" style="color: #c3151c;"></i>Lagos, Nigeria</a>
+                            <a href="https://wa.me/2347081968062"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fab fa-whatsapp" style="color: #c3151c;"></i>+234 708 196 8062</a>
+                            <a href="mailto:info@elitechub.com"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;"><i
+                                    class="fas fa-envelope" style="color: #c3151c;"></i>info@elitechub.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Bar -->
+        <div class="container">
+            <div style="padding: 2rem 0;">
+                <div class="footer-bottom">
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                        <p style="margin: 0;">&copy; 2025 <span style="color: #c3151c; font-weight: 700;">Elitech Hub
+                                Limited</span>. All rights reserved.</p>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem;">RC: 8693883 | SMEDAN Certified | Securing
+                            Africa's Digital Future</p>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.875rem;">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
     <script src="js/article.js"></script>
     <script src="js/popup-engine.js"></script>
+    <script src="js/cookie-consent.js"></script>
+
+    <script>
+        // Mobile Dropdown Toggle Function
+        function toggleMobileDropdown(header) {
+            const dropdown = header.parentElement;
+            dropdown.classList.toggle('active');
+        }
+
+        // Copy article link
+        function copyArticleLink(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const tooltip = document.getElementById('copyTooltip');
+                tooltip.classList.add('show');
+                setTimeout(() => tooltip.classList.remove('show'), 2500);
+            });
+        }
+    </script>
 </body>
 
 </html>

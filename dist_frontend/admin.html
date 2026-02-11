@@ -22,6 +22,9 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Quill.js Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
     <style>
         :root {
             --primary: #c3151c;
@@ -438,6 +441,317 @@
             text-align: center;
             margin-bottom: 2rem;
         }
+        /* ========== Blog Editor Enhancements ========== */
+        #blogEditor {
+            background: white;
+            min-height: 300px;
+        }
+
+        .ql-toolbar.ql-snow {
+            border-radius: 0.5rem 0.5rem 0 0;
+            border-color: #E5E7EB;
+            background: #F9FAFB;
+        }
+
+        .ql-container.ql-snow {
+            border-radius: 0 0 0.5rem 0.5rem;
+            border-color: #E5E7EB;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        .editor-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.75rem 0;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .editor-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Categories Panel */
+        .categories-panel {
+            max-height: 160px;
+            overflow-y: auto;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .categories-panel label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+            font-weight: 400;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .categories-panel input[type="checkbox"] {
+            width: auto;
+            accent-color: var(--primary);
+        }
+
+        .add-category-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .add-category-row input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.6rem !important;
+            font-size: 0.8rem !important;
+        }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            min-height: 24px;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, var(--primary), #e64545);
+            color: white;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tag-pill .remove-tag {
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        .tag-pill .remove-tag:hover {
+            opacity: 1;
+        }
+
+        /* Featured Image Preview */
+        .featured-image-preview {
+            position: relative;
+            margin-top: 0.75rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            max-width: 400px;
+            border: 2px solid #E5E7EB;
+        }
+
+        .featured-image-preview img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .remove-preview {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 28px;
+            height: 28px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Scheduling */
+        .schedule-options {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 400;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .radio-label input[type="radio"] {
+            width: auto;
+            accent-color: var(--primary);
+        }
+
+        /* Collapsible Panels */
+        .collapsible-panel {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: #F9FAFB;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .panel-header:hover {
+            background: #F3F4F6;
+        }
+
+        .panel-header i:last-child {
+            transition: transform 0.3s;
+        }
+
+        .panel-header.open i:last-child {
+            transform: rotate(180deg);
+        }
+
+        .panel-body {
+            padding: 1.25rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        /* Character Count */
+        .char-count {
+            float: right;
+            font-weight: 400;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Google Search Preview */
+        .google-preview {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .google-preview-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .gp-title {
+            font-size: 1.15rem;
+            color: #1a0dab;
+            font-weight: 400;
+            margin-bottom: 0.15rem;
+            cursor: pointer;
+        }
+
+        .gp-title:hover {
+            text-decoration: underline;
+        }
+
+        .gp-url {
+            font-size: 0.85rem;
+            color: #006621;
+            margin-bottom: 0.25rem;
+        }
+
+        .gp-description {
+            font-size: 0.85rem;
+            color: #545454;
+            line-height: 1.5;
+        }
+
+        /* Social Preview Card */
+        .social-preview-card {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            max-width: 500px;
+        }
+
+        .sp-image {
+            height: 160px;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .sp-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sp-content {
+            padding: 0.75rem 1rem;
+        }
+
+        .sp-url {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .sp-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+
+        .sp-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Blog Actions */
+        .blog-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
     </style>
     <link rel="stylesheet" href="css/popup.css">
 </head>
@@ -848,41 +1162,148 @@
                     <h3 class="card-title"><i class="fas fa-pen"></i> <span id="blogFormTitle">New Blog Post</span></h3>
                     <form id="blogFormElement">
                         <input type="hidden" id="blogId">
+
+                        <!-- Title -->
                         <div class="form-group">
                             <label>Title *</label>
-                            <input type="text" id="blogTitle" required>
+                            <input type="text" id="blogTitle" required placeholder="Enter your post title..." oninput="autoGenerateSlug()">
                         </div>
+
+                        <!-- Rich Text Editor -->
                         <div class="form-group">
-                            <label>Slug *</label>
-                            <input type="text" id="blogSlug" required placeholder="my-blog-post-title">
+                            <label>Content</label>
+                            <div id="blogEditor"></div>
                         </div>
+
+                        <!-- Word Count & Reading Time -->
+                        <div class="editor-stats">
+                            <span><i class="fas fa-font"></i> <span id="wordCount">0</span> words</span>
+                            <span><i class="fas fa-clock"></i> <span id="readingTime">0</span> min read</span>
+                        </div>
+
+                        <!-- Excerpt -->
                         <div class="form-group">
                             <label>Excerpt</label>
-                            <textarea id="blogExcerpt" rows="2"></textarea>
+                            <textarea id="blogExcerpt" rows="2" placeholder="Brief summary of the post..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Content (HTML)</label>
-                            <textarea id="blogContent" rows="10"></textarea>
-                        </div>
+
                         <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                            <!-- Categories -->
                             <div class="form-group">
-                                <label>Category</label>
-                                <select id="blogCategory">
-                                    <option value="cybersecurity">Cybersecurity</option>
-                                    <option value="scholarship">Scholarship</option>
-                                    <option value="news">News</option>
-                                    <option value="tutorial">Tutorial</option>
-                                </select>
+                                <label><i class="fas fa-folder"></i> Categories</label>
+                                <div class="categories-panel" id="categoriesPanel"></div>
+                                <div class="add-category-row">
+                                    <input type="text" id="newCategoryInput" placeholder="New category...">
+                                    <button type="button" class="btn btn-secondary btn-sm" onclick="addNewCategory()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
+
+                            <!-- Tags -->
                             <div class="form-group">
-                                <label>Thumbnail URL</label>
-                                <input type="url" id="blogThumbnail">
+                                <label><i class="fas fa-tags"></i> Tags</label>
+                                <div class="tags-container" id="tagsContainer"></div>
+                                <input type="text" id="tagInput" placeholder="Add tag, press Enter or comma..." onkeydown="handleTagInput(event)">
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem;">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
-                                Publish</button>
-                            <button type="button" class="btn btn-secondary" onclick="hideBlogForm()">Cancel</button>
+
+                        <!-- Featured Image -->
+                        <div class="form-group">
+                            <label><i class="fas fa-image"></i> Featured Image URL</label>
+                            <input type="url" id="blogThumbnail" placeholder="https://..." oninput="previewFeaturedImage()">
+                            <div class="featured-image-preview" id="featuredImagePreview" style="display: none;">
+                                <img id="featuredImageImg" src="" alt="Preview">
+                                <button type="button" class="remove-preview" onclick="clearFeaturedImage()">×</button>
+                            </div>
+                        </div>
+
+                        <!-- Scheduling -->
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> Publishing</label>
+                            <div class="schedule-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="publishOption" value="now" checked onchange="toggleSchedule()"> Publish Immediately
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="publishOption" value="schedule" onchange="toggleSchedule()"> Schedule
+                                </label>
+                            </div>
+                            <div id="scheduleDateTime" style="display: none; margin-top: 0.5rem;">
+                                <input type="datetime-local" id="scheduledAt">
+                            </div>
+                        </div>
+
+                        <!-- SEO Panel -->
+                        <div class="collapsible-panel">
+                            <div class="panel-header" onclick="togglePanel('seoPanel')">
+                                <span><i class="fas fa-search"></i> SEO Settings</span>
+                                <i class="fas fa-chevron-down" id="seoPanelIcon"></i>
+                            </div>
+                            <div class="panel-body" id="seoPanel" style="display: none;">
+                                <div class="form-group">
+                                    <label>Focus Keyphrase</label>
+                                    <input type="text" id="seoKeyphrase" placeholder="e.g., cybersecurity training" oninput="updateSeoPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>SEO Title <span class="char-count" id="seoTitleCount">0/60</span></label>
+                                    <input type="text" id="seoTitle" placeholder="SEO title (defaults to post title)" maxlength="60" oninput="updateSeoPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Meta Description <span class="char-count" id="metaDescCount">0/160</span></label>
+                                    <textarea id="metaDescription" rows="2" maxlength="160" placeholder="Brief description for search engines..." oninput="updateSeoPreview()"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input type="text" id="blogSlug" required placeholder="my-blog-post-title">
+                                </div>
+                                <div class="google-preview">
+                                    <div class="google-preview-title">Google Search Preview</div>
+                                    <div class="gp-title" id="gpTitle">Post Title — Elitech Hub</div>
+                                    <div class="gp-url">elitechhub.com/blog/<span id="gpSlug">post-slug</span></div>
+                                    <div class="gp-description" id="gpDescription">Your meta description will appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Preview Panel -->
+                        <div class="collapsible-panel">
+                            <div class="panel-header" onclick="togglePanel('socialPanel')">
+                                <span><i class="fas fa-share-alt"></i> Social Sharing (Open Graph)</span>
+                                <i class="fas fa-chevron-down" id="socialPanelIcon"></i>
+                            </div>
+                            <div class="panel-body" id="socialPanel" style="display: none;">
+                                <div class="form-group">
+                                    <label>OG Title</label>
+                                    <input type="text" id="ogTitle" placeholder="Defaults to post title" oninput="updateSocialPreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label>OG Description</label>
+                                    <textarea id="ogDescription" rows="2" placeholder="Defaults to excerpt" oninput="updateSocialPreview()"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>OG Image URL</label>
+                                    <input type="url" id="ogImage" placeholder="Defaults to featured image" oninput="updateSocialPreview()">
+                                </div>
+                                <div class="social-preview-card">
+                                    <div class="sp-image" id="spImage">
+                                        <i class="fas fa-image" style="font-size: 2rem; color: #9CA3AF;"></i>
+                                    </div>
+                                    <div class="sp-content">
+                                        <div class="sp-url">elitechhub.com</div>
+                                        <div class="sp-title" id="spTitle">Post Title</div>
+                                        <div class="sp-desc" id="spDescription">Post description preview...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="blog-actions">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Publish</button>
+                            <button type="button" class="btn btn-secondary" onclick="saveBlogAsDraft()"><i class="fas fa-file"></i> Save Draft</button>
+                            <button type="button" class="btn btn-secondary" onclick="previewBlogPost()"><i class="fas fa-eye"></i> Preview</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideBlogForm()"><i class="fas fa-times"></i> Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -1399,13 +1820,155 @@
             }
         }
 
-        // Blog
+        // ========== Enhanced Blog System ==========
+        let quillEditor = null;
+        let blogTags = [];
+        let blogCategories = ['Cybersecurity', 'Scholarship', 'News', 'Tutorial', 'Research', 'Opinion', 'Case Study'];
+
+        // Categories
+        function loadCategories() {
+            const saved = localStorage.getItem('elitech_blog_categories');
+            if (saved) blogCategories = JSON.parse(saved);
+            renderCategories();
+        }
+
+        function renderCategories() {
+            const panel = document.getElementById('categoriesPanel');
+            panel.innerHTML = blogCategories.map(cat => `
+                <label><input type="checkbox" name="blogCategories" value="${cat}"> ${cat}</label>
+            `).join('');
+        }
+
+        function addNewCategory() {
+            const input = document.getElementById('newCategoryInput');
+            const name = input.value.trim();
+            if (name && !blogCategories.includes(name)) {
+                blogCategories.push(name);
+                localStorage.setItem('elitech_blog_categories', JSON.stringify(blogCategories));
+                renderCategories();
+                input.value = '';
+                showToast('Category added!');
+            }
+        }
+
+        // Tags
+        function handleTagInput(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                const tag = e.target.value.replace(',', '').trim();
+                if (tag && !blogTags.includes(tag)) {
+                    blogTags.push(tag);
+                    renderTags();
+                }
+                e.target.value = '';
+            }
+        }
+
+        function removeTag(tag) {
+            blogTags = blogTags.filter(t => t !== tag);
+            renderTags();
+        }
+
+        function renderTags() {
+            document.getElementById('tagsContainer').innerHTML = blogTags.map(tag => `
+                <span class="tag-pill">${tag} <span class="remove-tag" onclick="removeTag('${tag}')">×</span></span>
+            `).join('');
+        }
+
+        // Featured Image Preview
+        function previewFeaturedImage() {
+            const url = document.getElementById('blogThumbnail').value;
+            const preview = document.getElementById('featuredImagePreview');
+            const img = document.getElementById('featuredImageImg');
+            if (url) {
+                img.src = url;
+                img.onload = () => { preview.style.display = 'block'; };
+                img.onerror = () => { preview.style.display = 'none'; };
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        function clearFeaturedImage() {
+            document.getElementById('blogThumbnail').value = '';
+            document.getElementById('featuredImagePreview').style.display = 'none';
+        }
+
+        // Scheduling
+        function toggleSchedule() {
+            const isScheduled = document.querySelector('input[name="publishOption"][value="schedule"]').checked;
+            document.getElementById('scheduleDateTime').style.display = isScheduled ? 'block' : 'none';
+        }
+
+        // Auto-generate slug from title
+        function autoGenerateSlug() {
+            const title = document.getElementById('blogTitle').value;
+            const slug = title.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            document.getElementById('blogSlug').value = slug;
+            updateSeoPreview();
+        }
+
+        // Word count & reading time
+        function updateWordCount() {
+            if (!quillEditor) return;
+            const text = quillEditor.getText().trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            const readTime = Math.max(1, Math.ceil(words / 200));
+            document.getElementById('wordCount').textContent = words;
+            document.getElementById('readingTime').textContent = readTime;
+        }
+
+        // Collapsible panels
+        function togglePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            const icon = document.getElementById(panelId + 'Icon');
+            const header = icon.closest('.panel-header');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                header.classList.add('open');
+            } else {
+                panel.style.display = 'none';
+                header.classList.remove('open');
+            }
+        }
+
+        // SEO Preview
+        function updateSeoPreview() {
+            const title = document.getElementById('seoTitle').value || document.getElementById('blogTitle').value || 'Post Title';
+            const slug = document.getElementById('blogSlug').value || 'post-slug';
+            const desc = document.getElementById('metaDescription').value || 'Your meta description will appear here...';
+            document.getElementById('gpTitle').textContent = title + ' — Elitech Hub';
+            document.getElementById('gpSlug').textContent = slug;
+            document.getElementById('gpDescription').textContent = desc;
+            document.getElementById('seoTitleCount').textContent = (document.getElementById('seoTitle').value || '').length + '/60';
+            document.getElementById('metaDescCount').textContent = (document.getElementById('metaDescription').value || '').length + '/160';
+        }
+
+        // Social Preview
+        function updateSocialPreview() {
+            const title = document.getElementById('ogTitle').value || document.getElementById('blogTitle').value || 'Post Title';
+            const desc = document.getElementById('ogDescription').value || document.getElementById('blogExcerpt').value || 'Post description preview...';
+            const imgUrl = document.getElementById('ogImage').value || document.getElementById('blogThumbnail').value;
+            document.getElementById('spTitle').textContent = title;
+            document.getElementById('spDescription').textContent = desc;
+            const imgContainer = document.getElementById('spImage');
+            if (imgUrl) {
+                imgContainer.innerHTML = '<img src="' + imgUrl + '" alt="Preview" onerror="this.parentElement.innerHTML=\'<i class=\\\"fas fa-image\\\" style=\\\"font-size:2rem;color:#9CA3AF\\\"></i>\'">';
+            } else {
+                imgContainer.innerHTML = '<i class="fas fa-image" style="font-size: 2rem; color: #9CA3AF;"></i>';
+            }
+        }
+
+        // Load blogs list
         async function loadBlogs() {
             try {
                 const res = await fetch(`${API_URL}/blog`);
                 const data = await res.json();
                 const posts = data.posts || [];
-
                 document.getElementById('blogTable').innerHTML = posts.map(p => `
                     <tr>
                         <td>${p.title}</td>
@@ -1422,26 +1985,99 @@
             }
         }
 
+        // Show blog form & init Quill
         function showBlogForm() {
             document.getElementById('blogPostForm').style.display = 'block';
             document.getElementById('blogFormElement').reset();
+            document.getElementById('blogFormTitle').textContent = 'New Blog Post';
+            blogTags = [];
+            renderTags();
+            loadCategories();
+
+            if (!quillEditor) {
+                quillEditor = new Quill('#blogEditor', {
+                    theme: 'snow',
+                    placeholder: 'Write your blog post content here...',
+                    modules: {
+                        toolbar: [
+                            [{ 'header': [1, 2, 3, 4, false] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'align': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ]
+                    }
+                });
+                quillEditor.on('text-change', updateWordCount);
+            } else {
+                quillEditor.setText('');
+            }
+
+            document.getElementById('featuredImagePreview').style.display = 'none';
+            document.getElementById('scheduleDateTime').style.display = 'none';
+            updateWordCount();
+            updateSeoPreview();
         }
 
         function hideBlogForm() {
             document.getElementById('blogPostForm').style.display = 'none';
         }
 
-        document.getElementById('blogFormElement').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Save as Draft
+        async function saveBlogAsDraft() {
+            await submitBlogPost(false);
+        }
+
+        // Preview in new tab
+        function previewBlogPost() {
+            const title = document.getElementById('blogTitle').value || 'Untitled';
+            const content = quillEditor ? quillEditor.root.innerHTML : '';
+            const thumbnail = document.getElementById('blogThumbnail').value;
+            const previewHTML = '<!DOCTYPE html><html><head>' +
+                '<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+                '<title>' + title + ' — Preview</title>' +
+                '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+                '<style>body{font-family:Montserrat,sans-serif;max-width:800px;margin:0 auto;padding:2rem;background:#F9FAFB;color:#0A0A0A}' +
+                'h1{font-family:Space Grotesk,sans-serif;font-size:2rem;margin-bottom:1rem}' +
+                '.preview-banner{background:#FEF3C7;color:#92400E;padding:0.75rem 1rem;border-radius:0.5rem;margin-bottom:2rem;font-size:0.875rem;text-align:center}' +
+                '.featured-img{width:100%;max-height:400px;object-fit:cover;border-radius:1rem;margin-bottom:2rem}' +
+                '.content{line-height:1.8;font-size:1.05rem}.content img{max-width:100%;border-radius:0.5rem}' +
+                '.content h1,.content h2,.content h3{font-family:Space Grotesk,sans-serif}</style>' +
+                '</head><body>' +
+                '<div class="preview-banner">⚠️ This is a preview — not yet published</div>' +
+                (thumbnail ? '<img class="featured-img" src="' + thumbnail + '" alt="' + title + '">' : '') +
+                '<h1>' + title + '</h1>' +
+                '<div class="content">' + content + '</div>' +
+                '</body></html>';
+            const blob = new Blob([previewHTML], { type: 'text/html' });
+            window.open(URL.createObjectURL(blob), '_blank');
+        }
+
+        // Submit blog post
+        async function submitBlogPost(publish) {
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="blogCategories"]:checked')).map(cb => cb.value);
+            const isScheduled = document.querySelector('input[name="publishOption"][value="schedule"]')?.checked;
 
             const blogData = {
                 title: document.getElementById('blogTitle').value,
                 slug: document.getElementById('blogSlug').value,
                 excerpt: document.getElementById('blogExcerpt').value,
-                content: document.getElementById('blogContent').value,
-                category: document.getElementById('blogCategory').value,
+                content: quillEditor ? quillEditor.root.innerHTML : '',
+                category: selectedCategories.join(', ') || 'Uncategorized',
                 thumbnail: document.getElementById('blogThumbnail').value,
-                published: true
+                tags: blogTags,
+                seo_title: document.getElementById('seoTitle').value,
+                meta_description: document.getElementById('metaDescription').value,
+                focus_keyphrase: document.getElementById('seoKeyphrase').value,
+                og_title: document.getElementById('ogTitle').value,
+                og_description: document.getElementById('ogDescription').value,
+                og_image: document.getElementById('ogImage').value,
+                published: publish,
+                scheduled_at: (isScheduled && !publish) ? document.getElementById('scheduledAt').value : null
             };
 
             try {
@@ -1453,17 +2089,21 @@
                     },
                     body: JSON.stringify(blogData)
                 });
-
                 if (res.ok) {
-                    showToast('Post published!');
+                    showToast(publish ? 'Post published!' : 'Draft saved!');
                     hideBlogForm();
                     loadBlogs();
                 } else {
-                    showToast('Failed to publish', 'error');
+                    showToast('Failed to save post', 'error');
                 }
             } catch (err) {
-                showToast('Error publishing post', 'error');
+                showToast('Error saving post', 'error');
             }
+        }
+
+        document.getElementById('blogFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await submitBlogPost(true);
         });
 
         // Toast

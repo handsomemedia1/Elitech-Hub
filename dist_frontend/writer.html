@@ -22,6 +22,9 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Quill.js Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
     <style>
         :root {
             --primary: #c3151c;
@@ -460,6 +463,179 @@
         .hidden {
             display: none !important;
         }
+
+        /* ========== Enhanced Editor Styles ========== */
+        #writerQuillEditor {
+            background: white;
+            min-height: 350px;
+        }
+
+        .ql-toolbar.ql-snow {
+            border-radius: 0.5rem 0.5rem 0 0;
+            border-color: #E5E7EB;
+            background: #F3F4F6;
+        }
+
+        .ql-container.ql-snow {
+            border-radius: 0 0 0.5rem 0.5rem;
+            border-color: #E5E7EB;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Categories Panel */
+        .categories-panel {
+            max-height: 140px;
+            overflow-y: auto;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .categories-panel label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+            font-weight: 400;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .categories-panel input[type="checkbox"] {
+            width: auto;
+            accent-color: var(--primary);
+        }
+
+        .add-cat-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .add-cat-row input {
+            flex: 1;
+            padding: 0.4rem 0.5rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-xs {
+            padding: 0.35rem 0.55rem !important;
+            font-size: 0.75rem !important;
+        }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.4rem;
+            min-height: 22px;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            background: linear-gradient(135deg, var(--primary), #e64545);
+            color: white;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            animation: tagFadeIn 0.2s ease;
+        }
+
+        @keyframes tagFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .tag-pill .rm-tag {
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        .tag-pill .rm-tag:hover {
+            opacity: 1;
+        }
+
+        /* Featured Image Preview */
+        .feat-img-preview {
+            position: relative;
+            margin-top: 0.5rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 2px solid #E5E7EB;
+        }
+
+        .feat-img-preview img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .feat-img-preview .rm-img {
+            position: absolute;
+            top: 0.4rem;
+            right: 0.4rem;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Schedule */
+        .schedule-opts {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .radio-lbl {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 400;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .radio-lbl input[type="radio"] {
+            width: auto;
+            accent-color: var(--primary);
+        }
+
+        .editor-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .editor-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <link rel="stylesheet" href="css/popup.css">
 </head>
@@ -551,7 +727,7 @@
                     <div class="form-group">
                         <label>Post Title</label>
                         <input type="text" id="postTitle" placeholder="Enter a compelling title..."
-                            onkeyup="updateSEO()">
+                            oninput="writerAutoSlug(); updateSEO()">
                     </div>
 
                     <div class="form-group">
@@ -563,46 +739,65 @@
                         <label>Excerpt / Meta Description</label>
                         <textarea id="postExcerpt" rows="2"
                             placeholder="Brief description for search results (120-160 chars)"
-                            onkeyup="updateSEO()"></textarea>
+                            oninput="updateSEO()"></textarea>
                         <small id="excerptCount" style="color: var(--gray);">0/160 characters</small>
                     </div>
 
+                    <div class="editor-meta-grid">
+                        <!-- Dynamic Categories -->
+                        <div class="form-group">
+                            <label><i class="fas fa-folder"></i> Categories</label>
+                            <div class="categories-panel" id="writerCategoriesPanel"></div>
+                            <div class="add-cat-row">
+                                <input type="text" id="writerNewCatInput" placeholder="New category...">
+                                <button type="button" class="btn btn-secondary btn-xs" onclick="writerAddCategory()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="form-group">
+                            <label><i class="fas fa-tags"></i> Tags</label>
+                            <div class="tags-container" id="writerTagsContainer"></div>
+                            <input type="text" id="writerTagInput" placeholder="Add tag, press Enter or comma..."
+                                onkeydown="writerHandleTag(event)">
+                        </div>
+                    </div>
+
+                    <!-- Featured Image with Preview -->
                     <div class="form-group">
-                        <label>Category</label>
-                        <select id="postCategory">
-                            <option value="cybersecurity">Cybersecurity</option>
-                            <option value="tutorial">Tutorial</option>
-                            <option value="news">News</option>
-                            <option value="scholarship">Scholarship</option>
-                        </select>
+                        <label><i class="fas fa-image"></i> Featured Image URL</label>
+                        <input type="url" id="postThumbnail" placeholder="https://..." oninput="writerPreviewImg()">
+                        <div class="feat-img-preview" id="writerImgPreview" style="display: none;">
+                            <img id="writerImgPreviewEl" src="" alt="Preview">
+                            <button type="button" class="rm-img" onclick="writerClearImg()">×</button>
+                        </div>
                     </div>
 
+                    <!-- Scheduling -->
                     <div class="form-group">
-                        <label>Thumbnail URL</label>
-                        <input type="url" id="postThumbnail" placeholder="https://...">
+                        <label><i class="fas fa-calendar-alt"></i> Publishing</label>
+                        <div class="schedule-opts">
+                            <label class="radio-lbl">
+                                <input type="radio" name="writerPubOption" value="now" checked
+                                    onchange="writerToggleSched()"> Submit Now
+                            </label>
+                            <label class="radio-lbl">
+                                <input type="radio" name="writerPubOption" value="schedule"
+                                    onchange="writerToggleSched()"> Schedule
+                            </label>
+                        </div>
+                        <div id="writerSchedDateTime" style="display: none;">
+                            <input type="datetime-local" id="writerScheduledAt">
+                        </div>
                     </div>
 
-                    <div class="editor-toolbar">
-                        <button class="toolbar-btn" onclick="formatText('bold')" title="Bold"><i
-                                class="fas fa-bold"></i></button>
-                        <button class="toolbar-btn" onclick="formatText('italic')" title="Italic"><i
-                                class="fas fa-italic"></i></button>
-                        <button class="toolbar-btn" onclick="formatText('underline')" title="Underline"><i
-                                class="fas fa-underline"></i></button>
-                        <button class="toolbar-btn" onclick="insertHeading('h2')" title="Heading 2"><b>H2</b></button>
-                        <button class="toolbar-btn" onclick="insertHeading('h3')" title="Heading 3"><b>H3</b></button>
-                        <button class="toolbar-btn" onclick="formatText('insertUnorderedList')" title="Bullet List"><i
-                                class="fas fa-list-ul"></i></button>
-                        <button class="toolbar-btn" onclick="formatText('insertOrderedList')" title="Numbered List"><i
-                                class="fas fa-list-ol"></i></button>
-                        <button class="toolbar-btn" onclick="insertLink()" title="Insert Link"><i
-                                class="fas fa-link"></i></button>
-                        <button class="toolbar-btn" onclick="insertImage()" title="Insert Image"><i
-                                class="fas fa-image"></i></button>
+                    <!-- Quill Editor -->
+                    <div class="form-group">
+                        <label>Content</label>
+                        <div id="writerQuillEditor"></div>
                     </div>
-
-                    <div id="contentEditor" class="content-editor" contenteditable="true" onkeyup="updateSEO()"
-                        onpaste="setTimeout(updateSEO, 100)"></div>
 
                     <div class="form-actions">
                         <button class="btn btn-primary" onclick="submitPost()">
@@ -610,6 +805,9 @@
                         </button>
                         <button class="btn btn-secondary" onclick="saveDraft()">
                             <i class="fas fa-save"></i> Save Draft
+                        </button>
+                        <button class="btn btn-secondary" onclick="previewWriterPost()">
+                            <i class="fas fa-eye"></i> Preview
                         </button>
                         <button class="btn btn-secondary" onclick="checkSEO()">
                             <i class="fas fa-search"></i> Check SEO
@@ -967,6 +1165,11 @@
             }
 
             // Load data for specific views
+            if (view === 'editor') {
+                initWriterQuill();
+                writerLoadCategories();
+                loadDraft();
+            }
             if (view === 'dashboard') loadDashboard();
             if (view === 'leaderboard') loadLeaderboard();
             if (view === 'badges') loadBadges();
@@ -1126,85 +1329,185 @@
             }
         }
 
-        // Editor functions
-        function formatText(command) {
-            document.execCommand(command, false, null);
-            updateSEO();
+        // ========== Enhanced Editor System ==========
+        let writerQuill = null;
+        let writerTags = [];
+        let writerCategories = ['Cybersecurity', 'Scholarship', 'News', 'Tutorial', 'Research', 'Opinion', 'Case Study'];
+
+        // Init Quill when editor view loads
+        function initWriterQuill() {
+            if (writerQuill) return;
+            writerQuill = new Quill('#writerQuillEditor', {
+                theme: 'snow',
+                placeholder: 'Write your blog post content here...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, 4, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'align': [] }],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                    ]
+                }
+            });
+            writerQuill.on('text-change', updateSEO);
         }
 
-        function insertHeading(tag) {
-            document.execCommand('formatBlock', false, tag);
-            updateSEO();
+        // Categories
+        function writerLoadCategories() {
+            const saved = localStorage.getItem('elitech_writer_categories');
+            if (saved) writerCategories = JSON.parse(saved);
+            writerRenderCategories();
         }
 
-        function insertLink() {
-            const url = prompt('Enter URL:');
-            if (url) {
-                document.execCommand('createLink', false, url);
-                updateSEO();
+        function writerRenderCategories() {
+            document.getElementById('writerCategoriesPanel').innerHTML = writerCategories.map(cat => `
+                <label><input type="checkbox" name="writerCats" value="${cat}"> ${cat}</label>
+            `).join('');
+        }
+
+        function writerAddCategory() {
+            const input = document.getElementById('writerNewCatInput');
+            const name = input.value.trim();
+            if (name && !writerCategories.includes(name)) {
+                writerCategories.push(name);
+                localStorage.setItem('elitech_writer_categories', JSON.stringify(writerCategories));
+                writerRenderCategories();
+                input.value = '';
             }
         }
 
-        function insertImage() {
-            const url = prompt('Enter image URL:');
-            if (url) {
-                document.execCommand('insertImage', false, url);
-                updateSEO();
+        // Tags
+        function writerHandleTag(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                const tag = e.target.value.replace(',', '').trim();
+                if (tag && !writerTags.includes(tag)) {
+                    writerTags.push(tag);
+                    writerRenderTags();
+                }
+                e.target.value = '';
             }
         }
 
-        // SEO Checker
+        function writerRemoveTag(tag) {
+            writerTags = writerTags.filter(t => t !== tag);
+            writerRenderTags();
+        }
+
+        function writerRenderTags() {
+            document.getElementById('writerTagsContainer').innerHTML = writerTags.map(tag => `
+                <span class="tag-pill">${tag} <span class="rm-tag" onclick="writerRemoveTag('${tag}')">×</span></span>
+            `).join('');
+        }
+
+        // Featured Image Preview
+        function writerPreviewImg() {
+            const url = document.getElementById('postThumbnail').value;
+            const preview = document.getElementById('writerImgPreview');
+            const img = document.getElementById('writerImgPreviewEl');
+            if (url) {
+                img.src = url;
+                img.onload = () => { preview.style.display = 'block'; };
+                img.onerror = () => { preview.style.display = 'none'; };
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        function writerClearImg() {
+            document.getElementById('postThumbnail').value = '';
+            document.getElementById('writerImgPreview').style.display = 'none';
+        }
+
+        // Scheduling
+        function writerToggleSched() {
+            const isScheduled = document.querySelector('input[name="writerPubOption"][value="schedule"]').checked;
+            document.getElementById('writerSchedDateTime').style.display = isScheduled ? 'block' : 'none';
+        }
+
+        // Auto-generate slug
+        function writerAutoSlug() {
+            const title = document.getElementById('postTitle').value;
+            document.getElementById('postSlug').value = title.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+        }
+
+        // Preview in new tab
+        function previewWriterPost() {
+            const title = document.getElementById('postTitle').value || 'Untitled';
+            const content = writerQuill ? writerQuill.root.innerHTML : '';
+            const thumbnail = document.getElementById('postThumbnail').value;
+            const html = '<!DOCTYPE html><html><head>' +
+                '<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+                '<title>' + title + ' — Preview</title>' +
+                '<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+                '<style>body{font-family:Montserrat,sans-serif;max-width:800px;margin:0 auto;padding:2rem;background:#F9FAFB;color:#0A0A0A}' +
+                'h1{font-family:Space Grotesk,sans-serif;font-size:2rem;margin-bottom:1rem}' +
+                '.banner{background:#FEF3C7;color:#92400E;padding:0.75rem;border-radius:0.5rem;margin-bottom:2rem;text-align:center;font-size:0.875rem}' +
+                '.hero{width:100%;max-height:400px;object-fit:cover;border-radius:1rem;margin-bottom:2rem}' +
+                '.body{line-height:1.8;font-size:1.05rem}.body img{max-width:100%;border-radius:0.5rem}</style>' +
+                '</head><body>' +
+                '<div class="banner">⚠️ Preview — not yet published</div>' +
+                (thumbnail ? '<img class="hero" src="' + thumbnail + '" alt="' + title + '">' : '') +
+                '<h1>' + title + '</h1>' +
+                '<div class="body">' + content + '</div>' +
+                '</body></html>';
+            window.open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank');
+        }
+
+        // SEO Checker (updated for Quill)
         function updateSEO() {
             const title = document.getElementById('postTitle').value;
             const excerpt = document.getElementById('postExcerpt').value;
-            const content = document.getElementById('contentEditor').innerHTML;
+            const content = writerQuill ? writerQuill.root.innerHTML : '';
 
             // Excerpt counter
             document.getElementById('excerptCount').textContent = `${excerpt.length}/160 characters`;
 
             // Word count
-            const text = document.getElementById('contentEditor').innerText;
-            const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const text = writerQuill ? writerQuill.getText().trim() : '';
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
             document.getElementById('wordCount').textContent = words;
             document.getElementById('readingTime').textContent = Math.ceil(words / 200) + ' min';
 
             // Calculate SEO score
             let score = 0;
 
-            // Title (25 points)
             const titleOk = title.length >= 30 && title.length <= 60;
             updateStatus('titleStatus', titleOk);
             if (title.length > 0) score += 5;
             if (titleOk) score += 20;
 
-            // Excerpt (15 points)
             const excerptOk = excerpt.length >= 120 && excerpt.length <= 160;
             updateStatus('excerptStatus', excerptOk);
             if (excerpt.length > 0) score += 5;
             if (excerptOk) score += 10;
 
-            // Word count (20 points)
             const wordsOk = words >= 500;
             updateStatus('wordStatus', wordsOk);
             if (words >= 300) score += 10;
             if (wordsOk) score += 10;
 
-            // Headings (15 points)
             const hasHeadings = content.includes('<h2') || content.includes('<h3');
             updateStatus('headingStatus', hasHeadings);
             if (hasHeadings) score += 15;
 
-            // Images (15 points)
             const hasImage = content.includes('<img');
             updateStatus('imageStatus', hasImage);
             if (hasImage) score += 15;
 
-            // Links (10 points)
             const hasLink = content.includes('<a ');
             updateStatus('linkStatus', hasLink);
             if (hasLink) score += 10;
 
-            // Update score display
             score = Math.min(100, score);
             document.getElementById('seoScoreValue').textContent = score + '%';
 
@@ -1213,7 +1516,6 @@
             circle.style.strokeDashoffset = offset;
             circle.style.stroke = score >= 70 ? '#10B981' : score >= 40 ? '#F59E0B' : '#EF4444';
 
-            // Update publish requirements
             const canPublish = score >= 70 && words >= 500 && hasImage;
             const requirements = document.getElementById('publishRequirements');
             if (canPublish) {
@@ -1233,7 +1535,7 @@
         async function checkSEO() {
             const title = document.getElementById('postTitle').value;
             const excerpt = document.getElementById('postExcerpt').value;
-            const content = document.getElementById('contentEditor').innerHTML;
+            const content = writerQuill ? writerQuill.root.innerHTML : '';
 
             try {
                 const res = await fetch(`${API_URL}/writers/seo-check`, {
@@ -1245,7 +1547,6 @@
                     body: JSON.stringify({ title, content, excerpt })
                 });
                 const data = await res.json();
-
                 alert(`SEO Score: ${data.seoScore}%\nWord Count: ${data.wordCount}\nHas Image: ${data.hasImage}\nCan Auto-Publish: ${data.canPublish}\n\nFeedback:\n${data.feedback.join('\n')}`);
             } catch (err) {
                 alert('Failed to check SEO');
@@ -1256,11 +1557,14 @@
             const title = document.getElementById('postTitle').value;
             const slug = document.getElementById('postSlug').value;
             const excerpt = document.getElementById('postExcerpt').value;
-            const content = document.getElementById('contentEditor').innerHTML;
-            const category = document.getElementById('postCategory').value;
+            const content = writerQuill ? writerQuill.root.innerHTML : '';
+            const selectedCats = Array.from(document.querySelectorAll('input[name="writerCats"]:checked')).map(cb => cb.value);
+            const category = selectedCats.join(', ') || 'Uncategorized';
             const thumbnail = document.getElementById('postThumbnail').value;
+            const isScheduled = document.querySelector('input[name="writerPubOption"][value="schedule"]')?.checked;
+            const scheduledAt = isScheduled ? document.getElementById('writerScheduledAt').value : null;
 
-            if (!title || !content) {
+            if (!title || !content || content === '<p><br></p>') {
                 alert('Title and content are required');
                 return;
             }
@@ -1272,7 +1576,7 @@
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ title, slug, excerpt, content, category, thumbnail })
+                    body: JSON.stringify({ title, slug, excerpt, content, category, thumbnail, tags: writerTags, scheduled_at: scheduledAt })
                 });
                 const data = await res.json();
 
@@ -1287,27 +1591,63 @@
                 document.getElementById('postTitle').value = '';
                 document.getElementById('postSlug').value = '';
                 document.getElementById('postExcerpt').value = '';
-                document.getElementById('contentEditor').innerHTML = '';
+                if (writerQuill) writerQuill.setText('');
                 document.getElementById('postThumbnail').value = '';
+                document.getElementById('writerImgPreview').style.display = 'none';
+                writerTags = [];
+                writerRenderTags();
                 updateSEO();
-
                 loadPosts();
             } catch (err) {
                 alert('Failed to submit post');
             }
         }
 
+        // Functional draft save via localStorage
         function saveDraft() {
-            alert('Draft saved locally (implement local storage)');
+            const draft = {
+                title: document.getElementById('postTitle').value,
+                slug: document.getElementById('postSlug').value,
+                excerpt: document.getElementById('postExcerpt').value,
+                content: writerQuill ? writerQuill.root.innerHTML : '',
+                thumbnail: document.getElementById('postThumbnail').value,
+                tags: writerTags,
+                categories: Array.from(document.querySelectorAll('input[name="writerCats"]:checked')).map(cb => cb.value),
+                savedAt: new Date().toISOString()
+            };
+            localStorage.setItem('elitech_writer_draft', JSON.stringify(draft));
+            alert('✅ Draft saved! It will be restored next time you open the editor.');
         }
 
-        // Auto-generate slug from title
-        document.getElementById('postTitle').addEventListener('blur', function () {
-            const slug = document.getElementById('postSlug');
-            if (!slug.value) {
-                slug.value = this.value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        // Load draft on editor open
+        function loadDraft() {
+            const saved = localStorage.getItem('elitech_writer_draft');
+            if (!saved) return;
+            const draft = JSON.parse(saved);
+            const age = (Date.now() - new Date(draft.savedAt).getTime()) / 1000 / 60;
+            if (age > 1440) return; // Ignore drafts older than 24 hours
+
+            if (confirm('You have a saved draft from ' + new Date(draft.savedAt).toLocaleString() + '. Restore it?')) {
+                document.getElementById('postTitle').value = draft.title || '';
+                document.getElementById('postSlug').value = draft.slug || '';
+                document.getElementById('postExcerpt').value = draft.excerpt || '';
+                if (writerQuill && draft.content) {
+                    writerQuill.root.innerHTML = draft.content;
+                }
+                document.getElementById('postThumbnail').value = draft.thumbnail || '';
+                writerTags = draft.tags || [];
+                writerRenderTags();
+                writerPreviewImg();
+                // Restore categories
+                if (draft.categories) {
+                    draft.categories.forEach(cat => {
+                        const cb = document.querySelector(`input[name="writerCats"][value="${cat}"]`);
+                        if (cb) cb.checked = true;
+                    });
+                }
+                updateSEO();
             }
-        });
+        }
 
         // Init
         init();

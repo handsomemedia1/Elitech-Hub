@@ -1,7 +1,10 @@
+// article.js - Premium Blog Article Renderer
+// Handles fetching, rendering, sharing, related posts, and reading progress
+
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const articleId = params.get('id');
-    const slug = params.get('slug'); // Support slug too
+    const slug = params.get('slug');
 
     if (!articleId && !slug) {
         window.location.href = 'blog.html';
@@ -9,75 +12,241 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const identifier = articleId || slug; // Backend likely handles slug in logic or we adjust endpoint
-        // Adjust endpoint based on what we have. Our backend supports /:slug. 
-        // If we have ID, we might need to filter list or update backend to support ID lookup on same endpoint 
-        // OR filtering. Ideally backend has /api/blog/:idOrSlug
+        const API_BASE = window.location.hostname === 'localhost'
+            ? 'https://elitech-hub.vercel.app/api'
+            : '/api';
 
-        let url;
-        if (articleId) {
-            // Currently backend routes might only strictly support slug on /:slug if not UUID. 
-            // Let's assume we filter the list if ID is passed, OR we fetch all and find (inefficient but works for small app)
-            // Better: Update backend to support ID lookup. 
-            // For now, let's try to fetch by slug if possible, else fetch list.
-            // Actually, simplest is to assume /api/blog/:id works if backend updated, or just fetch list and find.
-            // Let's rely on the list fetch for ID since backend showed /:slug.
-            url = window.location.hostname === 'localhost' ? 'https://elitech-hub.vercel.app/api/blog' : '/api/blog';
-        } else {
-            url = window.location.hostname === 'localhost' ? `https://elitech-hub.vercel.app/api/blog/${slug}` : `/api/blog/${slug}`;
-        }
-
-        // FETCH CONTENT
+        // Fetch the article
         let post;
         if (slug) {
-            const res = await fetch(url);
+            const res = await fetch(`${API_BASE}/blog/${slug}`);
             const data = await res.json();
             post = data.post;
         } else {
-            // Find by ID from list
-            const res = await fetch(url); // fetches list
+            const res = await fetch(`${API_BASE}/blog`);
             const data = await res.json();
-            // Assuming data.posts array
             post = data.posts.find(p => p.id == articleId);
         }
 
         if (!post) throw new Error('Post not found');
 
-        // RENDER
+        // ===== RENDER ARTICLE =====
         document.getElementById('article-loader').style.display = 'none';
-        document.getElementById('article-content').style.display = 'block';
+        const contentEl = document.getElementById('article-content');
+        contentEl.style.display = 'block';
 
+        // Page title & meta
         document.title = `${post.title} - Elitech Hub`;
-        document.getElementById('article-title').textContent = post.title;
-        document.getElementById('article-category').textContent = post.category || 'Blog';
-        document.getElementById('article-date').textContent = new Date(post.published_at).toLocaleDateString();
-        document.getElementById('article-author').innerHTML = `<i class="fas fa-user-circle"></i> ${post.author || 'Team'}`;
-        document.getElementById('article-views').innerHTML = `<i class="fas fa-eye"></i> ${post.views || 0} views`;
+        const metaDesc = post.excerpt || post.meta_description || '';
+        document.getElementById('page-title').textContent = `${post.title} - Elitech Hub`;
+        document.getElementById('meta-description').setAttribute('content', metaDesc);
 
+        // Open Graph
+        document.getElementById('og-title').setAttribute('content', post.title);
+        document.getElementById('og-description').setAttribute('content', metaDesc);
         if (post.thumbnail) {
-            document.getElementById('article-image').src = post.thumbnail;
+            document.getElementById('og-image').setAttribute('content', post.thumbnail);
+        }
+
+        // Category
+        const category = post.category || 'Blog';
+        document.getElementById('article-category').textContent = category.toUpperCase();
+
+        // Title
+        document.getElementById('article-title').textContent = post.title;
+
+        // Author
+        const authorName = post.author || post.author_name || 'Elitech Hub Team';
+        document.getElementById('article-author').innerHTML = `<i class="fas fa-user-circle"></i> ${authorName}`;
+        document.getElementById('author-name').textContent = authorName;
+
+        // Date
+        const publishedDate = post.published_at || post.created_at;
+        if (publishedDate) {
+            const dateObj = new Date(publishedDate);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('article-date').innerHTML =
+                `<i class="far fa-calendar-alt"></i> ${dateObj.toLocaleDateString('en-US', options)}`;
+        }
+
+        // Views
+        const views = post.views || 0;
+        document.getElementById('article-views').innerHTML =
+            `<i class="fas fa-eye"></i> ${formatNumber(views)} views`;
+
+        // Featured Image
+        const imgEl = document.getElementById('article-image');
+        if (post.thumbnail) {
+            imgEl.src = post.thumbnail;
+            imgEl.alt = post.title;
+            imgEl.onerror = () => { imgEl.style.display = 'none'; };
         } else {
-            document.getElementById('article-image').style.display = 'none';
+            imgEl.style.display = 'none';
         }
 
-        // Handle content (HTML or text)
-        document.getElementById('article-body').innerHTML = post.content || post.excerpt;
+        // Content
+        const content = post.content || post.excerpt || '';
+        document.getElementById('article-body').innerHTML = content;
 
-        // TRACK VIEW
-        // We only track if we haven't tracked this session to avoid spamming
-        const sessionKey = `viewed_post_${post.id}`;
-        if (!sessionStorage.getItem(sessionKey)) {
-            const trackUrl = window.location.hostname === 'localhost' ? 'https://elitech-hub.vercel.app/api/blog/track-view' : '/api/blog/track-view';
-            await fetch(trackUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ postId: post.id })
-            });
-            sessionStorage.setItem(sessionKey, 'true');
-        }
+        // Reading time
+        const wordCount = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
+        const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+        document.getElementById('article-reading-time').innerHTML =
+            `<i class="far fa-clock"></i> ${readingTime} min read`;
+
+        // Tags
+        renderTags(post.tags);
+
+        // Share links
+        setupShareLinks(post.title);
+
+        // Related posts
+        loadRelatedPosts(post, API_BASE);
+
+        // Reading progress bar
+        setupReadingProgress();
+
+        // Track view
+        trackView(post.id, API_BASE);
 
     } catch (e) {
-        console.error(e);
-        document.getElementById('article-loader').innerHTML = `<p class="error">Failed to load article. <a href="blog.html">Go back</a></p>`;
+        console.error('Failed to load article:', e);
+        document.getElementById('article-loader').style.display = 'none';
+        document.getElementById('article-error').style.display = 'block';
     }
 });
+
+// ===== RENDER TAGS =====
+function renderTags(tags) {
+    const container = document.getElementById('article-tags');
+    if (!tags || (Array.isArray(tags) && tags.length === 0)) {
+        container.style.display = 'none';
+        return;
+    }
+
+    // Handle both string and array formats
+    let tagList = [];
+    if (typeof tags === 'string') {
+        tagList = tags.split(',').map(t => t.trim()).filter(Boolean);
+    } else if (Array.isArray(tags)) {
+        tagList = tags;
+    }
+
+    if (tagList.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.innerHTML = tagList.map(tag =>
+        `<a href="blog.html?tag=${encodeURIComponent(tag)}" class="tag">
+            <i class="fas fa-tag"></i> ${tag}
+        </a>`
+    ).join('');
+}
+
+// ===== SHARE LINKS =====
+function setupShareLinks(title) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(title);
+
+    document.getElementById('share-twitter').href =
+        `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    document.getElementById('share-linkedin').href =
+        `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    document.getElementById('share-facebook').href =
+        `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    document.getElementById('share-whatsapp').href =
+        `https://wa.me/?text=${text}%20${url}`;
+}
+
+// ===== RELATED POSTS =====
+async function loadRelatedPosts(currentPost, apiBase) {
+    try {
+        const res = await fetch(`${apiBase}/blog`);
+        const data = await res.json();
+        const posts = data.posts || [];
+
+        // Filter: same category, exclude current, max 3
+        const related = posts
+            .filter(p => p.id !== currentPost.id)
+            .filter(p => {
+                if (currentPost.category) {
+                    return (p.category || '').toLowerCase().includes(currentPost.category.toLowerCase());
+                }
+                return true;
+            })
+            .slice(0, 3);
+
+        if (related.length === 0) return;
+
+        const container = document.getElementById('related-posts');
+        const grid = document.getElementById('related-grid');
+        container.style.display = 'block';
+
+        grid.innerHTML = related.map(post => {
+            const date = post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+            }) : '';
+            const href = post.slug
+                ? `article.html?slug=${post.slug}`
+                : `article.html?id=${post.id}`;
+
+            return `<a href="${href}" class="related-item">
+                <div class="related-item-content">
+                    <h4>${post.title}</h4>
+                    <span><i class="far fa-calendar-alt"></i> ${date}</span>
+                </div>
+            </a>`;
+        }).join('');
+
+    } catch (e) {
+        console.log('Could not load related posts:', e);
+    }
+}
+
+// ===== READING PROGRESS =====
+function setupReadingProgress() {
+    const progressBar = document.getElementById('readingProgress');
+    const article = document.getElementById('article-content');
+
+    if (!article) return;
+
+    window.addEventListener('scroll', () => {
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        const start = articleTop;
+        const end = articleTop + articleHeight - windowHeight;
+        const progress = Math.min(100, Math.max(0, ((scrollTop - start) / (end - start)) * 100));
+
+        progressBar.style.width = `${progress}%`;
+    }, { passive: true });
+}
+
+// ===== VIEW TRACKING =====
+async function trackView(postId, apiBase) {
+    if (!postId) return;
+    const sessionKey = `viewed_post_${postId}`;
+    if (sessionStorage.getItem(sessionKey)) return;
+
+    try {
+        await fetch(`${apiBase}/blog/track-view`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId })
+        });
+        sessionStorage.setItem(sessionKey, 'true');
+    } catch (e) {
+        // Silent fail — view tracking is non-critical
+    }
+}
+
+// ===== UTILITIES =====
+function formatNumber(num) {
+    if (!num) return '0';
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
+}
