@@ -1,21 +1,33 @@
 {
     "version": 2,
+    "builds": [
+        {
+            "src": "backend/api/index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "crons": [
+        {
+            "path": "/api/health",
+            "schedule": "0 0 * * *"
+        }
+    ],
     "redirects": [
         {
             "source": "/",
-            "destination": "https://elitechub.com",
+            "destination": "https://elitechhub.com",
             "permanent": true
         },
         {
             "source": "/((?!api).*)",
-            "destination": "https://elitechub.com/$1",
+            "destination": "https://elitechhub.com/$1",
             "permanent": true
         }
     ],
-    "rewrites": [
+    "routes": [
         {
-            "source": "/api/(.*)",
-            "destination": "/backend/api/$1"
+            "src": "/api/(.*)",
+            "dest": "/backend/api/index.js"
         }
     ]
 }
