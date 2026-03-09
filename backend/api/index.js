@@ -37,6 +37,7 @@ import applicationsRoutes from './routes/applications.js';
 import leadsRoutes from './routes/leads.js';
 import labStatsRoutes from './routes/lab-stats.js';
 import { initReminderCron } from './services/reminder-cron.js';
+import supabase from './services/supabase.js';
 
 // ... (middleware setup) ...
 
@@ -116,9 +117,15 @@ app.use('/api', generalLimiter);
 // Sitemap and robots.txt at root (no rate limit)
 app.use('/', sitemapRoutes);
 
-// Health check
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check & Supabase keep-alive
+app.get('/api/health', async (req, res) => {
+    try {
+        // Ping Supabase to keep it from pausing
+        await supabase.from('users').select('id').limit(1);
+        res.json({ status: 'ok', database: 'connected', timestamp: new Date().toISOString() });
+    } catch (err) {
+        res.status(500).json({ status: 'error', database: 'disconnected', timestamp: new Date().toISOString() });
+    }
 });
 
 // Auth routes with strict rate limiting
