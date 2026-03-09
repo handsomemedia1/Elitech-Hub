@@ -441,6 +441,7 @@
             text-align: center;
             margin-bottom: 2rem;
         }
+
         /* ========== Blog Editor Enhancements ========== */
         #blogEditor {
             background: white;
@@ -541,8 +542,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .tag-pill .remove-tag {
@@ -791,6 +799,7 @@
                     <li><a href="#" data-tab="researchers"><i class="fas fa-microscope"></i> Researchers</a></li>
                     <li><a href="#" data-tab="payments"><i class="fas fa-credit-card"></i> Payments</a></li>
                     <li><a href="#" data-tab="blog"><i class="fas fa-newspaper"></i> Blog</a></li>
+                    <li><a href="#" data-tab="settings"><i class="fas fa-cog"></i> Site Settings</a></li>
                     <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
@@ -1166,7 +1175,8 @@
                         <!-- Title -->
                         <div class="form-group">
                             <label>Title *</label>
-                            <input type="text" id="blogTitle" required placeholder="Enter your post title..." oninput="autoGenerateSlug()">
+                            <input type="text" id="blogTitle" required placeholder="Enter your post title..."
+                                oninput="autoGenerateSlug()">
                         </div>
 
                         <!-- Rich Text Editor -->
@@ -1204,14 +1214,16 @@
                             <div class="form-group">
                                 <label><i class="fas fa-tags"></i> Tags</label>
                                 <div class="tags-container" id="tagsContainer"></div>
-                                <input type="text" id="tagInput" placeholder="Add tag, press Enter or comma..." onkeydown="handleTagInput(event)">
+                                <input type="text" id="tagInput" placeholder="Add tag, press Enter or comma..."
+                                    onkeydown="handleTagInput(event)">
                             </div>
                         </div>
 
                         <!-- Featured Image -->
                         <div class="form-group">
                             <label><i class="fas fa-image"></i> Featured Image URL</label>
-                            <input type="url" id="blogThumbnail" placeholder="https://..." oninput="previewFeaturedImage()">
+                            <input type="url" id="blogThumbnail" placeholder="https://..."
+                                oninput="previewFeaturedImage()">
                             <div class="featured-image-preview" id="featuredImagePreview" style="display: none;">
                                 <img id="featuredImageImg" src="" alt="Preview">
                                 <button type="button" class="remove-preview" onclick="clearFeaturedImage()">×</button>
@@ -1223,10 +1235,12 @@
                             <label><i class="fas fa-calendar-alt"></i> Publishing</label>
                             <div class="schedule-options">
                                 <label class="radio-label">
-                                    <input type="radio" name="publishOption" value="now" checked onchange="toggleSchedule()"> Publish Immediately
+                                    <input type="radio" name="publishOption" value="now" checked
+                                        onchange="toggleSchedule()"> Publish Immediately
                                 </label>
                                 <label class="radio-label">
-                                    <input type="radio" name="publishOption" value="schedule" onchange="toggleSchedule()"> Schedule
+                                    <input type="radio" name="publishOption" value="schedule"
+                                        onchange="toggleSchedule()"> Schedule
                                 </label>
                             </div>
                             <div id="scheduleDateTime" style="display: none; margin-top: 0.5rem;">
@@ -1243,15 +1257,20 @@
                             <div class="panel-body" id="seoPanel" style="display: none;">
                                 <div class="form-group">
                                     <label>Focus Keyphrase</label>
-                                    <input type="text" id="seoKeyphrase" placeholder="e.g., cybersecurity training" oninput="updateSeoPreview()">
+                                    <input type="text" id="seoKeyphrase" placeholder="e.g., cybersecurity training"
+                                        oninput="updateSeoPreview()">
                                 </div>
                                 <div class="form-group">
                                     <label>SEO Title <span class="char-count" id="seoTitleCount">0/60</span></label>
-                                    <input type="text" id="seoTitle" placeholder="SEO title (defaults to post title)" maxlength="60" oninput="updateSeoPreview()">
+                                    <input type="text" id="seoTitle" placeholder="SEO title (defaults to post title)"
+                                        maxlength="60" oninput="updateSeoPreview()">
                                 </div>
                                 <div class="form-group">
-                                    <label>Meta Description <span class="char-count" id="metaDescCount">0/160</span></label>
-                                    <textarea id="metaDescription" rows="2" maxlength="160" placeholder="Brief description for search engines..." oninput="updateSeoPreview()"></textarea>
+                                    <label>Meta Description <span class="char-count"
+                                            id="metaDescCount">0/160</span></label>
+                                    <textarea id="metaDescription" rows="2" maxlength="160"
+                                        placeholder="Brief description for search engines..."
+                                        oninput="updateSeoPreview()"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Slug</label>
@@ -1261,7 +1280,8 @@
                                     <div class="google-preview-title">Google Search Preview</div>
                                     <div class="gp-title" id="gpTitle">Post Title — Elitech Hub</div>
                                     <div class="gp-url">elitechhub.com/blog/<span id="gpSlug">post-slug</span></div>
-                                    <div class="gp-description" id="gpDescription">Your meta description will appear here...</div>
+                                    <div class="gp-description" id="gpDescription">Your meta description will appear
+                                        here...</div>
                                 </div>
                             </div>
                         </div>
@@ -1275,15 +1295,18 @@
                             <div class="panel-body" id="socialPanel" style="display: none;">
                                 <div class="form-group">
                                     <label>OG Title</label>
-                                    <input type="text" id="ogTitle" placeholder="Defaults to post title" oninput="updateSocialPreview()">
+                                    <input type="text" id="ogTitle" placeholder="Defaults to post title"
+                                        oninput="updateSocialPreview()">
                                 </div>
                                 <div class="form-group">
                                     <label>OG Description</label>
-                                    <textarea id="ogDescription" rows="2" placeholder="Defaults to excerpt" oninput="updateSocialPreview()"></textarea>
+                                    <textarea id="ogDescription" rows="2" placeholder="Defaults to excerpt"
+                                        oninput="updateSocialPreview()"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>OG Image URL</label>
-                                    <input type="url" id="ogImage" placeholder="Defaults to featured image" oninput="updateSocialPreview()">
+                                    <input type="url" id="ogImage" placeholder="Defaults to featured image"
+                                        oninput="updateSocialPreview()">
                                 </div>
                                 <div class="social-preview-card">
                                     <div class="sp-image" id="spImage">
@@ -1300,10 +1323,14 @@
 
                         <!-- Action Buttons -->
                         <div class="blog-actions">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Publish</button>
-                            <button type="button" class="btn btn-secondary" onclick="saveBlogAsDraft()"><i class="fas fa-file"></i> Save Draft</button>
-                            <button type="button" class="btn btn-secondary" onclick="previewBlogPost()"><i class="fas fa-eye"></i> Preview</button>
-                            <button type="button" class="btn btn-secondary" onclick="hideBlogForm()"><i class="fas fa-times"></i> Cancel</button>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>
+                                Publish</button>
+                            <button type="button" class="btn btn-secondary" onclick="saveBlogAsDraft()"><i
+                                    class="fas fa-file"></i> Save Draft</button>
+                            <button type="button" class="btn btn-secondary" onclick="previewBlogPost()"><i
+                                    class="fas fa-eye"></i> Preview</button>
+                            <button type="button" class="btn btn-secondary" onclick="hideBlogForm()"><i
+                                    class="fas fa-times"></i> Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -1329,6 +1356,118 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Site Settings Tab -->
+            <div id="settingsTab" class="tab-content">
+                <div class="page-header">
+                    <h1 class="page-title"><i class="fas fa-cog"></i> Site Settings</h1>
+                </div>
+
+                <!-- Cohort Date Editor -->
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Next Cohort Date</h3>
+                    <p style="color: var(--gray); margin-bottom: 1.5rem;">Edit the "Next Cohort Starts" date shown on
+                        the homepage. Changes apply immediately.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 500px;">
+                        <div class="form-group">
+                            <label>Month</label>
+                            <select id="cohortMonth"
+                                style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 1rem;">
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Year</label>
+                            <input type="number" id="cohortYear" value="2026" min="2025" max="2030"
+                                style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 1rem;">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveCohortDate()" style="margin-top: 1rem;">
+                        <i class="fas fa-save"></i> Save Cohort Date
+                    </button>
+                </div>
+
+                <!-- Price Editor -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tags"></i> Program Pricing</h3>
+                    <p style="color: var(--gray); margin-bottom: 1.5rem;">Update prices for all programs. Changes will
+                        apply across the entire website.</p>
+
+                    <!-- 6-Week Bootcamp -->
+                    <div
+                        style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #0f172a; font-size: 1.1rem;"><i class="fas fa-bolt"
+                                style="color: #c3151c;"></i> 6-Week Cybersecurity Bootcamp</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                            <div class="form-group">
+                                <label>NGN (₦)</label>
+                                <input type="number" id="settingsBootcampNgn" placeholder="75000"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>USD ($)</label>
+                                <input type="number" id="settingsBootcampUsd" placeholder="45"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>GBP (£)</label>
+                                <input type="number" id="settingsBootcampGbp" placeholder="35"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>EUR (€)</label>
+                                <input type="number" id="settingsBootcampEur" placeholder="45"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 16-Week Professional -->
+                    <div
+                        style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 1rem 0; color: #0f172a; font-size: 1.1rem;"><i class="fas fa-shield-alt"
+                                style="color: #12346b;"></i> 16-Week Professional Program</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                            <div class="form-group">
+                                <label>NGN (₦)</label>
+                                <input type="number" id="settingsProNgn" placeholder="200000"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>USD ($)</label>
+                                <input type="number" id="settingsProUsd" placeholder="120"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>GBP (£)</label>
+                                <input type="number" id="settingsProGbp" placeholder="95"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label>EUR (€)</label>
+                                <input type="number" id="settingsProEur" placeholder="120"
+                                    style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="savePrices()">
+                        <i class="fas fa-save"></i> Save All Prices
+                    </button>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -1565,6 +1704,7 @@
             if (tabName === 'payments') loadPayments();
             if (tabName === 'blog') loadBlogs();
             if (tabName === 'researchers') loadResearchers();
+            if (tabName === 'settings') loadSiteSettings();
         }
 
         // Dashboard
@@ -2529,6 +2669,58 @@
             } catch (err) {
                 showToast('Connection error', 'error');
             }
+        }
+
+        // ==========================================
+        // SITE SETTINGS - Cohort Date & Pricing
+        // ==========================================
+        function loadSiteSettings() {
+            // Load Cohort Date
+            const cohort = JSON.parse(localStorage.getItem('elitechub_cohort') || '{"month":"January","year":"2026"}');
+            document.getElementById('cohortMonth').value = cohort.month;
+            document.getElementById('cohortYear').value = cohort.year;
+
+            // Load Prices
+            const prices = JSON.parse(localStorage.getItem('elitechub_prices') || '{}');
+            if (prices.bootcamp) {
+                document.getElementById('settingsBootcampNgn').value = prices.bootcamp.ngn || '';
+                document.getElementById('settingsBootcampUsd').value = prices.bootcamp.usd || '';
+                document.getElementById('settingsBootcampGbp').value = prices.bootcamp.gbp || '';
+                document.getElementById('settingsBootcampEur').value = prices.bootcamp.eur || '';
+            }
+            if (prices.professional) {
+                document.getElementById('settingsProNgn').value = prices.professional.ngn || '';
+                document.getElementById('settingsProUsd').value = prices.professional.usd || '';
+                document.getElementById('settingsProGbp').value = prices.professional.gbp || '';
+                document.getElementById('settingsProEur').value = prices.professional.eur || '';
+            }
+        }
+
+        function saveCohortDate() {
+            const month = document.getElementById('cohortMonth').value;
+            const year = document.getElementById('cohortYear').value;
+            if (!year) { showToast('Please enter a year', 'error'); return; }
+            localStorage.setItem('elitechub_cohort', JSON.stringify({ month, year }));
+            showToast('Cohort date saved! It will appear on the website.', 'success');
+        }
+
+        function savePrices() {
+            const prices = {
+                bootcamp: {
+                    ngn: document.getElementById('settingsBootcampNgn').value,
+                    usd: document.getElementById('settingsBootcampUsd').value,
+                    gbp: document.getElementById('settingsBootcampGbp').value,
+                    eur: document.getElementById('settingsBootcampEur').value
+                },
+                professional: {
+                    ngn: document.getElementById('settingsProNgn').value,
+                    usd: document.getElementById('settingsProUsd').value,
+                    gbp: document.getElementById('settingsProGbp').value,
+                    eur: document.getElementById('settingsProEur').value
+                }
+            };
+            localStorage.setItem('elitechub_prices', JSON.stringify(prices));
+            showToast('All prices saved! They will update across the website.', 'success');
         }
 
     </script>

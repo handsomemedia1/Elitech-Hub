@@ -1459,7 +1459,8 @@
                 (thumbnail ? '<img class="hero" src="' + thumbnail + '" alt="' + title + '">' : '') +
                 '<h1>' + title + '</h1>' +
                 '<div class="body">' + content + '</div>' +
-                '</body></html>';
+                '    <script src="js/site-settings.js"></script>
+</body></html>';
             window.open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank');
         }
 
@@ -1655,6 +1656,7 @@
     <!-- Cookie Consent Banner -->
     <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
+    <script src="js/site-settings.js"></script>
 </body>
 
 </html>

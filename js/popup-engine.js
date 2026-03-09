@@ -140,7 +140,8 @@
     }
 
     function isShownThisSession() {
-        try { return sessionStorage.getItem(CONFIG.SESSION_KEY) === 'true'; } catch (e) { return false; }
+        return false; // Force show for testing/demonstration purposes
+        // try { return sessionStorage.getItem(CONFIG.SESSION_KEY) === 'true'; } catch (e) { return false; }
     }
 
     function markShown() {
@@ -330,7 +331,7 @@
         const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
         const API_BASE = isLocal
             ? 'http://localhost:3001'
-            : 'https://elitech-hub-api.vercel.app';
+            : 'https://elitech-hub.vercel.app';
 
         fetch(`${API_BASE}/api/leads`, {
             method: 'POST',
@@ -368,8 +369,8 @@
             showPopup();
         };
 
-        // 1. Time trigger
-        setTimeout(trigger, CONFIG.TIME_TRIGGER);
+        // 1. Time trigger (reduced to 3 seconds for visibility)
+        setTimeout(trigger, 3000);
 
         // 2. Scroll trigger
         const scrollHandler = () => {
