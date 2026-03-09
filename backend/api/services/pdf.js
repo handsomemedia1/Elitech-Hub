@@ -7,11 +7,16 @@ import { join } from 'path';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 
 // PDF output directory
-const PDF_DIR = join(process.cwd(), 'public', 'pdfs');
+const isVercel = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
+const PDF_DIR = isVercel ? '/tmp' : join(process.cwd(), 'public', 'pdfs');
 
 // Ensure PDF directory exists
-if (!existsSync(PDF_DIR)) {
-    mkdirSync(PDF_DIR, { recursive: true });
+try {
+    if (!existsSync(PDF_DIR)) {
+        mkdirSync(PDF_DIR, { recursive: true });
+    }
+} catch (error) {
+    console.warn('Skipping PDF directory creation in serverless environment');
 }
 
 /**
