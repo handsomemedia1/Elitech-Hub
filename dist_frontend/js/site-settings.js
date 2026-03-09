@@ -57,7 +57,7 @@ function applySiteSettings() {
                 const formattedBootcampPrice = parseInt(prices.bootcamp.ngn).toLocaleString();
                 replaceTextInElements('75,000 Naira', `${formattedBootcampPrice} Naira`);
                 // Also update the hero stat price if applicable
-                replaceTextInElements('₦75K', `₦${(parseInt(prices.bootcamp.ngn) / 1000)}K`);
+                replaceTextInElements('₦200K', `₦${(parseInt(prices.professional.ngn) / 1000)}K`);
             }
 
             if (prices.professional && prices.professional.ngn) {

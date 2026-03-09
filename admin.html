@@ -1608,7 +1608,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://elitech-hub.vercel.app/api'; // Local testing
+        const API_URL = 'https://elitech-hub.vercel.app/api';
         let token = localStorage.getItem('elitech_admin_token');
         let moduleCount = 0;
 
@@ -1661,6 +1661,10 @@
                     body: JSON.stringify({ email, password })
                 });
                 const data = await res.json();
+                if (!res.ok) {
+                    showToast(data.error || 'Login failed', 'error');
+                    return;
+                }
 
                 if (data.user?.role !== 'admin') {
                     showToast('Admin access required', 'error');

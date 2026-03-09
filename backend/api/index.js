@@ -40,32 +40,6 @@ import { initReminderCron } from './services/reminder-cron.js';
 
 // ... (middleware setup) ...
 
-// ============================================
-// ROUTES
-// ============================================
-
-app.use('/api/auth', authRoutes);
-app.use('/api/courses', coursesRoutes);
-app.use('/api/users', usersRoutes);
-app.use('/api/payments', paymentsRoutes);
-app.use('/api/search', searchRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/certificates', certificatesRoutes);
-app.use('/api/blog', blogRoutes);
-app.use('/api/ebooks', ebooksRoutes);
-app.use('/api/writers', writersRoutes);
-app.use('/api/writers/admin', writersAdminRoutes);
-app.use('/api/oauth', oauthRoutes);
-app.use('/api/research', researchRoutes);
-app.use('/api/sitemap', sitemapRoutes);
-app.use('/api/volunteers', volunteersRoutes);
-app.use('/api/contact', inquiriesRoutes);
-app.use('/api/chatbot', chatbotRoutes);
-app.use('/api/services', pricingRoutes);
-app.use('/api/writers/performance', writersPerformanceRoutes);
-app.use('/api/researchers', researchersRoutes);
-app.use('/api/researchers/admin', researchersAdminRoutes);
-app.use('/api/applications', applicationsRoutes);
 
 dotenv.config();
 
