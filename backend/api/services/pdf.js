@@ -3,7 +3,6 @@
  * Generates professional academic PDFs from paper data using Puppeteer
  */
 
-import puppeteer from 'puppeteer';
 import { join } from 'path';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 
@@ -21,6 +20,8 @@ if (!existsSync(PDF_DIR)) {
  * @returns {Promise<string>} - Path to generated PDF
  */
 export async function generatePaperPDF(paper) {
+    // Dynamic import to avoid crashing Vercel serverless
+    const puppeteer = (await import('puppeteer')).default;
     const browser = await puppeteer.launch({
         headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox']
