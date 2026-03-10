@@ -54,7 +54,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 // Helmet - Security headers
 app.use(helmet({
     contentSecurityPolicy: isProduction ? undefined : false, // Disable CSP in dev
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false // Allow CORS from Netlify
 }));
 
 // CORS - Restrict origins
