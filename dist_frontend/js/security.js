@@ -14,7 +14,7 @@
         if (!document.querySelector('meta[http-equiv="Content-Security-Policy"]')) {
             const cspMeta = document.createElement('meta');
             cspMeta.httpEquiv = 'Content-Security-Policy';
-            cspMeta.content = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:3001 https://api.elitechhub.com https://region1.google-analytics.com https://www.google-analytics.com https://ipapi.co; frame-ancestors 'none';";
+            cspMeta.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.googletagmanager.com https://cdn.quilljs.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://cdn.quilljs.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com https://cdn.scite.ai moz-extension: chrome-extension:; img-src 'self' data: https:; connect-src 'self' http://localhost:3001 https://api.elitechhub.com https://region1.google-analytics.com https://www.google-analytics.com https://ipapi.co https://elitech-hub.vercel.app https://*.supabase.co; frame-ancestors 'none';";
             document.head.appendChild(cspMeta);
         }
     }
