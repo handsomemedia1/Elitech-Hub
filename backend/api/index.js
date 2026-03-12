@@ -36,6 +36,7 @@ import researchersAdminRoutes from './routes/researchers-admin.js';
 import applicationsRoutes from './routes/applications.js';
 import leadsRoutes from './routes/leads.js';
 import labStatsRoutes from './routes/lab-stats.js';
+import settingsRoutes from './routes/settings.js';
 import { initReminderCron } from './services/reminder-cron.js';
 import supabase from './services/supabase.js';
 
@@ -160,6 +161,7 @@ app.use('/api/admin/services', pricingRoutes);
 app.use('/api/applications', applicationsRoutes);
 app.use('/api/leads', leadsRoutes);
 app.use('/api/lab', labStatsRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // ============================================
 // ERROR HANDLING

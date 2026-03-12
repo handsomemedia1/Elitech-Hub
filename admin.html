@@ -2904,14 +2904,31 @@
         // ==========================================
         // SITE SETTINGS - Cohort Date & Pricing
         // ==========================================
-        function loadSiteSettings() {
+        async function loadSiteSettings() {
+            let remoteSettings = {};
+            try {
+                const res = await fetch(`${API_URL}/settings`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && data.settings) {
+                        remoteSettings = data.settings;
+                    }
+                }
+            } catch(e) { console.warn("Could not load remote settings", e); }
+
             // Load Cohort Date
-            const cohort = JSON.parse(localStorage.getItem('elitechub_cohort') || '{"month":"January","year":"2026"}');
-            document.getElementById('cohortMonth').value = cohort.month;
-            document.getElementById('cohortYear').value = cohort.year;
+            let cohort = remoteSettings.elitechub_cohort;
+            if (!cohort) {
+                cohort = JSON.parse(localStorage.getItem('elitechub_cohort') || '{"month":"January","year":"2026"}');
+            }
+            document.getElementById('cohortMonth').value = cohort.month || '';
+            document.getElementById('cohortYear').value = cohort.year || '';
 
             // Load Prices
-            const prices = JSON.parse(localStorage.getItem('elitechub_prices') || '{}');
+            let prices = remoteSettings.elitechub_prices;
+            if (!prices) {
+                prices = JSON.parse(localStorage.getItem('elitechub_prices') || '{}');
+            }
             if (prices.bootcamp) {
                 document.getElementById('settingsBootcampNgn').value = prices.bootcamp.ngn || '';
                 document.getElementById('settingsBootcampUsd').value = prices.bootcamp.usd || '';
@@ -2926,15 +2943,28 @@
             }
         }
 
-        function saveCohortDate() {
+        async function saveCohortDate() {
             const month = document.getElementById('cohortMonth').value;
             const year = document.getElementById('cohortYear').value;
             if (!year) { showToast('Please enter a year', 'error'); return; }
-            localStorage.setItem('elitechub_cohort', JSON.stringify({ month, year }));
-            showToast('Cohort date saved! It will appear on the website.', 'success');
+            
+            const value = { month, year };
+            localStorage.setItem('elitechub_cohort', JSON.stringify(value));
+            
+            try {
+                const res = await fetch(`${API_URL}/settings/admin`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ key: 'elitechub_cohort', value })
+                });
+                if (res.ok) showToast('Cohort date saved! It will appear on the website.', 'success');
+                else showToast('Failed to save to database', 'error');
+            } catch(e) {
+                showToast('Saved locally only (Backend offline)', 'warning');
+            }
         }
 
-        function savePrices() {
+        async function savePrices() {
             const prices = {
                 bootcamp: {
                     ngn: document.getElementById('settingsBootcampNgn').value,
@@ -2949,8 +2979,20 @@
                     eur: document.getElementById('settingsProEur').value
                 }
             };
+            
             localStorage.setItem('elitechub_prices', JSON.stringify(prices));
-            showToast('All prices saved! They will update across the website.', 'success');
+
+            try {
+                const res = await fetch(`${API_URL}/settings/admin`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ key: 'elitechub_prices', value: prices })
+                });
+                if (res.ok) showToast('All prices saved! They will update across the website.', 'success');
+                else showToast('Failed to save to database', 'error');
+            } catch(e) {
+                showToast('Saved locally only (Backend offline)', 'warning');
+            }
         }
 
     </script>
