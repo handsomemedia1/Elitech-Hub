@@ -26,7 +26,8 @@ body {
    ========================================= */
 .blog-hero {
     position: relative;
-    min-height: 85vh;
+    min-height: auto;
+    padding: 8rem 0 3rem;
     background: #ffffff;
     overflow: hidden;
     display: flex;
@@ -85,17 +86,19 @@ body {
     padding: 3rem 0;
 }
 
-/* Split Layout */
+/* Split Layout — now single column centered */
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: 2rem;
 }
 
 /* ===== LEFT SIDE ===== */
 .hero-text {
-    padding-right: 2rem;
+    padding-right: 0;
+    max-width: 720px;
 }
 
 /* Category Badge */
@@ -133,10 +136,10 @@ body {
 /* Main Heading */
 .hero-text h1 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(3rem, 7vw, 5rem);
+    font-size: clamp(2rem, 5vw, 3.25rem);
     font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 2rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
     color: var(--dark);
     letter-spacing: -0.03em;
 }
@@ -192,11 +195,11 @@ body {
 
 /* Description */
 .hero-text p {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     color: var(--gray);
-    line-height: 1.8;
-    margin-bottom: 3.5rem;
-    max-width: 90%;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 100%;
     font-weight: 500;
 }
 
@@ -204,7 +207,8 @@ body {
 .hero-cta {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
@@ -284,10 +288,9 @@ body {
     box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
 }
 
-/* ===== RIGHT SIDE - Featured Visual ===== */
+/* ===== RIGHT SIDE - Featured Visual (HIDDEN — compact hero) ===== */
 .hero-visual {
-    position: relative;
-    height: 600px;
+    display: none;
 }
 
 /* Large gradient card with content */
@@ -534,9 +537,9 @@ body {
    ========================================= */
 .blog-grid-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2.5rem;
-    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 @media (max-width: 400px) {
@@ -547,7 +550,7 @@ body {
     }
 }
 
-.post-card {
+.article-card {
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -558,32 +561,67 @@ body {
     border: 2px solid transparent;
 }
 
-.post-card:hover {
+.article-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 35px rgba(195, 21, 28, 0.12);
     border-color: rgba(195, 21, 28, 0.1);
 }
 
-.post-card img {
+.article-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.article-card img {
     width: 100%;
     height: 220px;
     object-fit: cover;
     transition: transform 0.4s;
 }
 
-.post-card:hover img {
+.article-card:hover img {
     transform: scale(1.05);
 }
 
-.post-card-content {
+.article-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.article-card:hover .article-overlay {
+    opacity: 1;
+}
+
+.read-more-btn {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transform: translateY(20px);
+    transition: all 0.3s;
+}
+
+.article-card:hover .read-more-btn {
+    transform: translateY(0);
+}
+
+.article-content {
     padding: 2rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-.post-card-tags {
-    margin-bottom: 1rem;
+.article-tags {
+    margin-top: 1.5rem;
 }
 
 .tag {
@@ -602,7 +640,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.post-card-content h3 {
+.article-content h3 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
@@ -611,7 +649,7 @@ body {
     line-height: 1.4;
 }
 
-.post-card-content p {
+.article-content p {
     font-size: 0.95rem;
     color: var(--gray);
     line-height: 1.7;
@@ -619,7 +657,21 @@ body {
     flex-grow: 1;
 }
 
-.post-card-meta {
+.article-meta {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--gray);
+}
+
+.article-category {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+.article-footer {
     font-size: 0.85rem;
     color: var(--gray);
     padding-top: 1.25rem;
@@ -631,25 +683,79 @@ body {
     gap: 1rem;
 }
 
-.post-card-meta span {
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.author-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.article-footer span {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
 }
 
-.post-card-meta i {
+.article-footer i {
     color: var(--primary);
 }
 
-.post-card-meta .read-more {
+.article-title a {
+    color: var(--dark);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.article-title a:hover {
+    color: var(--primary);
+}
+
+.article-excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.article-author-name {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.85rem;
+}
+
+.article-read-link {
     color: var(--primary);
     text-decoration: none;
     font-weight: 700;
-    transition: all 0.3s;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.2s;
 }
 
-.post-card-meta .read-more:hover {
+.article-read-link:hover {
     gap: 0.75rem;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--primary);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    z-index: 2;
 }
 
 /* No posts message */

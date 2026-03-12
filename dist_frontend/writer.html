@@ -22,9 +22,9 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Quill.js Rich Text Editor -->
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <!-- Quill.js Rich Text Editor (Loaded Locally) -->
+    <link href="css/quill.snow.css" rel="stylesheet">
+    <script src="js/quill.min.js"></script>
     <style>
         :root {
             --primary: #c3151c;
@@ -767,8 +767,21 @@
 
                     <!-- Featured Image with Preview -->
                     <div class="form-group">
-                        <label><i class="fas fa-image"></i> Featured Image URL</label>
-                        <input type="url" id="postThumbnail" placeholder="https://..." oninput="writerPreviewImg()">
+                        <label><i class="fas fa-image"></i> Featured Image</label>
+                        <div style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem;">
+                            <input type="url" id="postThumbnail" placeholder="Paste URL or upload below..." oninput="writerPreviewImg()" style="flex: 1;">
+                            <label class="btn btn-secondary" style="cursor: pointer; white-space: nowrap; margin: 0;">
+                                <i class="fas fa-upload"></i> Upload
+                                <input type="file" id="writerFeaturedFile" accept="image/*" style="display: none;"
+                                    onchange="writerUploadFeaturedImage(this.files[0])">
+                            </label>
+                        </div>
+                        <div id="writerFeaturedProgress" style="display: none; margin-bottom: 0.5rem;">
+                            <div style="height: 4px; background: #E5E7EB; border-radius: 2px; overflow: hidden;">
+                                <div id="writerFeaturedBar" style="height: 100%; width: 0%; background: var(--primary); transition: width 0.3s;"></div>
+                            </div>
+                            <small style="color: var(--gray);">Uploading image...</small>
+                        </div>
                         <div class="feat-img-preview" id="writerImgPreview" style="display: none;">
                             <img id="writerImgPreviewEl" src="" alt="Preview">
                             <button type="button" class="rm-img" onclick="writerClearImg()">×</button>
@@ -1334,6 +1347,51 @@
         let writerTags = [];
         let writerCategories = ['Cybersecurity', 'Scholarship', 'News', 'Tutorial', 'Research', 'Opinion', 'Case Study'];
 
+        // ========== Image Upload Utility for Writers ==========
+        async function writerUploadImageToSupabase(file) {
+            const urlRes = await fetch(`${API_URL}/writers/upload-url`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ filename: file.name, contentType: file.type })
+            });
+            if (!urlRes.ok) throw new Error('Failed to get upload URL');
+            const urlData = await urlRes.json();
+
+            const uploadRes = await fetch(urlData.uploadUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type': file.type },
+                body: file
+            });
+            if (!uploadRes.ok) throw new Error('Failed to upload image');
+
+            return urlData.publicUrl;
+        }
+
+        // Writer Featured Image Upload
+        async function writerUploadFeaturedImage(file) {
+            if (!file) return;
+            const progress = document.getElementById('writerFeaturedProgress');
+            const bar = document.getElementById('writerFeaturedBar');
+            progress.style.display = 'block';
+            bar.style.width = '30%';
+            try {
+                bar.style.width = '60%';
+                const publicUrl = await writerUploadImageToSupabase(file);
+                bar.style.width = '100%';
+                document.getElementById('postThumbnail').value = publicUrl;
+                writerPreviewImg();
+                alert('Featured image uploaded!');
+            } catch (err) {
+                console.error('Writer featured image upload error:', err);
+                alert('Failed to upload image. Please try again.');
+            } finally {
+                setTimeout(() => { progress.style.display = 'none'; bar.style.width = '0%'; }, 1000);
+            }
+        }
+
         // Init Quill when editor view loads
         function initWriterQuill() {
             if (writerQuill) return;
@@ -1341,20 +1399,81 @@
                 theme: 'snow',
                 placeholder: 'Write your blog post content here...',
                 modules: {
-                    toolbar: [
-                        [{ 'header': [1, 2, 3, 4, false] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        ['blockquote', 'code-block'],
-                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                        [{ 'indent': '-1' }, { 'indent': '+1' }],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'align': [] }],
-                        ['link', 'image', 'video'],
-                        ['clean']
-                    ]
+                    toolbar: {
+                        container: [
+                            [{ 'header': [1, 2, 3, 4, false] }],
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                            [{ 'indent': '-1' }, { 'indent': '+1' }],
+                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'align': [] }],
+                            ['link', 'image', 'video'],
+                            ['clean']
+                        ],
+                        handlers: {
+                            image: function() {
+                                const input = document.createElement('input');
+                                input.setAttribute('type', 'file');
+                                input.setAttribute('accept', 'image/*');
+                                input.click();
+                                input.onchange = async () => {
+                                    const file = input.files[0];
+                                    if (!file) return;
+                                    try {
+                                        alert('Uploading image...');
+                                        const url = await writerUploadImageToSupabase(file);
+                                        const range = writerQuill.getSelection(true);
+                                        writerQuill.insertEmbed(range.index, 'image', url);
+                                        writerQuill.setSelection(range.index + 1);
+                                    } catch (err) {
+                                        alert('Image upload failed');
+                                    }
+                                };
+                            }
+                        }
+                    }
                 }
             });
             writerQuill.on('text-change', updateSEO);
+
+            // Handle paste images
+            writerQuill.root.addEventListener('paste', async (e) => {
+                const items = e.clipboardData?.items;
+                if (!items) return;
+                for (const item of items) {
+                    if (item.type.startsWith('image/')) {
+                        e.preventDefault();
+                        const file = item.getAsFile();
+                        try {
+                            const url = await writerUploadImageToSupabase(file);
+                            const range = writerQuill.getSelection(true);
+                            writerQuill.insertEmbed(range.index, 'image', url);
+                            writerQuill.setSelection(range.index + 1);
+                        } catch (err) {
+                            console.error('Paste image error:', err);
+                        }
+                        break;
+                    }
+                }
+            });
+
+            // Handle drop images
+            writerQuill.root.addEventListener('drop', async (e) => {
+                const files = e.dataTransfer?.files;
+                if (!files || files.length === 0) return;
+                const file = files[0];
+                if (!file.type.startsWith('image/')) return;
+                e.preventDefault();
+                try {
+                    const url = await writerUploadImageToSupabase(file);
+                    const range = writerQuill.getSelection(true);
+                    writerQuill.insertEmbed(range.index, 'image', url);
+                    writerQuill.setSelection(range.index + 1);
+                } catch (err) {
+                    console.error('Drop image error:', err);
+                }
+            });
         }
 
         // Categories
@@ -1459,8 +1578,7 @@
                 (thumbnail ? '<img class="hero" src="' + thumbnail + '" alt="' + title + '">' : '') +
                 '<h1>' + title + '</h1>' +
                 '<div class="body">' + content + '</div>' +
-                '    <script src="js/site-settings.js"></script>
-</body></html>';
+                '    <script src="js/site-settings.js"><\/script><\/body><\/html>';
             window.open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank');
         }
 

@@ -10,18 +10,41 @@ import { requireAuth, requireAdmin } from '../middleware/auth.js';
 const router = Router();
 
 /**
- * GET /api/blog - Get all published blog posts
+ * GET /api/blog - Get all blog posts (admins see all, public sees only published)
  */
 router.get('/', async (req, res) => {
     try {
         const { category, limit = 20, offset = 0 } = req.query;
 
+        // Check if the request is from an authenticated admin
+        // This requires manual token verification since this route is public
+        let isAdmin = false;
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            const token = authHeader.split(' ')[1];
+            const { data: { user }, error } = await supabase.auth.getUser(token);
+            if (!error && user && user.user_metadata?.role === 'admin') {
+                isAdmin = true;
+            }
+        }
+
         let query = supabase
             .from('blog_posts')
-            .select('id, title, slug, excerpt, category, author, thumbnail, published_at')
-            .eq('published', true)
-            .order('published_at', { ascending: false })
+            .select('id, title, slug, excerpt, category, author, thumbnail, published, published_at')
+            .order('created_at', { ascending: false })
             .range(offset, offset + limit - 1);
+
+        // Only filter by published=true for non-admins
+        if (!isAdmin) {
+            query = query.eq('published', true);
+            // Public should order by published date
+            query = supabase
+                .from('blog_posts')
+                .select('id, title, slug, excerpt, category, author, thumbnail, published_at')
+                .eq('published', true)
+                .order('published_at', { ascending: false })
+                .range(offset, offset + limit - 1);
+        }
 
         if (category) {
             query = query.eq('category', category);
@@ -68,6 +91,29 @@ router.get('/trending', async (req, res) => {
 });
 
 /**
+ * GET /api/blog/admin/:id - Get single blog post by ID for editing (admin only, includes drafts)
+ */
+router.get('/admin/:id', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data: post, error } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (error || !post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.json({ post });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch post' });
+    }
+});
+
+/**
  * GET /api/blog/:slug - Get single blog post
  */
 router.get('/:slug', async (req, res) => {
@@ -90,6 +136,43 @@ router.get('/:slug', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch post' });
     }
 });
+
+/**
+ * POST /api/blog/upload-url - Get signed URL for blog image upload (admin only)
+ */
+router.post('/upload-url', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { filename, contentType } = req.body;
+
+        if (!filename) {
+            return res.status(400).json({ error: 'Filename required' });
+        }
+
+        // Sanitize filename and add timestamp
+        const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = `blog/${Date.now()}-${safeName}`;
+
+        const { data, error } = await supabase.storage
+            .from('blog-images')
+            .createSignedUploadUrl(path);
+
+        if (error) throw error;
+
+        const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/blog-images/${path}`;
+
+        res.json({
+            uploadUrl: data.signedUrl,
+            token: data.token,
+            path: path,
+            publicUrl
+        });
+    } catch (err) {
+        console.error('Blog upload URL error:', err);
+        res.status(500).json({ error: 'Failed to generate upload URL' });
+    }
+});
+
+
 
 /**
  * POST /api/blog - Create blog post (admin only)

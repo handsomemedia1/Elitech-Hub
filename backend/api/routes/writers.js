@@ -186,6 +186,40 @@ router.get('/me', requireWriter, (req, res) => {
 });
 
 /**
+ * POST /api/writers/upload-url - Get signed URL for blog image upload (writer)
+ */
+router.post('/upload-url', requireWriter, async (req, res) => {
+    try {
+        const { filename, contentType } = req.body;
+
+        if (!filename) {
+            return res.status(400).json({ error: 'Filename required' });
+        }
+
+        const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = `writers/${req.writer.id}/${Date.now()}-${safeName}`;
+
+        const { data, error } = await supabase.storage
+            .from('blog-images')
+            .createSignedUploadUrl(path);
+
+        if (error) throw error;
+
+        const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/blog-images/${path}`;
+
+        res.json({
+            uploadUrl: data.signedUrl,
+            token: data.token,
+            path: path,
+            publicUrl
+        });
+    } catch (err) {
+        console.error('Writer upload URL error:', err);
+        res.status(500).json({ error: 'Failed to generate upload URL' });
+    }
+});
+
+/**
  * GET /api/writers/posts - Get writer's posts
  */
 router.get('/posts', requireWriter, async (req, res) => {

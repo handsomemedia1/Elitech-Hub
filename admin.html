@@ -22,9 +22,9 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Quill.js Rich Text Editor -->
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <!-- Quill.js Rich Text Editor (Loaded Locally) -->
+    <link href="css/quill.snow.css" rel="stylesheet">
+    <script src="js/quill.min.js"></script>
     <style>
         :root {
             --primary: #c3151c;
@@ -1221,9 +1221,22 @@
 
                         <!-- Featured Image -->
                         <div class="form-group">
-                            <label><i class="fas fa-image"></i> Featured Image URL</label>
-                            <input type="url" id="blogThumbnail" placeholder="https://..."
-                                oninput="previewFeaturedImage()">
+                            <label><i class="fas fa-image"></i> Featured Image</label>
+                            <div style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem;">
+                                <input type="url" id="blogThumbnail" placeholder="Paste URL or upload below..."
+                                    oninput="previewFeaturedImage()" style="flex: 1;">
+                                <label class="btn btn-secondary" style="cursor: pointer; white-space: nowrap; margin: 0;">
+                                    <i class="fas fa-upload"></i> Upload
+                                    <input type="file" id="featuredImageFile" accept="image/*" style="display: none;"
+                                        onchange="uploadFeaturedImage(this.files[0])">
+                                </label>
+                            </div>
+                            <div id="featuredUploadProgress" style="display: none; margin-bottom: 0.5rem;">
+                                <div style="height: 4px; background: #E5E7EB; border-radius: 2px; overflow: hidden;">
+                                    <div id="featuredUploadBar" style="height: 100%; width: 0%; background: var(--primary); transition: width 0.3s;"></div>
+                                </div>
+                                <small style="color: var(--gray);">Uploading image...</small>
+                            </div>
                             <div class="featured-image-preview" id="featuredImagePreview" style="display: none;">
                                 <img id="featuredImageImg" src="" alt="Preview">
                                 <button type="button" class="remove-preview" onclick="clearFeaturedImage()">×</button>
@@ -2082,28 +2095,32 @@
 
         // SEO Preview
         function updateSeoPreview() {
-            const title = document.getElementById('seoTitle').value || document.getElementById('blogTitle').value || 'Post Title';
-            const slug = document.getElementById('blogSlug').value || 'post-slug';
-            const desc = document.getElementById('metaDescription').value || 'Your meta description will appear here...';
-            document.getElementById('gpTitle').textContent = title + ' — Elitech Hub';
-            document.getElementById('gpSlug').textContent = slug;
-            document.getElementById('gpDescription').textContent = desc;
-            document.getElementById('seoTitleCount').textContent = (document.getElementById('seoTitle').value || '').length + '/60';
-            document.getElementById('metaDescCount').textContent = (document.getElementById('metaDescription').value || '').length + '/160';
+            const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value : '';
+            const title = getVal('seoTitle') || getVal('blogTitle') || 'Post Title';
+            const slug = getVal('blogSlug') || 'post-slug';
+            const desc = getVal('metaDescription') || 'Your meta description will appear here...';
+            if (document.getElementById('gpTitle')) document.getElementById('gpTitle').textContent = title + ' — Elitech Hub';
+            if (document.getElementById('gpSlug')) document.getElementById('gpSlug').textContent = slug;
+            if (document.getElementById('gpDescription')) document.getElementById('gpDescription').textContent = desc;
+            if (document.getElementById('seoTitleCount')) document.getElementById('seoTitleCount').textContent = (getVal('seoTitle') || '').length + '/60';
+            if (document.getElementById('metaDescCount')) document.getElementById('metaDescCount').textContent = (getVal('metaDescription') || '').length + '/160';
         }
 
         // Social Preview
         function updateSocialPreview() {
-            const title = document.getElementById('ogTitle').value || document.getElementById('blogTitle').value || 'Post Title';
-            const desc = document.getElementById('ogDescription').value || document.getElementById('blogExcerpt').value || 'Post description preview...';
-            const imgUrl = document.getElementById('ogImage').value || document.getElementById('blogThumbnail').value;
-            document.getElementById('spTitle').textContent = title;
-            document.getElementById('spDescription').textContent = desc;
+            const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value : '';
+            const title = getVal('ogTitle') || getVal('blogTitle') || 'Post Title';
+            const desc = getVal('ogDescription') || getVal('blogExcerpt') || 'Post description preview...';
+            const imgUrl = getVal('ogImage') || getVal('blogThumbnail');
+            if (document.getElementById('spTitle')) document.getElementById('spTitle').textContent = title;
+            if (document.getElementById('spDescription')) document.getElementById('spDescription').textContent = desc;
             const imgContainer = document.getElementById('spImage');
-            if (imgUrl) {
-                imgContainer.innerHTML = '<img src="' + imgUrl + '" alt="Preview" onerror="this.parentElement.innerHTML=\'<i class=\\\"fas fa-image\\\" style=\\\"font-size:2rem;color:#9CA3AF\\\"></i>\'">';
-            } else {
-                imgContainer.innerHTML = '<i class="fas fa-image" style="font-size: 2rem; color: #9CA3AF;"></i>';
+            if (imgContainer) {
+                if (imgUrl) {
+                    imgContainer.innerHTML = '<img src="' + imgUrl + '" alt="Preview" onerror="this.parentElement.innerHTML=\'<i class=\\\"fas fa-image\\\" style=\\\"font-size:2rem;color:#9CA3AF\\\"></i>\'">';
+                } else {
+                    imgContainer.innerHTML = '<i class="fas fa-image" style="font-size:2rem;color:#9CA3AF"></i>';
+                }
             }
         }
 
@@ -2119,8 +2136,10 @@
                         <td>${p.category}</td>
                         <td><span class="badge ${p.published ? 'badge-success' : 'badge-warning'}">${p.published ? 'Published' : 'Draft'}</span></td>
                         <td>${p.published_at ? new Date(p.published_at).toLocaleDateString() : '-'}</td>
-                        <td>
-                            <a href="blog-posts/${p.slug}.html" target="_blank" class="btn btn-secondary" style="padding: 0.5rem;"><i class="fas fa-eye"></i></a>
+                        <td style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-primary" style="padding: 0.5rem;" onclick="editBlogPost('${p.id}')"><i class="fas fa-edit"></i></button>
+                            <a href="article.html?slug=${p.slug}" target="_blank" class="btn btn-secondary" style="padding: 0.5rem;"><i class="fas fa-eye"></i></a>
+                            <button class="btn btn-secondary" style="padding: 0.5rem; color: #EF4444;" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 `).join('') || '<tr><td colspan="5">No posts yet</td></tr>';
@@ -2129,11 +2148,60 @@
             }
         }
 
+        // ========== Image Upload Utility ==========
+        async function uploadImageToSupabase(file, uploadEndpoint) {
+            const authToken = uploadEndpoint.includes('/writers/') ? localStorage.getItem('elitech_writer_token') : token;
+            // Step 1: Get signed upload URL
+            const urlRes = await fetch(`${API_URL}${uploadEndpoint}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ filename: file.name, contentType: file.type })
+            });
+            if (!urlRes.ok) throw new Error('Failed to get upload URL');
+            const urlData = await urlRes.json();
+
+            // Step 2: Upload file directly to Supabase Storage
+            const uploadRes = await fetch(urlData.uploadUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type': file.type },
+                body: file
+            });
+            if (!uploadRes.ok) throw new Error('Failed to upload image');
+
+            return urlData.publicUrl;
+        }
+
+        // Featured Image Upload from file
+        async function uploadFeaturedImage(file) {
+            if (!file) return;
+            const progress = document.getElementById('featuredUploadProgress');
+            const bar = document.getElementById('featuredUploadBar');
+            progress.style.display = 'block';
+            bar.style.width = '30%';
+            try {
+                bar.style.width = '60%';
+                const publicUrl = await uploadImageToSupabase(file, '/blog/upload-url');
+                bar.style.width = '100%';
+                document.getElementById('blogThumbnail').value = publicUrl;
+                previewFeaturedImage();
+                showToast('Featured image uploaded!');
+            } catch (err) {
+                console.error('Feature image upload error:', err);
+                showToast('Failed to upload image', 'error');
+            } finally {
+                setTimeout(() => { progress.style.display = 'none'; bar.style.width = '0%'; }, 1000);
+            }
+        }
+
         // Show blog form & init Quill
         function showBlogForm() {
             document.getElementById('blogPostForm').style.display = 'block';
             document.getElementById('blogFormElement').reset();
             document.getElementById('blogFormTitle').textContent = 'New Blog Post';
+            document.getElementById('blogId').value = '';
             blogTags = [];
             renderTags();
             loadCategories();
@@ -2143,20 +2211,85 @@
                     theme: 'snow',
                     placeholder: 'Write your blog post content here...',
                     modules: {
-                        toolbar: [
-                            [{ 'header': [1, 2, 3, 4, false] }],
-                            ['bold', 'italic', 'underline', 'strike'],
-                            ['blockquote', 'code-block'],
-                            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                            [{ 'indent': '-1' }, { 'indent': '+1' }],
-                            [{ 'color': [] }, { 'background': [] }],
-                            [{ 'align': [] }],
-                            ['link', 'image', 'video'],
-                            ['clean']
-                        ]
+                        toolbar: {
+                            container: [
+                                [{ 'header': [1, 2, 3, 4, false] }],
+                                ['bold', 'italic', 'underline', 'strike'],
+                                ['blockquote', 'code-block'],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                [{ 'indent': '-1' }, { 'indent': '+1' }],
+                                [{ 'color': [] }, { 'background': [] }],
+                                [{ 'align': [] }],
+                                ['link', 'image', 'video'],
+                                ['clean']
+                            ],
+                            handlers: {
+                                image: function() {
+                                    const input = document.createElement('input');
+                                    input.setAttribute('type', 'file');
+                                    input.setAttribute('accept', 'image/*');
+                                    input.click();
+                                    input.onchange = async () => {
+                                        const file = input.files[0];
+                                        if (!file) return;
+                                        try {
+                                            showToast('Uploading image...');
+                                            const url = await uploadImageToSupabase(file, '/blog/upload-url');
+                                            const range = quillEditor.getSelection(true);
+                                            quillEditor.insertEmbed(range.index, 'image', url);
+                                            quillEditor.setSelection(range.index + 1);
+                                            showToast('Image inserted!');
+                                        } catch (err) {
+                                            showToast('Image upload failed', 'error');
+                                        }
+                                    };
+                                }
+                            }
+                        }
                     }
                 });
                 quillEditor.on('text-change', updateWordCount);
+
+                // Handle paste/drop images
+                quillEditor.root.addEventListener('paste', async (e) => {
+                    const items = e.clipboardData?.items;
+                    if (!items) return;
+                    for (const item of items) {
+                        if (item.type.startsWith('image/')) {
+                            e.preventDefault();
+                            const file = item.getAsFile();
+                            try {
+                                showToast('Uploading pasted image...');
+                                const url = await uploadImageToSupabase(file, '/blog/upload-url');
+                                const range = quillEditor.getSelection(true);
+                                quillEditor.insertEmbed(range.index, 'image', url);
+                                quillEditor.setSelection(range.index + 1);
+                                showToast('Image inserted!');
+                            } catch (err) {
+                                showToast('Image upload failed', 'error');
+                            }
+                            break;
+                        }
+                    }
+                });
+
+                quillEditor.root.addEventListener('drop', async (e) => {
+                    const files = e.dataTransfer?.files;
+                    if (!files || files.length === 0) return;
+                    const file = files[0];
+                    if (!file.type.startsWith('image/')) return;
+                    e.preventDefault();
+                    try {
+                        showToast('Uploading dropped image...');
+                        const url = await uploadImageToSupabase(file, '/blog/upload-url');
+                        const range = quillEditor.getSelection(true);
+                        quillEditor.insertEmbed(range.index, 'image', url);
+                        quillEditor.setSelection(range.index + 1);
+                        showToast('Image inserted!');
+                    } catch (err) {
+                        showToast('Image upload failed', 'error');
+                    }
+                });
             } else {
                 quillEditor.setText('');
             }
@@ -2165,6 +2298,86 @@
             document.getElementById('scheduleDateTime').style.display = 'none';
             updateWordCount();
             updateSeoPreview();
+        }
+
+        // ========== Edit Blog Post ==========
+        async function editBlogPost(postId) {
+            try {
+                showToast('Loading post...');
+                const res = await fetch(`${API_URL}/blog/admin/${postId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Failed to load post');
+                const data = await res.json();
+                const post = data.post;
+
+                // Show the form first (initializes Quill if needed)
+                showBlogForm();
+
+                // Populate fields
+                document.getElementById('blogId').value = post.id;
+                document.getElementById('blogFormTitle').textContent = 'Edit Blog Post';
+                document.getElementById('blogTitle').value = post.title || '';
+                document.getElementById('blogSlug').value = post.slug || '';
+                document.getElementById('blogExcerpt').value = post.excerpt || '';
+                document.getElementById('blogThumbnail').value = post.thumbnail || '';
+
+                // SEO fields
+                if (document.getElementById('seoTitle')) document.getElementById('seoTitle').value = post.seo_title || '';
+                if (document.getElementById('metaDescription')) document.getElementById('metaDescription').value = post.meta_description || '';
+                if (document.getElementById('seoKeyphrase')) document.getElementById('seoKeyphrase').value = post.focus_keyphrase || '';
+                if (document.getElementById('ogTitle')) document.getElementById('ogTitle').value = post.og_title || '';
+                if (document.getElementById('ogDescription')) document.getElementById('ogDescription').value = post.og_description || '';
+                if (document.getElementById('ogImage')) document.getElementById('ogImage').value = post.og_image || '';
+
+                // Set Quill content
+                if (quillEditor && post.content) {
+                    quillEditor.root.innerHTML = post.content;
+                }
+
+                // Tags
+                blogTags = post.tags || [];
+                renderTags();
+
+                // Categories
+                if (post.category) {
+                    const cats = post.category.split(', ');
+                    setTimeout(() => {
+                        document.querySelectorAll('input[name="blogCategories"]').forEach(cb => {
+                            cb.checked = cats.includes(cb.value);
+                        });
+                    }, 100);
+                }
+
+                // Show image preview
+                previewFeaturedImage();
+                updateWordCount();
+                updateSeoPreview();
+
+                showToast('Post loaded for editing');
+            } catch (err) {
+                console.error('Edit blog error:', err);
+                showToast('Failed to load post for editing', 'error');
+            }
+        }
+
+        // Delete a blog post
+        async function deleteBlogPost(postId) {
+            if (!confirm('Are you sure you want to delete this blog post? This cannot be undone.')) return;
+            try {
+                const res = await fetch(`${API_URL}/blog/${postId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    showToast('Post deleted!');
+                    loadBlogs();
+                } else {
+                    showToast('Failed to delete post', 'error');
+                }
+            } catch (err) {
+                showToast('Error deleting post', 'error');
+            }
         }
 
         function hideBlogForm() {
@@ -2201,32 +2414,44 @@
             window.open(URL.createObjectURL(blob), '_blank');
         }
 
-        // Submit blog post
+        // Submit blog post (handles both CREATE and UPDATE)
         async function submitBlogPost(publish) {
             const selectedCategories = Array.from(document.querySelectorAll('input[name="blogCategories"]:checked')).map(cb => cb.value);
             const isScheduled = document.querySelector('input[name="publishOption"][value="schedule"]')?.checked;
+            
+            const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value : '';
+            const editingId = getVal('blogId');
 
             const blogData = {
-                title: document.getElementById('blogTitle').value,
-                slug: document.getElementById('blogSlug').value,
-                excerpt: document.getElementById('blogExcerpt').value,
+                title: getVal('blogTitle'),
+                slug: getVal('blogSlug'),
+                excerpt: getVal('blogExcerpt'),
                 content: quillEditor ? quillEditor.root.innerHTML : '',
                 category: selectedCategories.join(', ') || 'Uncategorized',
-                thumbnail: document.getElementById('blogThumbnail').value,
+                thumbnail: getVal('blogThumbnail'),
                 tags: blogTags,
-                seo_title: document.getElementById('seoTitle').value,
-                meta_description: document.getElementById('metaDescription').value,
-                focus_keyphrase: document.getElementById('seoKeyphrase').value,
-                og_title: document.getElementById('ogTitle').value,
-                og_description: document.getElementById('ogDescription').value,
-                og_image: document.getElementById('ogImage').value,
+                seo_title: getVal('seoTitle'),
+                meta_description: getVal('metaDescription'),
+                focus_keyphrase: getVal('seoKeyphrase'),
+                og_title: getVal('ogTitle'),
+                og_description: getVal('ogDescription'),
+                og_image: getVal('ogImage'),
                 published: publish,
-                scheduled_at: (isScheduled && !publish) ? document.getElementById('scheduledAt').value : null
+                scheduled_at: (isScheduled && !publish) ? getVal('scheduledAt') : null
             };
 
+            // If editing, set published_at if publishing for the first time
+            if (publish) {
+                blogData.published_at = new Date().toISOString();
+            }
+
+            const isEdit = !!editingId;
+            const endpoint = isEdit ? `${API_URL}/blog/${editingId}` : `${API_URL}/blog`;
+            const method = isEdit ? 'PATCH' : 'POST';
+
             try {
-                const res = await fetch(`${API_URL}/blog`, {
-                    method: 'POST',
+                const res = await fetch(endpoint, {
+                    method,
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -2234,7 +2459,8 @@
                     body: JSON.stringify(blogData)
                 });
                 if (res.ok) {
-                    showToast(publish ? 'Post published!' : 'Draft saved!');
+                    const action = isEdit ? 'updated' : (publish ? 'published' : 'saved as draft');
+                    showToast(`Post ${action}!`);
                     hideBlogForm();
                     loadBlogs();
                 } else {

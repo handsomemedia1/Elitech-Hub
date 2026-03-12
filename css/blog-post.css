@@ -71,9 +71,9 @@ body {
 
 /* Article Container */
 .post-article {
-    max-width: 760px;
+    max-width: 820px;
     margin: 0 auto;
-    padding: 3rem 2rem 4rem;
+    padding: 6rem 2rem 4rem;
 }
 
 /* Breadcrumb Link */
@@ -110,7 +110,7 @@ body {
 /* Post Title */
 .post-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;
     color: var(--dark);
     line-height: 1.2;
@@ -138,32 +138,37 @@ body {
 /* Featured Image */
 .post-featured-image {
     width: 100%;
-    border-radius: 1rem;
-    margin-bottom: 2.5rem;
+    border-radius: 1.25rem;
+    margin-bottom: 3rem;
     object-fit: cover;
-    max-height: 400px;
+    max-height: 450px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* Content Typography */
 .post-content {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
+    line-height: 1.85;
+    color: #334155;
 }
 
 .post-content h2 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--dark);
-    margin: 2.5rem 0 1rem;
-    padding-top: 1rem;
+    margin: 3rem 0 1.25rem;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
+    border-left: 4px solid var(--primary);
 }
 
 .post-content h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--dark);
-    margin: 2rem 0 0.75rem;
+    margin: 2.5rem 0 1rem;
 }
 
 .post-content p {
@@ -192,11 +197,13 @@ body {
 
 .post-content blockquote {
     border-left: 4px solid var(--primary);
-    background: var(--background);
-    padding: 1.25rem 1.5rem;
-    margin: 2rem 0;
+    background: linear-gradient(135deg, #fef2f2, var(--background));
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
     font-style: italic;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-size: 1.05rem;
+    color: #475569;
 }
 
 .post-content img {

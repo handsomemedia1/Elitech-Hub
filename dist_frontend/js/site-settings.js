@@ -17,23 +17,18 @@ function applySiteSettings() {
             const cohort = JSON.parse(cohortData);
             const cohortString = `${cohort.month} ${cohort.year}`;
 
-            // Find elements containing "January 2026" or similar context
-            // We use specific targeting based on known structure
+            // Directly update the cohort date element in the hero card
+            const cohortDateEl = document.getElementById('cohort-date-text');
+            if (cohortDateEl) {
+                cohortDateEl.textContent = cohortString;
+            }
+
+            // Also handle any other pages that display "Next Cohort:" text
             document.querySelectorAll('.hero-date, .cohort-date-text, p').forEach(el => {
-                if (el.innerHTML.includes('Next Cohort Starts')) {
-                    el.innerHTML = `Next Cohort Starts<br><strong style="color: #c3151c;">${cohortString}</strong>`;
-                } else if (el.tagName === 'P' && el.innerHTML.includes('Next Cohort:')) {
+                if (el.tagName === 'P' && el.innerHTML.includes('Next Cohort:')) {
                     el.innerHTML = el.innerHTML.replace(/Next Cohort:.*?<\/strong>/, `Next Cohort: <strong>${cohortString}</strong>`);
                 }
             });
-
-            // Explicitly handling the specific HTML structure in index.html hero section
-            const heroTextElements = document.querySelectorAll('p');
-            for (let p of heroTextElements) {
-                if (p.textContent.includes('Next Cohort Starts') && p.querySelector('strong')) {
-                    p.querySelector('strong').textContent = cohortString;
-                }
-            }
         }
 
         // 2. Apply Prices

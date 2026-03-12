@@ -3,8 +3,17 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
-    const articleId = params.get('id');
-    const slug = params.get('slug');
+    let articleId = params.get('id');
+    let slug = params.get('slug');
+
+    // Also handle path-based blog URLs like /blog-posts/my-post-slug.html
+    if (!articleId && !slug) {
+        const path = window.location.pathname;
+        const blogPostMatch = path.match(/\/blog-posts\/(.+?)(?:\.html)?$/);
+        if (blogPostMatch) {
+            slug = blogPostMatch[1];
+        }
+    }
 
     if (!articleId && !slug) {
         window.location.href = 'blog.html';
@@ -69,10 +78,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `<i class="far fa-calendar-alt"></i> ${dateObj.toLocaleDateString('en-US', options)}`;
         }
 
-        // Views
-        const views = post.views || 0;
-        document.getElementById('article-views').innerHTML =
-            `<i class="fas fa-eye"></i> ${formatNumber(views)} views`;
+        // Views (Removed)
+        const viewsEl = document.getElementById('article-views');
+        if (viewsEl) viewsEl.style.display = 'none';
 
         // Featured Image
         const imgEl = document.getElementById('article-image');
@@ -88,11 +96,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const content = post.content || post.excerpt || '';
         document.getElementById('article-body').innerHTML = content;
 
-        // Reading time
-        const wordCount = content.replace(/<[^>]*>/g, '').trim().split(/\s+/).length;
-        const readingTime = Math.max(1, Math.ceil(wordCount / 200));
-        document.getElementById('article-reading-time').innerHTML =
-            `<i class="far fa-clock"></i> ${readingTime} min read`;
+        // Reading time (Removed)
+        const readTimeEl = document.getElementById('article-reading-time');
+        if (readTimeEl) readTimeEl.style.display = 'none';
 
         // Tags
         renderTags(post.tags);

@@ -316,41 +316,31 @@ class BlogManager {
             ? `blog-posts/${article.slug}.html`
             : `article.html?id=${article.id}`;
 
+        // Clip excerpt to ~120 chars
+        const shortExcerpt = article.excerpt && article.excerpt.length > 120
+            ? article.excerpt.substring(0, 120) + '…'
+            : article.excerpt;
+
         card.innerHTML = `
             <div class="article-image">
-                <img src="${article.image}" alt="${article.title}" loading="lazy" 
-                     onerror="this.src='assets/images/logo.png'">
+                <a href="${articleUrl}">
+                    <img src="${article.image}" alt="${article.title}" loading="lazy" 
+                         onerror="this.src='assets/images/logo.png'">
+                </a>
                 ${article.featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}
-                <div class="article-overlay">
-                    <a href="${articleUrl}" class="read-more-btn">
-                        Read Article <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
             </div>
             <div class="article-content">
                 <div class="article-meta">
-                    <span class="article-category ${article.category}">${this.getCategoryName(article.category)}</span>
-                    <span class="article-date"><i class="far fa-calendar"></i> ${this.formatDate(article.date)}</span>
+                    <span class="article-category">${this.getCategoryName(article.category)}</span>
+                    <span class="article-date">${this.formatDate(article.date)}</span>
                 </div>
                 <h3 class="article-title">
                     <a href="${articleUrl}">${article.title}</a>
                 </h3>
-                <p class="article-excerpt">${article.excerpt}</p>
+                <p class="article-excerpt">${shortExcerpt || ''}</p>
                 <div class="article-footer">
-                    <div class="author-info">
-                        <img src="images/team/${this.getAuthorSlug(article.author)}.jpg" 
-                             alt="${article.author}" 
-                             class="author-avatar"
-                             onerror="this.src='images/team/default-avatar.jpg'">
-                        <span class="author-name">${article.author}</span>
-                    </div>
-                    <div class="article-stats">
-                        <span><i class="far fa-clock"></i> ${article.readTime}</span>
-                        <span><i class="far fa-eye"></i> ${this.formatNumber(article.views)}</span>
-                    </div>
-                </div>
-                <div class="article-tags">
-                    ${article.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+                    <span class="article-author-name">${article.author}</span>
+                    <a href="${articleUrl}" class="article-read-link">Read <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         `;
