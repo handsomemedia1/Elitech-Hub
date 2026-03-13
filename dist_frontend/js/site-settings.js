@@ -9,12 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     applySiteSettings();
 });
 
-function applySiteSettings() {
+async function applySiteSettings() {
     try {
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:3001/api/settings' 
+            : 'https://elitech-hub.vercel.app/api/settings';
+        
+        // Fetch from API
+        let remoteSettings = {};
+        try {
+            const response = await fetch(API_URL);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success && data.settings) {
+                    remoteSettings = data.settings;
+                }
+            }
+        } catch (fetchErr) {
+            console.warn("Could not fetch remote settings, falling back to localStorage", fetchErr);
+        }
+
         // 1. Apply Cohort Date
-        const cohortData = localStorage.getItem('elitechub_cohort');
-        if (cohortData) {
-            const cohort = JSON.parse(cohortData);
+        let cohort = remoteSettings.elitechub_cohort;
+        if (!cohort) {
+            const cohortData = localStorage.getItem('elitechub_cohort');
+            if (cohortData) cohort = JSON.parse(cohortData);
+        }
+        if (cohort) {
             const cohortString = `${cohort.month} ${cohort.year}`;
 
             // Directly update the cohort date element in the hero card
@@ -32,9 +53,13 @@ function applySiteSettings() {
         }
 
         // 2. Apply Prices
-        const priceData = localStorage.getItem('elitechub_prices');
-        if (priceData) {
-            const prices = JSON.parse(priceData);
+        let prices = remoteSettings.elitechub_prices;
+        if (!prices) {
+            const priceData = localStorage.getItem('elitechub_prices');
+            if (priceData) prices = JSON.parse(priceData);
+        }
+        
+        if (prices) {
 
             // Apply Bootcamp Prices
             if (prices.bootcamp) {
