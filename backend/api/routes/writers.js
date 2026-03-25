@@ -133,7 +133,11 @@ router.post('/register', async (req, res) => {
                 return res.status(400).json({ error: 'Email already registered' });
             }
             console.error('Writer registration error:', error);
-            return res.status(500).json({ error: 'Failed to create account' });
+            return res.status(500).json({ error: 'Failed to create account: ' + (error.message || error.code) });
+        }
+
+        if (!writer) {
+            return res.status(500).json({ error: 'Account creation returned no data' });
         }
 
         res.status(201).json({ 
@@ -142,7 +146,7 @@ router.post('/register', async (req, res) => {
         });
     } catch (err) {
         console.error('Registration error:', err);
-        res.status(500).json({ error: 'Registration failed' });
+        res.status(500).json({ error: 'Registration failed: ' + err.message });
     }
 });
 
