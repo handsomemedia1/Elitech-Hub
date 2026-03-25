@@ -10,7 +10,7 @@ router.get('/', requireAuth, requireAdmin, async (req, res) => {
     try {
         const { data: writers, error } = await supabase
             .from('writers')
-            .select('id, name, email, active, created_at, posting_days, last_post_date')
+            .select('id, name, email, active, created_at, posting_days')
             .order('created_at', { ascending: false });
 
         if (error) throw error;

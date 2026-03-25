@@ -91,11 +91,8 @@ async function checkMissedPosts() {
                     console.error(`Failed to send missed post email to ${writer.email}:`, err);
                 }
             } else {
-                // Update last_post_date
-                await supabase
-                    .from('writers')
-                    .update({ last_post_date: todayDate })
-                    .eq('id', writer.id);
+                // No need to update last_post_date since we check blog_posts directly
+                console.log(`[MissedCheck] Writer ${writer.email} posted today.`);
             }
         }
     } catch (err) {
