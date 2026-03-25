@@ -134,6 +134,8 @@ app.get('/api/health', async (req, res) => {
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/signup', authLimiter);
 app.use('/api/writers/login', authLimiter);
+app.use('/api/writers/register', authLimiter);
+app.use('/api/researchers/login', authLimiter);
 app.use('/api/writers/resend-otp', otpLimiter);
 
 // Routes

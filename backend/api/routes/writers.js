@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import supabase from '../services/supabase.js';
 import { sendOTPEmail } from '../services/email.js';
+import { aiRouter } from '../services/ai-router.js';
 
 const router = Router();
 
@@ -79,6 +80,66 @@ router.post('/login', async (req, res) => {
     } catch (err) {
         console.error('Writer login error:', err);
         res.status(500).json({ error: 'Login failed' });
+    }
+});
+
+/**
+ * POST /api/writers/register - Writer self-registration
+ */
+router.post('/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).json({ error: 'Name, email, and password are required' });
+        }
+
+        // Validate password
+        if (password.length < 8) {
+            return res.status(400).json({ error: 'Password must be at least 8 characters' });
+        }
+
+        // Sanitize name
+        const sanitizedName = name.replace(/<[^>]*>/g, '').trim();
+        const safeEmail = email.toLowerCase().trim();
+
+        // Check if user already exists
+        const { data: existing } = await supabase
+            .from('writers')
+            .select('id')
+            .eq('email', safeEmail)
+            .single();
+
+        if (existing) {
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+
+        const password_hash = await bcrypt.hash(password, 10);
+
+        const { data: writer, error } = await supabase
+            .from('writers')
+            .insert({
+                name: sanitizedName,
+                email: safeEmail,
+                password_hash,
+                active: false, // Default to pending approval
+                mfa_enabled: false
+            })
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Writer registration error:', error);
+            return res.status(500).json({ error: 'Failed to create account' });
+        }
+
+        res.status(201).json({ 
+            message: 'Registration successful! Your account is pending admin approval.',
+            writer: { id: writer.id, name: writer.name, email: writer.email }
+        });
+    } catch (err) {
+        console.error('Registration error:', err);
+        res.status(500).json({ error: 'Registration failed' });
     }
 });
 
@@ -183,6 +244,42 @@ const requireWriter = async (req, res, next) => {
  */
 router.get('/me', requireWriter, (req, res) => {
     res.json({ writer: req.writer });
+});
+
+/**
+ * PUT /api/writers/password - Change writer password
+ */
+router.put('/password', requireWriter, async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Current and new password are required' });
+        }
+
+        if (newPassword.length < 8) {
+            return res.status(400).json({ error: 'New password must be at least 8 characters' });
+        }
+
+        const validPassword = await bcrypt.compare(currentPassword, req.writer.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Incorrect current password' });
+        }
+
+        const password_hash = await bcrypt.hash(newPassword, 10);
+
+        const { error } = await supabase
+            .from('writers')
+            .update({ password_hash })
+            .eq('id', req.writer.id);
+
+        if (error) throw error;
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (err) {
+        console.error('Writer password update error:', err);
+        res.status(500).json({ error: 'Failed to update password' });
+    }
 });
 
 /**
@@ -309,22 +406,65 @@ router.post('/posts', requireWriter, async (req, res) => {
 });
 
 /**
- * POST /api/writers/seo-check - Check SEO score before publishing
+ * POST /api/writers/seo-check - Check SEO score using AI before publishing
  */
-router.post('/seo-check', requireWriter, (req, res) => {
+router.post('/seo-check', requireWriter, async (req, res) => {
     const { title, content, excerpt } = req.body;
-
-    const seoScore = calculateSEOScore(title, content, excerpt);
+    
     const wordCount = content?.split(/\s+/).length || 0;
     const hasImage = content?.includes('<img') || false;
 
-    res.json({
-        seoScore,
-        wordCount,
-        hasImage,
-        canPublish: seoScore >= 70 && wordCount >= 500 && hasImage,
-        feedback: getSEOFeedback(seoScore, wordCount, content)
-    });
+    try {
+        const systemContext = `You are an expert SEO auditor for a cybersecurity training company (Elitech Hub).
+Analyze the provided blog post data. You must respond ONLY with a valid JSON object matching this exact schema, with no markdown formatting or backticks:
+{
+  "seoScore": (number between 0 and 100 representing overall SEO health),
+  "feedback": (array of strings, provide 3-5 specific, actionable recommendations to improve SEO, readability, or engagement)
+}`;
+
+        const userMessage = `Title: ${title || 'None'}
+Excerpt: ${excerpt || 'None'}
+Word Count: ${wordCount}
+Has Image: ${hasImage}
+Content (HTML): ${content || 'None'}`;
+
+        const aiResult = await aiRouter.generate(userMessage, { context: systemContext });
+        
+        let parsedResult;
+        try {
+            // Strip potential markdown formatting from AI response
+            const cleanedText = aiResult.response.replace(/```json/g, '').replace(/```/g, '').trim();
+            parsedResult = JSON.parse(cleanedText);
+        } catch (e) {
+            console.error('Failed to parse AI JSON:', aiResult.response);
+            throw new Error('AI returned invalid format');
+        }
+
+        const aiScore = parsedResult.seoScore || calculateSEOScore(title, content, excerpt);
+        const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
+
+        let finalFeedback = parsedResult.feedback || [];
+        if (wordCount < 500) finalFeedback.unshift(`Add ${500 - wordCount} more words (minimum 500)`);
+        if (!hasImage) finalFeedback.unshift('Add at least one image');
+
+        res.json({
+            seoScore: aiScore,
+            wordCount,
+            hasImage,
+            canPublish: autoPublish,
+            feedback: finalFeedback.length > 0 ? finalFeedback : ['Great! Your post meets all criteria.']
+        });
+    } catch (err) {
+        console.error('AI SEO check failed, falling back to basic checks:', err);
+        const seoScore = calculateSEOScore(title, content, excerpt);
+        res.json({
+            seoScore,
+            wordCount,
+            hasImage,
+            canPublish: seoScore >= 70 && wordCount >= 500 && hasImage,
+            feedback: getSEOFeedback(seoScore, wordCount, content)
+        });
+    }
 });
 
 // Helper: Calculate SEO Score

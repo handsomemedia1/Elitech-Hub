@@ -241,6 +241,42 @@ router.patch('/me', requireResearcher, async (req, res) => {
 });
 
 /**
+ * PUT /api/researchers/password - Change researcher password
+ */
+router.put('/password', requireResearcher, async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Current and new password are required' });
+        }
+
+        if (newPassword.length < 8) {
+            return res.status(400).json({ error: 'New password must be at least 8 characters' });
+        }
+
+        const validPassword = await bcrypt.compare(currentPassword, req.researcher.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Incorrect current password' });
+        }
+
+        const password_hash = await bcrypt.hash(newPassword, 12);
+
+        const { error } = await supabase
+            .from('researchers')
+            .update({ password_hash })
+            .eq('id', req.researcher.id);
+
+        if (error) throw error;
+
+        res.json({ message: 'Password updated successfully' });
+    } catch (err) {
+        console.error('Researcher password update error:', err);
+        res.status(500).json({ error: 'Failed to update password' });
+    }
+});
+
+/**
  * GET /api/researchers/stats - Get researcher stats
  */
 router.get('/stats', requireResearcher, async (req, res) => {

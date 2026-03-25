@@ -9,6 +9,8 @@ const router = express.Router();
 
 // Supabase client
 import { createClient } from '@supabase/supabase-js';
+import { requireAdmin } from '../middleware/auth.js';
+
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_KEY
@@ -94,9 +96,8 @@ router.post('/', async (req, res) => {
  * GET /api/leads
  * Get all leads (admin only)
  */
-router.get('/', async (req, res) => {
+router.get('/', requireAdmin, async (req, res) => {
     try {
-        // TODO: Add admin authentication check
 
         const { segment } = req.query;
 
@@ -135,7 +136,7 @@ router.get('/', async (req, res) => {
  * GET /api/leads/stats
  * Get lead capture statistics
  */
-router.get('/stats', async (req, res) => {
+router.get('/stats', requireAdmin, async (req, res) => {
     try {
         const { data: leads, error } = await supabase
             .from('leads')
