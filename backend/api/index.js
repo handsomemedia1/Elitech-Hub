@@ -73,7 +73,9 @@ app.use(cors({
         }
         return callback(null, true); // Still allow in dev, log in production
     },
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Body parser with size limit
