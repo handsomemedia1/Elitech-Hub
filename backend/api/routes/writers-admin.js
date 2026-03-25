@@ -1,21 +1,44 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import supabase from '../services/supabase.js';
 import { requireAuth, requireAdmin } from '../middleware/auth.js';
 
 const router = Router();
 
-// Get all writers
+// Get all writers (include banned status and post count)
 router.get('/', requireAuth, requireAdmin, async (req, res) => {
     try {
-        const { data: writers, error } = await supabase
+        // Try fetching with banned column; fall back if it doesn't exist yet
+        let { data: writers, error } = await supabase
             .from('writers')
-            .select('id, name, email, active, created_at, posting_days')
+            .select('id, name, email, active, banned, created_at, posting_days')
             .order('created_at', { ascending: false });
 
-        if (error) throw error;
+        if (error && error.message && error.message.includes('banned')) {
+            // Column doesn't exist yet – fetch without it
+            const fallback = await supabase
+                .from('writers')
+                .select('id, name, email, active, created_at, posting_days')
+                .order('created_at', { ascending: false });
+            if (fallback.error) throw fallback.error;
+            writers = (fallback.data || []).map(w => ({ ...w, banned: false }));
+        } else if (error) {
+            throw error;
+        }
 
-        res.json({ writers });
+        // Fetch post counts for each writer
+        const writersWithCounts = await Promise.all(
+            (writers || []).map(async (writer) => {
+                const { count } = await supabase
+                    .from('blog_posts')
+                    .select('id', { count: 'exact', head: true })
+                    .eq('writer_id', writer.id);
+                return { ...writer, banned: writer.banned || false, post_count: count || 0 };
+            })
+        );
+
+        res.json({ writers: writersWithCounts });
     } catch (err) {
         console.error('Error fetching writers:', err);
         res.status(500).json({ error: 'Failed to fetch writers' });
@@ -42,6 +65,7 @@ router.post('/', requireAuth, requireAdmin, async (req, res) => {
                 email,
                 password_hash: passwordHash,
                 active: true,
+                banned: false,
                 posting_days: postingDays || []
             })
             .select('id, name, email, active')
@@ -80,6 +104,127 @@ router.patch('/:id/toggle-status', requireAuth, requireAdmin, async (req, res) =
     } catch (err) {
         console.error('Error updating writer:', err);
         res.status(500).json({ error: 'Failed to update writer status' });
+    }
+});
+
+// Ban a writer
+router.patch('/:id/ban', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data: writer, error } = await supabase
+            .from('writers')
+            .update({ banned: true, active: false })
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        res.json({ message: 'Writer has been banned', writer });
+    } catch (err) {
+        console.error('Error banning writer:', err);
+        res.status(500).json({ error: 'Failed to ban writer' });
+    }
+});
+
+// Unban a writer
+router.patch('/:id/unban', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data: writer, error } = await supabase
+            .from('writers')
+            .update({ banned: false, active: true })
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        res.json({ message: 'Writer has been unbanned', writer });
+    } catch (err) {
+        console.error('Error unbanning writer:', err);
+        res.status(500).json({ error: 'Failed to unban writer' });
+    }
+});
+
+// Reset writer password
+router.post('/:id/reset-password', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Generate a random 12-character password
+        const newPassword = crypto.randomBytes(6).toString('hex');
+
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        const { data: writer, error } = await supabase
+            .from('writers')
+            .update({ password_hash: passwordHash })
+            .eq('id', id)
+            .select('id, name, email')
+            .single();
+
+        if (error) throw error;
+
+        res.json({
+            message: 'Password reset successfully',
+            writer,
+            newPassword // Admin will see and share this
+        });
+    } catch (err) {
+        console.error('Error resetting writer password:', err);
+        res.status(500).json({ error: 'Failed to reset password' });
+    }
+});
+
+// Get writer's posts
+router.get('/:id/posts', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data: posts, error } = await supabase
+            .from('blog_posts')
+            .select('id, title, slug, published, created_at, published_at')
+            .eq('writer_id', id)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        res.json({ posts: posts || [] });
+    } catch (err) {
+        console.error('Error fetching writer posts:', err);
+        res.status(500).json({ error: 'Failed to fetch writer posts' });
+    }
+});
+
+// Delete a writer permanently
+router.delete('/:id', requireAuth, requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // First delete or reassign their blog posts
+        const { error: postsError } = await supabase
+            .from('blog_posts')
+            .delete()
+            .eq('writer_id', id);
+
+        if (postsError) console.error('Error deleting writer posts:', postsError);
+
+        // Delete the writer
+        const { error } = await supabase
+            .from('writers')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        res.json({ message: 'Writer deleted permanently' });
+    } catch (err) {
+        console.error('Error deleting writer:', err);
+        res.status(500).json({ error: 'Failed to delete writer' });
     }
 });
 
