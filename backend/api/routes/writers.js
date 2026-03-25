@@ -122,13 +122,16 @@ router.post('/register', async (req, res) => {
                 name: sanitizedName,
                 email: safeEmail,
                 password_hash,
-                active: false, // Default to pending approval
-                mfa_enabled: false
+                active: false,
+                posting_days: []
             })
-            .select()
+            .select('id, name, email, active')
             .single();
 
         if (error) {
+            if (error.code === '23505') {
+                return res.status(400).json({ error: 'Email already registered' });
+            }
             console.error('Writer registration error:', error);
             return res.status(500).json({ error: 'Failed to create account' });
         }
