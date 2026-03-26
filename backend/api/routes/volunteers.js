@@ -83,7 +83,7 @@ router.post('/apply', async (req, res) => {
         // Send confirmation email to applicant
         try {
             await resend.emails.send({
-                from: process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>',
+                from: process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>',
                 to: [email],
                 subject: '✅ Volunteer Application Received - Elitech Hub',
                 html: `
@@ -118,7 +118,7 @@ router.post('/apply', async (req, res) => {
         try {
             const adminEmail = process.env.ADMIN_EMAIL || 'Elijah@elitechub.com';
             await resend.emails.send({
-                from: process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>',
+                from: process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>',
                 to: [adminEmail],
                 subject: `📋 New Volunteer Application: ${fullName} - ${role}`,
                 html: `

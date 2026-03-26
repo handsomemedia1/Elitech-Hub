@@ -10,7 +10,7 @@ const router = Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Elijah@elitechub.com';
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
 
 /**
  * POST /api/inquiries/partner - Partner inquiry form
