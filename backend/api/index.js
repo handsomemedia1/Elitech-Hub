@@ -118,8 +118,8 @@ app.use('/api', generalLimiter);
 // ROUTES
 // ============================================
 
-// Sitemap and robots.txt at root (no rate limit)
-app.use('/', sitemapRoutes);
+// Sitemap and robots.txt (proxied from Netlify via _redirects)
+app.use('/api', sitemapRoutes);
 
 // Health check & Supabase keep-alive
 app.get('/api/health', async (req, res) => {

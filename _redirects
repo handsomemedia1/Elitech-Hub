@@ -4,6 +4,10 @@
 # API requests forward to Vercel backend
 /api/*  https://elitech-hub.vercel.app/api/:splat  200
 
+# Dynamic sitemap & robots.txt from backend
+/sitemap.xml  https://elitech-hub.vercel.app/api/sitemap.xml  200
+/robots.txt   https://elitech-hub.vercel.app/api/robots.txt   200
+
 # Blog post URLs should serve the article renderer page
 /blog-posts/*  /article.html  200
 

@@ -6,6 +6,7 @@
 import { Router } from 'express';
 import supabase from '../services/supabase.js';
 import { requireAuth, requireAdmin } from '../middleware/auth.js';
+import { aiRouter } from '../services/ai-router.js';
 
 const router = Router();
 
@@ -173,6 +174,66 @@ router.post('/upload-url', requireAuth, requireAdmin, async (req, res) => {
 });
 
 
+
+/**
+ * POST /api/blog/seo-check - Check SEO score using AI (admin only)
+ */
+router.post('/seo-check', requireAuth, requireAdmin, async (req, res) => {
+    const { title, content, excerpt } = req.body;
+    
+    const wordCount = content?.split(/\s+/).length || 0;
+    const hasImage = content?.includes('<img') || false;
+
+    try {
+        const systemContext = `You are an expert SEO auditor for a cybersecurity training company (Elitech Hub).
+Analyze the provided blog post data. You must respond ONLY with a valid JSON object matching this exact schema, with no markdown formatting or backticks:
+{
+  "seoScore": (number between 0 and 100 representing overall SEO health),
+  "feedback": (array of strings, provide 3-5 specific, actionable recommendations to improve SEO, readability, or engagement)
+}`;
+
+        const userMessage = `Title: ${title || 'None'}
+Excerpt: ${excerpt || 'None'}
+Word Count: ${wordCount}
+Has Image: ${hasImage}
+Content (HTML): ${content || 'None'}`;
+
+        const aiResult = await aiRouter.generate(userMessage, { context: systemContext });
+        
+        let parsedResult;
+        try {
+            const cleanedText = aiResult.response.replace(/```json/g, '').replace(/```/g, '').trim();
+            parsedResult = JSON.parse(cleanedText);
+        } catch (e) {
+            console.error('Failed to parse AI JSON:', aiResult.response);
+            throw new Error('AI returned invalid format');
+        }
+
+        const aiScore = parsedResult.seoScore || 50;
+        const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
+
+        let finalFeedback = parsedResult.feedback || [];
+        if (wordCount < 500) finalFeedback.unshift(`Add ${500 - wordCount} more words (minimum 500)`);
+        if (!hasImage) finalFeedback.unshift('Add at least one image');
+
+        res.json({
+            seoScore: aiScore,
+            wordCount,
+            hasImage,
+            canPublish: autoPublish,
+            feedback: finalFeedback.length > 0 ? finalFeedback : ['Great! Your post meets all criteria.']
+        });
+    } catch (err) {
+        console.error('AI SEO check failed:', err);
+        res.json({
+            seoScore: 50,
+            wordCount,
+            hasImage,
+            canPublish: false,
+            feedback: ['Could not reach AI Service for advanced SEO Audit. Ensure content is high quality.']
+        });
+    }
+});
 
 /**
  * POST /api/blog - Create blog post (admin only)

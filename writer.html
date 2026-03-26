@@ -644,49 +644,70 @@
     <!-- Login Page -->
     <div id="loginPage" class="login-page">
         <div class="login-box">
-            <h1>✍️ Writer Login</h1>
+            <h1 id="authTitle" style="font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 2rem;">✍️ Writer Login</h1>
             <div id="loginError" class="error-message hidden"></div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" required placeholder="writer@elitechhub.com">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </form>
+            <div id="registerSuccess" class="success-message hidden" style="background: #D1FAE5; color: #065F46; padding: 0.75rem 1rem; border-radius: 0.5rem; margin-bottom: 1rem; font-size: 0.875rem;"></div>
 
-            <div style="display: flex; align-items: center; margin: 1.5rem 0; gap: 1rem;">
-                <hr style="flex: 1; border: none; border-top: 1px solid #E5E7EB;">
-                <span style="color: var(--gray); font-size: 0.875rem;">or</span>
-                <hr style="flex: 1; border: none; border-top: 1px solid #E5E7EB;">
+            <div class="auth-tabs" style="display: flex; margin-bottom: 2rem;">
+                <div class="auth-tab active" data-tab="login" style="flex: 1; padding: 1rem; text-align: center; font-weight: 600; cursor: pointer; border-bottom: 2px solid var(--primary); color: var(--primary); transition: all 0.2s;">Login</div>
+                <div class="auth-tab" data-tab="register" style="flex: 1; padding: 1rem; text-align: center; font-weight: 600; cursor: pointer; border-bottom: 2px solid #E5E7EB; color: #6B7280; transition: all 0.2s;">Sign Up</div>
             </div>
 
-            <a href="https://elitech-hub.vercel.app/api/auth/google" class="btn"
-                style="width: 100%; background: white; border: 1px solid #E5E7EB; color: var(--dark); justify-content: center;">
-                <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
-                        fill="#4285F4" />
-                    <path
-                        d="M9.003 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.26c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.482 18 9.003 18z"
-                        fill="#34A853" />
-                    <path
-                        d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z"
-                        fill="#FBBC05" />
-                    <path
-                        d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.48 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z"
-                        fill="#EA4335" />
-                </svg>
-                Sign in with Google
-            </a>
+            <div id="loginSection" class="auth-section">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" required placeholder="writer@elitechhub.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
 
+                <div style="display: flex; align-items: center; margin: 1.5rem 0; gap: 1rem;">
+                    <hr style="flex: 1; border: none; border-top: 1px solid #E5E7EB;">
+                    <span style="color: var(--gray); font-size: 0.875rem;">or</span>
+                    <hr style="flex: 1; border: none; border-top: 1px solid #E5E7EB;">
+                </div>
+
+                <a href="https://elitech-hub.vercel.app/api/auth/google" class="btn"
+                    style="width: 100%; background: white; border: 1px solid #E5E7EB; color: var(--dark); justify-content: center;">
+                    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4" />
+                        <path d="M9.003 18c2.43 0 4.467-.806 5.956-2.18l-2.909-2.26c-.806.54-1.836.86-3.047.86-2.344 0-4.328-1.584-5.036-3.711H.96v2.332C2.44 15.983 5.482 18 9.003 18z" fill="#34A853" />
+                        <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.71 0-.593.102-1.17.282-1.71V4.96H.957C.347 6.175 0 7.55 0 9.002c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
+                        <path d="M9.003 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.464.891 11.428 0 9.002 0 5.48 0 2.44 2.017.96 4.958L3.967 7.29c.708-2.127 2.692-3.71 5.036-3.71z" fill="#EA4335" />
+                    </svg>
+                    Sign in with Google
+                </a>
+            </div>
+
+            <div id="registerSection" class="auth-section" style="display: none;">
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="registerName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="registerEmail" required placeholder="writer@elitechhub.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="registerPassword" required minlength="8" placeholder="Min 8 characters">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+            </div>
+            
             <p style="margin-top: 1.5rem; text-align: center; color: var(--gray); font-size: 0.875rem;">
-                Want to become a writer? <a href="contact.html" style="color: var(--primary);">Contact us</a>
+                Need help? <a href="contact.html" style="color: var(--primary);">Contact Support</a>
             </p>
         </div>
     </div>
@@ -706,6 +727,7 @@
                     <li><a href="#" data-view="posts"><i class="fas fa-list"></i> My Posts</a></li>
                     <li><a href="#" data-view="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
                     <li><a href="#" data-view="badges"><i class="fas fa-medal"></i> Badges</a></li>
+                    <li><a href="#" data-view="profile"><i class="fas fa-user-cog"></i> Profile & Settings</a></li>
                     <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
@@ -822,8 +844,8 @@
                         <button class="btn btn-secondary" onclick="previewWriterPost()">
                             <i class="fas fa-eye"></i> Preview
                         </button>
-                        <button class="btn btn-secondary" onclick="checkSEO()">
-                            <i class="fas fa-search"></i> Check SEO
+                        <button class="btn btn-secondary" onclick="checkSEO()" id="btnCheckSeo">
+                            <i class="fas fa-robot"></i> Run AI SEO Audit
                         </button>
                     </div>
                 </div>
@@ -967,6 +989,31 @@
                     <p style="color: var(--gray);">Loading badges...</p>
                 </div>
             </div>
+
+            <!-- Profile View -->
+            <div id="profileView" class="hidden">
+                <div class="page-header">
+                    <h1 class="page-title">👤 Profile & Settings</h1>
+                </div>
+                <div style="background: white; border-radius: 1rem; padding: 2rem; max-width: 600px;">
+                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-lock"></i> Change Password</h3>
+                    <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" id="writerCurrentPassword" placeholder="Enter current password">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" id="writerNewPassword" placeholder="Min 8 characters">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" id="writerConfirmPassword" placeholder="Type new password again">
+                    </div>
+                    <button class="btn btn-secondary" onclick="writerChangePassword()">
+                        <i class="fas fa-key"></i> Update Password
+                    </button>
+                </div>
+            </div>
         </main>
 
         <!-- SEO Panel -->
@@ -1025,6 +1072,36 @@
                 </p>
             </div>
         </aside>
+    </div>
+
+    <!-- AI SEO Audit Modal -->
+    <div id="aiSeoModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: white; border-radius: 1rem; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative;">
+            <button onclick="document.getElementById('aiSeoModal').style.display='none'" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6B7280;">&times;</button>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-robot" style="color: var(--primary);"></i> AI SEO Analysis
+            </h2>
+            <div id="aiSeoLoading" style="text-align: center; padding: 3rem 1rem; color: var(--gray);">
+                <i class="fas fa-spinner fa-spin fa-2x" style="color: var(--primary);"></i>
+                <p style="margin-top: 1rem; font-weight: 500;">Analyzing your post against SEO best practices...</p>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">This takes a few seconds.</p>
+            </div>
+            <div id="aiSeoResults" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; background: #F9FAFB; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #E5E7EB;">
+                    <div style="font-size: 3.5rem; font-weight: 800; color: var(--primary); line-height: 1;" id="aiScoreDisplay">0</div>
+                    <div>
+                        <div style="font-size: 0.85rem; color: var(--gray); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Overall AI Score</div>
+                        <div style="font-weight: 600; font-size: 1.1rem;" id="aiPublishStatus"></div>
+                    </div>
+                </div>
+                <h4 style="margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.5rem;">AI Feedback & Recommendations</h4>
+                <ul id="aiFeedbackList" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                </ul>
+                <div style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                    <button class="btn btn-primary" onclick="document.getElementById('aiSeoModal').style.display='none'">Apply Feedback</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1118,10 +1195,17 @@
                     body: JSON.stringify({ email, password })
                 });
 
-                const data = await res.json();
+                let data;
+                try {
+                    data = await res.json();
+                } catch (jsonErr) {
+                    document.getElementById('loginError').textContent = 'Server error or Gateway Timeout. Please try again.';
+                    document.getElementById('loginError').classList.remove('hidden');
+                    return;
+                }
 
                 if (!res.ok) {
-                    document.getElementById('loginError').textContent = data.error || 'Login failed';
+                    document.getElementById('loginError').textContent = data.error || `Login failed (${res.status})`;
                     document.getElementById('loginError').classList.remove('hidden');
                     return;
                 }
@@ -1133,7 +1217,7 @@
                 switchView('dashboard');
                 loadPosts();
             } catch (err) {
-                document.getElementById('loginError').textContent = 'Connection error';
+                document.getElementById('loginError').textContent = 'Network error: Make sure you are connected to the internet.';
                 document.getElementById('loginError').classList.remove('hidden');
             }
         });
@@ -1163,6 +1247,7 @@
             document.getElementById('dashboardView').classList.add('hidden');
             document.getElementById('leaderboardView').classList.add('hidden');
             document.getElementById('badgesView').classList.add('hidden');
+            document.getElementById('profileView').classList.add('hidden');
 
             // Show selected view
             const viewMap = {
@@ -1170,7 +1255,8 @@
                 'posts': 'postsView',
                 'dashboard': 'dashboardView',
                 'leaderboard': 'leaderboardView',
-                'badges': 'badgesView'
+                'badges': 'badgesView',
+                'profile': 'profileView'
             };
 
             if (viewMap[view]) {
@@ -1328,17 +1414,64 @@
 
                 // Available badges
                 const availableContainer = document.getElementById('availableBadges');
-                if (data.available && data.available.length > 0) {
+                if (data.available) {
                     availableContainer.innerHTML = data.available.map(badge => `
-                        <div style="background: #F3F4F6; padding: 1.5rem; border-radius: 1rem; text-align: center; border: 2px dashed #D1D5DB;">
-                            <div style="font-size: 2rem; margin-bottom: 0.5rem; filter: grayscale(100%); opacity: 0.5;">${badge.icon}</div>
-                            <h4 style="margin: 0.5rem 0; font-size: 0.9rem; color: var(--gray);">${badge.name}</h4>
-                            <p style="font-size: 0.7rem; color: var(--gray);">${badge.description}</p>
+                        <div class="badge-card locked">
+                            <div class="badge-icon" style="filter: grayscale(100%); opacity: 0.5;">${badge.icon}</div>
+                            <h4>${badge.name}</h4>
+                            <p style="font-size: 0.75rem; opacity: 0.9;">${badge.description}</p>
                         </div>
                     `).join('');
                 }
             } catch (err) {
                 console.error('Failed to load badges:', err);
+            }
+        }
+
+        // Change Password
+        async function writerChangePassword() {
+            const currentPassword = document.getElementById('writerCurrentPassword').value;
+            const newPassword = document.getElementById('writerNewPassword').value;
+            const confirmPassword = document.getElementById('writerConfirmPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Please fill all password fields');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('New password must be at least 8 characters');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/writers/password`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    alert(data.error || 'Failed to update password');
+                    return;
+                }
+
+                alert('Password updated successfully!');
+                document.getElementById('writerCurrentPassword').value = '';
+                document.getElementById('writerNewPassword').value = '';
+                document.getElementById('writerConfirmPassword').value = '';
+            } catch (err) {
+                alert('Failed to update password. Please try again.');
             }
         }
 
@@ -1655,6 +1788,14 @@
             const title = document.getElementById('postTitle').value;
             const excerpt = document.getElementById('postExcerpt').value;
             const content = writerQuill ? writerQuill.root.innerHTML : '';
+            
+            const modal = document.getElementById('aiSeoModal');
+            const loading = document.getElementById('aiSeoLoading');
+            const results = document.getElementById('aiSeoResults');
+            
+            modal.style.display = 'flex';
+            loading.style.display = 'block';
+            results.style.display = 'none';
 
             try {
                 const res = await fetch(`${API_URL}/writers/seo-check`, {
@@ -1665,10 +1806,56 @@
                     },
                     body: JSON.stringify({ title, content, excerpt })
                 });
-                const data = await res.json();
-                alert(`SEO Score: ${data.seoScore}%\nWord Count: ${data.wordCount}\nHas Image: ${data.hasImage}\nCan Auto-Publish: ${data.canPublish}\n\nFeedback:\n${data.feedback.join('\n')}`);
+
+                let data;
+                try {
+                    data = await res.json();
+                } catch(e) {
+                    throw new Error('Server returned an invalid response (Gateway Timeout or offline).');
+                }
+
+                if (!res.ok) {
+                    throw new Error(data.error || `Server returned error ${res.status}`);
+                }
+
+                if (!data.feedback) {
+                    throw new Error('Invalid data format received from the server.');
+                }
+                
+                document.getElementById('aiScoreDisplay').textContent = data.seoScore;
+                document.getElementById('aiScoreDisplay').style.color = data.seoScore >= 70 ? '#10B981' : (data.seoScore >= 40 ? '#F59E0B' : '#EF4444');
+                
+                document.getElementById('aiPublishStatus').textContent = data.canPublish ? '✅ Meets Publishing Criteria' : '⚠️ Needs Improvement';
+                
+                const list = document.getElementById('aiFeedbackList');
+                list.innerHTML = data.feedback.map(text => `
+                    <li style="display: flex; gap: 0.75rem; background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E5E7EB; align-items: flex-start;">
+                        <i class="fas fa-lightbulb" style="color: var(--primary); margin-top: 0.15rem;"></i>
+                        <span style="font-size: 0.95rem; line-height: 1.5; color: var(--dark);">${text}</span>
+                    </li>
+                `).join('');
+                
+                loading.style.display = 'none';
+                results.style.display = 'block';
+                
+                // Update sidebar score visually to match AI
+                document.getElementById('seoScoreValue').textContent = data.seoScore + '%';
+                const circle = document.getElementById('seoCircle');
+                const offset = 339.292 - (339.292 * data.seoScore / 100);
+                circle.style.strokeDashoffset = offset;
+                circle.style.stroke = data.seoScore >= 70 ? '#10B981' : (data.seoScore >= 40 ? '#F59E0B' : '#EF4444');
+                
+                const requirements = document.getElementById('publishRequirements');
+                if (data.canPublish) {
+                    requirements.classList.add('ready');
+                    requirements.innerHTML = '<h4>✅ Ready to Publish!</h4><p>Your post meets all AI criteria for auto-publishing.</p>';
+                } else {
+                    requirements.classList.remove('ready');
+                }
+                
             } catch (err) {
-                alert('Failed to check SEO');
+                alert('Failed to run AI SEO Audit: ' + err.message);
+                modal.style.display = 'none';
             }
         }
 
@@ -1766,6 +1953,78 @@
                 }
                 updateSEO();
             }
+        }
+
+        // Auth UI and Registration
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.auth-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.style.borderColor = '#E5E7EB';
+                    t.style.color = '#6B7280';
+                });
+                tab.classList.add('active');
+                tab.style.borderColor = 'var(--primary)';
+                tab.style.color = 'var(--primary)';
+                
+                if(tab.dataset.tab === 'login') {
+                    document.getElementById('loginSection').style.display = 'block';
+                    document.getElementById('loginSection').classList.remove('hidden');
+                    document.getElementById('registerSection').style.display = 'none';
+                    document.getElementById('registerSection').classList.add('hidden');
+                    document.getElementById('authTitle').textContent = '✍️ Writer Login';
+                } else {
+                    document.getElementById('loginSection').style.display = 'none';
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('registerSection').style.display = 'block';
+                    document.getElementById('registerSection').classList.remove('hidden');
+                    document.getElementById('authTitle').textContent = '📝 Join as Writer';
+                }
+                
+                document.getElementById('loginError').classList.add('hidden');
+                document.getElementById('registerSuccess').classList.add('hidden');
+            });
+        });
+
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm) {
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                btn.disabled = true;
+
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+
+                try {
+                    const res = await fetch(`${API_URL}/writers/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, password })
+                    });
+                    
+                    const data = await res.json();
+                    if(!res.ok) throw new Error(data.error || 'Registration failed');
+                    
+                    document.getElementById('loginError').classList.add('hidden');
+                    const successEl = document.getElementById('registerSuccess');
+                    successEl.textContent = data.message;
+                    successEl.classList.remove('hidden');
+                    
+                    e.target.reset();
+                } catch (err) {
+                    const errorEl = document.getElementById('loginError');
+                    errorEl.textContent = err.message;
+                    errorEl.classList.remove('hidden');
+                    document.getElementById('registerSuccess').classList.add('hidden');
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
         }
 
         // Init

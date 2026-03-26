@@ -1,0 +1,304 @@
+<!-- Footer - Clean Modern Design -->
+    <footer id="contact" style="background: #0f172a; color: white;">
+
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- Newsletter & CTA Section -->
+            <div style="padding: 4rem 0 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+                    <div>
+                        <h3
+                            style="font-family: 'Montserrat', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 1rem; color: white;">
+                            Start Your Cybersecurity Journey Today
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.05rem; line-height: 1.7;">
+                            Join 300+ students building successful careers. Get updates on programs, cybersecurity tips,
+                            and exclusive opportunities.
+                        </p>
+                    </div>
+                    <div>
+                        <form style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                            <input type="email" placeholder="Enter your email"
+                                style="flex: 1; min-width: 200px; padding: 1rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 0.75rem; color: white; font-size: 1rem; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onfocus="this.style.borderColor='#c3151c'; this.style.background='rgba(255, 255, 255, 0.15)'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'; this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <button type="submit"
+                                style="padding: 1rem 2rem; background: #c3151c; border: none; border-radius: 0.5rem; color: white; font-weight: 700; font-size: 1rem; cursor: pointer;"
+                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(195, 21, 28, 0.4)'"
+                                onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(195, 21, 28, 0.3)'">
+                                Subscribe
+                            </button>
+                        </form>
+                        <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.75rem; margin-top: 0.75rem;">
+                            <i class="fas fa-lock" style="margin-right: 0.25rem;"></i> We respect your privacy.
+                            Unsubscribe anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Footer Content -->
+            <div style="padding: 4rem 0 3rem;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
+                    <!-- Brand Column -->
+                    <div style="max-width: 380px;">
+                        <div class="logo" style="margin-bottom: 1.5rem; color: white; font-size: 1.75rem;">
+                            <img src="assets/images/logo.png" alt="Elitech Hub"
+                                style="height: 50px; width: auto; margin-right: 0.75rem; display: inline-block; vertical-align: middle; filter: drop-shadow(0 0 25px rgba(195, 21, 28, 0.4));">
+                            <span style="font-weight: 800;">Elitech<span style="color: #c3151c;">Hub</span></span>
+                        </div>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; font-size: 1.15rem; line-height: 1.6; font-weight: 600;">
+                            Nigeria's #1 Cybersecurity Training Company
+                        </p>
+                        <p
+                            style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.7;">
+                            Transforming Africa's digital security landscape through world-class training, 85% job
+                            placement rate, and industry-recognized certifications.
+                        </p>
+
+                        <!-- Trust Badges -->
+                        <div
+                            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+                            <div onclick="openCertModal('cac')"
+                                style="background: rgba(255, 255, 255, 0.08); border: 2px solid rgba(195, 21, 28, 0.3); border-radius: 0.75rem; padding: 0.75rem; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.borderColor='#c3151c'; this.style.transform='translateY(-3px)'"
+                                onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.borderColor='rgba(195, 21, 28, 0.3)'; this.style.transform=''">
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    CAC Registered</div>
+                                <div style="font-weight: 700; color: #c3151c; font-size: 0.95rem;"><i
+                                        class="fas fa-certificate"></i> RC: 8693883</div>
+                            </div>
+                            <div onclick="openCertModal('smedan')"
+                                style="background: rgba(255, 255, 255, 0.08); border: 2px solid rgba(195, 21, 28, 0.3); border-radius: 0.75rem; padding: 0.75rem; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px);"
+                                onmouseover="this.style.background='rgba(255, 255, 255, 0.12)'; this.style.borderColor='#c3151c'; this.style.transform='translateY(-3px)'"
+                                onmouseout="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.borderColor='rgba(195, 21, 28, 0.3)'; this.style.transform=''">
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                                    SMEDAN</div>
+                                <div style="font-weight: 700; color: #c3151c; font-size: 0.95rem;"><i
+                                        class="fas fa-shield-alt"></i> Certified</div>
+                            </div>
+                        </div>
+
+                        <!-- Social Media - Compact -->
+                        <div>
+                            <div
+                                style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                                Follow Us</div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-linkedin"></i></a>
+                                <a href="#"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a href="https://wa.me/2347081968062"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fab fa-whatsapp"></i></a>
+                                <a href="mailto:info@elitechub.com"
+                                    style="width: 36px; height: 36px; background: rgba(255,255,255,0.08); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.7); text-decoration: none;"><i
+                                        class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Programs Column -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Training Programs
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: linear-gradient(90deg, #c3151c, transparent);"></span>
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="programs.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-graduation-cap"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>6-Week Cybersecurity Bootcamp</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="programs.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-user-shield"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>16-Week Professional Program</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-building"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Corporate Training Solutions</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-award" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Certification Preparation</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="services.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-briefcase"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Internship Opportunities</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Company Column -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.5rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Company
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: linear-gradient(90deg, #c3151c, transparent);"></span>
+                        </h4>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="about.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-info-circle"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>About Elitech Hub</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="research.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-flask" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Research & Innovation</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="blog.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-blog" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Blog & Resources</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="contact.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-phone" style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Contact Us</span>
+                                </a>
+                            </li>
+                            <li style="margin-bottom: 0.75rem;">
+                                <a href="payment.html"
+                                    style="color: rgba(255, 255, 255, 0.75); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; font-size: 0.95rem; border-radius: 0.5rem;"
+                                    onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.color='#c3151c'; this.style.paddingLeft='1rem'"
+                                    onmouseout="this.style.background=''; this.style.color='rgba(255, 255, 255, 0.75)'; this.style.paddingLeft='0.75rem'">
+                                    <i class="fas fa-credit-card"
+                                        style="color: #c3151c; font-size: 1.1rem; width: 20px;"></i>
+                                    <span>Payment Options</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Column - Compact -->
+                    <div>
+                        <h4
+                            style="font-family: 'Montserrat', sans-serif; font-size: 1.125rem; color: white; margin-bottom: 1.25rem; font-weight: 800; position: relative; padding-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Get In Touch
+                            <span
+                                style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: #c3151c;"></span>
+                        </h4>
+
+                        <!-- Contact Info - Horizontal Row -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <a href="#"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fas fa-map-marker-alt" style="color: #c3151c;"></i>
+                                Lagos, Nigeria
+                            </a>
+                            <a href="https://wa.me/2347081968062"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fab fa-whatsapp" style="color: #c3151c;"></i>
+                                +234 708 196 8062
+                            </a>
+                            <a href="mailto:info@elitechub.com"
+                                style="display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.85rem;">
+                                <i class="fas fa-envelope" style="color: #c3151c;"></i>
+                                info@elitechub.com
+                            </a>
+                        </div>
+
+
+                        <!-- Stats - Inline -->
+                        <div style="display: flex; gap: 2rem;">
+                            <div>
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #c3151c;">300+</div>
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase;">
+                                    Students</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #c3151c;">85%</div>
+                                <div
+                                    style="font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase;">
+                                    Placement</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div style="padding: 2rem 0;">
+                <div
+                    style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;">
+                    <div style="color: rgba(255, 255, 255, 0.6); font-size: 0.875rem;">
+                        <p style="margin: 0;">&copy; 2025 <span style="color: #c3151c; font-weight: 700;">Elitech Hub
+                                Limited</span>. All rights reserved.</p>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.8rem;">RC: 8693883 | SMEDAN Certified | Securing
+                            Africa's Digital Future</p>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.875rem;">
+                        <a href="#"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Privacy Policy</a>
+                        <a href="#"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Terms of Service</a>
+                        <a href="#"
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s;"
+                            onmouseover="this.style.color='#c3151c'"
+                            onmouseout="this.style.color='rgba(255, 255, 255, 0.6)'">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
