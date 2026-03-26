@@ -1,7 +1,7 @@
 import express from 'express';
 import supabase from '../services/supabase.js';
 import fetch from 'node-fetch';
-import { Resend } from 'resend';
+import { mailer as resend } from '../services/mailer.js';
 import { notifySearchEngines } from '../services/seo-notify.js';
 import { AIRouter } from '../services/ai-router.js';
 
@@ -185,14 +185,13 @@ IMPORTANT RULES:
                         return;
                     }
 
-                    // Create a fresh Resend client each time to dodge Vercel cold-start caching
-                    const freshResend = new Resend(process.env.RESEND_API_KEY);
+                    // Use the universal Nodemailer wrapper (mirrors Resend API)
                     const freshFrom = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
 
-                    // Send the email via Resend
-                    console.log(`[Email Debug] KEY_PREFIX: ${(process.env.RESEND_API_KEY||'').substring(0,10)}, FROM: ${freshFrom}, TO: ${actionData.to}`);
+                    // Send the email
+                    console.log(`[Email Debug] FROM: ${freshFrom}, TO: ${actionData.to}`);
                     await sendTelegramMessage(chatId, `🔍 <b>Debug:</b> FROM=<code>${freshFrom}</code>`);
-                    const emailResult = await freshResend.emails.send({
+                    const emailResult = await resend.emails.send({
                         from: freshFrom,
                         to: actionData.to,
                         subject: actionData.subject,

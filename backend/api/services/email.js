@@ -3,9 +3,8 @@
  * (Switched from SendGrid due to availability issues)
  */
 
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import supabase from './supabase.js';
+import { mailer as resend } from './mailer.js';
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
 

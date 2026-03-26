@@ -5,10 +5,9 @@
 
 import { Router } from 'express';
 import supabase from '../services/supabase.js';
-import { Resend } from 'resend';
+import { mailer as resend } from '../services/mailer.js';
 
 const router = Router();
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 /**
  * POST /api/volunteers/apply - Submit volunteer application
