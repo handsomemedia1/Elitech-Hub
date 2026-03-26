@@ -57,6 +57,53 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('og-image').setAttribute('content', post.thumbnail);
         }
 
+        // Set og:url and canonical to the clean blog-posts URL
+        const canonicalUrl = `https://elitechub.com/blog-posts/${post.slug}.html`;
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+        else {
+            const m = document.createElement('meta');
+            m.setAttribute('property', 'og:url');
+            m.setAttribute('content', canonicalUrl);
+            document.head.appendChild(m);
+        }
+        // Canonical link
+        let canonLink = document.querySelector('link[rel="canonical"]');
+        if (!canonLink) {
+            canonLink = document.createElement('link');
+            canonLink.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonLink);
+        }
+        canonLink.setAttribute('href', canonicalUrl);
+
+        // Twitter Card
+        const twTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twTitle) twTitle.setAttribute('content', post.title);
+        else {
+            const m = document.createElement('meta');
+            m.setAttribute('name', 'twitter:title');
+            m.setAttribute('content', post.title);
+            document.head.appendChild(m);
+        }
+        const twDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twDesc) twDesc.setAttribute('content', metaDesc);
+        else {
+            const m = document.createElement('meta');
+            m.setAttribute('name', 'twitter:description');
+            m.setAttribute('content', metaDesc);
+            document.head.appendChild(m);
+        }
+        if (post.thumbnail) {
+            const twImg = document.querySelector('meta[name="twitter:image"]');
+            if (twImg) twImg.setAttribute('content', post.thumbnail);
+            else {
+                const m = document.createElement('meta');
+                m.setAttribute('name', 'twitter:image');
+                m.setAttribute('content', post.thumbnail);
+                document.head.appendChild(m);
+            }
+        }
+
         // Category
         const category = post.category || 'Blog';
         document.getElementById('article-category').textContent = category.toUpperCase();

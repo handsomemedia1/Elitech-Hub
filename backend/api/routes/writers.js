@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 import supabase from '../services/supabase.js';
 import { sendOTPEmail } from '../services/email.js';
 import { aiRouter } from '../services/ai-router.js';
+import { notifySearchEngines } from '../services/seo-notify.js';
 
 const router = Router();
 
@@ -397,6 +398,10 @@ router.post('/posts', requireWriter, async (req, res) => {
         // Send WhatsApp notification if published
         if (autoPublish) {
             sendWhatsAppNotification(req.writer.name, title, slug);
+
+            // Notify search engines (Google + IndexNow/Bing/Yandex)
+            const postUrl = `https://elitechub.com/blog-posts/${post.slug}.html`;
+            notifySearchEngines(postUrl).catch(err => console.error('[SEO] Notification error:', err));
         }
 
         res.json({
