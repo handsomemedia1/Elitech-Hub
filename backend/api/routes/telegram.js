@@ -9,8 +9,7 @@ const router = express.Router();
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 // Compare as string to avoid parseInt type mismatch on Vercel cold starts
 const ADMIN_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '1141577136';
-const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <admin@elitechub.com>';
+// Note: Resend client is created fresh inside each request to always use the latest env var
 
 // Initialize the AI Router for the Telegram Assistant
 const aiRouter = new AIRouter();
@@ -186,11 +185,15 @@ IMPORTANT RULES:
                         return;
                     }
 
+                    // Create a fresh Resend client each time to dodge Vercel cold-start caching
+                    const freshResend = new Resend(process.env.RESEND_API_KEY);
+                    const freshFrom = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
+
                     // Send the email via Resend
-                    console.log(`[Email Debug] FROM: ${FROM_EMAIL}, TO: ${actionData.to}`);
-                    await sendTelegramMessage(chatId, `🔍 <b>Debug:</b> Sending from <code>${FROM_EMAIL}</code> to <code>${actionData.to}</code>...`);
-                    const emailResult = await resend.emails.send({
-                        from: FROM_EMAIL,
+                    console.log(`[Email Debug] KEY_PREFIX: ${(process.env.RESEND_API_KEY||'').substring(0,10)}, FROM: ${freshFrom}, TO: ${actionData.to}`);
+                    await sendTelegramMessage(chatId, `🔍 <b>Debug:</b> FROM=<code>${freshFrom}</code>`);
+                    const emailResult = await freshResend.emails.send({
+                        from: freshFrom,
                         to: actionData.to,
                         subject: actionData.subject,
                         html: `<div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #1f2937;">
