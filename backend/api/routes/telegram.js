@@ -6,8 +6,8 @@ import { notifySearchEngines } from '../services/seo-notify.js';
 import { AIRouter } from '../services/ai-router.js';
 
 const router = express.Router();
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8707043989:AAFz8NMLy-63Hjmh8jYz74aKOX_XPbkp5yA';
-const ADMIN_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID || '1141577136', 10);
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const ADMIN_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID || '0', 10);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>';
 
