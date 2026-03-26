@@ -8,7 +8,7 @@ import supabase from '../services/supabase.js';
 
 const router = Router();
 
-const SITE_URL = 'https://elitechhub.com';
+const SITE_URL = 'https://elitechub.com';
 
 // All static pages with SEO metadata
 const staticPages = [
