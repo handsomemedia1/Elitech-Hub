@@ -9,8 +9,7 @@ import fetch from 'node-fetch';
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8707043989:AAFz8NMLy-63Hjmh8jYz74aKOX_XPbkp5yA';
 
 // The Chat ID where messages should be sent. 
-// We will instruct the user to set this in Vercel environment variables.
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '1141577136';
 
 /**
  * Send a message via Telegram Bot
