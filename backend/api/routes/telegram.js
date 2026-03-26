@@ -187,6 +187,8 @@ IMPORTANT RULES:
                     }
 
                     // Send the email via Resend
+                    console.log(`[Email Debug] FROM: ${FROM_EMAIL}, TO: ${actionData.to}`);
+                    await sendTelegramMessage(chatId, `🔍 <b>Debug:</b> Sending from <code>${FROM_EMAIL}</code> to <code>${actionData.to}</code>...`);
                     const emailResult = await resend.emails.send({
                         from: FROM_EMAIL,
                         to: actionData.to,
