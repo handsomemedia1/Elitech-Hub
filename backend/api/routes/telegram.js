@@ -3,12 +3,16 @@ import { supabase } from '../config/supabase.js';
 import fetch from 'node-fetch';
 import { Resend } from 'resend';
 import { notifySearchEngines } from './writers.js';
+import { AIRouter } from '../services/ai-router.js';
 
 const router = express.Router();
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8707043989:AAFz8NMLy-63Hjmh8jYz74aKOX_XPbkp5yA';
 const ADMIN_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID || '1141577136', 10);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>';
+
+// Initialize the AI Router for the Telegram Assistant
+const aiRouter = new AIRouter();
 
 /**
  * POST /api/telegram/webhook
@@ -42,21 +46,18 @@ router.post('/webhook', async (req, res) => {
             return res.sendStatus(200);
         }
 
-        // 2. Handle Text Commands (e.g., /email)
+        // 2. Handle Text Messages (AI Assistant)
         if (update.message && update.message.text) {
             const msg = update.message;
             const fromId = msg.from.id;
 
-            // Security
+            // Security: Only Elitech Hub Admin can talk to the AI
             if (fromId !== ADMIN_CHAT_ID) {
                 return res.sendStatus(200);
             }
 
             const text = msg.text.trim();
-
-            if (text.startsWith('/email')) {
-                await handleSendEmail(text, msg.chat.id);
-            }
+            await handleAIAssistant(text, msg.chat.id);
         }
 
         res.sendStatus(200);
@@ -115,40 +116,70 @@ async function handleRejectPost(postId, query) {
     }
 }
 
-async function handleSendEmail(text, chatId) {
+async function handleAIAssistant(userText, chatId) {
     try {
-        // Format should be: /email john@example.com "Subject Here" Body of the email...
-        // Use a simple regex check or split
-        const match = text.match(/^\/email\s+([^\s]+)\s+"([^"]+)"\s+(.+)$/s);
-        
-        if (!match) {
-            await sendTelegramMessage(chatId, "❌ Invalid format.\nUsage:\n`/email writer@elitechhub.com \"Subject Here\" The body of the message`");
-            return;
-        }
+        // Show typing indicator
+        await sendChatAction(chatId, 'typing');
 
-        const toEmail = match[1];
-        const subject = match[2];
-        const bodyContent = match[3];
+        const systemPrompt = `You are the Elitech Hub Admin AI Assistant. You are chatting directly with the Website Administrator via Telegram. 
+You are helpful, concise, and professional. 
+IMPORTANT: You have the ability to send official emails to users/writers on behalf of the administration.
+If the Admin asks you or instructs you to send an email (e.g. "email john@test.com and say...", or "tell this writer XYZ"), you must output EXACTLY AND ONLY a valid JSON block containing the email details. DO NOT wrap the JSON in markdown code blocks. DO NOT output any other text besides the JSON.
+The JSON MUST follow this exact schema:
+{
+  "action": "send_email",
+  "to": "email@example.com",
+  "subject": "Email Subject",
+  "body": "Formatted HTML body of the email. Use <br> for line breaks."
+}
 
-        if (!process.env.RESEND_API_KEY) {
-            await sendTelegramMessage(chatId, "❌ Resend Email API Key is not configured on the server.");
-            return;
-        }
+If the Admin is NOT asking you to send an email (e.g. asking a question, complaining, chatting, or asking for advice), you must reply normally in plain text. DO NOT output JSON in normal conversation.`;
 
-        await resend.emails.send({
-            from: FROM_EMAIL,
-            to: toEmail,
-            subject: subject,
-            html: `<div style="font-family: Arial, sans-serif; padding: 20px;">
-                    <p style="white-space: pre-wrap;">${bodyContent}</p>
-                   </div>`
+        const aiResponse = await aiRouter.generate(userText, {
+            context: systemPrompt,
+            history: [] // Stateless for now, but could be wired to a DB later
         });
 
-        await sendTelegramMessage(chatId, `✅ Email successfully sent to <b>${toEmail}</b>`);
+        let replyText = aiResponse.response.trim();
+
+        // Check if the AI outputted a JSON action block
+        if (replyText.startsWith('{') && replyText.endsWith('}')) {
+            try {
+                const actionData = JSON.parse(replyText);
+                
+                if (actionData.action === 'send_email') {
+                    await sendChatAction(chatId, 'typing'); // Keep typing indicator alive
+                    
+                    if (!process.env.RESEND_API_KEY) {
+                        await sendTelegramMessage(chatId, "⚠️ <b>System Alert:</b> I tried to send the email, but the Resend API Key is missing from the server.");
+                        return;
+                    }
+
+                    // Send the email via Resend
+                    await resend.emails.send({
+                        from: FROM_EMAIL,
+                        to: actionData.to,
+                        subject: actionData.subject,
+                        html: \`<div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #1f2937;">
+                                \${actionData.body}
+                               </div>\`
+                    });
+
+                    await sendTelegramMessage(chatId, \`✅ <b>Email Drafted & Sent!</b>\n\n<b>To:</b> \${actionData.to}\n<b>Subject:</b> \${actionData.subject}\n\n<i>Message delivered successfully.</i>\`);
+                    return;
+                }
+            } catch (jsonErr) {
+                // If parsing fails, fall back to just sending the text it actually generated
+                console.log('AI response was not valid tool JSON, falling back to text:', jsonErr.message);
+            }
+        }
+
+        // Standard conversational reply
+        await sendTelegramMessage(chatId, replyText);
 
     } catch (err) {
-        console.error('Telegram Email Error:', err);
-        await sendTelegramMessage(chatId, `❌ Failed to send email:\n${err.message}`);
+        console.error('Telegram AI Error:', err);
+        await sendTelegramMessage(chatId, "🤖 <i>Sorry, my AI connection got interrupted. Try again.</i>");
     }
 }
 
@@ -160,6 +191,15 @@ async function answerCallbackQuery(callbackQueryId, text) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ callback_query_id: callbackQueryId, text: text })
+    });
+}
+
+async function sendChatAction(chatId, action) {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendChatAction`;
+    await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, action: action })
     });
 }
 
