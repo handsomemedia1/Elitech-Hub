@@ -7,7 +7,8 @@ import { AIRouter } from '../services/ai-router.js';
 
 const router = express.Router();
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const ADMIN_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID || '0', 10);
+// Compare as string to avoid parseInt type mismatch on Vercel cold starts
+const ADMIN_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '1141577136';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <admin@elitechub.com>';
 
@@ -48,7 +49,7 @@ router.post('/webhook', async (req, res) => {
             const fromId = query.from.id;
 
             // Security: Only allow the Admin to click buttons
-            if (fromId !== ADMIN_CHAT_ID) {
+            if (String(fromId) !== ADMIN_CHAT_ID) {
                 await answerCallbackQuery(query.id, "Unauthorized. Only the Admin can do this.");
                 return res.sendStatus(200);
             }
@@ -70,7 +71,8 @@ router.post('/webhook', async (req, res) => {
             const fromId = msg.from.id;
 
             // Security: Only Elitech Hub Admin can talk to the AI
-            if (fromId !== ADMIN_CHAT_ID) {
+            if (String(fromId) !== ADMIN_CHAT_ID) {
+                console.log(`[Security] Rejected message from ${fromId}, expected ${ADMIN_CHAT_ID}`);
                 return res.sendStatus(200);
             }
 
