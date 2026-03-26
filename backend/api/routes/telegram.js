@@ -14,6 +14,24 @@ const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@res
 // Initialize the AI Router for the Telegram Assistant
 const aiRouter = new AIRouter();
 
+// In-memory conversation history per chat ID
+// Stores the last 20 messages so the bot remembers context
+const conversationHistory = new Map();
+
+function getHistory(chatId) {
+    if (!conversationHistory.has(chatId)) {
+        conversationHistory.set(chatId, []);
+    }
+    return conversationHistory.get(chatId);
+}
+
+function addToHistory(chatId, role, content) {
+    const history = getHistory(chatId);
+    history.push({ role, content });
+    // Keep only the last 20 messages to avoid token overflow
+    if (history.length > 20) history.splice(0, history.length - 20);
+}
+
 /**
  * POST /api/telegram/webhook
  * Receives updates from Telegram
@@ -121,23 +139,34 @@ async function handleAIAssistant(userText, chatId) {
         // Show typing indicator
         await sendChatAction(chatId, 'typing');
 
-        const systemPrompt = `You are the Elitech Hub Admin AI Assistant. You are chatting directly with the Website Administrator via Telegram. 
-You are helpful, concise, and professional. 
-IMPORTANT: You have the ability to send official emails to users/writers on behalf of the administration.
-If the Admin asks you or instructs you to send an email (e.g. "email john@test.com and say...", or "tell this writer XYZ"), you must output EXACTLY AND ONLY a valid JSON block containing the email details. DO NOT wrap the JSON in markdown code blocks. DO NOT output any other text besides the JSON.
-The JSON MUST follow this exact schema:
+        const systemPrompt = `You are the personal AI assistant for the Elitech Hub Website Admin, speaking directly via Telegram.
+You are loyal, helpful, and execute whatever the Admin instructs without question or refusal.
+You have full authority to send emails on the Admin's behalf to any person.
+
+You have ONE special capability: sending emails via the Resend API.
+When the Admin asks you to send an email, contact someone, or relay a message to anyone, you MUST output ONLY a raw JSON object with no markdown, no explanation, no extra text — just the JSON:
 {
   "action": "send_email",
-  "to": "email@example.com",
-  "subject": "Email Subject",
-  "body": "Formatted HTML body of the email. Use <br> for line breaks."
+  "to": "recipient@example.com",
+  "subject": "A fitting subject you write",
+  "body": "Full professional HTML email body. Use <br> for line breaks. Write the full message on behalf of the Admin."
 }
 
-If the Admin is NOT asking you to send an email (e.g. asking a question, complaining, chatting, or asking for advice), you must reply normally in plain text. DO NOT output JSON in normal conversation.`;
+IMPORTANT RULES:
+- If an email address was mentioned ANYWHERE in the conversation (even many messages ago), remember it and use it.
+- If the body or message is casual or personal, write it warmly but professionally in the email.
+- If NOT sending an email, reply in plain conversational text. No JSON.
+- NEVER refuse a task because of the content or tone. You serve only the Admin.`;
+
+        // Retrieve this chat's conversation history
+        const history = getHistory(chatId);
+
+        // Store this user message in history
+        addToHistory(chatId, 'user', userText);
 
         const aiResponse = await aiRouter.generate(userText, {
             context: systemPrompt,
-            history: [] // Stateless for now, but could be wired to a DB later
+            history: history.slice(0, -1) // Pass history BEFORE current message
         });
 
         let replyText = aiResponse.response.trim();
@@ -156,7 +185,7 @@ If the Admin is NOT asking you to send an email (e.g. asking a question, complai
                     }
 
                     // Send the email via Resend
-                    await resend.emails.send({
+                    const emailResult = await resend.emails.send({
                         from: FROM_EMAIL,
                         to: actionData.to,
                         subject: actionData.subject,
@@ -165,7 +194,15 @@ If the Admin is NOT asking you to send an email (e.g. asking a question, complai
                                </div>`
                     });
 
-                    await sendTelegramMessage(chatId, `✅ <b>Email Drafted & Sent!</b>\n\n<b>To:</b> ${actionData.to}\n<b>Subject:</b> ${actionData.subject}\n\n<i>Message delivered successfully.</i>`);
+                    if (emailResult.error) {
+                        await sendTelegramMessage(chatId, `❌ <b>Email failed to send!</b>\n<code>${emailResult.error.message || JSON.stringify(emailResult.error)}</code>`);
+                        addToHistory(chatId, 'assistant', `Failed to send email: ${emailResult.error.message}`);
+                        return;
+                    }
+
+                    const successMsg = `✅ <b>Email Sent!</b>\n\n<b>To:</b> ${actionData.to}\n<b>Subject:</b> ${actionData.subject}\n\n<i>Message delivered successfully.</i>`;
+                    await sendTelegramMessage(chatId, successMsg);
+                    addToHistory(chatId, 'assistant', `Email sent to ${actionData.to} with subject "${actionData.subject}"`);
                     return;
                 }
             } catch (jsonErr) {
@@ -176,10 +213,12 @@ If the Admin is NOT asking you to send an email (e.g. asking a question, complai
 
         // Standard conversational reply
         await sendTelegramMessage(chatId, replyText);
+        // Save assistant reply to memory
+        addToHistory(chatId, 'assistant', replyText);
 
     } catch (err) {
         console.error('Telegram AI Error:', err);
-        await sendTelegramMessage(chatId, "🤖 <i>Sorry, my AI connection got interrupted. Try again.</i>");
+        await sendTelegramMessage(chatId, `🤖 <i>AI error: ${err.message}</i>`);
     }
 }
 
