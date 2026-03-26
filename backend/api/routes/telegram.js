@@ -9,7 +9,7 @@ const router = express.Router();
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const ADMIN_CHAT_ID = parseInt(process.env.TELEGRAM_CHAT_ID || '0', 10);
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <admin@elitechub.com>';
 
 // Initialize the AI Router for the Telegram Assistant
 const aiRouter = new AIRouter();
