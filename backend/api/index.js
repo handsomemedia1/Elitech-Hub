@@ -26,6 +26,7 @@ import writersAdminRoutes from './routes/writers-admin.js';
 import oauthRoutes from './routes/oauth.js';
 import researchRoutes from './routes/research.js';
 import sitemapRoutes from './routes/sitemap.js';
+import telegramRoutes from './routes/telegram.js';
 import volunteersRoutes from './routes/volunteers.js';
 import inquiriesRoutes from './routes/inquiries.js';
 import chatbotRoutes from './chatbot.js';
@@ -120,6 +121,9 @@ app.use('/api', generalLimiter);
 
 // Sitemap and robots.txt (proxied from Netlify via _redirects)
 app.use('/api', sitemapRoutes);
+
+// Telegram Webhook
+app.use('/api/telegram', telegramRoutes);
 
 // Health check & Supabase keep-alive
 app.get('/api/health', async (req, res) => {

@@ -395,6 +395,8 @@ router.post('/posts', requireWriter, async (req, res) => {
             .update({ posts_count: supabase.sql`posts_count + 1` })
             .eq('id', req.writer.id);
 
+        const { sendTelegramPing, sendTelegramMessageWithKeyboard } = await import('../services/telegram.js');
+
         // Send WhatsApp notification if published
         if (autoPublish) {
             sendWhatsAppNotification(req.writer.name, title, slug);
@@ -402,6 +404,23 @@ router.post('/posts', requireWriter, async (req, res) => {
             // Notify search engines (Google + IndexNow/Bing/Yandex)
             const postUrl = `https://elitechub.com/blog-posts/${post.slug}.html`;
             notifySearchEngines(postUrl).catch(err => console.error('[SEO] Notification error:', err));
+            
+            // Ping Admin
+            await sendTelegramPing(`🚀 <b>New Post Published!</b>\n\nWriter: <b>${req.writer.name}</b>\nTitle: ${title}\nSEO Score: ${seoScore}%\n<a href="${postUrl}">Read it here</a>`);
+        } else {
+            // Send Interactive Approval Request to Admin
+            const adminMessage = `📝 <b>Draft Pending Approval</b>\n\nWriter: <b>${req.writer.name}</b>\nTitle: ${title}\nSEO Score: ${seoScore}%\nWord Count: ${wordCount}\n\n<i>This post did not meet the auto-publish criteria. Please review.</i>`;
+            
+            const keyboard = {
+                inline_keyboard: [
+                    [
+                        { text: "✅ Approve & Publish", callback_data: `approve_post:${post.id}` },
+                        { text: "❌ Reject", callback_data: `reject_post:${post.id}` }
+                    ]
+                ]
+            };
+            
+            await sendTelegramMessageWithKeyboard(adminMessage, keyboard);
         }
 
         res.json({

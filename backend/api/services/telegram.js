@@ -50,3 +50,44 @@ export async function sendTelegramPing(message) {
         return false;
     }
 }
+
+/**
+ * Send a message via Telegram Bot with an Inline Keyboard (Buttons)
+ * @param {string} message - The text message to send
+ * @param {object} replyMarkup - The inline keyboard markup object
+ * @returns {Promise<boolean>} - Success status
+ */
+export async function sendTelegramMessageWithKeyboard(message, replyMarkup) {
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+        console.warn('⚠️ Telegram ping with keyboard skipped: Missing credentials.');
+        return false;
+    }
+
+    try {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML',
+                reply_markup: replyMarkup
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!data.ok) {
+            console.error('Telegram API Error (Keyboard):', data.description);
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.error('Failed to send Telegram message with keyboard:', error);
+        return false;
+    }
+}
