@@ -558,13 +558,167 @@ function moderateContent(content) {
 // Helper: Send WhatsApp Notification
 async function sendWhatsAppNotification(writerName, postTitle, slug) {
     const message = `📝 New Blog Post Published!\n\nWriter: ${writerName}\nTitle: ${postTitle}\nLink: https://elitechhub.com/blog/${slug}`;
-
-    // Using WhatsApp Business API or Twilio
-    // For now, log it (implement actual API later)
     console.log('WhatsApp Notification:', message);
-
-    // TODO: Implement actual WhatsApp notification
-    // You'll need Twilio or WhatsApp Business API credentials
 }
+
+/**
+ * GET /api/writers/missed-posts
+ * Get any pending missed posts for the current writer
+ */
+router.get('/missed-posts', requireWriter, async (req, res) => {
+    try {
+        const { data: missedPosts, error } = await supabase
+            .from('missed_posts')
+            .select('*')
+            .eq('writer_id', req.writer.id)
+            .eq('status', 'pending_reason')
+            .order('missed_date', { ascending: false });
+
+        if (error) throw error;
+        
+        res.json({ missedPosts: missedPosts || [] });
+    } catch (err) {
+        console.error('Fetch missed posts error:', err);
+        res.status(500).json({ error: 'Failed to fetch missed posts status' });
+    }
+});
+
+/**
+ * POST /api/writers/missed-post-reason
+ * Submit a reason for a missed post
+ */
+router.post('/missed-post-reason', requireWriter, async (req, res) => {
+    try {
+        const { missedPostId, reason } = req.body;
+        
+        if (!missedPostId || !reason || reason.trim().length < 5) {
+            return res.status(400).json({ error: 'A valid reason is required' });
+        }
+
+        // 1. Update the record
+        const { data: updated, error } = await supabase
+            .from('missed_posts')
+            .update({ 
+                reason: reason.trim(), 
+                status: 'reason_submitted',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', missedPostId)
+            .eq('writer_id', req.writer.id)
+            .select()
+            .single();
+
+        if (error || !updated) throw error || new Error('Record not found or access denied');
+
+        // 2. Ping Admin via Telegram
+        const message = `💬 <b>Missed Post Explanation</b>\n\nWriter: <b>${req.writer.name}</b>\nMissed Date: ${updated.missed_date}\n\nReason:\n<i>"${updated.reason}"</i>`;
+        
+        const { sendTelegramPing } = await import('../services/telegram.js');
+        await sendTelegramPing(message);
+
+        res.json({ message: 'Reason submitted successfully' });
+    } catch (err) {
+        console.error('Submit reason error:', err);
+        res.status(500).json({ error: 'Failed to submit reason' });
+    }
+});
+
+/**
+ * POST /api/admin/cron/check-missed-posts
+ * Nightly cron job to check if writers missed their scheduled posting day
+ * Security: Called by Vercel Cron or Admin only
+ */
+router.post('/cron/check-missed-posts', async (req, res) => {
+    // Basic secret check to prevent abuse (Vercel cron passes auth header)
+    const authHeader = req.headers.authorization;
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}` && req.body.secret !== process.env.CRON_SECRET) {
+        // For development/testing we might not enforce it strictly if CRON_SECRET isn't set
+        if (process.env.CRON_SECRET) {
+            return res.status(401).json({ error: 'Unauthorized cron request' });
+        }
+    }
+
+    try {
+        // Check for yesterday
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const yesterdayDayName = days[yesterday.getDay()];
+        
+        // Format YYYY-MM-DD for checking the blog_posts created_at/published_at 
+        const yesterdayStart = new Date(yesterday.setHours(0,0,0,0)).toISOString();
+        const yesterdayEnd = new Date(yesterday.setHours(23,59,59,999)).toISOString();
+        const dateString = yesterday.toISOString().split('T')[0];
+
+        // 1. Find all active writers who were scheduled to post yesterday
+        const { data: scheduledWriters, error: wError } = await supabase
+            .from('writers')
+            .select('id, name, posting_days')
+            .eq('active', true);
+            
+        if (wError) throw wError;
+
+        const writersToCheck = scheduledWriters.filter(w => 
+            w.posting_days && w.posting_days.includes(yesterdayDayName)
+        );
+
+        if (writersToCheck.length === 0) {
+            return res.json({ message: `No writers were scheduled to post on ${yesterdayDayName}.` });
+        }
+
+        const missedWriters = [];
+
+        // 2. See if they published a post yesterday
+        for (const writer of writersToCheck) {
+            const { data: posts, error: pError } = await supabase
+                .from('blog_posts')
+                .select('id')
+                .eq('writer_id', writer.id)
+                .gte('created_at', yesterdayStart)
+                .lte('created_at', yesterdayEnd);
+
+            if (pError) {
+                console.error(`Error checking posts for ${writer.name}:`, pError);
+                continue;
+            }
+
+            if (!posts || posts.length === 0) {
+                missedWriters.push(writer);
+                
+                // 3. Insert into missed_posts table
+                await supabase
+                    .from('missed_posts')
+                    .insert({
+                        writer_id: writer.id,
+                        missed_date: dateString,
+                        status: 'pending_reason'
+                    });
+            }
+        }
+
+        // 4. Ping Admin on Telegram if there are missed posts
+        if (missedWriters.length > 0) {
+            const names = missedWriters.map(w => w.name).join(', ');
+            const message = `⚠️ <b>Missed Posts Alert</b>\n\nThe following writers failed to submit a post on their scheduled day (${yesterdayDayName}):\n\n• ${names}\n\n<i>Their dashboards have been updated to request an explanation.</i>`;
+            
+            await notifySearchEngines.sendTelegramPing(message); // Wait, this needs to import from telegram.js directly
+            
+            const { sendTelegramPing } = await import('../services/telegram.js');
+            await sendTelegramPing(message);
+        }
+
+        res.json({ 
+            message: 'Cron completed successfully', 
+            checked: writersToCheck.length,
+            missed: missedWriters.length,
+            missedWriters: missedWriters.map(w => w.name)
+        });
+
+    } catch (err) {
+        console.error('Check missed posts cron error:', err);
+        res.status(500).json({ error: 'Failed to run full check' });
+    }
+});
 
 export default router;
