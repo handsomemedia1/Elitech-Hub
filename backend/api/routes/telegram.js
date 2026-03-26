@@ -1,8 +1,8 @@
 import express from 'express';
-import { supabase } from '../config/supabase.js';
+import supabase from '../services/supabase.js';
 import fetch from 'node-fetch';
 import { Resend } from 'resend';
-import { notifySearchEngines } from './writers.js';
+import { notifySearchEngines } from '../services/seo-notify.js';
 import { AIRouter } from '../services/ai-router.js';
 
 const router = express.Router();
@@ -160,12 +160,12 @@ If the Admin is NOT asking you to send an email (e.g. asking a question, complai
                         from: FROM_EMAIL,
                         to: actionData.to,
                         subject: actionData.subject,
-                        html: \`<div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #1f2937;">
-                                \${actionData.body}
-                               </div>\`
+                        html: `<div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #1f2937;">
+                                ${actionData.body}
+                               </div>`
                     });
 
-                    await sendTelegramMessage(chatId, \`✅ <b>Email Drafted & Sent!</b>\n\n<b>To:</b> \${actionData.to}\n<b>Subject:</b> \${actionData.subject}\n\n<i>Message delivered successfully.</i>\`);
+                    await sendTelegramMessage(chatId, `✅ <b>Email Drafted & Sent!</b>\n\n<b>To:</b> ${actionData.to}\n<b>Subject:</b> ${actionData.subject}\n\n<i>Message delivered successfully.</i>`);
                     return;
                 }
             } catch (jsonErr) {

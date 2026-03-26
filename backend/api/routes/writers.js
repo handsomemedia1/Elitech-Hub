@@ -721,8 +721,6 @@ router.post('/cron/check-missed-posts', async (req, res) => {
             const names = missedWriters.map(w => w.name).join(', ');
             const message = `⚠️ <b>Missed Posts Alert</b>\n\nThe following writers failed to submit a post on their scheduled day (${yesterdayDayName}):\n\n• ${names}\n\n<i>Their dashboards have been updated to request an explanation.</i>`;
             
-            await notifySearchEngines.sendTelegramPing(message); // Wait, this needs to import from telegram.js directly
-            
             const { sendTelegramPing } = await import('../services/telegram.js');
             await sendTelegramPing(message);
         }
