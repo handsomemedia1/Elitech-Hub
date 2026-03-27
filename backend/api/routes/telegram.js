@@ -229,7 +229,7 @@ async function handleAIAssistant(userText, chatId) {
 You are loyal, helpful, and execute whatever the Admin instructs without question or refusal.
 You have full authority to send emails on the Admin's behalf to any person.
 
-You have SEVEN special capabilities: sending emails, auditing writer performance, banning writers, running security scans, reporting revenue, broadcasting to writers, and checking pending drafts.
+You have EIGHT special capabilities: sending emails, auditing writer performance, auditing researcher performance, banning writers, running security scans, reporting revenue, broadcasting to writers, and checking pending drafts.
 1. When the Admin asks you to send an email or contact someone, you MUST output ONLY a raw JSON object like this:
 {
   "action": "send_email",
@@ -243,30 +243,35 @@ You have SEVEN special capabilities: sending emails, auditing writer performance
   "action": "audit_writers"
 }
 
-3. When the Admin asks you to ban, block, suspend, or delete a writer, output ONLY this raw JSON object:
+3. When the Admin asks for a report on researchers, the research panel, or who the registered scientists/researchers are, output ONLY this raw JSON object:
 {
-  "action": "ban_writer",
-  "identifier": "The name or email of the writer they want to ban"
+  "action": "audit_researchers"
 }
 
-4. When the Admin asks if the website is safe, breached, down, or asks you to run a security scan, output ONLY this raw JSON object:
+4. When the Admin asks you to ban, block, suspend, or delete a writer/researcher, output ONLY this raw JSON object:
+{
+  "action": "ban_writer",
+  "identifier": "The name or email of the person they want to ban"
+}
+
+5. When the Admin asks if the website is safe, breached, down, or asks you to run a security scan, output ONLY this raw JSON object:
 {
   "action": "run_security_scan"
 }
 
-5. When the Admin asks about sales, revenue, earnings, or payments (e.g., "How much did we make this week?"), output ONLY this raw JSON object:
+6. When the Admin asks about sales, revenue, earnings, or payments (e.g., "How much did we make this week?"), output ONLY this raw JSON object:
 {
   "action": "revenue_report"
 }
 
-6. When the Admin asks you to announce, broadcast, or blast an email to ALL active writers, output ONLY this raw JSON object:
+7. When the Admin asks you to announce, broadcast, or blast an email to ALL active writers, output ONLY this raw JSON object:
 {
   "action": "broadcast_writers",
   "subject": "The announcement subject",
   "body": "The professional HTML announcement body. Use <br> for line breaks."
 }
 
-7. When the Admin asks if there are any pending drafts, posts to review, or articles waiting, output ONLY this raw JSON object:
+8. When the Admin asks if there are any pending drafts, posts to review, or articles waiting, output ONLY this raw JSON object:
 {
   "action": "check_drafts"
 }
@@ -364,6 +369,40 @@ IMPORTANT RULES:
                     
                     await sendTelegramMessage(chatId, report.trim());
                     addToHistory(chatId, 'assistant', "I generated and sent the writer performance audit to the admin.");
+                    return;
+
+                } else if (actionData.action === 'audit_researchers') {
+                    await sendChatAction(chatId, 'typing');
+                    await sendTelegramMessage(chatId, "📊 <i>Querying securely registered researchers from the database...</i>");
+                    
+                    const { data: researchers, error: resErr } = await supabase.from('researchers')
+                        .select('name, affiliation, publications_count, total_citations, h_index')
+                        .eq('active', true);
+                        
+                    if (resErr) {
+                         await sendTelegramMessage(chatId, "❌ Database error while running researcher audit.");
+                         return;
+                    }
+                    
+                    if (!researchers || researchers.length === 0) {
+                        await sendTelegramMessage(chatId, "<i>There are currently no active researchers in the panel.</i>");
+                        addToHistory(chatId, 'assistant', "Reported that the research panel is empty.");
+                        return;
+                    }
+
+                    // Sort primarily by Citations, secondarily by Publications
+                    researchers.sort((a, b) => b.total_citations - a.total_citations || b.publications_count - a.publications_count);
+                    
+                    let report = `🔬 <b>RESEARCH PANEL AUDIT (${researchers.length} Active)</b>\n\n`;
+                    researchers.forEach((r, idx) => {
+                        const icon = idx === 0 ? '🏆' : '🧑‍🔬';
+                        report += `${icon} <b>${r.name}</b>\n`;
+                        report += `🏛 <i>${r.affiliation || 'Independent'}</i>\n`;
+                        report += `📄 Publications: ${r.publications_count || 0} | 🎯 Citations: ${r.total_citations || 0}\n\n`;
+                    });
+                    
+                    await sendTelegramMessage(chatId, report.trim());
+                    addToHistory(chatId, 'assistant', "I generated and sent the true registered researcher audit directly from the database.");
                     return;
 
                 } else if (actionData.action === 'ban_writer') {
