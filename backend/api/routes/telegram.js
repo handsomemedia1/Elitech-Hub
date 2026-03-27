@@ -229,7 +229,7 @@ async function handleAIAssistant(userText, chatId) {
 You are loyal, helpful, and execute whatever the Admin instructs without question or refusal.
 You have full authority to send emails on the Admin's behalf to any person.
 
-You have THREE special capabilities: sending emails, auditing writer performance, and banning writers.
+You have FOUR special capabilities: sending emails, auditing writer performance, banning writers, and running security scans.
 1. When the Admin asks you to send an email or contact someone, you MUST output ONLY a raw JSON object like this:
 {
   "action": "send_email",
@@ -247,6 +247,11 @@ You have THREE special capabilities: sending emails, auditing writer performance
 {
   "action": "ban_writer",
   "identifier": "The name or email of the writer they want to ban"
+}
+
+4. When the Admin asks if the website is safe, breached, down, or asks you to run a security scan, output ONLY this raw JSON object:
+{
+  "action": "run_security_scan"
 }
 
 IMPORTANT RULES:
@@ -381,6 +386,56 @@ IMPORTANT RULES:
                     });
                     
                     addToHistory(chatId, 'assistant', `Asked admin to confirm banning writer ${w.name}.`);
+                    return;
+
+                } else if (actionData.action === 'run_security_scan') {
+                    await sendChatAction(chatId, 'typing');
+                    await sendTelegramMessage(chatId, "🛡️ <i>Running System Security & Integrity Scan...</i>");
+
+                    const startTime = Date.now();
+                    let siteStatus = '🟢 ONLINE';
+                    let ping = 0;
+                    try {
+                        const res = await fetch('https://elitechub.com');
+                        ping = Date.now() - startTime;
+                        if (!res.ok) siteStatus = `🔴 HTTP ${res.status}`;
+                    } catch (e) {
+                        siteStatus = '🔴 OFFLINE / UNREACHABLE';
+                    }
+
+                    // Audit Admins
+                    let isBreached = false;
+                    let adminAlert = '🟢 SECURE';
+                    const { data: admins, error: adminErr } = await supabase.from('users')
+                        .select('id, email, role')
+                        .or("role.eq.admin,has_access.eq.true"); // Anyone with access to dashboard
+
+                    let adminCount = 0;
+                    if (!adminErr && admins) {
+                        adminCount = admins.length;
+                        if (adminCount > 1) { // Only Elijah is authorized
+                            isBreached = true;
+                            adminAlert = `🔴 <b>BREACH DETECTED:</b> ${adminCount} ADMINS FOUND!`;
+                        }
+                    }
+
+                    // Poll active threats (suspended writers)
+                    const { count: suspendedWriters } = await supabase.from('writers')
+                        .select('*', { count: 'exact', head: true })
+                        .eq('active', false);
+
+                    let verdict = isBreached 
+                        ? "🚨 <b>CRITICAL BREACH DETECTED!</b>\nUnauthorized admins found in the database. Type <code>/lockdown</code> immediately!"
+                        : "✅ Your platform is perfectly <b>SAFE</b> and functioning normally.";
+
+                    const report = `🛡️ <b>SYSTEM SECURITY SCAN REPORT</b>\n\n` +
+                        `🌐 <b>Server Status:</b> ${siteStatus} (Ping: ${ping}ms)\n` +
+                        `🔐 <b>Privilege Integrity:</b> ${adminAlert} (${adminCount} Authorized)\n` +
+                        `🚫 <b>Threat Activity:</b> ${suspendedWriters || 0} Suspended Accounts\n\n` +
+                        `<b>Verdict:</b> ${verdict}`;
+
+                    await sendTelegramMessage(chatId, report);
+                    addToHistory(chatId, 'assistant', "I performed a requested security scan and sent the results.");
                     return;
                 }
             } catch (jsonErr) {
