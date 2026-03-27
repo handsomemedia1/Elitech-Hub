@@ -1,4 +1,6 @@
 import express from 'express';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import supabase from '../services/supabase.js';
 import fetch from 'node-fetch';
 import { mailer as resend } from '../services/mailer.js';
@@ -86,29 +88,57 @@ router.post('/webhook', async (req, res) => {
             // Handle explicit emergency commands first
             if (text === '/lockdown') {
                 await sendChatAction(msg.chat.id, 'typing');
-                const { error } = await supabase.from('writers')
-                    .update({ active: false })
-                    .eq('active', true);
+                
+                try {
+                    // 1. Lockdown Writers
+                    await supabase.from('writers').update({ active: false }).eq('active', true);
                     
-                if (error) {
+                    // 2. Lockdown Researchers
+                    await supabase.from('researchers').update({ active: false }).eq('active', true);
+                    
+                    // 3. Purge Sub-Admins (Revoke their access so only Master Admin survives)
+                    await supabase.from('users')
+                        .update({ has_access: false })
+                        .eq('role', 'admin')
+                        .neq('email', 'admin@elitechub.com');
+
+                    // 4. Scramble Master Admin Password for Zero-Trust Security
+                    const newPassword = crypto.randomBytes(8).toString('hex'); // 16 chars
+                    const masterHash = await bcrypt.hash(newPassword, 10);
+                    
+                    await supabase.from('users')
+                        .update({ password_hash: masterHash })
+                        .eq('email', 'admin@elitechub.com');
+
+                    const lockdownMsg = `🚨 <b>ABSOLUTE LOCKDOWN INITIATED</b> 🚨\n\n` +
+                        `• All Writers deactivated.\n` +
+                        `• All Researchers deactivated.\n` +
+                        `• All Sub-Admin access revoked.\n\n` +
+                        `🔒 <b>YOUR MASTER ACCOUNT IS SECURED</b>\n` +
+                        `All previous passwords have been destroyed. No one on Earth can access the Admin Portal except you.\n\n` +
+                        `<b>Your New Admin Password:</b>\n<code>${newPassword}</code>\n\n` + 
+                        `<i>(Email: admin@elitechub.com)</i>\n\n` +
+                        `To restore normal operations for writers and researchers, type <code>/unlock</code>`;
+
+                    await sendTelegramMessage(msg.chat.id, lockdownMsg);
+                } catch (error) {
                     await sendTelegramMessage(msg.chat.id, "❌ Failed to initiate lockdown: " + error.message);
-                } else {
-                    await sendTelegramMessage(msg.chat.id, "🚨 <b>GLOBAL LOCKDOWN INITIATED</b> 🚨\n\nAll active writers have been instantly deactivated and logged out. The platform is secured.\n\nTo restore normal operations, type <code>/unlock</code>");
                 }
                 return res.sendStatus(200);
             }
             
             if (text === '/unlock') {
                 await sendChatAction(msg.chat.id, 'typing');
-                const { error } = await supabase.from('writers')
-                    .update({ active: true })
-                    .eq('banned', false)
-                    .eq('active', false);
+                try {
+                    // Restore Writers (only if they weren't permanently banned)
+                    await supabase.from('writers').update({ active: true }).eq('banned', false).eq('active', false);
                     
-                if (error) {
+                    // Restore Researchers
+                    await supabase.from('researchers').update({ active: true }).eq('active', false);
+
+                    await sendTelegramMessage(msg.chat.id, "✅ <b>LOCKDOWN LIFTED</b>\n\nAll non-banned Writers and active Researchers have been reactivated and can now log in normally.\n\nYour Master Admin password remains the 16-character secure key I generated during lockdown.");
+                } catch (error) {
                     await sendTelegramMessage(msg.chat.id, "❌ Failed to lift lockdown: " + error.message);
-                } else {
-                    await sendTelegramMessage(msg.chat.id, "✅ <b>LOCKDOWN LIFTED</b>\n\nAll non-banned writers have been reactivated and can now log in normally.");
                 }
                 return res.sendStatus(200);
             }
