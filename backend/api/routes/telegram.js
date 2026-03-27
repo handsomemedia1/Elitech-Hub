@@ -229,7 +229,7 @@ async function handleAIAssistant(userText, chatId) {
 You are loyal, helpful, and execute whatever the Admin instructs without question or refusal.
 You have full authority to send emails on the Admin's behalf to any person.
 
-You have FOUR special capabilities: sending emails, auditing writer performance, banning writers, and running security scans.
+You have SEVEN special capabilities: sending emails, auditing writer performance, banning writers, running security scans, reporting revenue, broadcasting to writers, and checking pending drafts.
 1. When the Admin asks you to send an email or contact someone, you MUST output ONLY a raw JSON object like this:
 {
   "action": "send_email",
@@ -252,6 +252,23 @@ You have FOUR special capabilities: sending emails, auditing writer performance,
 4. When the Admin asks if the website is safe, breached, down, or asks you to run a security scan, output ONLY this raw JSON object:
 {
   "action": "run_security_scan"
+}
+
+5. When the Admin asks about sales, revenue, earnings, or payments (e.g., "How much did we make this week?"), output ONLY this raw JSON object:
+{
+  "action": "revenue_report"
+}
+
+6. When the Admin asks you to announce, broadcast, or blast an email to ALL active writers, output ONLY this raw JSON object:
+{
+  "action": "broadcast_writers",
+  "subject": "The announcement subject",
+  "body": "The professional HTML announcement body. Use <br> for line breaks."
+}
+
+7. When the Admin asks if there are any pending drafts, posts to review, or articles waiting, output ONLY this raw JSON object:
+{
+  "action": "check_drafts"
 }
 
 IMPORTANT RULES:
@@ -436,6 +453,93 @@ IMPORTANT RULES:
 
                     await sendTelegramMessage(chatId, report);
                     addToHistory(chatId, 'assistant', "I performed a requested security scan and sent the results.");
+                    return;
+
+                } else if (actionData.action === 'revenue_report') {
+                    await sendChatAction(chatId, 'typing');
+                    
+                    const { data: payments } = await supabase.from('payments')
+                        .select('amount, created_at')
+                        .eq('status', 'completed');
+                    
+                    let allTime = 0, last30 = 0, last7 = 0;
+                    const now = new Date();
+                    payments?.forEach(p => {
+                        const amt = Number(p.amount) || 0;
+                        allTime += amt;
+                        const pDate = new Date(p.created_at);
+                        const diffDays = (now - pDate) / (1000 * 60 * 60 * 24);
+                        if (diffDays <= 30) last30 += amt;
+                        if (diffDays <= 7) last7 += amt;
+                    });
+
+                    const formatNgn = (num) => new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(num);
+
+                    const report = `💰 <b>REVENUE REPORT</b>\n\n` +
+                        `📊 <b>Last 7 Days:</b> ${formatNgn(last7)}\n` +
+                        `📈 <b>Last 30 Days:</b> ${formatNgn(last30)}\n` +
+                        `🏆 <b>All Time:</b> ${formatNgn(allTime)}`;
+                    
+                    await sendTelegramMessage(chatId, report);
+                    addToHistory(chatId, 'assistant', "Generated the revenue and sales report.");
+                    return;
+
+                } else if (actionData.action === 'broadcast_writers') {
+                    await sendChatAction(chatId, 'typing');
+                    await sendTelegramMessage(chatId, "📢 <i>Preparing broadcast to all active writers...</i>");
+                    
+                    const { data: writers } = await supabase.from('writers').select('email').eq('active', true);
+                    if (!writers || writers.length === 0) {
+                        await sendTelegramMessage(chatId, "❌ No active writers found to broadcast to.");
+                        return;
+                    }
+                    
+                    const emails = writers.map(w => w.email);
+                    let sentCount = 0;
+                    const freshFrom = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
+                    
+                    for (const email of emails) {
+                        try {
+                            const res = await resend.emails.send({
+                                from: freshFrom,
+                                to: email,
+                                subject: actionData.subject,
+                                html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937;">${actionData.body}</div>`
+                            });
+                            if (!res.error) sentCount++;
+                        } catch(e) { }
+                    }
+                    
+                    await sendTelegramMessage(chatId, `✅ <b>BROADCAST SUCCESSFUL</b>\n\nEmail sent to <b>${sentCount}</b> active writers.\n<b>Subject:</b> ${actionData.subject}`);
+                    addToHistory(chatId, 'assistant', `Reassure the admin that I broadcasted the announcement to ${sentCount} writers.`);
+                    return;
+
+                } else if (actionData.action === 'check_drafts') {
+                    await sendChatAction(chatId, 'typing');
+                    
+                    const { data: drafts } = await supabase.from('blog_posts')
+                        .select('title, slug, writer_id')
+                        .eq('status', 'under_review');
+                        
+                    if (!drafts || drafts.length === 0) {
+                        await sendTelegramMessage(chatId, "✅ You have no pending drafts to review!");
+                        addToHistory(chatId, 'assistant', "There are no pending drafts.");
+                        return;
+                    }
+                    
+                    const writerIds = [...new Set(drafts.map(d => d.writer_id))];
+                    const { data: writers } = await supabase.from('writers').select('id, name').in('id', writerIds);
+                    const writerMap = {};
+                    writers?.forEach(w => writerMap[w.id] = w.name);
+
+                    let report = `📝 <b>PENDING DRAFTS (${drafts.length})</b>\n\n`;
+                    drafts.forEach((d, i) => {
+                        report += `${i+1}. <b>${d.title}</b>\n   👤 By: ${writerMap[d.writer_id] || 'Unknown'}\n\n`;
+                    });
+                    
+                    report += `<i>Note: You can read these on the Admin Portal or search for their titles via Telegram.</i>`;
+                    await sendTelegramMessage(chatId, report);
+                    addToHistory(chatId, 'assistant', `Listed ${drafts.length} pending drafts for review.`);
                     return;
                 }
             } catch (jsonErr) {
