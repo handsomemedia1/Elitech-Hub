@@ -59,6 +59,12 @@ router.post('/webhook', async (req, res) => {
             } else if (data.startsWith('reject_post:')) {
                 const postId = data.split(':')[1];
                 await handleRejectPost(postId, query);
+            } else if (data.startsWith('ban_writer:')) {
+                const writerId = data.split(':')[1];
+                await handleBanWriter(writerId, query);
+            } else if (data === 'cancel_ban') {
+                await answerCallbackQuery(query.id, "Action Canceled.");
+                await editMessageText(query.message.chat.id, query.message.message_id, query.message.text + "\n\n❌ <b>STATUS: CANCELED</b>");
             }
 
             return res.sendStatus(200);
@@ -76,6 +82,37 @@ router.post('/webhook', async (req, res) => {
             }
 
             const text = msg.text.trim();
+            
+            // Handle explicit emergency commands first
+            if (text === '/lockdown') {
+                await sendChatAction(msg.chat.id, 'typing');
+                const { error } = await supabase.from('writers')
+                    .update({ active: false })
+                    .eq('active', true);
+                    
+                if (error) {
+                    await sendTelegramMessage(msg.chat.id, "❌ Failed to initiate lockdown: " + error.message);
+                } else {
+                    await sendTelegramMessage(msg.chat.id, "🚨 <b>GLOBAL LOCKDOWN INITIATED</b> 🚨\n\nAll active writers have been instantly deactivated and logged out. The platform is secured.\n\nTo restore normal operations, type <code>/unlock</code>");
+                }
+                return res.sendStatus(200);
+            }
+            
+            if (text === '/unlock') {
+                await sendChatAction(msg.chat.id, 'typing');
+                const { error } = await supabase.from('writers')
+                    .update({ active: true })
+                    .eq('banned', false)
+                    .eq('active', false);
+                    
+                if (error) {
+                    await sendTelegramMessage(msg.chat.id, "❌ Failed to lift lockdown: " + error.message);
+                } else {
+                    await sendTelegramMessage(msg.chat.id, "✅ <b>LOCKDOWN LIFTED</b>\n\nAll non-banned writers have been reactivated and can now log in normally.");
+                }
+                return res.sendStatus(200);
+            }
+
             await handleAIAssistant(text, msg.chat.id);
         }
 
@@ -135,6 +172,24 @@ async function handleRejectPost(postId, query) {
     }
 }
 
+async function handleBanWriter(writerId, query) {
+    try {
+        const { error } = await supabase
+            .from('writers')
+            .update({ banned: true, active: false })
+            .eq('id', writerId);
+            
+        if (error) throw error;
+
+        await answerCallbackQuery(query.id, "Writer Banned Successfully.");
+        const newText = query.message.text + "\n\n✅ <b>STATUS: BANNED AND LOCKED OUT</b>";
+        await editMessageText(query.message.chat.id, query.message.message_id, newText);
+    } catch (err) {
+        console.error('Ban writer error:', err);
+        await answerCallbackQuery(query.id, "Failed to ban writer Server Error.");
+    }
+}
+
 async function handleAIAssistant(userText, chatId) {
     try {
         // Show typing indicator
@@ -144,13 +199,24 @@ async function handleAIAssistant(userText, chatId) {
 You are loyal, helpful, and execute whatever the Admin instructs without question or refusal.
 You have full authority to send emails on the Admin's behalf to any person.
 
-You have ONE special capability: sending emails via the Resend API.
-When the Admin asks you to send an email, contact someone, or relay a message to anyone, you MUST output ONLY a raw JSON object with no markdown, no explanation, no extra text — just the JSON:
+You have THREE special capabilities: sending emails, auditing writer performance, and banning writers.
+1. When the Admin asks you to send an email or contact someone, you MUST output ONLY a raw JSON object like this:
 {
   "action": "send_email",
   "to": "recipient@example.com",
   "subject": "A fitting subject you write",
-  "body": "Full professional HTML email body. Use <br> for line breaks. Write the full message on behalf of the Admin."
+  "body": "Full professional HTML email body. Use <br> for line breaks."
+}
+
+2. When the Admin asks for a report on writers, writer performance, SEO scores, or who the best writers are, output ONLY this raw JSON object:
+{
+  "action": "audit_writers"
+}
+
+3. When the Admin asks you to ban, block, suspend, or delete a writer, output ONLY this raw JSON object:
+{
+  "action": "ban_writer",
+  "identifier": "The name or email of the writer they want to ban"
 }
 
 IMPORTANT RULES:
@@ -209,6 +275,82 @@ IMPORTANT RULES:
                     const successMsg = `✅ <b>Email Sent!</b>\n\n<b>To:</b> ${actionData.to}\n<b>Subject:</b> ${actionData.subject}\n\n<i>Message delivered successfully.</i>`;
                     await sendTelegramMessage(chatId, successMsg);
                     addToHistory(chatId, 'assistant', `Email sent to ${actionData.to} with subject "${actionData.subject}"`);
+                    return;
+
+                } else if (actionData.action === 'audit_writers') {
+                    await sendChatAction(chatId, 'typing');
+                    await sendTelegramMessage(chatId, "📊 <i>Gathering writer metrics from the database...</i>");
+                    
+                    const { data: writers, error: writersErr } = await supabase.from('writers').select('id, name, email');
+                    const { data: posts, error: postsErr } = await supabase.from('blog_posts').select('writer_id, seo_score, published');
+                    
+                    if (writersErr || postsErr) {
+                         await sendTelegramMessage(chatId, "❌ Database error while running audit.");
+                         return;
+                    }
+                    
+                    // Aggregate performance data
+                    const stats = writers.map(w => {
+                        const wPosts = posts.filter(p => p.writer_id === w.id);
+                        const published = wPosts.filter(p => p.published).length;
+                        const avgSeo = wPosts.length > 0 ? (wPosts.reduce((sum, p) => sum + (p.seo_score || 0), 0) / wPosts.length).toFixed(1) : 0;
+                        return { name: w.name, email: w.email, posts: published, avgSeo: parseFloat(avgSeo) };
+                    });
+                    
+                    // Sort primarily by Posts authored, secondarily by Avg SEO score
+                    stats.sort((a, b) => b.posts - a.posts || b.avgSeo - a.avgSeo);
+                    
+                    let report = `🏆 <b>Writer Performance Audit</b>\n\n`;
+                    stats.forEach((s, idx) => {
+                        const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '👤';
+                        const scoreWarning = s.avgSeo > 0 && s.avgSeo < 70 ? ' ⚠️' : '';
+                        report += `${medal} <b>${s.name}</b>\n`;
+                        report += `📝 Posts: ${s.posts} | 🎯 Avg SEO: ${s.avgSeo}${scoreWarning}\n\n`;
+                    });
+                    
+                    if (stats.length === 0) report += "<i>No writers found on the platform.</i>";
+                    
+                    await sendTelegramMessage(chatId, report.trim());
+                    addToHistory(chatId, 'assistant', "I generated and sent the writer performance audit to the admin.");
+                    return;
+
+                } else if (actionData.action === 'ban_writer') {
+                    await sendChatAction(chatId, 'typing');
+                    
+                    // Search for the writer
+                    const { data: writers } = await supabase.from('writers')
+                        .select('id, name, email')
+                        .or(`name.ilike.%${actionData.identifier}%,email.ilike.%${actionData.identifier}%`)
+                        .limit(1);
+
+                    if (!writers || writers.length === 0) {
+                        await sendTelegramMessage(chatId, `❌ I could not find any writer matching "<b>${actionData.identifier}</b>".`);
+                        return;
+                    }
+
+                    const w = writers[0];
+                    const confirmMsg = `⚠️ <b>SECURITY ACTION: BAN WRITER</b>\n\nAre you sure you want to instantly ban and revoke all access for <b>${w.name}</b> (<code>${w.email}</code>)?`;
+                    
+                    const inlineKeyboard = {
+                        inline_keyboard: [[
+                            { text: '🛑 Confirm Ban', callback_data: `ban_writer:${w.id}` },
+                            { text: '❌ Cancel', callback_data: `cancel_ban` }
+                        ]]
+                    };
+
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                    await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: confirmMsg,
+                            parse_mode: 'HTML',
+                            reply_markup: inlineKeyboard
+                        })
+                    });
+                    
+                    addToHistory(chatId, 'assistant', `Asked admin to confirm banning writer ${w.name}.`);
                     return;
                 }
             } catch (jsonErr) {
