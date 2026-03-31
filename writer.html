@@ -470,6 +470,13 @@
             min-height: 350px;
         }
 
+        #writerQuillEditor .ql-editor {
+            min-height: 350px;
+            font-size: 1rem;
+            line-height: 1.8;
+            padding: 1.5rem;
+        }
+
         .ql-toolbar.ql-snow {
             border-radius: 0.5rem 0.5rem 0 0;
             border-color: #E5E7EB;
@@ -2323,7 +2330,7 @@
             const focus_keyphrase = getVal('writerSeoKeyphrase');
             const og_title = getVal('writerOgTitle');
             const og_description = getVal('writerOgDescription');
-            const og_image = getVal('writerOgImage');
+            const og_image = getVal('writerOgImage') || getVal('postThumbnail');
 
             if (!title || !content || content === '<p><br></p>') {
                 showToast('Title and content are required', 'error');
@@ -2393,7 +2400,7 @@
                 focus_keyphrase: getVal('writerSeoKeyphrase'),
                 og_title: getVal('writerOgTitle'),
                 og_description: getVal('writerOgDescription'),
-                og_image: getVal('writerOgImage'),
+                og_image: getVal('writerOgImage') || getVal('postThumbnail'),
                 savedAt: new Date().toISOString()
             };
             localStorage.setItem('elitech_writer_draft', JSON.stringify(draft));
