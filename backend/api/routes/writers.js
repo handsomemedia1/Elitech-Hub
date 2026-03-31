@@ -346,7 +346,12 @@ router.get('/posts', requireWriter, async (req, res) => {
  */
 router.post('/posts', requireWriter, async (req, res) => {
     try {
-        const { title, slug, excerpt, content, category, thumbnail } = req.body;
+        const {
+            title, slug, excerpt, content, category, thumbnail,
+            tags, scheduled_at,
+            seo_title, meta_description, focus_keyphrase,
+            og_title, og_description, og_image
+        } = req.body;
 
         if (!title || !content) {
             return res.status(400).json({ error: 'Title and content are required' });
@@ -377,12 +382,20 @@ router.post('/posts', requireWriter, async (req, res) => {
                 content,
                 category: category || 'cybersecurity',
                 thumbnail,
+                tags: tags || [],
                 author: req.writer.name,
                 writer_id: req.writer.id,
                 seo_score: seoScore,
                 word_count: wordCount,
                 published: autoPublish,
-                published_at: autoPublish ? new Date().toISOString() : null
+                published_at: autoPublish ? new Date().toISOString() : null,
+                scheduled_at: scheduled_at || null,
+                seo_title: seo_title || null,
+                meta_description: meta_description || null,
+                focus_keyphrase: focus_keyphrase || null,
+                og_title: og_title || null,
+                og_description: og_description || null,
+                og_image: og_image || null
             })
             .select()
             .single();

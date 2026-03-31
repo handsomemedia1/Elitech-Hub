@@ -636,6 +636,202 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ========== Editor Stats Bar ========== */
+        .editor-stats {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+            background: #F9FAFB;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .editor-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* ========== Collapsible Panels ========== */
+        .collapsible-panel {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: #F9FAFB;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .panel-header:hover {
+            background: #F3F4F6;
+        }
+
+        .panel-header i:last-child {
+            transition: transform 0.3s;
+        }
+
+        .panel-header.open i:last-child {
+            transform: rotate(180deg);
+        }
+
+        .panel-body {
+            padding: 1.25rem;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        /* ========== Character Count ========== */
+        .char-count {
+            float: right;
+            font-weight: 400;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* ========== Google Search Preview ========== */
+        .google-preview {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .google-preview-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .gp-title {
+            font-size: 1.15rem;
+            color: #1a0dab;
+            font-weight: 400;
+            margin-bottom: 0.15rem;
+            cursor: pointer;
+        }
+
+        .gp-title:hover {
+            text-decoration: underline;
+        }
+
+        .gp-url {
+            font-size: 0.85rem;
+            color: #006621;
+            margin-bottom: 0.25rem;
+        }
+
+        .gp-description {
+            font-size: 0.85rem;
+            color: #545454;
+            line-height: 1.5;
+        }
+
+        /* ========== Social Preview Card ========== */
+        .social-preview-card {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-top: 1rem;
+            max-width: 500px;
+        }
+
+        .sp-image {
+            height: 160px;
+            background: #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .sp-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sp-content {
+            padding: 0.75rem 1rem;
+        }
+
+        .sp-url {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .sp-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+
+        .sp-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* ========== Toast Notifications ========== */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 10000;
+            animation: toastSlideIn 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            font-size: 0.95rem;
+            max-width: 400px;
+        }
+
+        .toast.success {
+            background: #10B981;
+        }
+
+        .toast.error {
+            background: #EF4444;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
     <link rel="stylesheet" href="css/popup.css">
 </head>
@@ -749,23 +945,37 @@
                     <div class="form-group">
                         <label>Post Title</label>
                         <input type="text" id="postTitle" placeholder="Enter a compelling title..."
-                            oninput="writerAutoSlug(); updateSEO()">
+                            oninput="writerAutoSlug(); updateSEO(); writerUpdateSeoPreview()">
                     </div>
 
                     <div class="form-group">
                         <label>URL Slug</label>
-                        <input type="text" id="postSlug" placeholder="my-post-title">
+                        <input type="text" id="postSlug" placeholder="my-post-title"
+                            oninput="writerUpdateSeoPreview()">
                     </div>
 
                     <div class="form-group">
                         <label>Excerpt / Meta Description</label>
                         <textarea id="postExcerpt" rows="2"
                             placeholder="Brief description for search results (120-160 chars)"
-                            oninput="updateSEO()"></textarea>
+                            oninput="updateSEO(); writerUpdateSeoPreview()"></textarea>
                         <small id="excerptCount" style="color: var(--gray);">0/160 characters</small>
                     </div>
 
-                    <div class="editor-meta-grid">
+                    <!-- Quill Editor (moved up for better flow) -->
+                    <div class="form-group">
+                        <label>Content</label>
+                        <div id="writerQuillEditor"></div>
+                    </div>
+
+                    <!-- Word Count & Reading Time (inline stats bar) -->
+                    <div class="editor-stats">
+                        <span><i class="fas fa-font"></i> <span id="inlineWordCount">0</span> words</span>
+                        <span><i class="fas fa-clock"></i> <span id="inlineReadingTime">0</span> min read</span>
+                        <span><i class="fas fa-paragraph"></i> <span id="inlineParagraphCount">0</span> paragraphs</span>
+                    </div>
+
+                    <div class="editor-meta-grid" style="padding: 0 1.5rem;">
                         <!-- Dynamic Categories -->
                         <div class="form-group">
                             <label><i class="fas fa-folder"></i> Categories</label>
@@ -791,7 +1001,7 @@
                     <div class="form-group">
                         <label><i class="fas fa-image"></i> Featured Image</label>
                         <div style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem;">
-                            <input type="url" id="postThumbnail" placeholder="Paste URL or upload below..." oninput="writerPreviewImg()" style="flex: 1;">
+                            <input type="url" id="postThumbnail" placeholder="Paste URL or upload below..." oninput="writerPreviewImg(); writerUpdateSocialPreview()" style="flex: 1;">
                             <label class="btn btn-secondary" style="cursor: pointer; white-space: nowrap; margin: 0;">
                                 <i class="fas fa-upload"></i> Upload
                                 <input type="file" id="writerFeaturedFile" accept="image/*" style="display: none;"
@@ -828,10 +1038,75 @@
                         </div>
                     </div>
 
-                    <!-- Quill Editor -->
+                    <!-- SEO Settings Panel -->
                     <div class="form-group">
-                        <label>Content</label>
-                        <div id="writerQuillEditor"></div>
+                        <div class="collapsible-panel">
+                            <div class="panel-header" onclick="writerTogglePanel('writerSeoPanel')">
+                                <span><i class="fas fa-search"></i> SEO Settings</span>
+                                <i class="fas fa-chevron-down" id="writerSeoPanelIcon"></i>
+                            </div>
+                            <div class="panel-body" id="writerSeoPanel" style="display: none;">
+                                <div class="form-group" style="padding: 0;">
+                                    <label>Focus Keyphrase</label>
+                                    <input type="text" id="writerSeoKeyphrase" placeholder="e.g., cybersecurity training"
+                                        oninput="writerUpdateSeoPreview()">
+                                </div>
+                                <div class="form-group" style="padding: 0;">
+                                    <label>SEO Title <span class="char-count" id="writerSeoTitleCount">0/60</span></label>
+                                    <input type="text" id="writerSeoTitle" placeholder="SEO title (defaults to post title)"
+                                        maxlength="60" oninput="writerUpdateSeoPreview()">
+                                </div>
+                                <div class="form-group" style="padding: 0;">
+                                    <label>Meta Description <span class="char-count" id="writerMetaDescCount">0/160</span></label>
+                                    <textarea id="writerMetaDescription" rows="2" maxlength="160"
+                                        placeholder="Brief description for search engines..."
+                                        oninput="writerUpdateSeoPreview()"></textarea>
+                                </div>
+                                <div class="google-preview">
+                                    <div class="google-preview-title">Google Search Preview</div>
+                                    <div class="gp-title" id="writerGpTitle">Post Title — Elitech Hub</div>
+                                    <div class="gp-url">elitechhub.com/blog/<span id="writerGpSlug">post-slug</span></div>
+                                    <div class="gp-description" id="writerGpDescription">Your meta description will appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Sharing / Open Graph Panel -->
+                    <div class="form-group">
+                        <div class="collapsible-panel">
+                            <div class="panel-header" onclick="writerTogglePanel('writerSocialPanel')">
+                                <span><i class="fas fa-share-alt"></i> Social Sharing (Open Graph)</span>
+                                <i class="fas fa-chevron-down" id="writerSocialPanelIcon"></i>
+                            </div>
+                            <div class="panel-body" id="writerSocialPanel" style="display: none;">
+                                <div class="form-group" style="padding: 0;">
+                                    <label>OG Title</label>
+                                    <input type="text" id="writerOgTitle" placeholder="Defaults to post title"
+                                        oninput="writerUpdateSocialPreview()">
+                                </div>
+                                <div class="form-group" style="padding: 0;">
+                                    <label>OG Description</label>
+                                    <textarea id="writerOgDescription" rows="2" placeholder="Defaults to excerpt"
+                                        oninput="writerUpdateSocialPreview()"></textarea>
+                                </div>
+                                <div class="form-group" style="padding: 0;">
+                                    <label>OG Image URL</label>
+                                    <input type="url" id="writerOgImage" placeholder="Defaults to featured image"
+                                        oninput="writerUpdateSocialPreview()">
+                                </div>
+                                <div class="social-preview-card">
+                                    <div class="sp-image" id="writerSpImage">
+                                        <i class="fas fa-image" style="font-size: 2rem; color: #9CA3AF;"></i>
+                                    </div>
+                                    <div class="sp-content">
+                                        <div class="sp-url">elitechhub.com</div>
+                                        <div class="sp-title" id="writerSpTitle">Post Title</div>
+                                        <div class="sp-desc" id="writerSpDescription">Post description preview...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-actions">
@@ -868,6 +1143,28 @@
             <div id="dashboardView" class="hidden">
                 <div class="page-header">
                     <h1 class="page-title">📊 Performance Dashboard</h1>
+                </div>
+
+                <!-- Missed Post Warning Banner -->
+                <div id="missedPostBanner" class="hidden" style="background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border: 2px solid #EF4444; border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; color: #7F1D1D;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; color: #EF4444; margin-top: 0.25rem;"></i>
+                        <div style="flex: 1;">
+                            <h3 style="margin-bottom: 0.5rem; color: #991B1B;">⚠️ You missed your scheduled post!</h3>
+                            <p style="margin-bottom: 1rem; font-size: 0.95rem;">Our records show you were scheduled to publish a post on <b id="missedPostDateStr">[Date]</b>, but no post was submitted. Accountability is key to maintaining your Elitech Hub Writer status.</p>
+                            
+                            <form id="missedPostForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                                <input type="hidden" id="missedPostId">
+                                <div class="form-group" style="margin: 0;">
+                                    <label style="color: #7F1D1D; font-weight: 600;">Please explain why you missed your post:</label>
+                                    <textarea id="missedPostReason" required minlength="10" rows="3" placeholder="E.g., I had a family emergency..." style="border: 1px solid #FCA5A5;"></textarea>
+                                </div>
+                                <button type="submit" class="btn" style="background: #EF4444; color: white; align-self: flex-start;">
+                                    <i class="fas fa-paper-plane"></i> Submit Explanation
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Stats Cards -->
@@ -1104,6 +1401,12 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="writerToast">
+        <i class="fas fa-check-circle" id="writerToastIcon"></i>
+        <span id="writerToastMessage"></span>
+    </div>
+
     <script>
         const API_URL = 'https://elitech-hub.vercel.app/api';
         let token = localStorage.getItem('elitech_writer_token');
@@ -1307,6 +1610,9 @@
         // Load Dashboard Stats
         async function loadDashboard() {
             try {
+                // Check for missed posts first
+                checkMissedPosts();
+
                 const res = await fetch(`${API_URL}/writers/performance/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -1339,6 +1645,61 @@
                 console.error('Failed to load dashboard:', err);
             }
         }
+
+        // Check Missed Posts
+        async function checkMissedPosts() {
+            try {
+                const res = await fetch(`${API_URL}/writers/missed-posts`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                
+                if (data.missedPosts && data.missedPosts.length > 0) {
+                    const missed = data.missedPosts[0]; // Show the most recent one
+                    document.getElementById('missedPostBanner').classList.remove('hidden');
+                    document.getElementById('missedPostId').value = missed.id;
+                    document.getElementById('missedPostDateStr').textContent = new Date(missed.missed_date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                } else {
+                    document.getElementById('missedPostBanner').classList.add('hidden');
+                }
+            } catch (err) {
+                console.error('Failed to check missed posts:', err);
+            }
+        }
+
+        // Submit Missed Post Reason
+        document.getElementById('missedPostForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            btn.disabled = true;
+
+            const missedPostId = document.getElementById('missedPostId').value;
+            const reason = document.getElementById('missedPostReason').value;
+
+            try {
+                const res = await fetch(`${API_URL}/writers/missed-post-reason`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ missedPostId, reason })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error);
+
+                document.getElementById('missedPostBanner').classList.add('hidden');
+                showToast('Your explanation has been submitted and sent to the Admin.');
+            } catch (err) {
+                showToast('Failed to submit explanation: ' + err.message, 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
 
         // Load Leaderboard
         async function loadLeaderboard() {
@@ -1435,17 +1796,17 @@
             const confirmPassword = document.getElementById('writerConfirmPassword').value;
 
             if (!currentPassword || !newPassword || !confirmPassword) {
-                alert('Please fill all password fields');
+                showToast('Please fill all password fields', 'error');
                 return;
             }
 
             if (newPassword !== confirmPassword) {
-                alert('New passwords do not match');
+                showToast('New passwords do not match', 'error');
                 return;
             }
 
             if (newPassword.length < 8) {
-                alert('New password must be at least 8 characters');
+                showToast('New password must be at least 8 characters', 'error');
                 return;
             }
 
@@ -1462,16 +1823,16 @@
                 const data = await res.json();
 
                 if (!res.ok) {
-                    alert(data.error || 'Failed to update password');
+                    showToast(data.error || 'Failed to update password', 'error');
                     return;
                 }
 
-                alert('Password updated successfully!');
+                showToast('Password updated successfully!');
                 document.getElementById('writerCurrentPassword').value = '';
                 document.getElementById('writerNewPassword').value = '';
                 document.getElementById('writerConfirmPassword').value = '';
             } catch (err) {
-                alert('Failed to update password. Please try again.');
+                showToast('Failed to update password. Please try again.', 'error');
             }
         }
 
@@ -1479,6 +1840,80 @@
         let writerQuill = null;
         let writerTags = [];
         let writerCategories = ['Cybersecurity', 'Scholarship', 'News', 'Tutorial', 'Research', 'Opinion', 'Case Study'];
+
+        // ========== Toast Notification System ==========
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('writerToast');
+            const icon = document.getElementById('writerToastIcon');
+            const msg = document.getElementById('writerToastMessage');
+            toast.className = `toast show ${type}`;
+            icon.className = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+            msg.textContent = message;
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // ========== Collapsible Panel Toggle ==========
+        function writerTogglePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            const icon = document.getElementById(panelId + 'Icon');
+            const header = icon.closest('.panel-header');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                header.classList.add('open');
+            } else {
+                panel.style.display = 'none';
+                header.classList.remove('open');
+            }
+        }
+
+        // ========== Live SEO Preview (Google SERP) ==========
+        function writerUpdateSeoPreview() {
+            const getVal = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value : '';
+            };
+            const title = getVal('writerSeoTitle') || getVal('postTitle') || 'Post Title';
+            const slug = getVal('postSlug') || 'post-slug';
+            const desc = getVal('writerMetaDescription') || getVal('postExcerpt') || 'Your meta description will appear here...';
+
+            const gpTitle = document.getElementById('writerGpTitle');
+            const gpSlug = document.getElementById('writerGpSlug');
+            const gpDesc = document.getElementById('writerGpDescription');
+            if (gpTitle) gpTitle.textContent = title + ' — Elitech Hub';
+            if (gpSlug) gpSlug.textContent = slug;
+            if (gpDesc) gpDesc.textContent = desc;
+
+            // Update character counters
+            const seoTitleCount = document.getElementById('writerSeoTitleCount');
+            const metaDescCount = document.getElementById('writerMetaDescCount');
+            if (seoTitleCount) seoTitleCount.textContent = (getVal('writerSeoTitle') || '').length + '/60';
+            if (metaDescCount) metaDescCount.textContent = (getVal('writerMetaDescription') || '').length + '/160';
+        }
+
+        // ========== Live Social Preview (Open Graph) ==========
+        function writerUpdateSocialPreview() {
+            const getVal = (id) => {
+                const el = document.getElementById(id);
+                return el ? el.value : '';
+            };
+            const title = getVal('writerOgTitle') || getVal('postTitle') || 'Post Title';
+            const desc = getVal('writerOgDescription') || getVal('postExcerpt') || 'Post description preview...';
+            const imgUrl = getVal('writerOgImage') || getVal('postThumbnail');
+
+            const spTitle = document.getElementById('writerSpTitle');
+            const spDesc = document.getElementById('writerSpDescription');
+            if (spTitle) spTitle.textContent = title;
+            if (spDesc) spDesc.textContent = desc;
+
+            const imgContainer = document.getElementById('writerSpImage');
+            if (imgContainer) {
+                if (imgUrl) {
+                    imgContainer.innerHTML = '<img src="' + imgUrl + '" alt="Social Preview" onerror="this.parentElement.innerHTML=\'<i class=\\\"fas fa-image\\\" style=\\\"font-size:2rem;color:#9CA3AF\\\"></i>\'">';
+                } else {
+                    imgContainer.innerHTML = '<i class="fas fa-image" style="font-size:2rem;color:#9CA3AF"></i>';
+                }
+            }
+        }
 
         // ========== Image Upload Utility for Writers ==========
         async function writerUploadImageToSupabase(file) {
@@ -1516,10 +1951,11 @@
                 bar.style.width = '100%';
                 document.getElementById('postThumbnail').value = publicUrl;
                 writerPreviewImg();
-                alert('Featured image uploaded!');
+                writerUpdateSocialPreview();
+                showToast('Featured image uploaded!');
             } catch (err) {
                 console.error('Writer featured image upload error:', err);
-                alert('Failed to upload image. Please try again.');
+                showToast('Failed to upload image. Please try again.', 'error');
             } finally {
                 setTimeout(() => { progress.style.display = 'none'; bar.style.width = '0%'; }, 1000);
             }
@@ -1554,13 +1990,13 @@
                                     const file = input.files[0];
                                     if (!file) return;
                                     try {
-                                        alert('Uploading image...');
+                                        showToast('Uploading image...');
                                         const url = await writerUploadImageToSupabase(file);
                                         const range = writerQuill.getSelection(true);
                                         writerQuill.insertEmbed(range.index, 'image', url);
                                         writerQuill.setSelection(range.index + 1);
                                     } catch (err) {
-                                        alert('Image upload failed');
+                                        showToast('Image upload failed', 'error');
                                     }
                                 };
                             }
@@ -1727,8 +2163,18 @@
             // Word count
             const text = writerQuill ? writerQuill.getText().trim() : '';
             const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+            const readTime = Math.max(1, Math.ceil(words / 200));
+            const paragraphs = content ? (content.match(/<p[^>]*>/g) || []).length : 0;
             document.getElementById('wordCount').textContent = words;
-            document.getElementById('readingTime').textContent = Math.ceil(words / 200) + ' min';
+            document.getElementById('readingTime').textContent = readTime + ' min';
+
+            // Update inline stats bar
+            const inlineWC = document.getElementById('inlineWordCount');
+            const inlineRT = document.getElementById('inlineReadingTime');
+            const inlinePC = document.getElementById('inlineParagraphCount');
+            if (inlineWC) inlineWC.textContent = words;
+            if (inlineRT) inlineRT.textContent = readTime;
+            if (inlinePC) inlinePC.textContent = paragraphs;
 
             // Calculate SEO score
             let score = 0;
@@ -1854,7 +2300,7 @@
                 }
                 
             } catch (err) {
-                alert('Failed to run AI SEO Audit: ' + err.message);
+                showToast('Failed to run AI SEO Audit: ' + err.message, 'error');
                 modal.style.display = 'none';
             }
         }
@@ -1870,8 +2316,17 @@
             const isScheduled = document.querySelector('input[name="writerPubOption"][value="schedule"]')?.checked;
             const scheduledAt = isScheduled ? document.getElementById('writerScheduledAt').value : null;
 
+            // Gather SEO fields
+            const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : ''; };
+            const seo_title = getVal('writerSeoTitle');
+            const meta_description = getVal('writerMetaDescription');
+            const focus_keyphrase = getVal('writerSeoKeyphrase');
+            const og_title = getVal('writerOgTitle');
+            const og_description = getVal('writerOgDescription');
+            const og_image = getVal('writerOgImage');
+
             if (!title || !content || content === '<p><br></p>') {
-                alert('Title and content are required');
+                showToast('Title and content are required', 'error');
                 return;
             }
 
@@ -1882,16 +2337,21 @@
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ title, slug, excerpt, content, category, thumbnail, tags: writerTags, scheduled_at: scheduledAt })
+                    body: JSON.stringify({
+                        title, slug, excerpt, content, category, thumbnail,
+                        tags: writerTags, scheduled_at: scheduledAt,
+                        seo_title, meta_description, focus_keyphrase,
+                        og_title, og_description, og_image
+                    })
                 });
                 const data = await res.json();
 
                 if (!res.ok) {
-                    alert(data.error + (data.issues ? '\n\n' + data.issues.join('\n') : ''));
+                    showToast(data.error || 'Submission failed', 'error');
                     return;
                 }
 
-                alert(data.message + `\n\nSEO Score: ${data.seoScore}%\n\n${data.feedback.join('\n')}`);
+                showToast(data.message || 'Post submitted successfully!');
 
                 // Clear form
                 document.getElementById('postTitle').value = '';
@@ -1900,29 +2360,44 @@
                 if (writerQuill) writerQuill.setText('');
                 document.getElementById('postThumbnail').value = '';
                 document.getElementById('writerImgPreview').style.display = 'none';
+                // Clear SEO fields
+                ['writerSeoTitle', 'writerSeoKeyphrase', 'writerMetaDescription', 'writerOgTitle', 'writerOgDescription', 'writerOgImage'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
                 writerTags = [];
                 writerRenderTags();
                 updateSEO();
+                writerUpdateSeoPreview();
+                writerUpdateSocialPreview();
+                localStorage.removeItem('elitech_writer_draft');
                 loadPosts();
             } catch (err) {
-                alert('Failed to submit post');
+                showToast('Failed to submit post', 'error');
             }
         }
 
         // Functional draft save via localStorage
         function saveDraft() {
+            const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : ''; };
             const draft = {
-                title: document.getElementById('postTitle').value,
-                slug: document.getElementById('postSlug').value,
-                excerpt: document.getElementById('postExcerpt').value,
+                title: getVal('postTitle'),
+                slug: getVal('postSlug'),
+                excerpt: getVal('postExcerpt'),
                 content: writerQuill ? writerQuill.root.innerHTML : '',
-                thumbnail: document.getElementById('postThumbnail').value,
+                thumbnail: getVal('postThumbnail'),
                 tags: writerTags,
                 categories: Array.from(document.querySelectorAll('input[name="writerCats"]:checked')).map(cb => cb.value),
+                seo_title: getVal('writerSeoTitle'),
+                meta_description: getVal('writerMetaDescription'),
+                focus_keyphrase: getVal('writerSeoKeyphrase'),
+                og_title: getVal('writerOgTitle'),
+                og_description: getVal('writerOgDescription'),
+                og_image: getVal('writerOgImage'),
                 savedAt: new Date().toISOString()
             };
             localStorage.setItem('elitech_writer_draft', JSON.stringify(draft));
-            alert('✅ Draft saved! It will be restored next time you open the editor.');
+            showToast('Draft saved! It will be restored next time you open the editor.');
         }
 
         // Load draft on editor open
@@ -1951,7 +2426,18 @@
                         if (cb) cb.checked = true;
                     });
                 }
+                // Restore SEO fields
+                const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+                setVal('writerSeoTitle', draft.seo_title);
+                setVal('writerMetaDescription', draft.meta_description);
+                setVal('writerSeoKeyphrase', draft.focus_keyphrase);
+                setVal('writerOgTitle', draft.og_title);
+                setVal('writerOgDescription', draft.og_description);
+                setVal('writerOgImage', draft.og_image);
                 updateSEO();
+                writerUpdateSeoPreview();
+                writerUpdateSocialPreview();
+                showToast('Draft restored!');
             }
         }
 
