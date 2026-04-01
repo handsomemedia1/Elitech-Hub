@@ -291,53 +291,38 @@ router.put('/password', requireWriter, async (req, res) => {
 });
 
 /**
- * POST /api/writers/upload-image - Direct image upload (writer)
- * Accepts base64-encoded image data and uploads to Supabase via service key
+ * POST /api/writers/upload-url - Get signed URL for blog image upload (writer)
  */
-router.post('/upload-image', requireWriter, async (req, res) => {
+router.post('/upload-url', requireWriter, async (req, res) => {
     try {
-        const { filename, contentType, base64Data } = req.body;
+        const { filename, contentType } = req.body;
 
-        if (!filename || !contentType || !base64Data) {
-            return res.status(400).json({ error: 'filename, contentType, and base64Data are required' });
-        }
-
-        // Validate content type is an image
-        if (!contentType.startsWith('image/')) {
-            return res.status(400).json({ error: 'Only image files are allowed' });
-        }
-
-        // Decode base64
-        const base64Clean = base64Data.replace(/^data:image\/\w+;base64,/, '');
-        const buffer = Buffer.from(base64Clean, 'base64');
-
-        // Enforce 5MB limit
-        if (buffer.length > 5 * 1024 * 1024) {
-            return res.status(400).json({ error: 'Image must be under 5MB' });
+        if (!filename) {
+            return res.status(400).json({ error: 'Filename required' });
         }
 
         const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_');
         const path = `writers/${req.writer.id}/${Date.now()}-${safeName}`;
 
-        // Upload directly using service key (bypasses RLS)
-        const { error } = await supabase.storage
+        const { data, error } = await supabase.storage
             .from('blog-images')
-            .upload(path, buffer, {
-                contentType,
-                upsert: false
-            });
+            .createSignedUploadUrl(path);
 
         if (error) throw error;
 
         const publicUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/blog-images/${path}`;
 
-        res.json({ publicUrl, path });
+        res.json({
+            uploadUrl: data.signedUrl,
+            token: data.token,
+            path: path,
+            publicUrl
+        });
     } catch (err) {
-        console.error('Writer image upload error:', err);
-        res.status(500).json({ error: 'Failed to upload image: ' + (err.message || 'Unknown error') });
+        console.error('Writer upload URL error:', err);
+        res.status(500).json({ error: 'Failed to generate upload URL' });
     }
 });
-
 
 /**
  * GET /api/writers/posts - Get writer's posts
