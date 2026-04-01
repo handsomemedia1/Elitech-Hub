@@ -1924,26 +1924,36 @@
 
         // ========== Image Upload Utility for Writers ==========
         async function writerUploadImageToSupabase(file) {
-            const urlRes = await fetch(`${API_URL}/writers/upload-url`, {
+            // Convert file to base64
+            const base64Data = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+
+            const res = await fetch(`${API_URL}/writers/upload-image`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ filename: file.name, contentType: file.type })
+                body: JSON.stringify({
+                    filename: file.name,
+                    contentType: file.type,
+                    base64Data
+                })
             });
-            if (!urlRes.ok) throw new Error('Failed to get upload URL');
-            const urlData = await urlRes.json();
 
-            const uploadRes = await fetch(urlData.uploadUrl, {
-                method: 'PUT',
-                headers: { 'Content-Type': file.type },
-                body: file
-            });
-            if (!uploadRes.ok) throw new Error('Failed to upload image');
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.error || 'Upload failed');
+            }
 
-            return urlData.publicUrl;
+            const data = await res.json();
+            return data.publicUrl;
         }
+
 
         // Writer Featured Image Upload
         async function writerUploadFeaturedImage(file) {
