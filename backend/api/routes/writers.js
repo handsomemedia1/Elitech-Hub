@@ -446,7 +446,7 @@ router.post('/posts', requireWriter, async (req, res) => {
         });
     } catch (err) {
         console.error('Post creation error:', err);
-        res.status(500).json({ error: 'Failed to create post' });
+        res.status(500).json({ error: 'Failed to create post: ' + (err.message || JSON.stringify(err)) });
     }
 });
 
