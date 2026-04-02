@@ -429,9 +429,14 @@ router.post('/posts', requireWriter, async (req, res) => {
         }
 
         // Update writer's post count
+        const { data: writerData } = await supabase
+            .from('writers')
+            .select('posts_count')
+            .eq('id', req.writer.id)
+            .single();
         await supabase
             .from('writers')
-            .update({ posts_count: supabase.sql`posts_count + 1` })
+            .update({ posts_count: (writerData?.posts_count || 0) + 1 })
             .eq('id', req.writer.id);
 
         const { sendTelegramPing, sendTelegramMessageWithKeyboard } = await import('../services/telegram.js');
