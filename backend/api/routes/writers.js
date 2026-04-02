@@ -374,11 +374,23 @@ router.post('/posts', requireWriter, async (req, res) => {
         // Auto-publish if meets criteria
         const autoPublish = seoScore >= 70 && wordCount >= 500 && content.includes('<img');
 
+        // Generate a unique slug - check for duplicates and append suffix if needed
+        let baseSlug = slug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        let finalSlug = baseSlug;
+        const { data: existingPost } = await supabase
+            .from('blog_posts')
+            .select('id')
+            .eq('slug', baseSlug)
+            .maybeSingle();
+        if (existingPost) {
+            finalSlug = `${baseSlug}-${Date.now().toString(36)}`;
+        }
+
         const { data: post, error } = await supabase
             .from('blog_posts')
             .insert({
                 title,
-                slug: slug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+                slug: finalSlug,
                 excerpt,
                 content,
                 category: category || 'cybersecurity',
