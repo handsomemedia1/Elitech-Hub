@@ -358,8 +358,9 @@ router.post('/posts', requireWriter, async (req, res) => {
         }
 
         // Calculate SEO score
+        const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
+        const wordCount = textContent ? textContent.split(/\s+/).length : 0;
         const seoScore = calculateSEOScore(title, content, excerpt);
-        const wordCount = content.split(/\s+/).length;
 
         // Check content moderation
         const moderationResult = moderateContent(content);
@@ -437,7 +438,7 @@ router.post('/posts', requireWriter, async (req, res) => {
         }
 
         res.json({
-            message: autoPublish ? 'Post published!' : 'Post saved as draft',
+            message: autoPublish ? 'Post published!' : 'Post submitted for Admin review!',
             post,
             seoScore,
             published: autoPublish,
@@ -455,14 +456,14 @@ router.post('/posts', requireWriter, async (req, res) => {
 router.post('/seo-check', requireWriter, async (req, res) => {
     const { title, content, excerpt } = req.body;
     
-    const wordCount = content?.split(/\s+/).length || 0;
+    const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
+    const wordCount = textContent ? textContent.split(/\s+/).length : 0;
     const hasImage = content?.includes('<img') || false;
 
     try {
         const systemContext = `You are an expert SEO auditor for a cybersecurity training company (Elitech Hub).
 Analyze the provided blog post data. You must respond ONLY with a valid JSON object matching this exact schema, with no markdown formatting or backticks:
 {
-  "seoScore": (number between 0 and 100 representing overall SEO health),
   "feedback": (array of strings, provide 3-5 specific, actionable recommendations to improve SEO, readability, or engagement)
 }`;
 
@@ -470,7 +471,7 @@ Analyze the provided blog post data. You must respond ONLY with a valid JSON obj
 Excerpt: ${excerpt || 'None'}
 Word Count: ${wordCount}
 Has Image: ${hasImage}
-Content (HTML): ${content || 'None'}`;
+Content (Text Only): ${textContent || 'None'}`;
 
         const aiResult = await aiRouter.generate(userMessage, { context: systemContext });
         
@@ -484,7 +485,7 @@ Content (HTML): ${content || 'None'}`;
             throw new Error('AI returned invalid format');
         }
 
-        const aiScore = parsedResult.seoScore || calculateSEOScore(title, content, excerpt);
+        const aiScore = calculateSEOScore(title, content, excerpt);
         const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
 
         let finalFeedback = parsedResult.feedback || [];
@@ -514,38 +515,30 @@ Content (HTML): ${content || 'None'}`;
 // Helper: Calculate SEO Score
 function calculateSEOScore(title, content, excerpt) {
     let score = 0;
+    
+    // Strip HTML for accurate word count
+    const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
+    const wordCount = textContent ? textContent.split(/\s+/).length : 0;
 
     // Title checks (25 points)
-    if (title) {
+    if (title && title.length > 0) {
         score += 5;
-        if (title.length >= 30 && title.length <= 60) score += 10;
-        if (title.length < 60) score += 5;
-        if (/[A-Z]/.test(title[0])) score += 5;
-    }
-
-    // Content checks (50 points)
-    if (content) {
-        const wordCount = content.split(/\s+/).length;
-        if (wordCount >= 300) score += 10;
-        if (wordCount >= 500) score += 10;
-        if (wordCount >= 800) score += 5;
-        if (content.includes('<h2>') || content.includes('<h3>')) score += 10;
-        if (content.includes('<img')) score += 10;
-        if (content.includes('<a')) score += 5;
+        if (title.length >= 30 && title.length <= 60) score += 20;
     }
 
     // Excerpt/Meta (15 points)
-    if (excerpt) {
+    if (excerpt && excerpt.length > 0) {
         score += 5;
         if (excerpt.length >= 120 && excerpt.length <= 160) score += 10;
     }
 
-    // Readability bonus (10 points)
+    // Content checks (60 points) - total 100 points
     if (content) {
-        const sentences = content.split(/[.!?]+/).length;
-        const words = content.split(/\s+/).length;
-        const avgSentenceLength = words / sentences;
-        if (avgSentenceLength >= 10 && avgSentenceLength <= 20) score += 10;
+        if (wordCount >= 300) score += 10;
+        if (wordCount >= 500) score += 10;
+        if (content.includes('<h2') || content.includes('<h3')) score += 15;
+        if (content.includes('<img')) score += 15;
+        if (content.includes('<a ')) score += 10;
     }
 
     return Math.min(100, score);
@@ -558,20 +551,23 @@ function getSEOFeedback(score, wordCount, content) {
     if (score < 70) feedback.push('SEO score must be at least 70% to auto-publish');
     if (wordCount < 500) feedback.push(`Add ${500 - wordCount} more words (minimum 500)`);
     if (!content?.includes('<img')) feedback.push('Add at least one image');
-    if (!content?.includes('<h2>') && !content?.includes('<h3>')) feedback.push('Add subheadings (H2 or H3)');
+    if (!content?.includes('<h2') && !content?.includes('<h3')) feedback.push('Add subheadings (H2 or H3)');
 
     return feedback.length > 0 ? feedback : ['Great! Your post meets all criteria.'];
 }
 
 // Helper: Content Moderation
 function moderateContent(content) {
-    const lowercaseContent = content.toLowerCase();
+    // Strip HTML so that base64 images or inline class names don't trigger false positives
+    const textContent = content ? content.replace(/<[^>]*>?/gm, ' ') : '';
+    const lowercaseContent = textContent.toLowerCase();
     const issues = [];
 
-    // Check for vulgar words (simplified list)
+    // Check for vulgar words using word boundaries to avoid matching substrings like "class", "pass", "glass", or "asset".
     const vulgarWords = ['fuck', 'shit', 'damn', 'ass', 'bitch', 'bastard'];
     for (const word of vulgarWords) {
-        if (lowercaseContent.includes(word)) {
+        const regex = new RegExp('\\b' + word + '\\b');
+        if (regex.test(lowercaseContent)) {
             issues.push(`Contains inappropriate language: "${word}"`);
         }
     }

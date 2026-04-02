@@ -1605,7 +1605,7 @@
                             <span>SEO: ${post.seo_score}% • ${post.word_count} words • ${new Date(post.created_at).toLocaleDateString()}</span>
                         </div>
                         <span class="post-status ${post.published ? 'published' : 'draft'}">
-                            ${post.published ? 'Published' : 'Draft'}
+                            ${post.published ? 'Published' : 'Under Review'}
                         </span>
                     </div>
                 `).join('');
