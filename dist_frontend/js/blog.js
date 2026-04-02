@@ -58,43 +58,6 @@ class BlogManager {
 
     async loadArticles() {
         try {
-            // Load from both sources in parallel
-            const [apiArticles, staticArticles] = await Promise.all([
-                this.loadFromAPI(),
-                this.loadFromStaticIndex()
-            ]);
-
-            // Merge and deduplicate (API takes priority, then static)
-            const articleMap = new Map();
-
-            // Add static articles first (lower priority)
-            staticArticles.forEach(article => {
-                articleMap.set(article.slug, article);
-            });
-
-            // Add API articles (higher priority, overwrites duplicates)
-            apiArticles.forEach(article => {
-                articleMap.set(article.slug || article.id, article);
-            });
-
-            this.articles = Array.from(articleMap.values());
-
-            // Sort by date (newest first)
-            this.articles.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            console.log(`📚 Loaded ${apiArticles.length} from API, ${staticArticles.length} from static index`);
-            console.log(`📚 Total unique articles: ${this.articles.length}`);
-
-        } catch (e) {
-            console.error('Error loading articles:', e);
-            this.articles = [];
-        }
-
-        this.filteredArticles = [...this.articles];
-    }
-
-    async loadFromAPI() {
-        try {
             const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'https://elitech-hub.vercel.app/api/blog'
                 : '/api/blog';
@@ -105,14 +68,14 @@ class BlogManager {
             const data = await response.json();
 
             if (data.posts && data.posts.length > 0) {
-                return data.posts.map(post => ({
+                this.articles = data.posts.map(post => ({
                     id: post.id,
                     title: post.title,
                     excerpt: post.excerpt,
                     content: post.content || '',
                     category: post.category,
                     author: post.author || 'Elitech Hub',
-                    date: post.published_at || post.date,
+                    date: post.published_at || post.created_at,
                     readTime: this.estimateReadingTime(post.content || ''),
                     image: post.thumbnail || 'assets/images/logo.png',
                     tags: post.tags || [post.category],
@@ -121,43 +84,20 @@ class BlogManager {
                     slug: post.slug,
                     source: 'api'
                 }));
+            } else {
+                this.articles = [];
             }
+
+            // Sort by date (newest first)
+            this.articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            console.log(`📚 Loaded ${this.articles.length} articles from API`);
+
         } catch (e) {
-            console.warn('⚠️ API fetch failed, using static only:', e.message);
+            console.error('Error loading articles:', e);
+            this.articles = [];
         }
-        return [];
-    }
 
-    async loadFromStaticIndex() {
-        try {
-            const response = await fetch('data/blog_index.json');
-            if (!response.ok) throw new Error('Static index fetch failed');
-
-            const data = await response.json();
-            const posts = data.posts || data;
-
-            if (posts && posts.length > 0) {
-                return posts.map(post => ({
-                    id: post.slug,
-                    title: post.title,
-                    excerpt: post.excerpt || '',
-                    content: '',
-                    category: post.category || 'general',
-                    author: post.author || 'Elitech Hub',
-                    date: post.date,
-                    readTime: post.readTime || '3 min',
-                    image: post.image || 'assets/images/logo.png',
-                    tags: post.tags || [post.category],
-                    views: 0,
-                    featured: false,
-                    slug: post.slug,
-                    source: 'static'
-                }));
-            }
-        } catch (e) {
-            console.warn('⚠️ Static index fetch failed:', e.message);
-        }
-        return [];
+        this.filteredArticles = [...this.articles];
     }
 
     estimateReadingTime(content) {
@@ -311,10 +251,8 @@ class BlogManager {
         card.dataset.articleId = article.id;
         if (article.featured) card.classList.add('featured');
 
-        // Use different URL based on source
-        const articleUrl = article.source === 'static'
-            ? `blog-posts/${article.slug}.html`
-            : `article.html?id=${article.id}`;
+        // All articles load from Supabase API
+        const articleUrl = `article.html?id=${article.id}`;
 
         // Clip excerpt to ~120 chars
         const shortExcerpt = article.excerpt && article.excerpt.length > 120
