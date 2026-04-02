@@ -390,18 +390,31 @@ router.post('/posts', requireWriter, async (req, res) => {
                 word_count: wordCount,
                 published: autoPublish,
                 published_at: autoPublish ? new Date().toISOString() : null,
-                scheduled_at: scheduled_at || null,
-                seo_title: seo_title || null,
-                meta_description: meta_description || null,
-                focus_keyphrase: focus_keyphrase || null,
-                og_title: og_title || null,
-                og_description: og_description || null,
-                og_image: og_image || null
+                scheduled_at: scheduled_at || null
             })
             .select()
             .single();
 
         if (error) throw error;
+
+        // Insert metadata into separate table
+        if (seo_title || meta_description || focus_keyphrase || og_title || og_description || og_image) {
+            const { error: metaError } = await supabase
+                .from('post_seo_metadata')
+                .insert({
+                    post_id: post.id,
+                    seo_title: seo_title || null,
+                    meta_description: meta_description || null,
+                    focus_keyphrase: focus_keyphrase || null,
+                    og_title: og_title || null,
+                    og_description: og_description || null,
+                    og_image: og_image || null
+                });
+            if (metaError) {
+                console.error('Failed to save SEO metadata:', metaError);
+                // We don't abort the post creation, just log it
+            }
+        }
 
         // Update writer's post count
         await supabase
