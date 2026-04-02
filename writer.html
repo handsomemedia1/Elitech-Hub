@@ -839,6 +839,56 @@
                 opacity: 1;
             }
         }
+        /* ========== Image Manipulation Toolbar ========== */
+        .img-toolbar {
+            position: absolute;
+            background: var(--dark);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            display: none;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            color: white;
+            align-items: center;
+        }
+
+        .img-tb-group {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .img-tb-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255,255,255,0.2);
+            margin: 0 0.25rem;
+        }
+
+        .img-tb-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .img-tb-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .img-selected {
+            outline: 2px dashed var(--primary);
+            cursor: move;
+        }
+
     </style>
     <link rel="stylesheet" href="css/popup.css">
 </head>
@@ -2049,6 +2099,165 @@
                 } catch (err) {
                     console.error('Drop image error:', err);
                 }
+            });
+
+            // ========== Image Resize & Manipulation System ==========
+            const editorRoot = writerQuill.root;
+            let activeImg = null;
+            let imgToolbar = null;
+
+            // Create floating image toolbar
+            function createImageToolbar() {
+                if (imgToolbar) return imgToolbar;
+                imgToolbar = document.createElement('div');
+                imgToolbar.className = 'img-toolbar';
+                imgToolbar.innerHTML = `
+                    <div class="img-tb-group">
+                        <button class="img-tb-btn" data-size="25" title="25%">S</button>
+                        <button class="img-tb-btn" data-size="50" title="50%">M</button>
+                        <button class="img-tb-btn" data-size="75" title="75%">L</button>
+                        <button class="img-tb-btn" data-size="100" title="100%">XL</button>
+                    </div>
+                    <div class="img-tb-divider"></div>
+                    <div class="img-tb-group">
+                        <button class="img-tb-btn" data-align="left" title="Align Left"><i class="fas fa-align-left"></i></button>
+                        <button class="img-tb-btn" data-align="center" title="Center"><i class="fas fa-align-center"></i></button>
+                        <button class="img-tb-btn" data-align="right" title="Align Right"><i class="fas fa-align-right"></i></button>
+                    </div>
+                    <div class="img-tb-divider"></div>
+                    <div class="img-tb-group">
+                        <button class="img-tb-btn" data-float="left" title="Float Left (text wrap)"><i class="fas fa-indent"></i></button>
+                        <button class="img-tb-btn" data-float="right" title="Float Right (text wrap)"><i class="fas fa-outdent"></i></button>
+                        <button class="img-tb-btn" data-float="none" title="No Float"><i class="fas fa-ban"></i></button>
+                    </div>
+                `;
+                document.body.appendChild(imgToolbar);
+
+                // Size buttons
+                imgToolbar.querySelectorAll('[data-size]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!activeImg) return;
+                        const pct = btn.dataset.size;
+                        activeImg.style.width = pct + '%';
+                        activeImg.style.height = 'auto';
+                        positionToolbar();
+                    });
+                });
+
+                // Align buttons
+                imgToolbar.querySelectorAll('[data-align]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!activeImg) return;
+                        activeImg.style.float = 'none';
+                        activeImg.style.marginLeft = '';
+                        activeImg.style.marginRight = '';
+                        if (btn.dataset.align === 'center') {
+                            activeImg.style.display = 'block';
+                            activeImg.style.marginLeft = 'auto';
+                            activeImg.style.marginRight = 'auto';
+                        } else if (btn.dataset.align === 'left') {
+                            activeImg.style.display = 'block';
+                            activeImg.style.marginRight = 'auto';
+                        } else if (btn.dataset.align === 'right') {
+                            activeImg.style.display = 'block';
+                            activeImg.style.marginLeft = 'auto';
+                        }
+                        positionToolbar();
+                    });
+                });
+
+                // Float buttons (for side-by-side / text wrapping)
+                imgToolbar.querySelectorAll('[data-float]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!activeImg) return;
+                        const fVal = btn.dataset.float;
+                        if (fVal === 'none') {
+                            activeImg.style.float = 'none';
+                            activeImg.style.margin = '';
+                        } else {
+                            activeImg.style.float = fVal;
+                            activeImg.style.margin = fVal === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem';
+                            if (!activeImg.style.width || activeImg.style.width === '100%') {
+                                activeImg.style.width = '50%';
+                            }
+                        }
+                        activeImg.style.height = 'auto';
+                        positionToolbar();
+                    });
+                });
+
+                return imgToolbar;
+            }
+
+            function positionToolbar() {
+                if (!activeImg || !imgToolbar) return;
+                const rect = activeImg.getBoundingClientRect();
+                imgToolbar.style.display = 'flex';
+                imgToolbar.style.top = (rect.top + window.scrollY - imgToolbar.offsetHeight - 8) + 'px';
+                imgToolbar.style.left = (rect.left + window.scrollX + rect.width / 2 - imgToolbar.offsetWidth / 2) + 'px';
+            }
+
+            function showImageToolbar(img) {
+                activeImg = img;
+                img.classList.add('img-selected');
+                createImageToolbar();
+                positionToolbar();
+            }
+
+            function hideImageToolbar() {
+                if (activeImg) activeImg.classList.remove('img-selected');
+                activeImg = null;
+                if (imgToolbar) imgToolbar.style.display = 'none';
+            }
+
+            // Click on images in editor to show toolbar
+            editorRoot.addEventListener('click', (e) => {
+                if (e.target.tagName === 'IMG') {
+                    e.stopPropagation();
+                    hideImageToolbar();
+                    showImageToolbar(e.target);
+                } else {
+                    hideImageToolbar();
+                }
+            });
+
+            // Click outside editor hides toolbar
+            document.addEventListener('click', (e) => {
+                if (imgToolbar && !imgToolbar.contains(e.target) && !editorRoot.contains(e.target)) {
+                    hideImageToolbar();
+                }
+            });
+
+            // Corner drag resize
+            editorRoot.addEventListener('mousedown', (e) => {
+                if (e.target.tagName !== 'IMG') return;
+                const img = e.target;
+                const rect = img.getBoundingClientRect();
+                // Only activate resize if click is near bottom-right corner (within 16px)
+                const nearCorner = (e.clientX > rect.right - 16) && (e.clientY > rect.bottom - 16);
+                if (!nearCorner) return;
+
+                e.preventDefault();
+                const startX = e.clientX;
+                const startW = rect.width;
+                const aspectRatio = rect.width / rect.height;
+
+                function onMove(ev) {
+                    const dx = ev.clientX - startX;
+                    const newW = Math.max(60, startW + dx);
+                    img.style.width = newW + 'px';
+                    img.style.height = (newW / aspectRatio) + 'px';
+                    positionToolbar();
+                }
+                function onUp() {
+                    document.removeEventListener('mousemove', onMove);
+                    document.removeEventListener('mouseup', onUp);
+                }
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('mouseup', onUp);
             });
         }
 
