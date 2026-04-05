@@ -134,14 +134,21 @@ router.get('/admin/:id', requireAuth, requireAdmin, async (req, res) => {
  */
 router.get('/:slug', async (req, res) => {
     try {
-        const { slug } = req.params;
+        const { slug: identifier } = req.params;
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(identifier);
 
-        const { data: post, error } = await supabase
+        let query = supabase
             .from('blog_posts')
             .select('*')
-            .eq('slug', slug)
-            .eq('published', true)
-            .single();
+            .eq('published', true);
+
+        if (isUUID) {
+            query = query.eq('id', identifier);
+        } else {
+            query = query.eq('slug', identifier);
+        }
+
+        const { data: post, error } = await query.single();
 
         if (error || !post) {
             return res.status(404).json({ error: 'Post not found' });

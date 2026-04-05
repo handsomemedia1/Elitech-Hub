@@ -26,16 +26,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             : '/api';
 
         // Fetch the article
-        let post;
-        if (slug) {
-            const res = await fetch(`${API_BASE}/blog/${slug}`);
-            const data = await res.json();
-            post = data.post;
-        } else {
-            const res = await fetch(`${API_BASE}/blog`);
-            const data = await res.json();
-            post = data.posts.find(p => p.id == articleId);
-        }
+        const identifier = slug || articleId;
+        const res = await fetch(`${API_BASE}/blog/${identifier}`);
+        const data = await res.json();
+        const post = data.post;
 
         if (!post) throw new Error('Post not found');
 
