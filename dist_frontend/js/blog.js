@@ -259,10 +259,18 @@ class BlogManager {
             ? article.excerpt.substring(0, 120) + '…'
             : article.excerpt;
 
+        let thumbnailUrl = article.image || 'assets/images/logo.png';
+        let customAlt = article.title;
+        if (thumbnailUrl.includes('#alt=')) {
+            const parts = thumbnailUrl.split('#alt=');
+            thumbnailUrl = parts[0];
+            customAlt = decodeURIComponent(parts[1]) || article.title;
+        }
+
         card.innerHTML = `
             <div class="article-image">
                 <a href="${articleUrl}">
-                    <img src="${article.image}" alt="${article.title}" loading="lazy" 
+                    <img src="${thumbnailUrl}" alt="${customAlt}" loading="lazy" 
                          onerror="this.src='assets/images/logo.png'">
                 </a>
                 ${article.featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}

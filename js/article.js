@@ -144,9 +144,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         const content = post.content || post.excerpt || '';
         document.getElementById('article-body').innerHTML = content;
 
-        // Reading time (Removed)
+        // Word Count and Reading Time
+        const textContent = content.replace(/<[^>]*>?/gm, ' ').trim();
+        const words = textContent ? textContent.split(/\s+/).length : 0;
+        const readTime = Math.max(1, Math.ceil(words / 200));
+        
         const readTimeEl = document.getElementById('article-reading-time');
-        if (readTimeEl) readTimeEl.style.display = 'none';
+        if (readTimeEl) {
+            readTimeEl.style.display = 'inline-flex';
+            readTimeEl.innerHTML = `<i class="far fa-clock"></i> ${readTime} min read (${words} words)`;
+        }
 
         // Tags
         renderTags(post.tags);
@@ -162,6 +169,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Track view
         trackView(post.id, API_BASE);
+        
+        // Edit Button Logic (if Admin or Writer)
+        const adminToken = localStorage.getItem('elitech_admin_token');
+        const writerToken = localStorage.getItem('elitech_writer_token');
+        if (adminToken || writerToken) {
+            const editBtn = document.createElement('a');
+            editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit Post';
+            editBtn.className = 'btn btn-secondary';
+            editBtn.style.marginLeft = '1rem';
+            editBtn.style.padding = '0.4rem 0.75rem';
+            editBtn.style.fontSize = '0.85rem';
+            editBtn.href = adminToken ? `admin.html` : `writer.html`;
+            
+            const metaDiv = document.querySelector('.post-meta');
+            if (metaDiv) metaDiv.appendChild(editBtn);
+        }
 
     } catch (e) {
         console.error('Failed to load article:', e);
