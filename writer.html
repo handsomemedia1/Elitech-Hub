@@ -1104,7 +1104,7 @@
                                 <div class="form-group" style="padding: 0;">
                                     <label>Focus Keyphrase</label>
                                     <input type="text" id="writerSeoKeyphrase" placeholder="e.g., cybersecurity training"
-                                        oninput="writerUpdateSeoPreview()">
+                                        oninput="updateSEO(); writerUpdateSeoPreview()">
                                 </div>
                                 <div class="form-group" style="padding: 0;">
                                     <label>SEO Title <span class="char-count" id="writerSeoTitleCount">0/60</span></label>
@@ -2649,6 +2649,57 @@
                 
             } catch (err) {
                 showToast('Failed to run AI SEO Audit: ' + err.message, 'error');
+                modal.style.display = 'none';
+            }
+        }
+
+        // Check SEO using AI Endpoint (Writer Panel)
+        async function checkSEO() {
+            const title = document.getElementById('postTitle').value || document.getElementById('writerSeoTitle').value;
+            const excerpt = document.getElementById('postExcerpt').value || document.getElementById('writerMetaDescription').value;
+            const content = writerQuill ? writerQuill.root.innerHTML : '';
+            
+            const modal = document.getElementById('aiSeoModal');
+            const loading = document.getElementById('aiSeoLoading');
+            const results = document.getElementById('aiSeoResults');
+            
+            modal.style.display = 'flex';
+            loading.style.display = 'block';
+            results.style.display = 'none';
+
+            try {
+                const res = await fetch(`${API_URL}/writers/seo-check`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, content, excerpt })
+                });
+                
+                if (!res.ok) throw new Error('API Error');
+                
+                const data = await res.json();
+                
+                document.getElementById('aiScoreDisplay').textContent = data.seoScore;
+                document.getElementById('aiScoreDisplay').style.color = data.seoScore >= 70 ? '#10B981' : (data.seoScore >= 40 ? '#F59E0B' : '#EF4444');
+                
+                document.getElementById('aiPublishStatus').textContent = data.canPublish ? '✅ Meets Publishing Criteria' : '⚠️ Needs Improvement';
+                
+                const list = document.getElementById('aiFeedbackList');
+                list.innerHTML = data.feedback.map(text => `
+                    <li style="display: flex; gap: 0.75rem; background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E5E7EB; align-items: flex-start;">
+                        <i class="fas fa-lightbulb" style="color: var(--primary); margin-top: 0.15rem;"></i>
+                        <span style="font-size: 0.95rem; line-height: 1.5; color: var(--dark);">${text}</span>
+                    </li>
+                `).join('');
+                
+                loading.style.display = 'none';
+                results.style.display = 'block';
+                
+            } catch (err) {
+                console.error(err);
+                showToast('Failed to run AI SEO Audit', 'error');
                 modal.style.display = 'none';
             }
         }
