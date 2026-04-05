@@ -559,8 +559,7 @@ router.patch('/posts/:id', requireWriter, async (req, res) => {
             thumbnail,
             tags: tags || [],
             seo_score: seoScore,
-            word_count: wordCount,
-            updated_at: new Date().toISOString()
+            word_count: wordCount
         };
 
         // If the edit now meets auto-publish criteria, publish it
