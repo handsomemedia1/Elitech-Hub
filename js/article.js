@@ -132,8 +132,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Featured Image
         const imgEl = document.getElementById('article-image');
         if (post.thumbnail) {
-            imgEl.src = post.thumbnail;
-            imgEl.alt = post.title;
+            let src = post.thumbnail;
+            let alt = post.title; // Default alt
+            if (src.includes('#alt=')) {
+                const parts = src.split('#alt=');
+                src = parts[0];
+                alt = decodeURIComponent(parts[1]) || post.title;
+            }
+            imgEl.src = src;
+            imgEl.alt = alt;
             imgEl.onerror = () => { imgEl.style.display = 'none'; };
         } else {
             imgEl.style.display = 'none';
@@ -240,9 +247,7 @@ async function loadRelatedPosts(currentPost, apiBase) {
             const date = post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
             }) : '';
-            const href = post.slug
-                ? `article.html?slug=${post.slug}`
-                : `article.html?id=${post.id}`;
+            const href = `article.html?slug=${post.slug || post.id}`;
 
             return `<a href="${href}" class="related-item">
                 <div class="related-item-content">

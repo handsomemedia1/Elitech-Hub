@@ -1245,6 +1245,10 @@
                                 <button type="button" class="remove-preview" onclick="clearFeaturedImage()">×</button>
                             </div>
                         </div>
+                        <div class="form-group" id="adminAltTextGroup">
+                            <label><i class="fas fa-closed-captioning"></i> Featured Image Alt Text</label>
+                            <input type="text" id="blogImageAlt" placeholder="Briefly describe the image for SEO and screen readers" oninput="updateSEO()">
+                        </div>
 
                         <!-- Scheduling -->
                         <div class="form-group">
@@ -1298,6 +1302,31 @@
                                     <div class="gp-url">elitechhub.com/blog/<span id="gpSlug">post-slug</span></div>
                                     <div class="gp-description" id="gpDescription">Your meta description will appear
                                         here...</div>
+                                </div>
+                                <!-- Live SEO Stats -->
+                                <div style="margin-top: 2rem; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #E5E7EB;">
+                                    <h4 style="margin-bottom: 1rem; color: var(--dark); font-family: 'Space Grotesk', sans-serif;">Live SEO Metrics</h4>
+                                    
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                        <span>Overall SEO Score</span>
+                                        <strong id="seoScoreValue" style="color: #10B981;">0%</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                        <span>Keyword Density (<span id="densityScoreValue">0%</span>)</span>
+                                        <span id="densityStatus" style="color: #EF4444;"><i class="fas fa-times"></i></span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                        <span>Readability Score (Flesch: <span id="readabilityScoreValue">0</span>)</span>
+                                        <span id="readabilityStatus" style="color: #EF4444;"><i class="fas fa-times"></i></span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                        <span>Internal Links</span>
+                                        <span id="linkStatus" style="color: #EF4444;"><i class="fas fa-times"></i></span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                        <span>Featured Image Alt Text</span>
+                                        <span id="altTextStatus" style="color: #EF4444;"><i class="fas fa-times"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2208,6 +2237,86 @@
         }
 
         // Word count & reading time
+        // Live SEO Updater for Admin Panel
+        function updateSEO() {
+            if (!quillEditor) return;
+            const title = document.getElementById('blogTitle').value || document.getElementById('seoTitle').value;
+            const excerpt = document.getElementById('blogExcerpt').value || document.getElementById('metaDescription').value;
+            const content = quillEditor.root.innerHTML;
+            const text = quillEditor.getText().trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+            const focusKeyphrase = document.getElementById('seoKeyphrase').value.trim().toLowerCase();
+            const thumbnail = document.getElementById('blogThumbnail').value;
+            let score = 0;
+
+            // Score Logic (Matched with Writer Panel)
+            const titleOk = title.length >= 30 && title.length <= 60;
+            if (title.length > 0) score += 5;
+            if (titleOk) score += 20;
+
+            const excerptOk = excerpt.length >= 120 && excerpt.length <= 160;
+            if (excerpt.length > 0) score += 5;
+            if (excerptOk) score += 10;
+
+            const wordsOk = words >= 500;
+            if (words >= 300) score += 10;
+            if (wordsOk) score += 10;
+
+            if (content.includes('<h2') || content.includes('<h3')) score += 5;
+            if (content.includes('<img') || thumbnail) score += 10;
+
+            // Density Check
+            let density = 0;
+            if (focusKeyphrase && words > 0) {
+                const keywordCount = (text.toLowerCase().match(new RegExp('\\b' + focusKeyphrase + '\\b', 'g')) || []).length;
+                density = (keywordCount / words) * 100;
+            }
+            const densityOk = focusKeyphrase ? (density >= 0.5 && density <= 2.5) : false;
+            document.getElementById('densityScoreValue').textContent = focusKeyphrase ? density.toFixed(2) + '%' : 'N/A';
+            setAdminSeoStatus('densityStatus', densityOk);
+            if (densityOk) score += 10;
+
+            // Readability Check
+            let readabilityScore = 0;
+            if (words > 0) {
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length || 1;
+                const syllables = text.split(/\s+/).reduce((acc, word) => {
+                    word = word.toLowerCase().replace(/[^a-z]/g, '');
+                    if (word.length <= 3) return acc + 1;
+                    const matches = word.match(/[aeiouy]{1,2}/g);
+                    return acc + (matches ? matches.length : 1);
+                }, 0);
+                readabilityScore = 206.835 - (1.015 * (words / sentences)) - (84.6 * (syllables / words));
+            }
+            const readabilityOk = readabilityScore >= 60;
+            document.getElementById('readabilityScoreValue').textContent = words ? readabilityScore.toFixed(1) : '0';
+            setAdminSeoStatus('readabilityStatus', readabilityOk);
+            if (readabilityOk) score += 10;
+
+            // Links Check
+            const hasLink = content.includes('<a ') && (content.includes('elitech') || content.includes('href="/'));
+            setAdminSeoStatus('linkStatus', hasLink);
+            if (hasLink) score += 10;
+
+            // Alt Text Check
+            const altText = document.getElementById('blogImageAlt').value.trim();
+            const altTextOk = altText.length > 0 && thumbnail;
+            setAdminSeoStatus('altTextStatus', altTextOk);
+            if (altTextOk) score += 5;
+
+            score = Math.min(100, score);
+            document.getElementById('seoScoreValue').textContent = score + '%';
+            document.getElementById('seoScoreValue').style.color = score >= 70 ? '#10B981' : (score >= 40 ? '#F59E0B' : '#EF4444');
+        }
+
+        function setAdminSeoStatus(id, passed) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.innerHTML = passed ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+                el.style.color = passed ? '#10B981' : '#EF4444';
+            }
+        }
+
         function updateWordCount() {
             if (!quillEditor) return;
             const text = quillEditor.getText().trim();
@@ -2265,7 +2374,9 @@
         // Load blogs list
         async function loadBlogs() {
             try {
-                const res = await fetch(`${API_URL}/blog`);
+                const res = await fetch(`${API_URL}/blog`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
                 const data = await res.json();
                 const posts = data.posts || [];
                 document.getElementById('blogTable').innerHTML = posts.map(p => `
@@ -2273,8 +2384,9 @@
                         <td>${p.title}</td>
                         <td>${p.category}</td>
                         <td><span class="badge ${p.published ? 'badge-success' : 'badge-warning'}">${p.published ? 'Published' : 'Draft'}</span></td>
-                        <td>${p.published_at ? new Date(p.published_at).toLocaleDateString() : '-'}</td>
-                        <td style="display: flex; gap: 0.5rem;">
+                        <td>${p.published_at ? new Date(p.published_at).toLocaleDateString() : new Date(p.created_at).toLocaleDateString()}</td>
+                        <td style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            ${!p.published ? `<button class="btn btn-success" style="padding: 0.5rem; font-size: 0.8rem;" onclick="publishBlogPost('${p.id}')"><i class="fas fa-check"></i> Publish</button>` : ''}
                             <button class="btn btn-primary" style="padding: 0.5rem;" onclick="editBlogPost('${p.id}')"><i class="fas fa-edit"></i></button>
                             <a href="article.html?slug=${p.slug}" target="_blank" class="btn btn-secondary" style="padding: 0.5rem;"><i class="fas fa-eye"></i></a>
                             <button class="btn btn-secondary" style="padding: 0.5rem; color: #EF4444;" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
@@ -2283,6 +2395,29 @@
                 `).join('') || '<tr><td colspan="5">No posts yet</td></tr>';
             } catch (err) {
                 console.error('Blog load error:', err);
+            }
+        }
+
+        // Quick-publish a draft post from the blog table
+        async function publishBlogPost(postId) {
+            if (!confirm('Publish this post? It will become visible on the public blog.')) return;
+            try {
+                const res = await fetch(`${API_URL}/blog/${postId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ published: true, published_at: new Date().toISOString() })
+                });
+                if (res.ok) {
+                    showToast('Post published successfully!', 'success');
+                    loadBlogs();
+                } else {
+                    showToast('Failed to publish post', 'error');
+                }
+            } catch (err) {
+                showToast('Error publishing post', 'error');
             }
         }
 
@@ -2486,11 +2621,23 @@
                         });
                     }, 100);
                 }
+                
+                // Parse out alt text from thumbnail URL hack
+                let loadedThumbnail = post.thumbnail || '';
+                let loadedAlt = '';
+                if (loadedThumbnail.includes('#alt=')) {
+                    const parts = loadedThumbnail.split('#alt=');
+                    loadedThumbnail = parts[0];
+                    loadedAlt = decodeURIComponent(parts[1]);
+                }
+                document.getElementById('blogThumbnail').value = loadedThumbnail;
+                document.getElementById('blogImageAlt').value = loadedAlt;
 
                 // Show image preview
                 previewFeaturedImage();
                 updateWordCount();
                 updateSeoPreview();
+                updateSEO();
 
                 showToast('Post loaded for editing');
             } catch (err) {
@@ -2559,6 +2706,12 @@
             
             const getVal = (id) => document.getElementById(id) ? document.getElementById(id).value : '';
             const editingId = getVal('blogId');
+            
+            let thumbnail = getVal('blogThumbnail');
+            const thumbnailAlt = getVal('blogImageAlt');
+            if (thumbnail && thumbnailAlt) {
+                thumbnail = `${thumbnail}#alt=${encodeURIComponent(thumbnailAlt)}`;
+            }
 
             const blogData = {
                 title: getVal('blogTitle'),
@@ -2566,7 +2719,7 @@
                 excerpt: getVal('blogExcerpt'),
                 content: quillEditor ? quillEditor.root.innerHTML : '',
                 category: selectedCategories.join(', ') || 'Uncategorized',
-                thumbnail: getVal('blogThumbnail'),
+                thumbnail: thumbnail,
                 tags: blogTags,
                 seo_title: getVal('seoTitle'),
                 meta_description: getVal('metaDescription'),

@@ -995,7 +995,10 @@
             <!-- Editor View -->
             <div id="editorView">
                 <div class="page-header">
-                    <h1 class="page-title">Write New Post</h1>
+                    <h1 class="page-title" id="editorViewTitle">Write New Post</h1>
+                    <button class="btn btn-secondary" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">
+                        <i class="fas fa-times"></i> Cancel Edit
+                    </button>
                 </div>
 
                 <div class="editor-container">
@@ -1057,24 +1060,19 @@
                     <!-- Featured Image with Preview -->
                     <div class="form-group">
                         <label><i class="fas fa-image"></i> Featured Image</label>
-                        <div style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem;">
-                            <input type="url" id="postThumbnail" placeholder="Paste URL or upload below..." oninput="writerPreviewImg(); writerUpdateSocialPreview()" style="flex: 1;">
-                            <label class="btn btn-secondary" style="cursor: pointer; white-space: nowrap; margin: 0;">
-                                <i class="fas fa-upload"></i> Upload
-                                <input type="file" id="writerFeaturedFile" accept="image/*" style="display: none;"
-                                    onchange="writerUploadFeaturedImage(this.files[0])">
-                            </label>
+                        <input type="file" id="writerImageInput" accept="image/*" class="file-input" onchange="writerUploadFeaturedImage(this.files[0])">
+                        <div class="progress-bar" id="writerFeaturedProgress" style="display: none; margin-top: 1rem;">
+                            <div class="progress-fill" id="writerFeaturedBar" style="width: 0%"></div>
                         </div>
-                        <div id="writerFeaturedProgress" style="display: none; margin-bottom: 0.5rem;">
-                            <div style="height: 4px; background: #E5E7EB; border-radius: 2px; overflow: hidden;">
-                                <div id="writerFeaturedBar" style="height: 100%; width: 0%; background: var(--primary); transition: width 0.3s;"></div>
-                            </div>
-                            <small style="color: var(--gray);">Uploading image...</small>
+                        <input type="hidden" id="postThumbnail">
+                        <div id="writerImgPreview" style="display: none; margin-top: 1rem; position: relative; max-width: 300px;">
+                            <img id="writerImgPreviewEl" style="width: 100%; border-radius: 0.5rem;" />
+                            <button type="button" class="btn btn-secondary" style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.5rem;" onclick="writerClearImg()"><i class="fas fa-trash"></i></button>
                         </div>
-                        <div class="feat-img-preview" id="writerImgPreview" style="display: none;">
-                            <img id="writerImgPreviewEl" src="" alt="Preview">
-                            <button type="button" class="rm-img" onclick="writerClearImg()">×</button>
-                        </div>
+                    </div>
+                    <div class="form-group" id="writerAltTextGroup">
+                        <label><i class="fas fa-closed-captioning"></i> Featured Image Alt Text</label>
+                        <input type="text" id="postImageAlt" placeholder="Briefly describe the image for SEO and screen readers" oninput="updateSEO()">
                     </div>
 
                     <!-- Scheduling -->
@@ -1384,21 +1382,6 @@
             </div>
 
             <ul class="seo-criteria">
-                <li>
-                    <span class="status" id="titleStatus"><i class="fas fa-times"></i></span>
-                    <span>Title length (30-60 chars)</span>
-                </li>
-                <li>
-                    <span class="status" id="excerptStatus"><i class="fas fa-times"></i></span>
-                    <span>Meta description (120-160)</span>
-                </li>
-                <li>
-                    <span class="status" id="wordStatus"><i class="fas fa-times"></i></span>
-                    <span>Minimum 500 words</span>
-                </li>
-                <li>
-                    <span class="status" id="headingStatus"><i class="fas fa-times"></i></span>
-                    <span>Has subheadings (H2/H3)</span>
                 </li>
                 <li>
                     <span class="status" id="imageStatus"><i class="fas fa-times"></i></span>
@@ -1655,11 +1638,17 @@
                     <div class="post-item">
                         <div class="post-info">
                             <h4>${post.title}</h4>
-                            <span>SEO: ${post.seo_score}% • ${post.word_count} words • ${new Date(post.created_at).toLocaleDateString()}</span>
+                            <span>SEO: ${post.seo_score || 0}% • ${post.word_count || 0} words • ${new Date(post.created_at).toLocaleDateString()}</span>
                         </div>
-                        <span class="post-status ${post.published ? 'published' : 'draft'}">
-                            ${post.published ? 'Published' : 'Under Review'}
-                        </span>
+                        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                            <span class="post-status ${post.published ? 'published' : 'draft'}">
+                                ${post.published ? 'Published' : 'Under Review'}
+                            </span>
+                            <button class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" onclick="editWriterPost('${post.id}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            ${post.published && post.slug ? `<a href="article.html?slug=${post.slug}" target="_blank" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;"><i class="fas fa-external-link-alt"></i> View</a>` : ''}
+                        </div>
                     </div>
                 `).join('');
             } catch (err) {
@@ -1900,6 +1889,107 @@
         let writerQuill = null;
         let writerTags = [];
         let writerCategories = ['Cybersecurity', 'Scholarship', 'News', 'Tutorial', 'Research', 'Opinion', 'Case Study'];
+        let writerEditingId = null; // Track if we're editing an existing post
+
+        // Load a post into the editor for editing
+        async function editWriterPost(postId) {
+            try {
+                showToast('Loading post...');
+                const res = await fetch(`${API_URL}/writers/posts/${postId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (!res.ok || !data.post) {
+                    showToast(data.error || 'Failed to load post', 'error');
+                    return;
+                }
+
+                const post = data.post;
+                writerEditingId = post.id;
+
+                // Switch to editor view
+                switchView('editor');
+
+                // Wait for Quill to initialize
+                await new Promise(r => setTimeout(r, 100));
+
+                // Populate form fields
+                document.getElementById('postTitle').value = post.title || '';
+                document.getElementById('postSlug').value = post.slug || '';
+                document.getElementById('postExcerpt').value = post.excerpt || '';
+                
+                // Parse out alt text from thumbnail URL hack
+                let loadedThumbnail = post.thumbnail || '';
+                let loadedAlt = '';
+                if (loadedThumbnail.includes('#alt=')) {
+                    const parts = loadedThumbnail.split('#alt=');
+                    loadedThumbnail = parts[0];
+                    loadedAlt = decodeURIComponent(parts[1]);
+                }
+                document.getElementById('postThumbnail').value = loadedThumbnail;
+                document.getElementById('postImageAlt').value = loadedAlt;
+
+                if (writerQuill && post.content) {
+                    writerQuill.root.innerHTML = post.content;
+                }
+
+                // Tags
+                writerTags = post.tags || [];
+                writerRenderTags();
+
+                // Categories
+                document.querySelectorAll('input[name="writerCats"]').forEach(cb => cb.checked = false);
+                if (post.category) {
+                    post.category.split(',').map(c => c.trim()).forEach(cat => {
+                        const cb = document.querySelector(`input[name="writerCats"][value="${cat}"]`);
+                        if (cb) cb.checked = true;
+                    });
+                }
+
+                // Featured image preview
+                writerPreviewImg();
+
+                // Update editor header
+                document.getElementById('editorViewTitle').textContent = 'Edit Post';
+                document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+
+                // Update SEO
+                updateSEO();
+                writerUpdateSeoPreview();
+                writerUpdateSocialPreview();
+
+                showToast('Post loaded for editing!');
+            } catch (err) {
+                console.error('Edit post error:', err);
+                showToast('Failed to load post for editing', 'error');
+            }
+        }
+
+        // Cancel editing — reset form to new post mode
+        function cancelEdit() {
+            writerEditingId = null;
+            document.getElementById('editorViewTitle').textContent = 'Write New Post';
+            document.getElementById('cancelEditBtn').style.display = 'none';
+            // Clear form
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postSlug').value = '';
+            document.getElementById('postExcerpt').value = '';
+            document.getElementById('postThumbnail').value = '';
+            document.getElementById('writerImgPreview').style.display = 'none';
+            if (writerQuill) writerQuill.setText('');
+            writerTags = [];
+            writerRenderTags();
+            document.querySelectorAll('input[name="writerCats"]').forEach(cb => cb.checked = false);
+            ['writerSeoTitle', 'writerSeoKeyphrase', 'writerMetaDescription', 'writerOgTitle', 'writerOgDescription', 'writerOgImage'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            updateSEO();
+            writerUpdateSeoPreview();
+            writerUpdateSocialPreview();
+            showToast('Editor reset — ready for a new post.');
+        }
 
         // ========== Toast Notification System ==========
         function showToast(message, type = 'success') {
@@ -2415,15 +2505,54 @@
 
             const hasHeadings = content.includes('<h2') || content.includes('<h3');
             updateStatus('headingStatus', hasHeadings);
-            if (hasHeadings) score += 15;
+            if (hasHeadings) score += 5;
 
-            const hasImage = content.includes('<img');
+            const thumbnail = document.getElementById('postThumbnail').value;
+            const hasImage = content.includes('<img') || thumbnail;
             updateStatus('imageStatus', hasImage);
-            if (hasImage) score += 15;
+            if (hasImage) score += 10;
 
-            const hasLink = content.includes('<a ');
+            // Internal link check
+            const hasLink = content.includes('<a ') && (content.includes('elitech') || content.includes('href="/'));
             updateStatus('linkStatus', hasLink);
             if (hasLink) score += 10;
+
+            // Keyword Density check
+            const focusKeyphrase = document.getElementById('writerSeoKeyphrase').value.trim().toLowerCase();
+            let density = 0;
+            if (focusKeyphrase && words > 0) {
+                const keywordCount = (text.toLowerCase().match(new RegExp('\\b' + focusKeyphrase + '\\b', 'g')) || []).length;
+                density = (keywordCount / words) * 100;
+            }
+            const densityOk = focusKeyphrase ? (density >= 0.5 && density <= 2.5) : false;
+            document.getElementById('densityScoreValue').textContent = focusKeyphrase ? density.toFixed(2) + '%' : 'N/A';
+            document.getElementById('densityScoreValue').style.color = densityOk ? '#10B981' : '#F59E0B';
+            updateStatus('densityStatus', densityOk);
+            if (densityOk) score += 10;
+
+            // Flesch Reading Ease algorithm
+            let readabilityScore = 0;
+            if (words > 0) {
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length || 1;
+                const syllables = text.split(/\s+/).reduce((acc, word) => {
+                    word = word.toLowerCase().replace(/[^a-z]/g, '');
+                    if (word.length <= 3) return acc + 1;
+                    const matches = word.match(/[aeiouy]{1,2}/g);
+                    return acc + (matches ? matches.length : 1);
+                }, 0);
+                readabilityScore = 206.835 - (1.015 * (words / sentences)) - (84.6 * (syllables / words));
+            }
+            const readabilityOk = readabilityScore >= 60;
+            document.getElementById('readabilityScoreValue').textContent = words ? readabilityScore.toFixed(1) : '0';
+            document.getElementById('readabilityScoreValue').style.color = readabilityOk ? '#10B981' : '#F59E0B';
+            updateStatus('readabilityStatus', readabilityOk);
+            if (readabilityOk) score += 10;
+
+            // Image Alt Text Check
+            const altText = document.getElementById('postImageAlt').value.trim();
+            const altTextOk = altText.length > 0 && thumbnail;
+            updateStatus('altTextStatus', altTextOk);
+            if (altTextOk) score += 5;
 
             score = Math.min(100, score);
             document.getElementById('seoScoreValue').textContent = score + '%';
@@ -2531,7 +2660,11 @@
             const content = writerQuill ? writerQuill.root.innerHTML : '';
             const selectedCats = Array.from(document.querySelectorAll('input[name="writerCats"]:checked')).map(cb => cb.value);
             const category = selectedCats.join(', ') || 'Uncategorized';
-            const thumbnail = document.getElementById('postThumbnail').value;
+            let thumbnail = document.getElementById('postThumbnail').value;
+            const thumbnailAlt = document.getElementById('postImageAlt').value.trim();
+            if (thumbnail && thumbnailAlt) {
+                thumbnail = `${thumbnail}#alt=${encodeURIComponent(thumbnailAlt)}`;
+            }
             const isScheduled = document.querySelector('input[name="writerPubOption"][value="schedule"]')?.checked;
             const scheduledAt = isScheduled ? document.getElementById('writerScheduledAt').value : null;
 
@@ -2549,9 +2682,13 @@
                 return;
             }
 
+            const isEdit = !!writerEditingId;
+            const endpoint = isEdit ? `${API_URL}/writers/posts/${writerEditingId}` : `${API_URL}/writers/posts`;
+            const method = isEdit ? 'PATCH' : 'POST';
+
             try {
-                const res = await fetch(`${API_URL}/writers/posts`, {
-                    method: 'POST',
+                const res = await fetch(endpoint, {
+                    method,
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -2570,7 +2707,12 @@
                     return;
                 }
 
-                showToast(data.message || 'Post submitted successfully!');
+                showToast(data.message || (isEdit ? 'Post updated!' : 'Post submitted successfully!'));
+
+                // Reset editing state
+                writerEditingId = null;
+                document.getElementById('editorViewTitle').textContent = 'Write New Post';
+                document.getElementById('cancelEditBtn').style.display = 'none';
 
                 // Clear form
                 document.getElementById('postTitle').value = '';
@@ -2591,6 +2733,9 @@
                 writerUpdateSocialPreview();
                 localStorage.removeItem('elitech_writer_draft');
                 loadPosts();
+
+                // Switch to posts view after submit so they see the result
+                switchView('posts');
             } catch (err) {
                 showToast('Failed to submit post', 'error');
             }

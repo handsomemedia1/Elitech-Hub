@@ -44,7 +44,7 @@ class BlogManager {
                 container.querySelector('.trending-excerpt').textContent = post.excerpt;
 
                 const link = container.querySelector('.trending-link');
-                link.href = `article.html?id=${post.id}`;
+                link.href = `article.html?slug=${post.slug || post.id}`;
                 link.innerHTML = `Read Full Article <i class="fas fa-arrow-right"></i>`;
 
                 // Optional: Update background image or other styles if needed
@@ -252,7 +252,7 @@ class BlogManager {
         if (article.featured) card.classList.add('featured');
 
         // All articles load from Supabase API
-        const articleUrl = `article.html?id=${article.id}`;
+        const articleUrl = `article.html?slug=${article.slug || article.id}`;
 
         // Clip excerpt to ~120 chars
         const shortExcerpt = article.excerpt && article.excerpt.length > 120

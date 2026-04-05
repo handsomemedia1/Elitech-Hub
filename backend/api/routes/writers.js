@@ -481,6 +481,164 @@ router.post('/posts', requireWriter, async (req, res) => {
 });
 
 /**
+ * GET /api/writers/posts/:id - Get single post for editing (writer must own it)
+ */
+router.get('/posts/:id', requireWriter, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data: post, error } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('id', id)
+            .eq('writer_id', req.writer.id)
+            .single();
+
+        if (error || !post) {
+            return res.status(404).json({ error: 'Post not found or access denied' });
+        }
+
+        res.json({ post });
+    } catch (err) {
+        console.error('Fetch post error:', err);
+        res.status(500).json({ error: 'Failed to fetch post' });
+    }
+});
+
+/**
+ * PATCH /api/writers/posts/:id - Update writer's own post
+ */
+router.patch('/posts/:id', requireWriter, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Verify ownership
+        const { data: existingPost } = await supabase
+            .from('blog_posts')
+            .select('id, writer_id, published')
+            .eq('id', id)
+            .eq('writer_id', req.writer.id)
+            .single();
+
+        if (!existingPost) {
+            return res.status(404).json({ error: 'Post not found or access denied' });
+        }
+
+        const {
+            title, slug, excerpt, content, category, thumbnail,
+            tags, scheduled_at,
+            seo_title, meta_description, focus_keyphrase,
+            og_title, og_description, og_image
+        } = req.body;
+
+        // Content moderation
+        if (content) {
+            const moderationResult = moderateContent(content);
+            if (!moderationResult.passed) {
+                return res.status(400).json({
+                    error: 'Content failed moderation',
+                    issues: moderationResult.issues
+                });
+            }
+        }
+
+        // Recalculate SEO score
+        const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
+        const wordCount = textContent ? textContent.split(/\s+/).length : 0;
+        const seoScore = calculateSEOScore(title, content, excerpt);
+
+        // Re-evaluate auto-publish criteria (only if not already published)
+        const autoPublish = !existingPost.published && seoScore >= 70 && wordCount >= 500 && content?.includes('<img');
+
+        const updates = {
+            title,
+            slug,
+            excerpt,
+            content,
+            category: category || 'cybersecurity',
+            thumbnail,
+            tags: tags || [],
+            seo_score: seoScore,
+            word_count: wordCount,
+            updated_at: new Date().toISOString()
+        };
+
+        // If the edit now meets auto-publish criteria, publish it
+        if (autoPublish) {
+            updates.published = true;
+            updates.published_at = new Date().toISOString();
+        }
+
+        if (scheduled_at) {
+            updates.scheduled_at = scheduled_at;
+        }
+
+        const { data: updatedPost, error } = await supabase
+            .from('blog_posts')
+            .update(updates)
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) throw error;
+
+        // Update SEO metadata if provided
+        if (seo_title || meta_description || focus_keyphrase || og_title || og_description || og_image) {
+            // Upsert metadata
+            const { data: existingMeta } = await supabase
+                .from('post_seo_metadata')
+                .select('id')
+                .eq('post_id', id)
+                .maybeSingle();
+
+            if (existingMeta) {
+                await supabase
+                    .from('post_seo_metadata')
+                    .update({
+                        seo_title: seo_title || null,
+                        meta_description: meta_description || null,
+                        focus_keyphrase: focus_keyphrase || null,
+                        og_title: og_title || null,
+                        og_description: og_description || null,
+                        og_image: og_image || null
+                    })
+                    .eq('post_id', id);
+            } else {
+                await supabase
+                    .from('post_seo_metadata')
+                    .insert({
+                        post_id: id,
+                        seo_title: seo_title || null,
+                        meta_description: meta_description || null,
+                        focus_keyphrase: focus_keyphrase || null,
+                        og_title: og_title || null,
+                        og_description: og_description || null,
+                        og_image: og_image || null
+                    });
+            }
+        }
+
+        // Notify admin if auto-published after edit
+        if (autoPublish) {
+            const { sendTelegramPing } = await import('../services/telegram.js');
+            const postUrl = `https://elitechub.com/blog-posts/${updatedPost.slug}.html`;
+            await sendTelegramPing(`🚀 <b>Post Auto-Published After Edit!</b>\n\nWriter: <b>${req.writer.name}</b>\nTitle: ${title}\nSEO Score: ${seoScore}%\n<a href="${postUrl}">Read it here</a>`);
+        }
+
+        res.json({
+            message: autoPublish ? 'Post updated and published!' : 'Post updated successfully!',
+            post: updatedPost,
+            seoScore,
+            published: updatedPost.published,
+            feedback: getSEOFeedback(seoScore, wordCount, content)
+        });
+    } catch (err) {
+        console.error('Post update error:', err);
+        res.status(500).json({ error: 'Failed to update post: ' + (err.message || JSON.stringify(err)) });
+    }
+});
+
+/**
  * POST /api/writers/seo-check - Check SEO score using AI before publishing
  */
 router.post('/seo-check', requireWriter, async (req, res) => {

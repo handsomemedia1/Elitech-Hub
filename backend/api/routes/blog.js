@@ -18,33 +18,46 @@ router.get('/', async (req, res) => {
         const { category, limit = 20, offset = 0 } = req.query;
 
         // Check if the request is from an authenticated admin
-        // This requires manual token verification since this route is public
+        // Use JWT verification (same as auth middleware) since the admin panel sends custom JWTs
         let isAdmin = false;
         const authHeader = req.headers.authorization;
         if (authHeader && authHeader.startsWith('Bearer ')) {
-            const token = authHeader.split(' ')[1];
-            const { data: { user }, error } = await supabase.auth.getUser(token);
-            if (!error && user && user.user_metadata?.role === 'admin') {
-                isAdmin = true;
+            try {
+                const token = authHeader.split(' ')[1];
+                const jwt = (await import('jsonwebtoken')).default;
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                if (decoded.userId) {
+                    const { data: user } = await supabase
+                        .from('users')
+                        .select('role')
+                        .eq('id', decoded.userId)
+                        .single();
+                    if (user && user.role === 'admin') {
+                        isAdmin = true;
+                    }
+                }
+            } catch (e) {
+                // Token invalid — treat as public request
             }
         }
 
-        let query = supabase
-            .from('blog_posts')
-            .select('id, title, slug, excerpt, category, author, thumbnail, published, published_at')
-            .order('created_at', { ascending: false })
-            .range(offset, offset + limit - 1);
+        let query;
 
-        // Only filter by published=true for non-admins
-        if (!isAdmin) {
-            query = query.eq('published', true);
-            // Public should order by published date
+        if (isAdmin) {
+            // Admin sees ALL posts (published + drafts) with full metadata
+            query = supabase
+                .from('blog_posts')
+                .select('id, title, slug, excerpt, category, author, thumbnail, published, published_at, created_at')
+                .order('created_at', { ascending: false })
+                .range(offset, Number(offset) + Number(limit) - 1);
+        } else {
+            // Public only sees published posts, ordered by published date
             query = supabase
                 .from('blog_posts')
                 .select('id, title, slug, excerpt, category, author, thumbnail, published_at')
                 .eq('published', true)
                 .order('published_at', { ascending: false })
-                .range(offset, offset + limit - 1);
+                .range(offset, Number(offset) + Number(limit) - 1);
         }
 
         if (category) {
@@ -57,9 +70,11 @@ router.get('/', async (req, res) => {
 
         res.json({ posts: posts || [] });
     } catch (err) {
+        console.error('Blog fetch error:', err);
         res.status(500).json({ error: 'Failed to fetch blog posts' });
     }
 });
+
 
 /**
  * GET /api/blog/trending - Get the most read blog post (Trending)
