@@ -6,6 +6,7 @@ class ResearchManager {
         this.papers = [];
         this.filteredPapers = [];
         this.currentCategory = 'all';
+        this.searchQuery = '';
 
         this.init();
     }
@@ -19,7 +20,8 @@ class ResearchManager {
     async loadResearch() {
         try {
             // Determine API URL based on environment
-            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const API_URL = isLocal
                 ? 'https://elitech-hub.vercel.app/api/research'
                 : '/api/research';
 
@@ -47,8 +49,46 @@ class ResearchManager {
     }
 
     setupEventListeners() {
-        // You can add category filters here if you implement buttons in HTML
-        // For now, we assume basic loading
+        const filters = document.querySelectorAll('.filter-btn');
+        const searchInput = document.getElementById('researchSearch');
+
+        if (filters.length > 0) {
+            filters.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active class
+                    filters.forEach(f => f.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // Apply filter
+                    this.currentCategory = e.target.dataset.filter;
+                    this.applyFilters();
+                });
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                this.searchQuery = e.target.value.toLowerCase();
+                this.applyFilters();
+            });
+        }
+    }
+
+    applyFilters() {
+        this.filteredPapers = this.papers.filter(paper => {
+            const matchesCategory = this.currentCategory === 'all' || 
+                (paper.category && paper.category.toLowerCase().includes(this.currentCategory.replace('-', ' '))) ||
+                (paper.tags && paper.tags.includes(this.currentCategory));
+                
+            const matchesSearch = !this.searchQuery || 
+                (paper.title && paper.title.toLowerCase().includes(this.searchQuery)) ||
+                (paper.description && paper.description.toLowerCase().includes(this.searchQuery)) ||
+                (paper.category && paper.category.toLowerCase().includes(this.searchQuery));
+                
+            return matchesCategory && matchesSearch;
+        });
+        
+        this.renderResearch();
     }
 
     renderResearch() {

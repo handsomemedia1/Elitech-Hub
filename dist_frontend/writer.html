@@ -1669,7 +1669,9 @@
                 localStorage.setItem('elitech_writer_token', token);
                 // Clean URL
                 window.history.replaceState({}, document.title, window.location.pathname);
+                // (Optional) optimistic display name while we validate
                 if (oauthName) document.getElementById('writerName').textContent = decodeURIComponent(oauthName);
+                // Validate token and load writer profile before showing the panel
                 await validateWriterTokenAndBootstrap();
                 isWriterAuthFlowRunning = false;
                 return;
@@ -1718,6 +1720,7 @@
                 switchView('dashboard');
                 loadPosts();
             } catch (err) {
+                // Network hiccup: keep user on login screen with a clear message instead of flickering
                 const errEl = document.getElementById('loginError');
                 if (errEl) {
                     errEl.textContent = 'Connection issue while verifying your session. Please check your internet and try again.';
@@ -1774,6 +1777,7 @@
                 token = data.token;
                 localStorage.setItem('elitech_writer_token', token);
                 document.getElementById('loginError').classList.add('hidden');
+                // Always validate + bootstrap via /writers/me so we have a single stable path
                 await validateWriterTokenAndBootstrap();
             } catch (err) {
                 document.getElementById('loginError').textContent = 'Network error: Make sure you are connected to the internet.';

@@ -20,7 +20,8 @@ class ResearchManager {
     async loadResearch() {
         try {
             // Determine API URL based on environment
-            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const API_URL = isLocal
                 ? 'https://elitech-hub.vercel.app/api/research'
                 : '/api/research';
 
