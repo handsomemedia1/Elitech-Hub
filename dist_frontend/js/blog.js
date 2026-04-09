@@ -42,6 +42,10 @@ class BlogManager {
                 // Update DOM
                 container.querySelector('.trending-title').textContent = post.title;
                 container.querySelector('.trending-excerpt').textContent = post.excerpt;
+                const authorEl = container.querySelector('.trending-author');
+                const readsEl = container.querySelector('.trending-reads');
+                if (authorEl) authorEl.innerHTML = `<i class="far fa-user"></i> ${post.author || 'Elitech Hub'}`;
+                if (readsEl) readsEl.innerHTML = `<i class="far fa-eye"></i> ${(post.views || 0).toLocaleString()} reads`;
 
                 const link = container.querySelector('.trending-link');
                 link.href = `article.html?slug=${post.slug || post.id}`;

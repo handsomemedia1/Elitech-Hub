@@ -1388,6 +1388,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
+                                    <th>Reads</th>
                                     <th>Status</th>
                                     <th>Date</th>
                                     <th>Actions</th>
@@ -1395,7 +1396,7 @@
                             </thead>
                             <tbody id="blogTable">
                                 <tr>
-                                    <td colspan="5">Loading...</td>
+                                    <td colspan="6">Loading...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -2383,6 +2384,7 @@
                     <tr>
                         <td>${p.title}</td>
                         <td>${p.category}</td>
+                        <td>${(p.views || 0).toLocaleString()}</td>
                         <td><span class="badge ${p.published ? 'badge-success' : 'badge-warning'}">${p.published ? 'Published' : 'Draft'}</span></td>
                         <td>${p.published_at ? new Date(p.published_at).toLocaleDateString() : new Date(p.created_at).toLocaleDateString()}</td>
                         <td style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -2392,7 +2394,7 @@
                             <button class="btn btn-secondary" style="padding: 0.5rem; color: #EF4444;" onclick="deleteBlogPost('${p.id}')"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
-                `).join('') || '<tr><td colspan="5">No posts yet</td></tr>';
+                `).join('') || '<tr><td colspan="6">No posts yet</td></tr>';
             } catch (err) {
                 console.error('Blog load error:', err);
             }

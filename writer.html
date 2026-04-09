@@ -966,6 +966,50 @@
             cursor: move;
         }
 
+        /* Writer share modal */
+        .writer-share-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 10050;
+        }
+
+        .writer-share-card {
+            width: 100%;
+            max-width: 520px;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            padding: 1.25rem;
+        }
+
+        .writer-share-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .writer-share-link {
+            width: 100%;
+            padding: 0.65rem 0.8rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.6rem;
+            background: #F9FAFB;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .writer-share-link:hover {
+            border-color: #D1D5DB;
+            background: #F3F4F6;
+        }
+
     </style>
     <link rel="stylesheet" href="css/popup.css">
 </head>
@@ -1564,12 +1608,39 @@
         <span id="writerToastMessage"></span>
     </div>
 
+    <div id="writerShareModal" class="writer-share-modal" onclick="if(event.target.id==='writerShareModal') writerCloseShareModal()">
+        <div class="writer-share-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;margin:0;">Share your published post</h3>
+                <button class="btn btn-secondary" style="padding:0.35rem 0.6rem;" onclick="writerCloseShareModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p id="writerShareTitle" style="margin:0.65rem 0 0.4rem;color:var(--gray);font-size:0.9rem;"></p>
+            <input id="writerShareUrl" readonly style="width:100%;padding:0.7rem;border:1px solid #E5E7EB;border-radius:0.5rem;font-size:0.88rem;">
+            <div class="writer-share-grid">
+                <button class="writer-share-link" onclick="writerOpenShareUrl('x')"><i class="fab fa-x-twitter"></i> Share on X</button>
+                <button class="writer-share-link" onclick="writerOpenShareUrl('linkedin')"><i class="fab fa-linkedin"></i> Share on LinkedIn</button>
+                <button class="writer-share-link" onclick="writerOpenShareUrl('facebook')"><i class="fab fa-facebook"></i> Share on Facebook</button>
+                <button class="writer-share-link" onclick="writerOpenShareUrl('whatsapp')"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
+                <button class="writer-share-link" onclick="writerCopyShareLink()"><i class="fas fa-link"></i> Copy link</button>
+                <button id="writerNativeShareBtn" class="writer-share-link" onclick="writerNativeShare()"><i class="fas fa-share-alt"></i> Share...</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const API_URL = 'https://elitech-hub.vercel.app/api';
         let token = localStorage.getItem('elitech_writer_token');
+        let isWriterAuthFlowRunning = false;
+        let writerSharePayload = { url: '', title: '' };
+        let badgesCheckedThisSession = false;
 
         // Check auth on load
         async function init() {
+            if (isWriterAuthFlowRunning) return;
+            isWriterAuthFlowRunning = true;
+
             // Handle OAuth callback
             const urlParams = new URLSearchParams(window.location.search);
             const oauthToken = urlParams.get('token');
@@ -1588,6 +1659,7 @@
                 // Clean URL
                 window.history.replaceState({}, document.title, window.location.pathname);
                 showLogin();
+                isWriterAuthFlowRunning = false;
                 return;
             }
 
@@ -1597,27 +1669,48 @@
                 localStorage.setItem('elitech_writer_token', token);
                 // Clean URL
                 window.history.replaceState({}, document.title, window.location.pathname);
-                if (oauthName) {
-                    document.getElementById('writerName').textContent = decodeURIComponent(oauthName);
-                }
-                showPanel();
-                switchView('dashboard');
-                loadPosts();
+                // (Optional) optimistic display name while we validate
+                if (oauthName) document.getElementById('writerName').textContent = decodeURIComponent(oauthName);
+                // Validate token and load writer profile before showing the panel
+                await validateWriterTokenAndBootstrap();
+                isWriterAuthFlowRunning = false;
                 return;
             }
 
             if (!token) {
                 showLogin();
+                isWriterAuthFlowRunning = false;
                 return;
             }
 
-            try {
-                const res = await fetch(`${API_URL}/writers/me`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                const data = await res.json();
+            await validateWriterTokenAndBootstrap();
+            isWriterAuthFlowRunning = false;
+        }
 
-                if (!data.writer) {
+        async function fetchWithTimeout(url, options = {}, timeoutMs = 10000) {
+            const controller = new AbortController();
+            const t = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                return await fetch(url, { ...options, signal: controller.signal });
+            } finally {
+                clearTimeout(t);
+            }
+        }
+
+        async function validateWriterTokenAndBootstrap() {
+            if (!token) {
+                showLogin();
+                return;
+            }
+            try {
+                const res = await fetchWithTimeout(`${API_URL}/writers/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }, 12000);
+                const data = await res.json().catch(() => ({}));
+
+                if (!res.ok || !data.writer) {
+                    localStorage.removeItem('elitech_writer_token');
+                    token = null;
                     showLogin();
                     return;
                 }
@@ -1627,6 +1720,12 @@
                 switchView('dashboard');
                 loadPosts();
             } catch (err) {
+                // Network hiccup: keep user on login screen with a clear message instead of flickering
+                const errEl = document.getElementById('loginError');
+                if (errEl) {
+                    errEl.textContent = 'Connection issue while verifying your session. Please check your internet and try again.';
+                    errEl.classList.remove('hidden');
+                }
                 showLogin();
             }
         }
@@ -1647,13 +1746,18 @@
 
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
+            const btn = document.querySelector('#loginForm button[type="submit"]');
+            if (btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.8';
+            }
 
             try {
-                const res = await fetch(`${API_URL}/writers/login`, {
+                const res = await fetchWithTimeout(`${API_URL}/writers/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
-                });
+                }, 15000);
 
                 let data;
                 try {
@@ -1672,13 +1776,17 @@
 
                 token = data.token;
                 localStorage.setItem('elitech_writer_token', token);
-                document.getElementById('writerName').textContent = data.writer.name;
-                showPanel();
-                switchView('dashboard');
-                loadPosts();
+                document.getElementById('loginError').classList.add('hidden');
+                // Always validate + bootstrap via /writers/me so we have a single stable path
+                await validateWriterTokenAndBootstrap();
             } catch (err) {
                 document.getElementById('loginError').textContent = 'Network error: Make sure you are connected to the internet.';
                 document.getElementById('loginError').classList.remove('hidden');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                }
             }
         });
 
@@ -1752,7 +1860,12 @@
                     <div class="post-item">
                         <div class="post-info">
                             <h4>${post.title}</h4>
-                            <span>SEO: ${post.seo_score || 0}% • ${post.word_count || 0} words • ${new Date(post.created_at).toLocaleDateString()}</span>
+                            <span>
+                                SEO: ${post.seo_score || 0}% •
+                                ${(post.word_count || 0).toLocaleString()} words •
+                                ${(post.views || 0).toLocaleString()} reads •
+                                ${new Date(post.created_at).toLocaleDateString()}
+                            </span>
                         </div>
                         <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
                             <span class="post-status ${post.published ? 'published' : 'draft'}">
@@ -1761,13 +1874,71 @@
                             <button class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" onclick="editWriterPost('${post.id}')">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            ${post.published && post.slug ? `<a href="article.html?slug=${post.slug}" target="_blank" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;"><i class="fas fa-external-link-alt"></i> View</a>` : ''}
+                            ${post.published && post.slug ? `
+                                <a href="article.html?slug=${post.slug}" target="_blank" class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">
+                                    <i class="fas fa-external-link-alt"></i> View
+                                </a>
+                                <button class="btn btn-secondary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" onclick="writerSharePost('${post.slug}', ${JSON.stringify(post.title || '')})">
+                                    <i class="fas fa-share-alt"></i> Share
+                                </button>
+                            ` : ''}
                         </div>
                     </div>
                 `).join('');
             } catch (err) {
                 console.error('Failed to load posts:', err);
             }
+        }
+
+        function writerSharePost(slug, title) {
+            const shareUrl = `https://elitechub.com/blog-posts/${slug}.html`;
+            writerSharePayload = {
+                url: shareUrl,
+                title: title || 'Elitech Hub'
+            };
+            const titleEl = document.getElementById('writerShareTitle');
+            const urlEl = document.getElementById('writerShareUrl');
+            const nativeBtn = document.getElementById('writerNativeShareBtn');
+            if (titleEl) titleEl.textContent = writerSharePayload.title;
+            if (urlEl) urlEl.value = shareUrl;
+            if (nativeBtn) nativeBtn.style.display = navigator.share ? 'block' : 'none';
+            document.getElementById('writerShareModal').style.display = 'flex';
+        }
+
+        function writerCloseShareModal() {
+            const modal = document.getElementById('writerShareModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function writerOpenShareUrl(platform) {
+            const encodedUrl = encodeURIComponent(writerSharePayload.url);
+            const encodedText = encodeURIComponent(`${writerSharePayload.title} — Elitech Hub`);
+            let url = '';
+            if (platform === 'x') url = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
+            if (platform === 'linkedin') url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+            if (platform === 'facebook') url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+            if (platform === 'whatsapp') url = `https://wa.me/?text=${encodedText}%20${encodedUrl}`;
+            if (!url) return;
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
+        function writerCopyShareLink() {
+            if (!navigator.clipboard) {
+                showToast('Clipboard is not available in this browser', 'error');
+                return;
+            }
+            navigator.clipboard.writeText(writerSharePayload.url)
+                .then(() => showToast('Link copied!'))
+                .catch(() => showToast('Copy failed', 'error'));
+        }
+
+        function writerNativeShare() {
+            if (!navigator.share) return;
+            navigator.share({
+                title: writerSharePayload.title,
+                text: `${writerSharePayload.title} — Elitech Hub`,
+                url: writerSharePayload.url
+            }).catch(() => {});
         }
 
         // Load Dashboard Stats
@@ -1914,6 +2085,18 @@
         // Load Badges
         async function loadBadges() {
             try {
+                if (!badgesCheckedThisSession) {
+                    badgesCheckedThisSession = true;
+                    const checkRes = await fetch(`${API_URL}/writers/performance/check-badges`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const checkData = await checkRes.json().catch(() => ({}));
+                    if (checkRes.ok && Array.isArray(checkData.newBadges) && checkData.newBadges.length > 0) {
+                        showToast(`You earned ${checkData.newBadges.length} new badge${checkData.newBadges.length > 1 ? 's' : ''}!`);
+                    }
+                }
+
                 const res = await fetch(`${API_URL}/writers/performance/badges`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });

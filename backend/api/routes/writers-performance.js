@@ -181,13 +181,13 @@ router.get('/badges', requireWriter, async (req, res) => {
             .eq('id', req.writer.id)
             .single();
 
-        const earnedBadges = (writer?.badges || []).map(id => ({
-            ...BADGES[id],
-            earned: true
-        }));
+        const badgeIds = Array.isArray(writer?.badges) ? writer.badges : [];
+        const earnedBadges = badgeIds
+            .filter(id => BADGES[id])
+            .map(id => ({ ...BADGES[id], earned: true }));
 
         const availableBadges = Object.values(BADGES)
-            .filter(b => !writer?.badges?.includes(b.id))
+            .filter(b => !badgeIds.includes(b.id))
             .map(b => ({ ...b, earned: false }));
 
         res.json({
