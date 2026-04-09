@@ -1,6 +1,27 @@
 // article.js - Premium Blog Article Renderer
 // Handles fetching, rendering, sharing, related posts, and reading progress
 
+/**
+ * Turn post body into HTML. Writer posts use Quill HTML; imported / agent posts may use Markdown.
+ */
+function articleBodyToHtml(raw) {
+    if (raw == null || typeof raw !== 'string') return '';
+    const t = raw.trim();
+    if (!t) return '';
+    if (/<[a-z][\s\S]*>/i.test(t)) {
+        return raw;
+    }
+    if (typeof marked !== 'undefined' && typeof marked.parse === 'function') {
+        try {
+            return marked.parse(raw, { breaks: true });
+        } catch (e) {
+            console.warn('Markdown parse failed:', e);
+        }
+    }
+    const paras = raw.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+    return paras.map(p => '<p>' + p.replace(/\n/g, '<br>') + '</p>').join('');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     let articleId = params.get('id');
@@ -140,12 +161,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             imgEl.style.display = 'none';
         }
 
-        // Content
-        const content = post.content || post.excerpt || '';
-        document.getElementById('article-body').innerHTML = content;
+        // Content (HTML from editor, or Markdown from imports / JSON pipeline)
+        const rawBody = (post.content && String(post.content).trim()) || (post.excerpt && String(post.excerpt).trim()) || '';
+        document.getElementById('article-body').innerHTML = articleBodyToHtml(rawBody);
 
         // Word Count and Reading Time
-        const textContent = content.replace(/<[^>]*>?/gm, ' ').trim();
+        const textContent = rawBody.replace(/<[^>]*>?/gm, ' ').replace(/[#*_`[\]]/g, ' ').trim();
         const words = textContent ? textContent.split(/\s+/).length : 0;
         const readTime = Math.max(1, Math.ceil(words / 200));
         

@@ -73,16 +73,31 @@
             margin-bottom: 2rem;
         }
 
-        /* Layout */
+        /* Layout — minmax(0,…) prevents grid blowout on narrow laptops; columns scroll independently */
         .app-layout {
             display: grid;
-            grid-template-columns: 280px 1fr 320px;
+            grid-template-columns: minmax(0, 260px) minmax(0, 1fr) minmax(0, 300px);
+            grid-template-rows: 1fr;
             min-height: 100vh;
+            height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1100px) {
+            .app-layout {
+                grid-template-columns: minmax(0, 220px) minmax(0, 1fr) minmax(0, 260px);
+            }
+        }
+
+        @media (max-width: 768px) {
             .app-layout {
                 grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+                height: auto;
+                max-height: none;
+                min-height: 100vh;
+                overflow: visible;
             }
 
             .sidebar,
@@ -91,11 +106,69 @@
             }
         }
 
+        .page-header-editor {
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .page-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .editor-seo-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .editor-seo-chip i {
+            color: var(--success);
+        }
+
+        .writer-seo-compact {
+            display: none;
+            position: fixed;
+            top: 0.75rem;
+            right: 0.75rem;
+            z-index: 50;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.85rem;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .writer-seo-compact {
+                display: flex;
+            }
+        }
+
         /* Sidebar */
         .sidebar {
             background: var(--dark);
             color: white;
             padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow-y: auto;
         }
 
         .sidebar-brand {
@@ -152,7 +225,9 @@
         /* Main Content */
         .main-content {
             padding: 2rem;
+            min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .page-header {
@@ -292,7 +367,9 @@
             background: white;
             border-left: 1px solid #E5E7EB;
             padding: 1.5rem;
+            min-height: 0;
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .seo-header {
@@ -967,6 +1044,10 @@
 
     <!-- Writer Panel -->
     <div id="writerPanel" class="app-layout hidden">
+        <div class="writer-seo-compact" id="writerSeoCompact" title="Live SEO score">
+            <i class="fas fa-chart-line" style="color: var(--success);"></i>
+            <span id="writerSeoCompactValue">0%</span>
+        </div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -994,11 +1075,17 @@
         <main class="main-content">
             <!-- Editor View -->
             <div id="editorView">
-                <div class="page-header">
+                <div class="page-header page-header-editor">
                     <h1 class="page-title" id="editorViewTitle">Write New Post</h1>
-                    <button class="btn btn-secondary" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">
-                        <i class="fas fa-times"></i> Cancel Edit
-                    </button>
+                    <div class="page-header-actions">
+                        <div class="editor-seo-chip" id="editorSeoChip" title="Live SEO score (matches side panel)">
+                            <i class="fas fa-chart-line"></i>
+                            <span id="editorSeoChipValue">0%</span>
+                        </div>
+                        <button class="btn btn-secondary" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">
+                            <i class="fas fa-times"></i> Cancel Edit
+                        </button>
+                    </div>
                 </div>
 
                 <div class="editor-container">
@@ -1382,6 +1469,21 @@
             </div>
 
             <ul class="seo-criteria">
+                <li>
+                    <span class="status" id="titleStatus"><i class="fas fa-times"></i></span>
+                    <span>Title length (30–60 chars)</span>
+                </li>
+                <li>
+                    <span class="status" id="excerptStatus"><i class="fas fa-times"></i></span>
+                    <span>Excerpt length (120–160 chars)</span>
+                </li>
+                <li>
+                    <span class="status" id="wordStatus"><i class="fas fa-times"></i></span>
+                    <span>Word count (500+)</span>
+                </li>
+                <li>
+                    <span class="status" id="headingStatus"><i class="fas fa-times"></i></span>
+                    <span>H2 / H3 headings</span>
                 </li>
                 <li>
                     <span class="status" id="imageStatus"><i class="fas fa-times"></i></span>
@@ -1390,6 +1492,18 @@
                 <li>
                     <span class="status" id="linkStatus"><i class="fas fa-times"></i></span>
                     <span>Contains links</span>
+                </li>
+                <li>
+                    <span class="status" id="densityStatus"><i class="fas fa-times"></i></span>
+                    <span>Keyphrase density: <strong id="densityScoreValue">N/A</strong></span>
+                </li>
+                <li>
+                    <span class="status" id="readabilityStatus"><i class="fas fa-times"></i></span>
+                    <span>Readability: <strong id="readabilityScoreValue">0</strong></span>
+                </li>
+                <li>
+                    <span class="status" id="altTextStatus"><i class="fas fa-times"></i></span>
+                    <span>Featured image alt text</span>
                 </li>
             </ul>
 
@@ -2555,12 +2669,7 @@
             if (altTextOk) score += 5;
 
             score = Math.min(100, score);
-            document.getElementById('seoScoreValue').textContent = score + '%';
-
-            const circle = document.getElementById('seoCircle');
-            const offset = 339.292 - (339.292 * score / 100);
-            circle.style.strokeDashoffset = offset;
-            circle.style.stroke = score >= 70 ? '#10B981' : score >= 40 ? '#F59E0B' : '#EF4444';
+            writerSyncSeoScoreDisplay(score);
 
             const canPublish = score >= 70 && words >= 500 && hasImage;
             const requirements = document.getElementById('publishRequirements');
@@ -2574,13 +2683,28 @@
 
         function updateStatus(id, passed) {
             const el = document.getElementById(id);
+            if (!el) return;
             el.className = 'status ' + (passed ? 'pass' : 'fail');
             el.innerHTML = passed ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
         }
 
+        function writerSyncSeoScoreDisplay(score) {
+            const pct = score + '%';
+            ['seoScoreValue', 'editorSeoChipValue', 'writerSeoCompactValue'].forEach(id => {
+                const n = document.getElementById(id);
+                if (n) n.textContent = pct;
+            });
+            const circle = document.getElementById('seoCircle');
+            if (circle) {
+                const offset = 339.292 - (339.292 * score / 100);
+                circle.style.strokeDashoffset = offset;
+                circle.style.stroke = score >= 70 ? '#10B981' : (score >= 40 ? '#F59E0B' : '#EF4444');
+            }
+        }
+
         async function checkSEO() {
-            const title = document.getElementById('postTitle').value;
-            const excerpt = document.getElementById('postExcerpt').value;
+            const title = document.getElementById('postTitle').value || (document.getElementById('writerSeoTitle') && document.getElementById('writerSeoTitle').value) || '';
+            const excerpt = document.getElementById('postExcerpt').value || (document.getElementById('writerMetaDescription') && document.getElementById('writerMetaDescription').value) || '';
             const content = writerQuill ? writerQuill.root.innerHTML : '';
             
             const modal = document.getElementById('aiSeoModal');
@@ -2632,12 +2756,7 @@
                 loading.style.display = 'none';
                 results.style.display = 'block';
                 
-                // Update sidebar score visually to match AI
-                document.getElementById('seoScoreValue').textContent = data.seoScore + '%';
-                const circle = document.getElementById('seoCircle');
-                const offset = 339.292 - (339.292 * data.seoScore / 100);
-                circle.style.strokeDashoffset = offset;
-                circle.style.stroke = data.seoScore >= 70 ? '#10B981' : (data.seoScore >= 40 ? '#F59E0B' : '#EF4444');
+                writerSyncSeoScoreDisplay(data.seoScore);
                 
                 const requirements = document.getElementById('publishRequirements');
                 if (data.canPublish) {
@@ -2649,57 +2768,6 @@
                 
             } catch (err) {
                 showToast('Failed to run AI SEO Audit: ' + err.message, 'error');
-                modal.style.display = 'none';
-            }
-        }
-
-        // Check SEO using AI Endpoint (Writer Panel)
-        async function checkSEO() {
-            const title = document.getElementById('postTitle').value || document.getElementById('writerSeoTitle').value;
-            const excerpt = document.getElementById('postExcerpt').value || document.getElementById('writerMetaDescription').value;
-            const content = writerQuill ? writerQuill.root.innerHTML : '';
-            
-            const modal = document.getElementById('aiSeoModal');
-            const loading = document.getElementById('aiSeoLoading');
-            const results = document.getElementById('aiSeoResults');
-            
-            modal.style.display = 'flex';
-            loading.style.display = 'block';
-            results.style.display = 'none';
-
-            try {
-                const res = await fetch(`${API_URL}/writers/seo-check`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ title, content, excerpt })
-                });
-                
-                if (!res.ok) throw new Error('API Error');
-                
-                const data = await res.json();
-                
-                document.getElementById('aiScoreDisplay').textContent = data.seoScore;
-                document.getElementById('aiScoreDisplay').style.color = data.seoScore >= 70 ? '#10B981' : (data.seoScore >= 40 ? '#F59E0B' : '#EF4444');
-                
-                document.getElementById('aiPublishStatus').textContent = data.canPublish ? '✅ Meets Publishing Criteria' : '⚠️ Needs Improvement';
-                
-                const list = document.getElementById('aiFeedbackList');
-                list.innerHTML = data.feedback.map(text => `
-                    <li style="display: flex; gap: 0.75rem; background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E5E7EB; align-items: flex-start;">
-                        <i class="fas fa-lightbulb" style="color: var(--primary); margin-top: 0.15rem;"></i>
-                        <span style="font-size: 0.95rem; line-height: 1.5; color: var(--dark);">${text}</span>
-                    </li>
-                `).join('');
-                
-                loading.style.display = 'none';
-                results.style.display = 'block';
-                
-            } catch (err) {
-                console.error(err);
-                showToast('Failed to run AI SEO Audit', 'error');
                 modal.style.display = 'none';
             }
         }

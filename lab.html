@@ -768,7 +768,15 @@
                         `;
                             card.style.cursor = 'pointer';
                             card.addEventListener('click', () => {
-                                window.location.href = `research-paper.html?slug=${paper.slug}`;
+                                // Populate modal and show instead of immediate redirect
+                                const modal = document.getElementById('labArtifactModal');
+                                document.getElementById('modalTitle').textContent = paper.title;
+                                document.getElementById('modalDesc').textContent = paper.description || 'Published research from our cybersecurity lab.';
+                                document.getElementById('modalTag').textContent = getCategoryLabel(paper.category);
+                                document.getElementById('modalViews').textContent = (paper.views || 0).toLocaleString();
+                                document.getElementById('modalFullBtn').href = `research-paper.html?slug=${paper.slug}`;
+                                
+                                modal.classList.add('active');
                             });
                             grid.appendChild(card);
                         });
@@ -789,6 +797,81 @@
             setTimeout(() => { loader.classList.add('hidden'); }, 1500);
         });
     </script>
+    <!-- Lab Artifact Interactive Modal -->
+    <div id="labArtifactModal" class="lab-modal-overlay">
+        <div class="lab-modal">
+            <button class="lab-modal-close" onclick="document.getElementById('labArtifactModal').classList.remove('active')"><i class="fas fa-times"></i></button>
+            <div class="lab-modal-header" style="display:flex; align-items:center; gap: 1rem; margin-bottom: 2rem;">
+                <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(139, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; color: #8B5CF6; font-size: 1.5rem;">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h3 id="modalTitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin: 0; color: #1e293b;">Artifact Details</h3>
+            </div>
+            
+            <div style="margin-bottom: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 0.75rem; border: 1px solid #e2e8f0; border-left: 4px solid #06B6D4;">
+                <p id="modalDesc" style="color: #475569; line-height: 1.7; margin: 0;"></p>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                <span style="padding: 0.5rem 1rem; background: rgba(6, 182, 212, 0.1); color: #06B6D4; border-radius: 2rem; font-size: 0.85rem; font-weight: 600;"><i class="fas fa-tag"></i> <span id="modalTag">Category</span></span>
+                <span style="padding: 0.5rem 1rem; background: rgba(139, 92, 246, 0.1); color: #8B5CF6; border-radius: 2rem; font-size: 0.85rem; font-weight: 600;"><i class="fas fa-eye"></i> <span id="modalViews">0</span> Views</span>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; border-top: 1px solid #e2e8f0; padding-top: 1.5rem;">
+                <button onclick="document.getElementById('labArtifactModal').classList.remove('active')" style="padding: 0.75rem 1.5rem; background: white; border: 1px solid #cbd5e1; border-radius: 0.5rem; color: #475569; font-weight: 600; cursor: pointer; transition: all 0.3s;">Close</button>
+                <a id="modalFullBtn" href="#" style="padding: 0.75rem 1.5rem; background: #c3151c; border-radius: 0.5rem; color: white; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s;">View Full Paper <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .lab-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .lab-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .lab-modal {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .lab-modal-overlay.active .lab-modal {
+            transform: translateY(0) scale(1);
+        }
+        .lab-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lab-modal-close:hover {
+            color: #ef4444;
+        }
+    </style>
+
     <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
     <script src="js/site-settings.js"></script>

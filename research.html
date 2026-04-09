@@ -199,8 +199,53 @@
         </div>
     </section>
 
-    <section style="padding: 6rem 2rem; background: white;">
+    <section style="padding: 6rem 2rem; background: #F8FAFC;">
         <div class="container">
+            <!-- Research Filters & Search -->
+            <div style="margin-bottom: 3rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+                    <div class="research-filters" style="display: flex; gap: 0.75rem; flex-wrap: wrap;" id="researchFilters">
+                        <button class="filter-btn active" data-filter="all">All Research</button>
+                        <button class="filter-btn" data-filter="ai-agents">AI & Agents</button>
+                        <button class="filter-btn" data-filter="threat-intel">Threat Intel</button>
+                        <button class="filter-btn" data-filter="malware">Malware</button>
+                        <button class="filter-btn" data-filter="defensive">Defensive Systems</button>
+                    </div>
+                    <div style="position: relative; max-width: 400px; width: 100%;">
+                        <i class="fas fa-search" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #9ca3af;"></i>
+                        <input type="text" id="researchSearch" placeholder="Search research papers, topics, keywords..." 
+                            style="width: 100%; padding: 0.875rem 1rem 0.875rem 2.75rem; border-radius: 2rem; border: 1px solid #e2e8f0; font-family: inherit; font-size: 0.95rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s; outline: none;"
+                            onfocus="this.style.borderColor='#8B5CF6'; this.style.boxShadow='0 0 0 3px rgba(139, 92, 246, 0.2)'"
+                            onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05)'">
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .filter-btn {
+                    padding: 0.5rem 1.25rem;
+                    background: white;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 2rem;
+                    color: #475569;
+                    font-weight: 600;
+                    font-size: 0.875rem;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+                .filter-btn:hover {
+                    border-color: #cbd5e1;
+                    color: #1e293b;
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                }
+                .filter-btn.active {
+                    background: #0f172a;
+                    color: white;
+                    border-color: #0f172a;
+                }
+            </style>
+
             <div id="research-container"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
                 <!-- Research papers will be loaded dynamically here -->
