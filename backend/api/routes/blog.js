@@ -231,7 +231,7 @@ Content (HTML): ${content || 'None'}`;
             throw new Error('AI returned invalid format');
         }
 
-        const aiScore = parsedResult.seoScore || 50;
+        const aiScore = parsedResult.seoScore || (content ? Math.min(100, Math.max(0, parseInt(wordCount / 10))) : 0);
         const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
 
         let finalFeedback = parsedResult.feedback || [];
@@ -248,7 +248,7 @@ Content (HTML): ${content || 'None'}`;
     } catch (err) {
         console.error('AI SEO check failed:', err);
         res.json({
-            seoScore: 50,
+            seoScore: content ? Math.min(100, Math.max(0, parseInt(wordCount / 10))) : 0,
             wordCount,
             hasImage,
             canPublish: false,
@@ -300,12 +300,20 @@ router.patch('/:id', requireAuth, requireAdmin, async (req, res) => {
             updates.published_at = new Date().toISOString();
         }
 
-        const { error } = await supabase
+        const { data: updatedPost, error } = await supabase
             .from('blog_posts')
             .update(updates)
-            .eq('id', id);
+            .eq('id', id)
+            .select('writer_id, published')
+            .single();
 
         if (error) throw error;
+
+        // Trigger badge check if assigned to a writer
+        if (updatedPost && updatedPost.writer_id) {
+            const { checkAndAwardBadges } = await import('../services/gamification.js');
+            await checkAndAwardBadges(updatedPost.writer_id);
+        }
 
         res.json({ message: 'Post updated' });
     } catch (err) {

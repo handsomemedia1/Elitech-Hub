@@ -10,7 +10,7 @@ import supabase from '../services/supabase.js';
 import { sendOTPEmail } from '../services/email.js';
 import { aiRouter } from '../services/ai-router.js';
 import { notifySearchEngines } from '../services/seo-notify.js';
-
+import { checkAndAwardBadges } from '../services/gamification.js';
 const router = Router();
 
 // In-memory OTP store (for production, use Redis)
@@ -360,7 +360,7 @@ Content (HTML): ${content || 'None'}`;
             throw new Error('AI returned invalid format');
         }
 
-        const aiScore = parsedResult.seoScore || 50;
+        const aiScore = parsedResult.seoScore || (content ? Math.min(100, Math.max(0, parseInt(wordCount / 10))) : 0);
         const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
 
         let finalFeedback = parsedResult.feedback || [];
@@ -527,11 +527,14 @@ router.post('/posts', requireWriter, async (req, res) => {
             await sendTelegramMessageWithKeyboard(adminMessage, keyboard);
         }
 
+        const newBadges = await checkAndAwardBadges(req.writer.id);
+
         res.json({
             message: autoPublish ? 'Post published!' : 'Post submitted for Admin review!',
             post,
             seoScore,
             published: autoPublish,
+            newBadges,
             feedback: getSEOFeedback(seoScore, wordCount, content)
         });
     } catch (err) {
@@ -684,11 +687,14 @@ router.patch('/posts/:id', requireWriter, async (req, res) => {
             await sendTelegramPing(`🚀 <b>Post Auto-Published After Edit!</b>\n\nWriter: <b>${req.writer.name}</b>\nTitle: ${title}\nSEO Score: ${seoScore}%\n<a href="${postUrl}">Read it here</a>`);
         }
 
+        const newBadges = await checkAndAwardBadges(req.writer.id);
+
         res.json({
             message: autoPublish ? 'Post updated and published!' : 'Post updated successfully!',
             post: updatedPost,
             seoScore,
             published: updatedPost.published,
+            newBadges,
             feedback: getSEOFeedback(seoScore, wordCount, content)
         });
     } catch (err) {

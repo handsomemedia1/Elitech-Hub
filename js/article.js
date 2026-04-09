@@ -140,9 +140,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `<i class="far fa-calendar-alt"></i> ${dateObj.toLocaleDateString('en-US', options)}`;
         }
 
-        // Views (Removed)
+        // Views
         const viewsEl = document.getElementById('article-views');
-        if (viewsEl) viewsEl.style.display = 'none';
+        if (viewsEl) {
+            viewsEl.style.display = 'inline-block';
+            viewsEl.innerHTML = `<i class="fas fa-eye"></i> ${formatNumber(post.views || 0)} views`;
+        }
 
         // Featured Image
         const imgEl = document.getElementById('article-image');
