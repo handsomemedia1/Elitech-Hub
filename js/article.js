@@ -127,7 +127,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('article-title').textContent = post.title;
 
         // Author
-        const authorName = post.author || post.author_name || 'Elitech Hub Team';
+        const rawAuthor = post.author || post.author_name || 'Elitech Hub Team';
+        const authorName = rawAuthor === 'Admin' ? 'Elijah Adeyeye' : rawAuthor;
         document.getElementById('article-author').innerHTML = `<i class="fas fa-user-circle"></i> ${authorName}`;
         document.getElementById('author-name').textContent = authorName;
 

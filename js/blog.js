@@ -44,7 +44,8 @@ class BlogManager {
                 container.querySelector('.trending-excerpt').textContent = post.excerpt;
                 const authorEl = container.querySelector('.trending-author');
                 const readsEl = container.querySelector('.trending-reads');
-                if (authorEl) authorEl.innerHTML = `<i class="far fa-user"></i> ${post.author || 'Elitech Hub'}`;
+                const authorParam = post.author === 'Admin' ? 'Elijah Adeyeye' : (post.author || 'Elitech Hub');
+                if (authorEl) authorEl.innerHTML = `<i class="far fa-user"></i> ${authorParam}`;
                 if (readsEl) readsEl.innerHTML = `<i class="far fa-eye"></i> ${(post.views || 0).toLocaleString()} reads`;
 
                 const link = container.querySelector('.trending-link');
@@ -78,7 +79,7 @@ class BlogManager {
                     excerpt: post.excerpt,
                     content: post.content || '',
                     category: post.category,
-                    author: post.author || 'Elitech Hub',
+                    author: post.author === 'Admin' ? 'Elijah Adeyeye' : (post.author || 'Elitech Hub'),
                     date: post.published_at || post.created_at,
                     readTime: this.estimateReadingTime(post.content || ''),
                     image: post.thumbnail || 'assets/images/logo.png',
