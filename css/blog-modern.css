@@ -86,19 +86,19 @@ body {
     padding: 3rem 0;
 }
 
-/* Split Layout — now single column centered */
+/* Split Layout restored for trending visual */
 .hero-content {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
-    text-align: center;
-    gap: 2rem;
+    gap: 4rem;
 }
 
 /* ===== LEFT SIDE ===== */
 .hero-text {
-    padding-right: 0;
-    max-width: 720px;
+    padding-right: 2rem;
+    max-width: none;
+    text-align: left;
 }
 
 /* Category Badge */
@@ -207,7 +207,7 @@ body {
 .hero-cta {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1rem;
     flex-wrap: wrap;
 }
@@ -288,9 +288,9 @@ body {
     box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
 }
 
-/* ===== RIGHT SIDE - Featured Visual (HIDDEN — compact hero) ===== */
+/* ===== RIGHT SIDE - Featured Visual ===== */
 .hero-visual {
-    display: none;
+    display: block;
 }
 
 /* Large gradient card with content */
