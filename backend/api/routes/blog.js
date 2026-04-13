@@ -82,24 +82,37 @@ router.get('/', async (req, res) => {
  */
 router.get('/trending', async (req, res) => {
     try {
-        // Ideally we would query a 'post_views' table for counts in the last 7 days.
-        // For this version, we'll fetch the post with the highest total views
-        const { data: post, error } = await supabase
+        // Try to get the most-viewed post published in the last 7 days (weekly most-read)
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+        let { data: post } = await supabase
             .from('blog_posts')
             .select('*')
             .eq('published', true)
+            .gte('published_at', sevenDaysAgo.toISOString())
             .order('views', { ascending: false })
             .limit(1)
-            .single();
+            .maybeSingle();
 
-        if (error) throw error;
+        // Fallback: all-time most viewed if no posts in last 7 days
+        if (!post) {
+            const { data: fallback, error } = await supabase
+                .from('blog_posts')
+                .select('*')
+                .eq('published', true)
+                .order('views', { ascending: false })
+                .limit(1)
+                .single();
+            if (error) throw error;
+            post = fallback;
+        }
 
         if (!post) {
-            // Fallback if no posts
             return res.status(404).json({ error: 'No trending posts found' });
         }
 
-        res.json({ post });
+        res.json({ post, weeklyTrend: true });
     } catch (err) {
         console.error('Trending fetch error:', err);
         res.status(500).json({ error: 'Failed to fetch trending post' });

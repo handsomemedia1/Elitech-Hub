@@ -374,6 +374,21 @@
                 <!-- Content injected here -->
             </div>
 
+            <!-- ===== TELEGRAM CTA INLINE BANNER ===== -->
+            <div id="tg-inline-cta" style="margin: 2.5rem 0; background: linear-gradient(135deg, #0f172a 0%, #0e2a47 100%); border-radius: 1.25rem; padding: 2rem 2.5rem; display: flex; align-items: center; gap: 1.75rem; border: 1px solid rgba(0,136,204,0.25); box-shadow: 0 8px 32px rgba(0,136,204,0.12);">
+                <div style="flex-shrink:0; width:60px; height:60px; background:linear-gradient(135deg,#0088cc,#00bfff); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                    <i class="fab fa-telegram-plane" style="color:white; font-size:1.6rem;"></i>
+                </div>
+                <div style="flex:1;">
+                    <p style="margin:0 0 0.25rem; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#0088cc;">Free Community</p>
+                    <h4 style="margin:0 0 0.35rem; color:white; font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700;">Want more content like this?</h4>
+                    <p style="margin:0; color:rgba(255,255,255,0.7); font-size:0.9rem; line-height:1.5;">Join 1,000+ cybersecurity learners on our free <strong style="color:white;">Cyber Pulse Telegram</strong> — daily threat intel, scholarships &amp; career tips.</p>
+                </div>
+                <a href="https://t.me/Elitechub" target="_blank" rel="noopener noreferrer" style="flex-shrink:0; display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.5rem; background:linear-gradient(135deg,#0088cc,#00a8e8); border-radius:0.75rem; color:white; font-weight:700; font-size:0.9rem; text-decoration:none; white-space:nowrap; transition:all 0.3s; box-shadow:0 4px 15px rgba(0,136,204,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0,136,204,0.45)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(0,136,204,0.3)'">
+                    <i class="fab fa-telegram-plane"></i> Join Free
+                </a>
+            </div>
+
             <!-- Tags -->
             <div class="post-tags" id="article-tags">
                 <!-- Tags injected here -->
@@ -524,6 +539,62 @@
             </div>
         </div>
     </footer>
+
+    <!-- ===== TELEGRAM POPUP MODAL ===== -->
+    <div id="tg-popup-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:99999; align-items:center; justify-content:center; padding:1rem;">
+        <div style="background:linear-gradient(135deg,#0f172a,#0e2a47); border:1px solid rgba(0,136,204,0.3); border-radius:1.5rem; padding:2.5rem; max-width:480px; width:100%; position:relative; box-shadow:0 25px 60px rgba(0,0,0,0.5); animation:fadeInUp 0.4s ease;">
+            <button onclick="dismissTgPopup()" style="position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,0.1); border:none; border-radius:50%; width:32px; height:32px; color:rgba(255,255,255,0.7); cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;">&times;</button>
+            <div style="text-align:center; margin-bottom:1.5rem;">
+                <div style="width:72px; height:72px; background:linear-gradient(135deg,#0088cc,#00bfff); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
+                    <i class="fab fa-telegram-plane" style="color:white; font-size:2rem;"></i>
+                </div>
+                <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:800; color:white; margin:0 0 0.5rem;">Enjoying this article?</h3>
+                <p style="color:rgba(255,255,255,0.75); font-size:0.95rem; line-height:1.6; margin:0;">Get <strong style="color:white;">daily cybersecurity insights</strong>, threat alerts, scholarships &amp; career tips — completely free on our Telegram channel.</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                <a href="https://t.me/Elitechub" target="_blank" rel="noopener noreferrer" onclick="dismissTgPopup()" style="display:flex; align-items:center; justify-content:center; gap:0.5rem; padding:1rem; background:linear-gradient(135deg,#0088cc,#00a8e8); border-radius:0.75rem; color:white; font-weight:700; font-size:1rem; text-decoration:none; transition:all 0.3s; box-shadow:0 4px 20px rgba(0,136,204,0.3);">
+                    <i class="fab fa-telegram-plane" style="font-size:1.2rem;"></i> Join Cyber Pulse — It's Free
+                </a>
+                <button onclick="dismissTgPopup()" style="background:transparent; border:1px solid rgba(255,255,255,0.15); border-radius:0.75rem; padding:0.75rem; color:rgba(255,255,255,0.5); font-size:0.875rem; cursor:pointer; transition:all 0.3s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)'; this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'; this.style.color='rgba(255,255,255,0.5)'">
+                    No thanks, I'll miss out
+                </button>
+            </div>
+            <p style="text-align:center; color:rgba(255,255,255,0.35); font-size:0.75rem; margin-top:1rem; margin-bottom:0;"><i class="fas fa-lock" style="margin-right:0.25rem;"></i>No spam. Pure cybersecurity value. Leave anytime.</p>
+        </div>
+    </div>
+    <style>
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    </style>
+    <script>
+        (function() {
+            const TG_KEY = 'elitech_tg_popup_dismissed';
+            if (sessionStorage.getItem(TG_KEY)) return;
+            let popupFired = false;
+            const overlay = document.getElementById('tg-popup-overlay');
+            function showTgPopup() {
+                if (popupFired) return;
+                popupFired = true;
+                overlay.style.display = 'flex';
+            }
+            // Trigger after 45 seconds
+            const timer = setTimeout(showTgPopup, 45000);
+            // Also trigger at 60% scroll depth
+            function onScroll() {
+                const doc = document.documentElement;
+                const scrolled = window.scrollY + window.innerHeight;
+                const total = doc.scrollHeight;
+                if (scrolled / total >= 0.60) { clearTimeout(timer); showTgPopup(); window.removeEventListener('scroll', onScroll); }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+        })();
+        function dismissTgPopup() {
+            sessionStorage.setItem('elitech_tg_popup_dismissed', '1');
+            const overlay = document.getElementById('tg-popup-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity 0.3s';
+            setTimeout(() => { overlay.style.display = 'none'; overlay.style.opacity = ''; }, 300);
+        }
+    </script>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
