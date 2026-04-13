@@ -4,9 +4,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Project ID or encoded path for the public GitLab repository
-    const PROJECT_PATH = 'elitech-hub%2FLab';
-    const API_BASE = `https://gitlab.com/api/v4/projects/${PROJECT_PATH}`;
+    // Determine the secure backend API URL based on environment
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const API_URL = isLocal
+        ? 'https://elitech-hub.vercel.app/api/lab/artifacts'
+        : '/api/lab/artifacts';
 
     const grid = document.getElementById('artifactsGrid');
     if (!grid) return;
@@ -15,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchGitLabArtifacts() {
         try {
-            // First, get the repository tree (recursive) to find artifact files
-            const res = await fetch(`${API_BASE}/repository/tree?recursive=true&per_page=100`);
+            // Fetch cleanly through our secure backend proxy to keep Private Token hidden
+            const res = await fetch(API_URL);
             
             if (!res.ok) {
                 console.warn('GitLab API returned status:', res.status, '- displaying fallback cards.');

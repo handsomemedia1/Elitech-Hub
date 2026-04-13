@@ -153,4 +153,40 @@ router.get('/latest', async (req, res) => {
     }
 });
 
+/**
+ * GET /api/lab/artifacts - Securely fetch lab artifacts from Private GitLab repo
+ */
+router.get('/artifacts', async (req, res) => {
+    try {
+        const PROJECT_PATH = 'elitech-hub%2FLab';
+        const GITLAB_API_TOKEN = process.env.GITLAB_API_TOKEN;
+
+        if (!GITLAB_API_TOKEN) {
+            console.error('GITLAB_API_TOKEN is not defined in environment variables');
+            return res.status(500).json({ error: 'GitLab API token not configured on server' });
+        }
+
+        const url = `https://gitlab.com/api/v4/projects/${PROJECT_PATH}/repository/tree?recursive=true&per_page=100`;
+
+        const response = await fetch(url, {
+            headers: {
+                'PRIVATE-TOKEN': GITLAB_API_TOKEN
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`GitLab API responded with status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Return only the raw GitLab node array directly down to the frontend
+        res.json(data);
+
+    } catch (err) {
+        console.error('GitLab artifact proxy error:', err);
+        res.status(500).json({ error: 'Failed to fetch from GitLab securely' });
+    }
+});
+
 export default router;

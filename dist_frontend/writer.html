@@ -1296,16 +1296,16 @@
                     </div>
 
                     <div class="form-actions">
-                        <button class="btn btn-primary" onclick="submitPost()">
+                        <button type="button" class="btn btn-primary" onclick="submitPost()">
                             <i class="fas fa-paper-plane"></i> Submit Post
                         </button>
-                        <button class="btn btn-secondary" onclick="saveDraft()">
+                        <button type="button" class="btn btn-secondary" onclick="saveDraft()">
                             <i class="fas fa-save"></i> Save Draft
                         </button>
-                        <button class="btn btn-secondary" onclick="previewWriterPost()">
+                        <button type="button" class="btn btn-secondary" onclick="previewWriterPost()">
                             <i class="fas fa-eye"></i> Preview
                         </button>
-                        <button class="btn btn-secondary" onclick="checkSEO()" id="btnCheckSeo">
+                        <button type="button" class="btn btn-secondary" onclick="checkSEO()" id="btnCheckSeo">
                             <i class="fas fa-robot"></i> Run AI SEO Audit
                         </button>
                     </div>
@@ -1565,7 +1565,7 @@
                     <strong>Word Count:</strong> <span id="wordCount">0</span><br>
                     <strong>Reading Time:</strong> <span id="readingTime">0 min</span>
                 </p>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.75rem;" onclick="checkSEO()">
+                <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.75rem;" onclick="checkSEO()">
                     <i class="fas fa-robot"></i> Run AI SEO Audit
                 </button>
             </div>
@@ -2474,6 +2474,17 @@
                 }
             });
 
+            // Auto-save functionality
+            let autoSaveTimer;
+            writerQuill.on('text-change', function(delta, oldDelta, source) {
+                if (source === 'user') {
+                    clearTimeout(autoSaveTimer);
+                    autoSaveTimer = setTimeout(() => {
+                        saveDraft(true);
+                    }, 5000); // Auto-save 5 seconds after user stops typing
+                }
+            });
+
             // Handle drop images
             writerQuill.root.addEventListener('drop', async (e) => {
                 const files = e.dataTransfer?.files;
@@ -3039,12 +3050,13 @@
                 // Switch to posts view after submit so they see the result
                 switchView('posts');
             } catch (err) {
-                showToast('Failed to submit post', 'error');
+                console.error('Submit Post Error:', err);
+                showToast('Failed to submit post: ' + (err.message || 'Unknown error'), 'error');
             }
         }
 
         // Functional draft save via localStorage
-        function saveDraft() {
+        function saveDraft(silent = false) {
             const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : ''; };
             const draft = {
                 title: getVal('postTitle'),
@@ -3063,6 +3075,7 @@
                 savedAt: new Date().toISOString()
             };
             localStorage.setItem('elitech_writer_draft', JSON.stringify(draft));
+            if (silent === true) return;
             showToast('Draft saved! It will be restored next time you open the editor.');
         }
 
