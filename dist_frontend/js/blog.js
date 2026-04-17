@@ -277,20 +277,27 @@ class BlogManager {
                 <a href="${articleUrl}">
                     <img src="${thumbnailUrl}" alt="${customAlt}" loading="lazy" 
                          onerror="this.src='assets/images/logo.png'">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="read-time-badge"><i class="far fa-clock"></i> ${article.readTime || '3 min'} read</span>
                 </a>
                 ${article.featured ? '<span class="featured-badge"><i class="fas fa-star"></i> Featured</span>' : ''}
             </div>
             <div class="article-content">
                 <div class="article-meta">
-                    <span class="article-category">${this.getCategoryName(article.category)}</span>
-                    <span class="article-date">${this.formatDate(article.date)}</span>
+                    <span class="article-category">
+                        <i class="fas fa-hashtag"></i> ${this.getCategoryName(article.category)}
+                    </span>
+                    <span class="article-date"><i class="far fa-calendar-alt"></i> ${this.formatDate(article.date)}</span>
                 </div>
                 <h3 class="article-title">
                     <a href="${articleUrl}">${article.title}</a>
                 </h3>
                 <p class="article-excerpt">${shortExcerpt || ''}</p>
                 <div class="article-footer">
-                    <span class="article-author-name">${article.author}</span>
+                    <div class="author-info">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <span class="article-author-name">${article.author}</span>
+                    </div>
                     <a href="${articleUrl}" class="article-read-link">Read <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
