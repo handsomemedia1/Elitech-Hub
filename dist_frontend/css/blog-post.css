@@ -147,86 +147,179 @@ body {
 
 /* Content Typography */
 .post-content {
-    font-size: 1.125rem;
-    line-height: 1.85;
+    font-size: 1.15rem;
+    line-height: 1.9;
     color: #334155;
+    letter-spacing: -0.01em;
+}
+
+/* Beautiful drop cap for the first paragraph */
+.post-content > p:first-of-type::first-letter {
+    float: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 4rem;
+    line-height: 0.8;
+    padding-top: 0.2rem;
+    padding-right: 0.5rem;
+    font-weight: 800;
+    color: var(--primary);
 }
 
 .post-content h2 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.9rem;
+    font-weight: 800;
     color: var(--dark);
-    margin: 3rem 0 1.25rem;
-    padding-top: 1.5rem;
-    padding-left: 1rem;
-    border-left: 4px solid var(--primary);
+    margin: 3.5rem 0 1.5rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.post-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    border-radius: 2px;
 }
 
 .post-content h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.45rem;
     font-weight: 700;
     color: var(--dark);
-    margin: 2.5rem 0 1rem;
+    margin: 2.5rem 0 1.25rem;
+    border-left: 4px solid rgba(195, 21, 28, 0.3);
+    padding-left: 1rem;
 }
 
 .post-content p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    color: #475569;
 }
 
 .post-content ul,
 .post-content ol {
-    margin: 1.5rem 0;
-    padding-left: 1.5rem;
+    margin: 2rem 0;
+    padding-left: 1rem;
+    list-style: none;
 }
 
-.post-content li {
-    margin-bottom: 0.75rem;
+/* Custom Checkmark Bullets */
+.post-content ul li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 2.25rem;
+    color: #475569;
+}
+
+.post-content ul li::before {
+    content: '\f058'; /* FontAwesome check-circle */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-top: 0.15rem;
+}
+
+.post-content ol {
+    counter-reset: custom-counter;
+}
+
+.post-content ol li {
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 2.75rem;
+    color: #475569;
+}
+
+.post-content ol li::before {
+    counter-increment: custom-counter;
+    content: counter(custom-counter);
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    background: rgba(195, 21, 28, 0.1);
+    color: var(--primary);
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .post-content a {
     color: var(--primary);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(195, 21, 28, 0.2);
+    transition: all 0.2s;
+    font-weight: 600;
 }
 
 .post-content a:hover {
-    text-decoration: none;
+    border-bottom-color: var(--primary);
+    background: rgba(195, 21, 28, 0.05);
 }
 
 .post-content blockquote {
+    position: relative;
+    background: rgba(195, 21, 28, 0.03);
     border-left: 4px solid var(--primary);
-    background: linear-gradient(135deg, #fef2f2, var(--background));
-    padding: 1.5rem 2rem;
-    margin: 2.5rem 0;
+    padding: 2rem 2.5rem;
+    margin: 3rem 0;
     font-style: italic;
-    border-radius: 0 0.75rem 0.75rem 0;
-    font-size: 1.05rem;
-    color: #475569;
+    border-radius: 0 1rem 1rem 0;
+    font-size: 1.15rem;
+    color: var(--dark);
+    line-height: 1.8;
+}
+
+.post-content blockquote::before {
+    content: '\f10d'; /* FontAwesome quote-left */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 2.5rem;
+    opacity: 0.05;
+    color: var(--primary);
 }
 
 .post-content img {
     max-width: 100%;
-    border-radius: 0.75rem;
-    margin: 2rem 0;
+    border-radius: 1rem;
+    margin: 2.5rem 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .post-content code {
-    background: var(--background);
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.25rem;
+    background: rgba(15, 23, 42, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.35rem;
     font-family: 'Fira Code', monospace;
     font-size: 0.9em;
+    color: #e63946;
 }
 
 .post-content pre {
-    background: var(--dark);
+    background: #0f172a;
     color: #e2e8f0;
     padding: 1.5rem;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     overflow-x: auto;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .post-content pre code {
