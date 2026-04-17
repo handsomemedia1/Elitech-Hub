@@ -52,8 +52,16 @@ class BlogManager {
                 link.href = `article.html?slug=${post.slug || post.id}`;
                 link.innerHTML = `Read Full Article <i class="fas fa-arrow-right"></i>`;
 
-                // Optional: Update background image or other styles if needed
-                // container.style.backgroundImage = `url(${post.thumbnail})`; 
+                // Update background image for a gorgeous premium hero visual
+                if (post.thumbnail) {
+                    let thumbUrl = post.thumbnail;
+                    if (thumbUrl.includes('#alt=')) {
+                        thumbUrl = thumbUrl.split('#alt=')[0];
+                    }
+                    container.style.backgroundImage = `url('${thumbUrl}')`;
+                    container.style.backgroundSize = 'cover';
+                    container.style.backgroundPosition = 'center';
+                }
             }
         } catch (e) {
             console.error('Error loading trending post:', e);

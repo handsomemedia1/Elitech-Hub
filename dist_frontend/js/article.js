@@ -251,14 +251,23 @@ function setupShareLinks(title) {
     const url = encodeURIComponent(window.location.href);
     const text = encodeURIComponent(title);
 
-    document.getElementById('share-twitter').href =
-        `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-    document.getElementById('share-linkedin').href =
-        `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-    document.getElementById('share-facebook').href =
-        `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-    document.getElementById('share-whatsapp').href =
-        `https://wa.me/?text=${text}%20${url}`;
+    const shareUrls = {
+        'share-twitter': `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+        'share-linkedin': `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+        'share-facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        'share-whatsapp': `https://wa.me/?text=${text}%20${url}`
+    };
+
+    for (const [id, shareUrl] of Object.entries(shareUrls)) {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.href = '#'; // Prevent default navigation
+            btn.onclick = (e) => {
+                e.preventDefault();
+                window.open(shareUrl, 'share-dialog', 'width=600,height=400,scrollbars=yes');
+            };
+        }
+    }
 }
 
 // ===== RELATED POSTS =====

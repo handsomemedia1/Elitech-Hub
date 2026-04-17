@@ -297,117 +297,116 @@ body {
 .hero-visual .featured-visual {
     position: relative;
     height: 100%;
-    background: linear-gradient(135deg,
-            rgba(195, 21, 28, 0.05) 0%,
-            rgba(56, 189, 248, 0.05) 100%);
-    border-radius: 30px;
+    min-height: 480px;
+    background-color: var(--dark);
+    border-radius: 2rem;
     padding: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
     overflow: hidden;
-    border: 2px solid rgba(195, 21, 28, 0.1);
-    transition: all 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hero-visual .featured-visual:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 60px rgba(195, 21, 28, 0.15);
-    border-color: rgba(195, 21, 28, 0.2);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(195, 21, 28, 0.25), 0 0 0 1px rgba(195, 21, 28, 0.3);
 }
 
-/* Decorative elements */
+/* Stunning darkening gradient overlay */
 .hero-visual .featured-visual::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle,
-            rgba(195, 21, 28, 0.1) 0%,
-            transparent 70%);
-    border-radius: 50%;
-    animation: pulse 8s ease-in-out infinite;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%);
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.5s;
 }
 
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 0.6;
-    }
-
-    50% {
-        transform: scale(1.2);
-        opacity: 0.8;
-    }
+.hero-visual .featured-visual:hover::before {
+    opacity: 0.85; /* Slight brighten on hover */
 }
 
+/* Remove old decorative element to let image shine */
 .hero-visual .featured-visual::after {
-    content: '';
-    position: absolute;
-    bottom: -30%;
-    left: -30%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle,
-            rgba(56, 189, 248, 0.1) 0%,
-            transparent 70%);
-    border-radius: 50%;
-    animation: pulse 6s ease-in-out infinite reverse;
+    display: none;
 }
 
 /* Content inside visual */
 .visual-content {
     position: relative;
     z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.5s;
+}
+
+.hero-visual .featured-visual:hover .visual-content {
+    transform: translateY(-8px);
 }
 
 .visual-content .visual-tag {
     display: inline-block;
     padding: 0.5rem 1.25rem;
-    background: white;
-    color: var(--primary);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .visual-content h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    color: var(--dark);
+    color: white;
     margin-bottom: 1rem;
-    line-height: 1.3;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 .visual-content p {
-    color: var(--gray);
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+}
+
+.visual-content .trending-meta {
+    margin-bottom: 2rem !important;
+    color: white !important;
 }
 
 .visual-content .visual-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--primary);
+    gap: 0.75rem;
+    padding: 0.8rem 1.75rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
     transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(195, 21, 28, 0.4);
 }
 
 .visual-content .visual-link:hover {
-    gap: 1rem;
+    gap: 1.25rem;
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
 }
 
 .visual-content .visual-link i {
