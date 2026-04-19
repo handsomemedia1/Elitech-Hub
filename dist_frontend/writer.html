@@ -2833,8 +2833,8 @@
             updateStatus('imageStatus', hasImage);
             if (hasImage) score += 10;
 
-            // Internal link check
-            const hasLink = content.includes('<a ') && (content.includes('elitech') || content.includes('href="/'));
+            // Link check (updated to accept any valid link)
+            const hasLink = content.includes('<a ') && content.includes('href=');
             updateStatus('linkStatus', hasLink);
             if (hasLink) score += 10;
 
@@ -2842,10 +2842,13 @@
             const focusKeyphrase = document.getElementById('writerSeoKeyphrase').value.trim().toLowerCase();
             let density = 0;
             if (focusKeyphrase && words > 0) {
-                const keywordCount = (text.toLowerCase().match(new RegExp('\\b' + focusKeyphrase + '\\b', 'g')) || []).length;
+                // Escape regex characters to prevent matching errors with special chars in keywords
+                const escapedKeyword = focusKeyphrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const keywordCount = (text.toLowerCase().match(new RegExp('\\b' + escapedKeyword + '\\b', 'g')) || []).length;
                 density = (keywordCount / words) * 100;
             }
-            const densityOk = focusKeyphrase ? (density >= 0.5 && density <= 2.5) : false;
+            // Relaxed density requirements to 0.25% - 5.0% for easier matching
+            const densityOk = focusKeyphrase ? (density >= 0.25 && density <= 5.0) : false;
             document.getElementById('densityScoreValue').textContent = focusKeyphrase ? density.toFixed(2) + '%' : 'N/A';
             document.getElementById('densityScoreValue').style.color = densityOk ? '#10B981' : '#F59E0B';
             updateStatus('densityStatus', densityOk);
@@ -2863,7 +2866,8 @@
                 }, 0);
                 readabilityScore = 206.835 - (1.015 * (words / sentences)) - (84.6 * (syllables / words));
             }
-            const readabilityOk = readabilityScore >= 60;
+            // Relaxed readability requirement to >= 40 (previously 60) for easier writing
+            const readabilityOk = readabilityScore >= 40;
             document.getElementById('readabilityScoreValue').textContent = words ? readabilityScore.toFixed(1) : '0';
             document.getElementById('readabilityScoreValue').style.color = readabilityOk ? '#10B981' : '#F59E0B';
             updateStatus('readabilityStatus', readabilityOk);
