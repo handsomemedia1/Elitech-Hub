@@ -55,7 +55,6 @@ const PricingManager = {
     // Initialize
     init() {
         this.detectLocation();
-        this.setupCurrencySelector();
     },
 
     // Detect user location
@@ -162,97 +161,7 @@ const PricingManager = {
             }
         });
 
-        // Update manual selector if it exists
-        const selectBox = document.getElementById('elitech-currency-selector');
-        if (selectBox && selectBox.value !== currency) {
-            selectBox.value = currency;
-        }
-
         console.log(`Prices updated to ${currency}`);
-    },
-
-    // Inject manual currency selector widget
-    setupCurrencySelector() {
-        if (document.getElementById('elitech-currency-widget')) return;
-
-        // Create floating widget
-        const widget = document.createElement('div');
-        widget.id = 'elitech-currency-widget';
-        widget.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            background: white;
-            border-radius: 30px;
-            padding: 8px 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #e5e7eb;
-            font-family: 'Space Grotesk', sans-serif;
-            transition: all 0.3s ease;
-        `;
-
-        const sIcon = document.createElement('i');
-        sIcon.className = 'fas fa-globe';
-        sIcon.style.color = '#1b8aca';
-
-        const select = document.createElement('select');
-        select.id = 'elitech-currency-selector';
-        select.style.cssText = `
-            border: none;
-            background: transparent;
-            outline: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: #1f2937;
-            appearance: none;
-            padding-right: 15px;
-            font-size: 0.95rem;
-        `;
-
-        // Create options
-        const currencies = Object.keys(this.config.exchangeRates).sort();
-        currencies.forEach(cur => {
-            const opt = document.createElement('option');
-            opt.value = cur;
-            opt.textContent = `${this.config.currencyFlags[cur] || '🌐'} ${cur}`;
-            select.appendChild(opt);
-        });
-
-        // Set current selection
-        let current = localStorage.getItem(this.config.storageKey) || sessionStorage.getItem(this.config.storageKey) || 'NGN';
-        select.value = current;
-
-        // Down arrow icon overlay
-        const caret = document.createElement('i');
-        caret.className = 'fas fa-chevron-down';
-        caret.style.cssText = `
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-left: -20px;
-            pointer-events: none;
-        `;
-
-        select.addEventListener('change', (e) => {
-            const newCur = e.target.value;
-            // Explicitly set in localStorage to override session
-            localStorage.setItem(this.config.storageKey, newCur);
-            this.updatePrices(newCur);
-        });
-
-        widget.appendChild(sIcon);
-        widget.appendChild(select);
-        widget.appendChild(caret);
-        
-        // Slightly subtle UI - less opaque until hovered
-        widget.style.opacity = '0.9';
-        widget.addEventListener('mouseenter', () => widget.style.opacity = '1');
-        widget.addEventListener('mouseleave', () => widget.style.opacity = '0.9');
-
-        document.body.appendChild(widget);
     },
 
     getCurrentCurrency() {
