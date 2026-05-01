@@ -15,7 +15,7 @@ const router = Router();
  */
 router.get('/', async (req, res) => {
     try {
-        const { category, limit = 20, offset = 0 } = req.query;
+        const { category, limit = 200, offset = 0 } = req.query;
 
         // Check if the request is from an authenticated admin
         // Use JWT verification (same as auth middleware) since the admin panel sends custom JWTs
@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
             // Public only sees published posts, ordered by published date
             query = supabase
                 .from('blog_posts')
-                .select('id, title, slug, excerpt, category, author, thumbnail, published_at')
+                .select('id, title, slug, excerpt, category, author, thumbnail, views, published_at')
                 .eq('published', true)
                 .order('published_at', { ascending: false })
                 .range(offset, Number(offset) + Number(limit) - 1);

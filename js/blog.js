@@ -75,7 +75,7 @@ class BlogManager {
                 ? 'https://elitech-hub.vercel.app/api/blog'
                 : '/api/blog';
 
-            const response = await fetch(API_URL);
+            const response = await fetch(`${API_URL}?limit=200`);
             if (!response.ok) throw new Error('API fetch failed');
 
             const data = await response.json();
