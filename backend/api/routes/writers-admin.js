@@ -228,15 +228,23 @@ router.delete('/:id', requireAuth, requireAdmin, async (req, res) => {
     }
 });
 
-// Update writer details (e.g. Schedule)
+// Update writer details (name, email, posting days)
 router.patch('/:id', requireAuth, requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        const updates = req.body; // e.g. { posting_days: ['Mon', 'Wed'] }
+        const { name, email, postingDays, posting_days } = req.body;
 
-        // Remove sensitive fields if present
-        delete updates.password;
-        delete updates.id;
+        // Build a clean update object (snake_case for Supabase)
+        const updates = {};
+        if (name !== undefined) updates.name = name;
+        if (email !== undefined) updates.email = email;
+        // Accept either camelCase (from frontend) or snake_case
+        const days = postingDays || posting_days;
+        if (days !== undefined) updates.posting_days = days;
+
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({ error: 'No valid fields to update' });
+        }
 
         const { data: writer, error } = await supabase
             .from('writers')
@@ -247,7 +255,7 @@ router.patch('/:id', requireAuth, requireAdmin, async (req, res) => {
 
         if (error) throw error;
 
-        res.json({ message: 'Writer updated', writer });
+        res.json({ message: 'Writer updated successfully', writer });
     } catch (err) {
         console.error('Error updating writer:', err);
         res.status(500).json({ error: 'Failed to update writer' });
