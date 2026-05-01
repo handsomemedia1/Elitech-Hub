@@ -296,6 +296,7 @@ class BlogManager {
                         <i class="fas fa-hashtag"></i> ${this.getCategoryName(article.category)}
                     </span>
                     <span class="article-date"><i class="far fa-calendar-alt"></i> ${this.formatDate(article.date)}</span>
+                    <span class="article-views"><i class="fas fa-eye"></i> ${this.formatNumber(article.views)}</span>
                 </div>
                 <h3 class="article-title">
                     <a href="${articleUrl}">${article.title}</a>

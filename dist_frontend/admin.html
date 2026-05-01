@@ -1081,6 +1081,7 @@
                                     <th>Email</th>
                                     <th>Schedule</th>
                                     <th>Posts</th>
+                                    <th>Views</th>
                                     <th>Joined</th>
                                     <th>Status</th>
                                     <th>Actions</th>
@@ -2878,6 +2879,7 @@
                         <td>${writer.email}</td>
                         <td>${writer.posting_days?.join(', ') || '<span style="color:var(--gray)">—</span>'}</td>
                         <td style="text-align: center; font-weight: 600;">${writer.post_count || 0}</td>
+                        <td style="text-align: center; font-weight: 600; color: var(--primary);">${writer.total_views || 0}</td>
                         <td>${new Date(writer.created_at).toLocaleDateString()}</td>
                         <td>${statusBadge}</td>
                         <td>
@@ -2915,10 +2917,10 @@
                     </tr>`;
                 }).join('');
 
-                document.getElementById('writersList').innerHTML = html || '<tr><td colspan="7" style="text-align:center;">No writers found</td></tr>';
+                document.getElementById('writersList').innerHTML = html || '<tr><td colspan="8" style="text-align:center;">No writers found</td></tr>';
             } catch (err) {
                 console.error(err);
-                document.getElementById('writersList').innerHTML = '<tr><td colspan="7" style="text-align:center; color: red;">Failed to load writers</td></tr>';
+                document.getElementById('writersList').innerHTML = '<tr><td colspan="8" style="text-align:center; color: red;">Failed to load writers</td></tr>';
             }
         }
 
@@ -2973,7 +2975,13 @@
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ name, email, password, postingDays })
+                    body: JSON.stringify({ 
+                        name, 
+                        email, 
+                        password, 
+                        postingDays,
+                        posting_days: postingDays // Send both to be safe
+                    })
                 });
 
                 if (res.ok) {
