@@ -373,20 +373,27 @@ router.post('/track-view', async (req, res) => {
             query = query.eq('slug', postSlug);
         }
 
-        const { data: post } = await query.select('id, views').single();
+        const { data: post, error: fetchError } = await query.select('id, views').single();
+        if (fetchError) {
+            console.error('[track-view] Find post error:', fetchError);
+        }
 
         if (post) {
             // Increment view count
-            await supabase
+            const { error: updateError } = await supabase
                 .from('blog_posts')
                 .update({ views: (post.views || 0) + 1 })
                 .eq('id', post.id);
+            
+            if (updateError) {
+                console.error('[track-view] Update post error:', updateError);
+            }
         }
 
         res.json({ success: true });
     } catch (err) {
-        // Silent fail for tracking
-        res.json({ success: false });
+        console.error('[track-view] Catch error:', err);
+        res.status(500).json({ success: false, error: err.message });
     }
 });
 

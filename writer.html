@@ -2835,20 +2835,29 @@
 
             // Link check (updated to accept any valid link)
             const hasLink = content.includes('<a ') && content.includes('href=');
-            updateStatus('linkStatus', hasLink);
+            updateStatus('linkStatus', hasLink, true);
             if (hasLink) score += 10;
 
             // Keyword Density check
             const focusKeyphrase = document.getElementById('writerSeoKeyphrase').value.trim().toLowerCase();
             let density = 0;
             if (focusKeyphrase && words > 0) {
-                // Escape regex characters to prevent matching errors with special chars in keywords
-                const escapedKeyword = focusKeyphrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const keywordCount = (text.toLowerCase().match(new RegExp('\\b' + escapedKeyword + '\\b', 'g')) || []).length;
+                // Remove punctuation from text to match phrases more easily
+                const cleanText = text.toLowerCase().replace(/[^\w\s]/g, '');
+                const cleanKeyword = focusKeyphrase.replace(/[^\w\s]/g, '');
+                
+                let keywordCount = 0;
+                if (cleanKeyword.length > 0) {
+                    let pos = cleanText.indexOf(cleanKeyword);
+                    while (pos !== -1) {
+                        keywordCount++;
+                        pos = cleanText.indexOf(cleanKeyword, pos + cleanKeyword.length);
+                    }
+                }
                 density = (keywordCount / words) * 100;
             }
-            // Relaxed density requirements to 0.25% - 5.0% for easier matching
-            const densityOk = focusKeyphrase ? (density >= 0.25 && density <= 5.0) : false;
+            // Relaxed density requirements to 0.2% - 5.0% for easier matching
+            const densityOk = focusKeyphrase ? (density >= 0.2 && density <= 5.0) : false;
             document.getElementById('densityScoreValue').textContent = focusKeyphrase ? density.toFixed(2) + '%' : 'N/A';
             document.getElementById('densityScoreValue').style.color = densityOk ? '#10B981' : '#F59E0B';
             updateStatus('densityStatus', densityOk);
@@ -2866,8 +2875,8 @@
                 }, 0);
                 readabilityScore = 206.835 - (1.015 * (words / sentences)) - (84.6 * (syllables / words));
             }
-            // Relaxed readability requirement to >= 40 (previously 60) for easier writing
-            const readabilityOk = readabilityScore >= 40;
+            // Relaxed readability requirement to >= 30 (previously 40) for easier writing
+            const readabilityOk = readabilityScore >= 30;
             document.getElementById('readabilityScoreValue').textContent = words ? readabilityScore.toFixed(1) : '0';
             document.getElementById('readabilityScoreValue').style.color = readabilityOk ? '#10B981' : '#F59E0B';
             updateStatus('readabilityStatus', readabilityOk);
@@ -2892,11 +2901,22 @@
             }
         }
 
-        function updateStatus(id, passed) {
+        function updateStatus(id, passed, isWarningOnly = false) {
             const el = document.getElementById(id);
             if (!el) return;
-            el.className = 'status ' + (passed ? 'pass' : 'fail');
-            el.innerHTML = passed ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>';
+            if (passed) {
+                el.className = 'status pass';
+                el.innerHTML = '<i class="fas fa-check"></i>';
+                el.style.background = '';
+            } else if (isWarningOnly) {
+                el.className = 'status warn';
+                el.innerHTML = '<i class="fas fa-info-circle" style="color: #3B82F6;"></i>';
+                el.style.background = 'rgba(59, 130, 246, 0.1)';
+            } else {
+                el.className = 'status fail';
+                el.innerHTML = '<i class="fas fa-times"></i>';
+                el.style.background = '';
+            }
         }
 
         function writerSyncSeoScoreDisplay(score) {

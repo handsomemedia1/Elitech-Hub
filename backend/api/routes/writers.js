@@ -420,7 +420,7 @@ router.post('/posts', requireWriter, async (req, res) => {
         // Calculate SEO score
         const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
         const wordCount = textContent ? textContent.split(/\s+/).length : 0;
-        const seoScore = calculateSEOScore(title, content, excerpt);
+        const seoScore = calculateSEOScore(title, content, excerpt, focus_keyphrase);
 
         // Check content moderation
         const moderationResult = moderateContent(content);
@@ -608,7 +608,7 @@ router.patch('/posts/:id', requireWriter, async (req, res) => {
         // Recalculate SEO score
         const textContent = content ? content.replace(/<[^>]*>?/gm, ' ').trim() : '';
         const wordCount = textContent ? textContent.split(/\s+/).length : 0;
-        const seoScore = calculateSEOScore(title, content, excerpt);
+        const seoScore = calculateSEOScore(title, content, excerpt, focus_keyphrase);
 
         // Re-evaluate auto-publish criteria (only if not already published)
         const autoPublish = !existingPost.published && seoScore >= 70 && wordCount >= 500 && content?.includes('<img');
@@ -738,7 +738,7 @@ Content (Text Only): ${textContent || 'None'}`;
             throw new Error('AI returned invalid format');
         }
 
-        const aiScore = calculateSEOScore(title, content, excerpt);
+        const aiScore = calculateSEOScore(title, content, excerpt, req.body.focus_keyphrase);
         const autoPublish = aiScore >= 70 && wordCount >= 500 && hasImage;
 
         let finalFeedback = parsedResult.feedback || [];
@@ -754,7 +754,7 @@ Content (Text Only): ${textContent || 'None'}`;
         });
     } catch (err) {
         console.error('AI SEO check failed, falling back to basic checks:', err);
-        const seoScore = calculateSEOScore(title, content, excerpt);
+        const seoScore = calculateSEOScore(title, content, excerpt, req.body.focus_keyphrase);
         res.json({
             seoScore,
             wordCount,
@@ -766,7 +766,7 @@ Content (Text Only): ${textContent || 'None'}`;
 });
 
 // Helper: Calculate SEO Score
-function calculateSEOScore(title, content, excerpt) {
+function calculateSEOScore(title, content, excerpt, focus_keyphrase = '') {
     let score = 0;
     
     // Strip HTML for accurate word count
@@ -789,9 +789,45 @@ function calculateSEOScore(title, content, excerpt) {
     if (content) {
         if (wordCount >= 300) score += 10;
         if (wordCount >= 500) score += 10;
-        if (content.includes('<h2') || content.includes('<h3')) score += 15;
-        if (content.includes('<img')) score += 15;
-        if (content.includes('<a ')) score += 10;
+        if (content.includes('<h2') || content.includes('<h3')) score += 5;
+        if (content.includes('<img')) score += 10;
+        
+        const hasLink = content.includes('<a ') && content.includes('href=');
+        if (hasLink) score += 10;
+        
+        // Keyword Density check
+        focus_keyphrase = (focus_keyphrase || '').trim().toLowerCase();
+        let density = 0;
+        if (focus_keyphrase && wordCount > 0) {
+            const cleanText = textContent.toLowerCase().replace(/[^\w\s]/g, '');
+            const cleanKeyword = focus_keyphrase.replace(/[^\w\s]/g, '');
+            let keywordCount = 0;
+            if (cleanKeyword.length > 0) {
+                let pos = cleanText.indexOf(cleanKeyword);
+                while (pos !== -1) {
+                    keywordCount++;
+                    pos = cleanText.indexOf(cleanKeyword, pos + cleanKeyword.length);
+                }
+            }
+            density = (keywordCount / wordCount) * 100;
+        }
+        const densityOk = focus_keyphrase ? (density >= 0.2 && density <= 5.0) : false;
+        if (densityOk) score += 10;
+        
+        // Flesch Reading Ease
+        let readabilityScore = 0;
+        if (wordCount > 0) {
+            const sentences = textContent.split(/[.!?]+/).filter(s => s.trim().length > 0).length || 1;
+            const syllables = textContent.split(/\s+/).reduce((acc, word) => {
+                word = word.toLowerCase().replace(/[^a-z]/g, '');
+                if (word.length <= 3) return acc + 1;
+                const matches = word.match(/[aeiouy]{1,2}/g);
+                return acc + (matches ? matches.length : 1);
+            }, 0);
+            readabilityScore = 206.835 - (1.015 * (wordCount / sentences)) - (84.6 * (syllables / wordCount));
+        }
+        const readabilityOk = readabilityScore >= 30;
+        if (readabilityOk) score += 10;
     }
 
     return Math.min(100, score);
