@@ -27,18 +27,27 @@ router.get('/', requireAuth, requireAdmin, async (req, res) => {
             throw error;
         }
 
-        // Fetch post counts for each writer
-        const writersWithCounts = await Promise.all(
+        // Fetch post counts and total views for each writer
+        const writersWithStats = await Promise.all(
             (writers || []).map(async (writer) => {
-                const { count } = await supabase
+                const { data: posts } = await supabase
                     .from('blog_posts')
-                    .select('id', { count: 'exact', head: true })
+                    .select('views')
                     .eq('writer_id', writer.id);
-                return { ...writer, banned: writer.banned || false, post_count: count || 0 };
+                
+                const postCount = posts ? posts.length : 0;
+                const totalViews = posts ? posts.reduce((sum, p) => sum + (p.views || 0), 0) : 0;
+                
+                return { 
+                    ...writer, 
+                    banned: writer.banned || false, 
+                    post_count: postCount,
+                    total_views: totalViews
+                };
             })
         );
 
-        res.json({ writers: writersWithCounts });
+        res.json({ writers: writersWithStats });
     } catch (err) {
         console.error('Error fetching writers:', err);
         res.status(500).json({ error: 'Failed to fetch writers' });
