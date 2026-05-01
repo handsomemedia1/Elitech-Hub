@@ -7,7 +7,7 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import supabase from '../services/supabase.js';
-import { sendOTPEmail } from '../services/email.js';
+import { sendOTPEmail, sendReminderEmail, sendMissedPostEmail } from '../services/email.js';
 import { aiRouter } from '../services/ai-router.js';
 import { notifySearchEngines } from '../services/seo-notify.js';
 import { checkAndAwardBadges } from '../services/gamification.js';
@@ -971,7 +971,7 @@ router.post('/cron/check-missed-posts', async (req, res) => {
         // 1. Find all active writers who were scheduled to post yesterday
         const { data: scheduledWriters, error: wError } = await supabase
             .from('writers')
-            .select('id, name, posting_days')
+            .select('id, name, email, posting_days')
             .eq('active', true);
             
         if (wError) throw wError;
@@ -1014,13 +1014,23 @@ router.post('/cron/check-missed-posts', async (req, res) => {
             }
         }
 
-        // 4. Ping Admin on Telegram if there are missed posts
+        // 4. Ping Admin on Telegram and email writers if there are missed posts
         if (missedWriters.length > 0) {
             const names = missedWriters.map(w => w.name).join(', ');
             const message = `⚠️ <b>Missed Posts Alert</b>\n\nThe following writers failed to submit a post on their scheduled day (${yesterdayDayName}):\n\n• ${names}\n\n<i>Their dashboards have been updated to request an explanation.</i>`;
             
             const { sendTelegramPing } = await import('../services/telegram.js');
             await sendTelegramPing(message);
+            
+            for (const writer of missedWriters) {
+                if (writer.email) {
+                    try {
+                        await sendMissedPostEmail(writer.email, writer.name, yesterdayDayName);
+                    } catch (err) {
+                        console.error(`Failed to email ${writer.email}:`, err);
+                    }
+                }
+            }
         }
 
         res.json({ 
@@ -1033,6 +1043,53 @@ router.post('/cron/check-missed-posts', async (req, res) => {
     } catch (err) {
         console.error('Check missed posts cron error:', err);
         res.status(500).json({ error: 'Failed to run full check' });
+    }
+});
+
+/**
+ * POST /api/admin/cron/remind-writers
+ * Daily cron job to remind writers who are scheduled to post today
+ * Security: Called by Vercel Cron or Admin only
+ */
+router.post('/cron/remind-writers', async (req, res) => {
+    const authHeader = req.headers.authorization;
+    if (authHeader !== `Bearer ${process.env.CRON_SECRET}` && req.body.secret !== process.env.CRON_SECRET) {
+        if (process.env.CRON_SECRET) {
+            return res.status(401).json({ error: 'Unauthorized cron request' });
+        }
+    }
+
+    try {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const todayDayName = days[new Date().getDay()];
+        
+        const { data: writers, error } = await supabase
+            .from('writers')
+            .select('id, name, email, posting_days')
+            .eq('active', true);
+            
+        if (error) throw error;
+
+        const writersToRemind = writers.filter(w => 
+            w.posting_days && w.posting_days.includes(todayDayName)
+        );
+
+        let sentCount = 0;
+        for (const writer of writersToRemind) {
+            if (writer.email) {
+                try {
+                    await sendReminderEmail(writer.email, writer.name, todayDayName);
+                    sentCount++;
+                } catch (err) {
+                    console.error(`Failed to send reminder to ${writer.email}:`, err);
+                }
+            }
+        }
+
+        res.json({ message: 'Reminders sent', targetCount: writersToRemind.length, sentCount });
+    } catch (err) {
+        console.error('Remind writers cron error:', err);
+        res.status(500).json({ error: 'Failed to run reminders' });
     }
 });
 

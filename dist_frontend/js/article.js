@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const API_BASE = window.location.hostname === 'localhost'
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'https://elitech-hub.vercel.app/api'
             : '/api';
 
@@ -341,14 +341,18 @@ async function trackView(postId, apiBase) {
     if (sessionStorage.getItem(sessionKey)) return;
 
     try {
-        await fetch(`${apiBase}/blog/track-view`, {
+        const res = await fetch(`${apiBase}/blog/track-view`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postId })
         });
-        sessionStorage.setItem(sessionKey, 'true');
+        if (!res.ok) {
+            console.error('View tracking API failed:', await res.text());
+        } else {
+            sessionStorage.setItem(sessionKey, 'true');
+        }
     } catch (e) {
-        // Silent fail — view tracking is non-critical
+        console.error('View tracking fetch error:', e);
     }
 }
 

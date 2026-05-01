@@ -8,7 +8,7 @@ import cron from 'node-cron';
 import supabase from './supabase.js';
 import { sendReminderEmail, sendMissedPostEmail } from './email.js';
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 /**
  * Get today's day name
