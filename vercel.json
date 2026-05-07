@@ -23,12 +23,12 @@
     "redirects": [
         {
             "source": "/",
-            "destination": "https://elitechhub.com",
+            "destination": "https://elitechub.com",
             "permanent": true
         },
         {
             "source": "/((?!api).*)",
-            "destination": "https://elitechhub.com/$1",
+            "destination": "https://elitechub.com/$1",
             "permanent": true
         }
     ],

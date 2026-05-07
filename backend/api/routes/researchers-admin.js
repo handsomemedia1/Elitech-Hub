@@ -46,8 +46,8 @@ router.post('/', requireAuth, requireAdmin, async (req, res) => {
         const emailDomain = email.toLowerCase().split('@')[1];
         const isAcademic = academicDomains.some(d => email.toLowerCase().endsWith(d));
 
-        // Also allow specific approved domains if needed (e.g., elitechhub.com)
-        const allowedDomains = ['elitechhub.com', 'elitechhub.com.ng'];
+        // Also allow specific approved domains if needed (e.g., elitechub.com)
+        const allowedDomains = ['elitechub.com', 'elitechub.com.ng'];
         const isAllowed = isAcademic || allowedDomains.includes(emailDomain);
 
         if (!isAllowed) {

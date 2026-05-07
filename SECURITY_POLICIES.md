@@ -168,9 +168,9 @@
 ### Contact Information
 | Role | Contact |
 |------|---------|
-| Security Lead | security@elitechhub.com |
-| Technical Lead | tech@elitechhub.com |
-| Escalation | management@elitechhub.com |
+| Security Lead | security@elitechub.com |
+| Technical Lead | tech@elitechub.com |
+| Escalation | management@elitechub.com |
 
 ---
 

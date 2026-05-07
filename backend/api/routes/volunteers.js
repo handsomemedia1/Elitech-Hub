@@ -104,7 +104,7 @@ router.post('/apply', async (req, res) => {
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                         <p style="color: #9ca3af; font-size: 12px; text-align: center;">
                             Elitech Hub - Cybersecurity Education Platform<br>
-                            <a href="https://elitechhub.com" style="color: #c3151c;">elitechhub.com</a>
+                            <a href="https://elitechub.com" style="color: #c3151c;">elitechub.com</a>
                         </p>
                     </div>
                 `
@@ -150,7 +150,7 @@ router.post('/apply', async (req, res) => {
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                         
                         <p style="text-align: center;">
-                            <a href="https://elitechhub.com/admin.html" style="background: #c3151c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                            <a href="https://elitechub.com/admin.html" style="background: #c3151c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
                                 View in Admin Panel
                             </a>
                         </p>

@@ -208,7 +208,7 @@ Contact us for enterprise solutions: +234 708 196 8062
    - PCI DSS readiness
    - Security audit preparation
 
-Contact for pricing: info@elitechhub.com or +234 708 196 8062
+Contact for pricing: info@elitechub.com or +234 708 196 8062
 
 ═══════════════════════════════════════════════════
 🏆 WHY CHOOSE ELITECH HUB OVER COMPETITORS?
@@ -371,15 +371,15 @@ A: Not at all! Cybersecurity needs diverse perspectives:
 WhatsApp: +234 708 196 8062 (fastest response - available 9 AM - 9 PM WAT)
 
 **Email:**
-info@elitechhub.com
+info@elitechub.com
 
 **Website:**
-https://elitechhub.com
+https://elitechub.com
 
 **Social Media:**
 - LinkedIn: Elitech Hub
 - Twitter: @ElitechHub
-- Instagram: @elitechhub
+- Instagram: @elitechub
 
 **Location:**
 Nigeria (online training available worldwide)

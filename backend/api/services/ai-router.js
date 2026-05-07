@@ -288,7 +288,7 @@ export class AIRouter {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
-                'HTTP-Referer': 'https://elitechhub.com',
+                'HTTP-Referer': 'https://elitechub.com',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({

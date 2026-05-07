@@ -163,7 +163,7 @@ For **Elitech Hub**, I recommend:
 After deploying to Netlify:
 1. Go to Site settings → Domain management
 2. Click "Add custom domain"
-3. Add your domain (e.g., `elitechhub.com`)
+3. Add your domain (e.g., `elitechub.com`)
 4. Update your DNS records:
    - Add A record: `75.2.60.5`
    - Or CNAME: `yoursite.netlify.app`

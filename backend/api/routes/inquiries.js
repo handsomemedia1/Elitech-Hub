@@ -10,7 +10,7 @@ import { mailer as resend } from '../services/mailer.js';
 const router = Router();
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Elijah@elitechub.com';
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechhub.com>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Elitech Hub <elijah@elitechub.com>';
 
 /**
  * POST /api/inquiries/partner - Partner inquiry form
@@ -55,7 +55,7 @@ router.post('/partner', async (req, res) => {
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                         <p style="color: #9ca3af; font-size: 12px; text-align: center;">
                             Elitech Hub - Cybersecurity Education Platform<br>
-                            <a href="https://elitechhub.com" style="color: #c3151c;">elitechhub.com</a>
+                            <a href="https://elitechub.com" style="color: #c3151c;">elitechub.com</a>
                         </p>
                     </div>
                 `
@@ -155,7 +155,7 @@ router.post('/host', async (req, res) => {
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                         <p style="color: #9ca3af; font-size: 12px; text-align: center;">
                             Elitech Hub - Cybersecurity Education Platform<br>
-                            <a href="https://elitechhub.com" style="color: #c3151c;">elitechhub.com</a>
+                            <a href="https://elitechub.com" style="color: #c3151c;">elitechub.com</a>
                         </p>
                     </div>
                 `
@@ -249,7 +249,7 @@ router.post('/sponsor', async (req, res) => {
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
                         <p style="color: #9ca3af; font-size: 12px; text-align: center;">
                             Elitech Hub - Cybersecurity Education Platform<br>
-                            <a href="https://elitechhub.com" style="color: #c3151c;">elitechhub.com</a>
+                            <a href="https://elitechub.com" style="color: #c3151c;">elitechub.com</a>
                         </p>
                     </div>
                 `
@@ -356,13 +356,13 @@ router.post('/student', async (req, res) => {
                         </div>
                         
                         <div style="margin-top: 25px; padding: 20px; background: #e6fffa; border-radius: 10px; border-left: 4px solid #10B981;">
-                            <p style="margin: 0; color: #065f46;"><strong>💡 Pro Tip:</strong> While waiting, check out our <a href="https://elitechhub.com/blog" style="color: #c3151c;">blog</a> for free cybersecurity resources!</p>
+                            <p style="margin: 0; color: #065f46;"><strong>💡 Pro Tip:</strong> While waiting, check out our <a href="https://elitechub.com/blog" style="color: #c3151c;">blog</a> for free cybersecurity resources!</p>
                         </div>
                         
                         <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
                         <p style="color: #9ca3af; font-size: 12px; text-align: center;">
                             Elitech Hub - Nigeria's #1 Cybersecurity Training Platform<br>
-                            <a href="https://elitechhub.com" style="color: #c3151c;">elitechhub.com</a>
+                            <a href="https://elitechub.com" style="color: #c3151c;">elitechub.com</a>
                         </p>
                     </div>
                 `

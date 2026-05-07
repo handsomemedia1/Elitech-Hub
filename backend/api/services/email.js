@@ -62,7 +62,7 @@ export async function sendReminderEmail(to, name, postingDay) {
                     <p>Today is <strong>${postingDay}</strong> - one of your scheduled posting days!</p>
                     <p>Don't forget to write and publish your blog post.</p>
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://elitechhub.com/writer.html" style="background: #c3151c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                        <a href="https://elitechub.com/writer.html" style="background: #c3151c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
                             Open Writer Panel
                         </a>
                     </div>
@@ -133,7 +133,7 @@ export async function sendApplicationNotification(appData) {
     try {
         const { applicantName, email, phone, program, price, state, education, occupation, motivation } = appData;
 
-        const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@elitechhub.com.ng';
+        const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'info@elitechub.com.ng';
 
         const { data, error } = await resend.emails.send({
             from: FROM_EMAIL,
@@ -238,7 +238,7 @@ export async function sendApplicationConfirmation(data) {
                     </div>
 
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://elitechhub.com/payment.html" style="background: #c3151c; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">
+                        <a href="https://elitechub.com/payment.html" style="background: #c3151c; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">
                             Complete Payment Now
                         </a>
                     </div>

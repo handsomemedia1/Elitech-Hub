@@ -28,6 +28,7 @@ NAVBAR_HTML = '''    <!-- Navigation (Direct Injection) -->
                     <div class="nav-dropdown-menu">
                         <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
                         <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                        <a href="portfolio.html" data-page="portfolio"><i class="fas fa-laptop-code"></i> Portfolio</a>
                         <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a>
                     </div>
                 </li>
@@ -57,6 +58,7 @@ NAVBAR_HTML = '''    <!-- Navigation (Direct Injection) -->
                     <ul class="mobile-dropdown-menu">
                         <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
                         <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
+                        <li><a href="portfolio.html" class="nav-link"><i class="fas fa-laptop-code"></i> Portfolio</a></li>
                         <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a></li>
                     </ul>
                 </li>
@@ -70,7 +72,7 @@ NAVBAR_HTML = '''    <!-- Navigation (Direct Injection) -->
 # Pages to update (excluding index.html and programs.html which are already done)
 PAGES = [
     'about.html', 'blog.html', 'contact.html', 'services.html', 
-    'research.html', 'get-involved.html', 'security.html', 
+    'portfolio.html', 'research.html', 'get-involved.html', 'security.html', 
     'volunteer.html', 'mentor-application.html', 'policies.html', 
     'research-paper.html', 'payment.html'
 ]

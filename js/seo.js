@@ -15,8 +15,8 @@
             "@type": "EducationalOrganization",
             "name": "Elitech Hub",
             "alternateName": "Elitech Hub Limited",
-            "url": "https://www.elitechhub.com",
-            "logo": "https://www.elitechhub.com/assets/images/logo.png",
+            "url": "https://www.elitechub.com",
+            "logo": "https://www.elitechub.com/assets/images/logo.png",
             "description": "Nigeria's #1 Cybersecurity Training Company. 16-week professional program with guaranteed internship. 85% job placement rate.",
             "address": {
                 "@type": "PostalAddress",
@@ -30,8 +30,8 @@
             },
             "sameAs": [
                 "https://www.linkedin.com/company/elitech-hub",
-                "https://twitter.com/elitechhub",
-                "https://www.facebook.com/elitechhub"
+                "https://twitter.com/elitechub",
+                "https://www.facebook.com/elitechub"
             ],
             "foundingDate": "2023",
             "numberOfEmployees": {
@@ -72,7 +72,7 @@
             "provider": {
                 "@type": "Organization",
                 "name": "Elitech Hub",
-                "sameAs": "https://www.elitechhub.com"
+                "sameAs": "https://www.elitechub.com"
             },
             "hasCourseInstance": {
                 "@type": "CourseInstance",
@@ -100,7 +100,7 @@
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Elitech Hub",
-            "image": "https://www.elitechhub.com/assets/images/logo.png",
+            "image": "https://www.elitechub.com/assets/images/logo.png",
             "telephone": "+234-708-196-8062",
             "address": {
                 "@type": "PostalAddress",
@@ -186,8 +186,8 @@
         // Add Twitter Card tags
         const twitterTags = {
             'twitter:card': 'summary_large_image',
-            'twitter:site': '@elitechhub',
-            'twitter:creator': '@elitechhub'
+            'twitter:site': '@elitechub',
+            'twitter:creator': '@elitechub'
         };
 
         Object.entries(twitterTags).forEach(([name, content]) => {

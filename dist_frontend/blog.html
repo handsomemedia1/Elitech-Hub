@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Cybersecurity Blog - Latest insights, scholarships, and industry news from Elitech Hub experts.">
+        content="Cybersecurity Blog by Elitech Hub — Expert insights on ethical hacking, threat intelligence, scholarships, career guides and cyber news. Trusted by professionals in Nigeria, UK, USA and Africa.">
     <meta name="theme-color" content="#c3151c">
     <title>Cybersecurity Blog & Resources | IT News & Scholarships - Elitech Hub</title>
     <link rel="icon" type="image/svg+xml"
@@ -31,10 +31,431 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/loader.css">
-    <link rel="stylesheet" href="css/blog-modern.css">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elitechub.com/blog.html">
+    <meta property="og:title" content="Cybersecurity Blog | Elitech Hub — Ethical Hacking & Career Tips">
+    <meta property="og:description" content="Expert cybersecurity insights, scholarship alerts, and career guides. Trusted by thousands of security professionals across Africa, UK & USA.">
+    <meta property="og:image" content="https://elitechub.com/assets/images/logo.png">
+    <meta property="og:locale" content="en_US">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cybersecurity Blog | Elitech Hub">
+    <meta name="twitter:description" content="Expert insights on ethical hacking, threat intelligence, scholarships & cybersecurity careers.">
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elitechub.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://elitechub.com/blog.html" }
+        ]
+    }
+    </script>
+    <!-- Blog Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Elitech Hub Cybersecurity Blog",
+        "url": "https://elitechub.com/blog.html",
+        "description": "Expert cybersecurity insights, tutorials, scholarship alerts, and career guides from Elitech Hub.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Elitech Hub",
+            "logo": { "@type": "ImageObject", "url": "https://elitechub.com/assets/images/logo.png" }
+        },
+        "inLanguage": "en"
+    }
+    </script>
 
     <style>
-        /* additional inline styles can go here if needed */
+        /* ============================================
+           BLOG HERO — PREMIUM DARK REDESIGN
+           ============================================ */
+
+        #blog-hero-redesign {
+            position: relative;
+            min-height: 82vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding-top: 80px;
+            background: #060b18;
+        }
+
+        /* Rich pure-CSS mesh gradient — NO image needed */
+        .blog-hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                radial-gradient(ellipse 80% 80% at 0% 0%,    rgba(195, 21, 28, 0.20) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 60% at 100% 100%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 70% at 50% 0%,   rgba(139, 92, 246, 0.09) 0%, transparent 50%),
+                radial-gradient(ellipse 70% 40% at 80% 60%,  rgba(195, 21, 28, 0.07) 0%, transparent 50%),
+                linear-gradient(160deg, #0d1526 0%, #060b18 50%, #0a0f1e 100%);
+        }
+
+        /* Animated glowing orbs */
+        .blog-hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(195, 21, 28, 0.16) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(55px);
+            animation: orb-a 14s ease-in-out infinite;
+        }
+
+        .blog-hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.11) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: orb-b 18s ease-in-out infinite;
+        }
+
+        @keyframes orb-a {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(50px, -40px) scale(1.12); }
+            66%  { transform: translate(-25px, 30px) scale(0.92); }
+        }
+
+        @keyframes orb-b {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50%  { transform: translate(-60px, -50px) scale(1.18); }
+        }
+
+        /* Subtle dot-grid texture overlay */
+        .blog-hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 30%, transparent 100%);
+        }
+
+        .blog-hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 5rem 0 4rem;
+        }
+
+        /* Left side */
+        .blog-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 1.25rem;
+            background: rgba(195, 21, 28, 0.15);
+            border: 1px solid rgba(195, 21, 28, 0.35);
+            border-radius: 50px;
+            color: #f87171;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+
+        .blog-hero-dot {
+            width: 7px;
+            height: 7px;
+            background: #c3151c;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #c3151c;
+            animation: blink-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .blog-hero-title {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: clamp(2.8rem, 5vw, 4.5rem) !important;
+            font-weight: 900 !important;
+            line-height: 1.1 !important;
+            color: #ffffff !important;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: none !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+
+        .blog-hero-accent {
+            background: linear-gradient(135deg, #c3151c 0%, #f87171 50%, #fb923c 100%) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            display: block;
+        }
+
+        .blog-hero-subtitle {
+            color: rgba(255, 255, 255, 0.65) !important;
+            font-size: 1.1rem !important;
+            line-height: 1.8 !important;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            font-weight: 400 !important;
+        }
+
+        /* Stats */
+        .blog-hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .blog-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .blog-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .blog-stat-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .blog-stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* CTA Buttons */
+        .blog-hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #c3151c, #a01217);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(195, 21, 28, 0.35);
+        }
+
+        .blog-cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(195, 21, 28, 0.5);
+        }
+
+        .blog-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .blog-cta-secondary:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Right: Glassmorphic Trending Card */
+        .blog-hero-card-wrap {
+            position: relative;
+        }
+
+        .blog-hero-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 2.25rem;
+            transition: all 0.4s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-hero-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(8, 13, 26, 0.1) 0%, rgba(8, 13, 26, 0.8) 100%);
+            border-radius: 24px;
+            z-index: 0;
+        }
+
+        .blog-hero-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .blog-hero-card:hover {
+            border-color: rgba(195, 21, 28, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            transform: translateY(-6px);
+        }
+
+        .blog-hero-card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            background: rgba(195, 21, 28, 0.2);
+            border: 1px solid rgba(195, 21, 28, 0.4);
+            border-radius: 50px;
+            color: #f87171;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-hero-card-body {
+            margin-bottom: 1.75rem;
+        }
+
+        .blog-hero-card .trending-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.35;
+            margin-bottom: 0.85rem;
+        }
+
+        .blog-hero-card .trending-excerpt {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .blog-hero-card-meta {
+            display: flex;
+            gap: 1.25rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.82rem;
+        }
+
+        .blog-hero-card-meta i { color: #c3151c; }
+
+        .blog-hero-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f87171;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: gap 0.3s;
+        }
+
+        .blog-hero-card-link:hover { gap: 0.85rem; }
+
+        /* Floating mini badges */
+        .blog-float-card {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .blog-float-card i { color: #c3151c; font-size: 1rem; }
+
+        .blog-float-1 {
+            top: -20px;
+            right: -20px;
+            animation: float-a 4s ease-in-out infinite;
+        }
+
+        .blog-float-2 {
+            bottom: -18px;
+            left: -20px;
+            animation: float-b 4.5s ease-in-out infinite;
+        }
+
+        @keyframes float-a {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes float-b {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .blog-hero-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 4rem 0 3rem;
+            }
+
+            .blog-hero-card-wrap { display: none; }
+
+            #blog-hero-redesign { min-height: auto; }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero-title { font-size: 2.2rem !important; }
+            .blog-hero-stats { gap: 1.25rem; }
+            .blog-stat-num { font-size: 1.5rem; }
+        }
     </style>
 </head>
 
@@ -116,6 +537,7 @@
                         <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
                         <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp;
                             Trust</a>
+                        <a href="portfolio.html" data-page="portfolio"><i class="fas fa-briefcase"></i> Portfolio</a>
                     </div>
                 </li>
                 <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;"
@@ -153,6 +575,7 @@
                         <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
                         <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp;
                                 Trust</a></li>
+                        <li><a href="portfolio.html" class="nav-link"><i class="fas fa-briefcase"></i> Portfolio</a></li>
                     </ul>
                 </li>
                 <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get
@@ -163,57 +586,93 @@
         </div>
     </nav>
 
-    <!-- Modern Blog Hero -->
-    <section class="blog-hero">
-        <div class="container">
-            <div class="hero-content">
+    <!-- Blog Hero — Premium Dark Redesign -->
+    <section class="blog-hero" id="blog-hero-redesign">
+        <!-- Background Image -->
+        <div class="blog-hero-bg"></div>
+        <!-- Animated overlay particles -->
+        <div class="blog-hero-overlay"></div>
+
+        <div class="container" style="position: relative; z-index: 3; width: 100%;">
+            <div class="blog-hero-inner">
+
                 <!-- Left: Text Content -->
-                <div class="hero-text">
-                    <div class="badge">
-                        <i class="fas fa-rocket"></i>
-                        Knowledge Hub
+                <div class="blog-hero-text">
+                    <!-- Live indicator badge -->
+                    <div class="blog-hero-badge">
+                        <span class="blog-hero-dot"></span>
+                        Intelligence Hub · Updated Daily
                     </div>
-                    <h1>
-                        Master <span class="highlight">Cybersecurity</span> and<br>
-                        <span class="accent">Unlock Global Opportunities</span>
+
+                    <h1 class="blog-hero-title">
+                        Cybersecurity<br>
+                        <span class="blog-hero-accent">Knowledge Base</span>
                     </h1>
-                    <p>
-                        Stay ahead of threats with curated tutorials, scholarship guides, and industry breakdowns
-                        tailored for African cybersecurity professionals.
+
+                    <p class="blog-hero-subtitle">
+                        Expert insights, threat intelligence, tutorials, and career guides — curated by Africa's leading cybersecurity community.
                     </p>
-                    <div class="hero-cta">
-                        <a href="#blog-list" class="btn-primary">
+
+                    <!-- Stats row -->
+                    <div class="blog-hero-stats">
+                        <div class="blog-stat">
+                            <span class="blog-stat-num">23+</span>
+                            <span class="blog-stat-label">Articles</span>
+                        </div>
+                        <div class="blog-stat-divider"></div>
+                        <div class="blog-stat">
+                            <span class="blog-stat-num">8</span>
+                            <span class="blog-stat-label">Writers</span>
+                        </div>
+                        <div class="blog-stat-divider"></div>
+                        <div class="blog-stat">
+                            <span class="blog-stat-num">5K+</span>
+                            <span class="blog-stat-label">Readers</span>
+                        </div>
+                    </div>
+
+                    <div class="blog-hero-cta">
+                        <a href="#blog-list" class="blog-cta-primary">
+                            <i class="fas fa-bolt"></i>
                             Explore Articles
-                            <i class="fas fa-arrow-right"></i>
                         </a>
-                        <a href="/programs.html" class="btn-secondary">
+                        <a href="apply.html" class="blog-cta-secondary">
                             <i class="fas fa-graduation-cap"></i>
                             Join Bootcamp
                         </a>
                     </div>
                 </div>
 
-                <!-- Right: Visual Card -->
-                <div class="hero-visual">
-                    <div class="featured-visual" id="trending-hero">
-                        <div class="visual-content">
-                            <span class="visual-tag">🔥 Most Read This Week</span>
-                            <h3 class="trending-title">Loading trending post...</h3>
-                            <p class="trending-excerpt">
-                                Fetching the most popular article from our community...
-                            </p>
-                            <p class="trending-meta" style="margin-top: 0.75rem; font-size: 0.9rem; opacity: 0.9;">
-                                <span class="trending-author"><i class="far fa-user"></i> —</span>
-                                <span style="margin: 0 0.5rem;">•</span>
-                                <span class="trending-reads"><i class="far fa-eye"></i> — reads</span>
-                            </p>
-                            <a href="#" class="visual-link trending-link">
-                                Read Article
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                <!-- Right: Trending Post Card (Glassmorphic) -->
+                <div class="blog-hero-card-wrap">
+                    <div class="blog-hero-card" id="trending-hero">
+                        <div class="blog-hero-card-tag">
+                            <i class="fas fa-fire"></i> Most Read This Week
                         </div>
+                        <div class="blog-hero-card-body">
+                            <h3 class="trending-title">Loading trending post...</h3>
+                            <p class="trending-excerpt">Fetching the most popular article from our community...</p>
+                            <div class="blog-hero-card-meta">
+                                <span class="trending-author"><i class="far fa-user"></i> —</span>
+                                <span class="trending-reads"><i class="far fa-eye"></i> — reads</span>
+                            </div>
+                        </div>
+                        <a href="#" class="trending-link blog-hero-card-link">
+                            Read Full Article <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Floating decoration cards -->
+                    <div class="blog-float-card blog-float-1">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Threat Intel</span>
+                    </div>
+                    <div class="blog-float-card blog-float-2">
+                        <i class="fas fa-code"></i>
+                        <span>Tutorials</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

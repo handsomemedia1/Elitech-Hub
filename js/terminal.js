@@ -421,7 +421,7 @@ Type 'programs' to see our training offerings.
 ✓ Career Support & Mentorship
 ✓ Lifetime Access to Materials
 
-Visit: https://elitechhub.com/programs
+Visit: https://elitechub.com/programs
 Contact: +234-708-196-8062
         `.trim();
     }
@@ -435,11 +435,11 @@ Contact: +234-708-196-8062
 +234-708-196-8062
 
 <span class="terminal-info">Email:</span>
-info@elitechhub.com
+info@elitechub.com
 
 <span class="terminal-info">Social Media:</span>
 LinkedIn: /company/elitech-hub
-Twitter: @elitechhub
+Twitter: @elitechub
 Medium: @elijahadeyeye
 
 <span class="terminal-info">Office:</span>

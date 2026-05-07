@@ -105,7 +105,7 @@ function getFallbackResponse(message) {
 
     // Contact
     if (lowerMessage.includes('contact') || lowerMessage.includes('whatsapp') || lowerMessage.includes('phone') || lowerMessage.includes('email')) {
-        return `We'd love to hear from you! 📞\n\n**WhatsApp**: +234 708 196 8062 (fastest - 9 AM - 9 PM WAT)\n**Email**: info@elitechhub.com\n**Website**: elitechhub.com\n\nOur team is ready to help you choose the right program!`;
+        return `We'd love to hear from you! 📞\n\n**WhatsApp**: +234 708 196 8062 (fastest - 9 AM - 9 PM WAT)\n**Email**: info@elitechub.com\n**Website**: elitechub.com\n\nOur team is ready to help you choose the right program!`;
     }
 
     // Greetings

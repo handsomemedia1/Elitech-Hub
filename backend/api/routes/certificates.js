@@ -183,7 +183,7 @@ router.get('/:id/download', requireAuth, async (req, res) => {
         doc.fontSize(12).fillColor('#666').font('Helvetica');
         doc.text(`Issued: ${new Date(certificate.issued_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`, { align: 'center' });
         doc.text(`Certificate ID: ${certificate.certificate_id}`, { align: 'center' });
-        doc.text(`Verify at: elitechhub.com/verify/${certificate.certificate_id}`, { align: 'center' });
+        doc.text(`Verify at: elitechub.com/verify/${certificate.certificate_id}`, { align: 'center' });
 
         doc.end();
     } catch (err) {

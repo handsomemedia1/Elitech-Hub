@@ -189,6 +189,73 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Related posts
         loadRelatedPosts(post, API_BASE);
 
+        // ===== SCHEMA.ORG INJECTION for Google AI/SEO =====
+        const canonicalUrlFull = `https://elitechub.com/blog-posts/${post.slug}.html`;
+        const authorForSchema = authorName || 'Elitech Hub Team';
+        const datePublished = post.published_at || post.created_at || new Date().toISOString();
+        const articleDescription = metaDesc || (post.content ? post.content.replace(/<[^>]+>/g, '').substring(0, 250).trim() + '...' : 'Cybersecurity insights from Elitech Hub.');
+
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrlFull },
+            "headline": post.title,
+            "description": articleDescription,
+            "image": post.thumbnail ? [post.thumbnail] : ["https://elitechub.com/assets/images/logo.png"],
+            "author": {
+                "@type": "Person",
+                "name": authorForSchema,
+                "url": "https://elitechub.com/about.html"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Elitech Hub",
+                "logo": { "@type": "ImageObject", "url": "https://elitechub.com/assets/images/logo.png" }
+            },
+            "datePublished": datePublished,
+            "dateModified": post.updated_at || datePublished,
+            "url": canonicalUrlFull,
+            "inLanguage": "en",
+            "about": { "@type": "Thing", "name": post.category || "Cybersecurity" },
+            "keywords": (post.tags ? (Array.isArray(post.tags) ? post.tags.join(', ') : post.tags) : "cybersecurity, ethical hacking, infosec"),
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": ["#article-title", "#article-body"]
+            },
+            "isPartOf": {
+                "@type": "Blog",
+                "name": "Elitech Hub Blog",
+                "url": "https://elitechub.com/blog.html"
+            }
+        };
+
+        const breadcrumbSchema = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://elitechub.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://elitechub.com/blog.html" },
+                { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrlFull }
+            ]
+        };
+
+        // Inject Article schema
+        const articleSchemaEl = document.getElementById('article-schema');
+        if (articleSchemaEl) {
+            articleSchemaEl.textContent = JSON.stringify(articleSchema);
+        } else {
+            const s = document.createElement('script');
+            s.type = 'application/ld+json';
+            s.textContent = JSON.stringify(articleSchema);
+            document.head.appendChild(s);
+        }
+
+        // Inject Breadcrumb schema
+        const bcScript = document.createElement('script');
+        bcScript.type = 'application/ld+json';
+        bcScript.textContent = JSON.stringify(breadcrumbSchema);
+        document.head.appendChild(bcScript);
+
         // Reading progress bar
         setupReadingProgress();
 

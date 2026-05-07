@@ -874,7 +874,7 @@ function moderateContent(content) {
 
 // Helper: Send WhatsApp Notification
 async function sendWhatsAppNotification(writerName, postTitle, slug) {
-    const message = `📝 New Blog Post Published!\n\nWriter: ${writerName}\nTitle: ${postTitle}\nLink: https://elitechhub.com/blog/${slug}`;
+    const message = `📝 New Blog Post Published!\n\nWriter: ${writerName}\nTitle: ${postTitle}\nLink: https://elitechub.com/blog/${slug}`;
     console.log('WhatsApp Notification:', message);
 }
 

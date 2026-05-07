@@ -18,7 +18,6 @@ router.get('/', async (req, res) => {
         const { category, limit = 200, offset = 0 } = req.query;
 
         // Check if the request is from an authenticated admin
-        // Use JWT verification (same as auth middleware) since the admin panel sends custom JWTs
         let isAdmin = false;
         const authHeader = req.headers.authorization;
         if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -44,31 +43,29 @@ router.get('/', async (req, res) => {
         let query;
 
         if (isAdmin) {
-            // Admin sees ALL posts (published + drafts) with full metadata
             query = supabase
                 .from('blog_posts')
-                .select('id, title, slug, excerpt, category, author, thumbnail, published, published_at, created_at')
+                .select('id, title, slug, excerpt, category, author, thumbnail, published, published_at, created_at', { count: 'exact' })
                 .order('created_at', { ascending: false })
-                .range(offset, Number(offset) + Number(limit) - 1);
+                .range(Number(offset), Number(offset) + Number(limit) - 1);
         } else {
-            // Public only sees published posts, ordered by published date
             query = supabase
                 .from('blog_posts')
-                .select('id, title, slug, excerpt, category, author, thumbnail, views, published_at')
+                .select('id, title, slug, excerpt, category, author, thumbnail, views, published_at', { count: 'exact' })
                 .eq('published', true)
                 .order('published_at', { ascending: false })
-                .range(offset, Number(offset) + Number(limit) - 1);
+                .range(Number(offset), Number(offset) + Number(limit) - 1);
         }
 
         if (category) {
             query = query.eq('category', category);
         }
 
-        const { data: posts, error } = await query;
+        const { data: posts, error, count } = await query;
 
         if (error) throw error;
 
-        res.json({ posts: posts || [] });
+        res.json({ posts: posts || [], total: count || 0 });
     } catch (err) {
         console.error('Blog fetch error:', err);
         res.status(500).json({ error: 'Failed to fetch blog posts' });

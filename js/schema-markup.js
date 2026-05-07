@@ -9,13 +9,13 @@ export const organizationSchema = {
     "@type": "Organization",
     "name": "Elitech Hub",
     "alternateName": "Elitech Hub Nigeria",
-    "url": "https://elitechhub.com",
-    "logo": "https://elitechhub.com/assets/images/logo.png",
+    "url": "https://elitechub.com",
+    "logo": "https://elitechub.com/assets/images/logo.png",
     "description": "Premier cybersecurity education and training platform in Nigeria",
     "sameAs": [
-        "https://twitter.com/elitechhub",
-        "https://linkedin.com/company/elitechhub",
-        "https://facebook.com/elitechhub"
+        "https://twitter.com/elitechub",
+        "https://linkedin.com/company/elitechub",
+        "https://facebook.com/elitechub"
     ],
     "contactPoint": {
         "@type": "ContactPoint",
@@ -31,10 +31,10 @@ export const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Elitech Hub",
-    "url": "https://elitechhub.com",
+    "url": "https://elitechub.com",
     "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://elitechhub.com/search?q={search_term_string}",
+        "target": "https://elitechub.com/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
     }
 };
@@ -49,7 +49,7 @@ export function generateCourseSchema(course) {
         "provider": {
             "@type": "Organization",
             "name": "Elitech Hub",
-            "sameAs": "https://elitechhub.com"
+            "sameAs": "https://elitechub.com"
         },
         "offers": {
             "@type": "Offer",
@@ -81,14 +81,14 @@ export function generateArticleSchema(post) {
             "name": "Elitech Hub",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://elitechhub.com/assets/images/logo.png"
+                "url": "https://elitechub.com/assets/images/logo.png"
             }
         },
         "datePublished": post.published_at,
         "dateModified": post.updated_at || post.published_at,
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://elitechhub.com/blog/${post.slug}`
+            "@id": `https://elitechub.com/blog/${post.slug}`
         }
     };
 }
