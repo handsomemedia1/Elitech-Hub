@@ -363,14 +363,14 @@ router.post('/track-view', async (req, res) => {
         }
 
         // Find post
-        let query = supabase.from('blog_posts');
+        let query = supabase.from('blog_posts').select('id, views');
         if (postId) {
             query = query.eq('id', postId);
         } else {
             query = query.eq('slug', postSlug);
         }
 
-        const { data: post, error: fetchError } = await query.select('id, views').single();
+        const { data: post, error: fetchError } = await query.single();
         if (fetchError) {
             console.error('[track-view] Find post error:', fetchError);
         }
