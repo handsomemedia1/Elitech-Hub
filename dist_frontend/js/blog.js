@@ -6,7 +6,7 @@ class BlogManager {
         this.articles = [];
         this.filteredArticles = [];
         this.currentPage = 1;
-        this.articlesPerPage = 9;
+        this.articlesPerPage = 100; // Show all articles — no pagination controls exist in blog.html
         this.currentCategory = 'all';
         this.searchQuery = '';
 
@@ -39,7 +39,7 @@ class BlogManager {
             const post = data.post;
 
             if (post) {
-                // Update DOM
+                // Update text content
                 container.querySelector('.trending-title').textContent = post.title;
                 container.querySelector('.trending-excerpt').textContent = post.excerpt;
                 const authorEl = container.querySelector('.trending-author');
@@ -50,17 +50,21 @@ class BlogManager {
 
                 const link = container.querySelector('.trending-link');
                 link.href = `article.html?slug=${post.slug || post.id}`;
-                link.innerHTML = `Read Full Article <i class="fas fa-arrow-right"></i>`;
 
-                // Update background image for a gorgeous premium hero visual
+                // Show thumbnail as an <img> inside the card, NOT as a background
                 if (post.thumbnail) {
                     let thumbUrl = post.thumbnail;
-                    if (thumbUrl.includes('#alt=')) {
-                        thumbUrl = thumbUrl.split('#alt=')[0];
+                    if (thumbUrl.includes('#alt=')) thumbUrl = thumbUrl.split('#alt=')[0];
+
+                    const existingImg = container.querySelector('.blog-hero-card-thumb');
+                    if (!existingImg) {
+                        const img = document.createElement('img');
+                        img.src = thumbUrl;
+                        img.className = 'blog-hero-card-thumb';
+                        img.alt = post.title;
+                        img.style.cssText = 'width:100%;height:160px;object-fit:cover;border-radius:14px;margin-bottom:1.25rem;display:block;';
+                        container.insertBefore(img, container.querySelector('.blog-hero-card-tag').nextSibling);
                     }
-                    container.style.backgroundImage = `url('${thumbUrl}')`;
-                    container.style.backgroundSize = 'cover';
-                    container.style.backgroundPosition = 'center';
                 }
             }
         } catch (e) {
@@ -75,13 +79,34 @@ class BlogManager {
                 ? 'https://elitech-hub.vercel.app/api/blog'
                 : '/api/blog';
 
-            const response = await fetch(`${API_URL}?limit=200`);
-            if (!response.ok) throw new Error('API fetch failed');
+            // Paginate through ALL posts in batches of 200 until we have everything
+            let allPosts = [];
+            let offset = 0;
+            const batchSize = 200;
+            let total = null;
 
-            const data = await response.json();
+            while (true) {
+                const response = await fetch(`${API_URL}?limit=${batchSize}&offset=${offset}`);
+                if (!response.ok) throw new Error('API fetch failed');
 
-            if (data.posts && data.posts.length > 0) {
-                this.articles = data.posts.map(post => ({
+                const data = await response.json();
+                const batch = data.posts || [];
+
+                allPosts = allPosts.concat(batch);
+
+                // Use total count from API if available, otherwise stop when batch is smaller than batchSize
+                if (total === null && data.total !== undefined) {
+                    total = data.total;
+                }
+
+                if (batch.length < batchSize) break;           // last page
+                if (total !== null && allPosts.length >= total) break;  // fetched everything
+
+                offset += batchSize;
+            }
+
+            if (allPosts.length > 0) {
+                this.articles = allPosts.map(post => ({
                     id: post.id,
                     title: post.title,
                     excerpt: post.excerpt,
@@ -154,7 +179,11 @@ class BlogManager {
 
         if (categoryContainer && !categoryContainer.hasChildNodes()) {
             categories.forEach(cat => {
-                const count = this.articles.filter(a => a.category === cat.id).length;
+            const count = this.articles.filter(a =>
+                    a.category && cat.id !== 'all'
+                        ? a.category.toLowerCase().includes(cat.id.toLowerCase())
+                        : true
+                ).length;
                 const categoryCard = this.createCategoryCard(cat, count);
                 categoryContainer.appendChild(categoryCard);
             });
@@ -210,9 +239,13 @@ class BlogManager {
     filterArticles() {
         let filtered = [...this.articles];
 
-        // Apply category filter
+        // Apply category filter — posts can have combined categories like "Cybersecurity, News"
+        // so we check if the category field contains the filter keyword (case-insensitive)
         if (this.currentCategory !== 'all') {
-            filtered = filtered.filter(article => article.category === this.currentCategory);
+            filtered = filtered.filter(article =>
+                article.category &&
+                article.category.toLowerCase().includes(this.currentCategory.toLowerCase())
+            );
         }
 
         // Apply search filter

@@ -47,6 +47,11 @@ Write-Host "     js\article.js copied"
 Copy-Item "js\blog.js" "dist_frontend\js\blog.js" -Force -ErrorAction SilentlyContinue
 Write-Host "     js\blog.js copied"
 
+# ===== STEP 4.5: Copy CSS Files =====
+Write-Host "`n[4.5/5] Syncing CSS files..." -ForegroundColor Yellow
+Copy-Item "css\*" "dist_frontend\css\" -Recurse -Force
+Write-Host "     css directory copied"
+
 # ===== STEP 5: Git Operations =====
 Write-Host "`n[5/5] Deploying to GitHub..." -ForegroundColor Yellow
 $commitMsg = "SEO: Auto-sitemap, hreflang, schema.org, Google AI signals - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
