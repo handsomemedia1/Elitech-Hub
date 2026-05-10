@@ -80,8 +80,8 @@ async function checkMissedPosts() {
             return;
         }
 
-        let missedCount = 0;
-        let postedCount = 0;
+        let missedNames = [];
+        let postedNames = [];
         
         for (const writer of writers || []) {
             // Check if they posted today
@@ -97,19 +97,31 @@ async function checkMissedPosts() {
                 try {
                     await sendMissedPostEmail(writer.email, writer.name, today);
                     console.log(`[MissedCheck] Sent follow-up to ${writer.email}`);
-                    missedCount++;
+                    missedNames.push(writer.name);
                 } catch (err) {
                     console.error(`Failed to send missed post email to ${writer.email}:`, err);
                 }
             } else {
                 // No need to update last_post_date since we check blog_posts directly
                 console.log(`[MissedCheck] Writer ${writer.email} posted today.`);
-                postedCount++;
+                postedNames.push(writer.name);
             }
         }
 
-        if (missedCount > 0 || postedCount > 0) {
-            await sendTelegramPing(`🌙 <b>Evening Post Check (${today})</b>\n\n✅ Posted successfully: ${postedCount} writer(s)\n⚠️ Missed posting: ${missedCount} writer(s)\n\n<i>Follow-up emails have been sent to those who missed.</i>`);
+        if (missedNames.length > 0 || postedNames.length > 0) {
+            let message = `🌙 <b>Evening Post Check (${today})</b>\n\n`;
+            
+            message += `✅ <b>Posted successfully: ${postedNames.length} writer(s)</b>\n`;
+            if (postedNames.length > 0) {
+                message += `<i>${postedNames.join(', ')}</i>\n`;
+            }
+            
+            message += `\n⚠️ <b>Missed posting: ${missedNames.length} writer(s)</b>\n`;
+            if (missedNames.length > 0) {
+                message += `<i>${missedNames.join(', ')}</i>\n\n<i>Follow-up emails have been sent to those who missed.</i>`;
+            }
+            
+            await sendTelegramPing(message);
         }
     } catch (err) {
         console.error('Missed post check error:', err);
