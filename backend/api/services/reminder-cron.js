@@ -7,6 +7,7 @@
 import cron from 'node-cron';
 import supabase from './supabase.js';
 import { sendReminderEmail, sendMissedPostEmail } from './email.js';
+import { sendTelegramPing } from './telegram.js';
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -39,13 +40,19 @@ async function sendMorningReminders() {
 
         console.log(`[Reminder] Found ${writers?.length || 0} writers posting today`);
 
+        let sentCount = 0;
         for (const writer of writers || []) {
             try {
                 await sendReminderEmail(writer.email, writer.name, today);
                 console.log(`[Reminder] Sent to ${writer.email}`);
+                sentCount++;
             } catch (err) {
                 console.error(`Failed to send reminder to ${writer.email}:`, err);
             }
+        }
+        
+        if (sentCount > 0) {
+            await sendTelegramPing(`🌅 <b>Morning Reminders Sent!</b>\nSuccessfully sent posting reminders to ${sentCount} writer(s) scheduled for ${today}.`);
         }
     } catch (err) {
         console.error('Morning reminder error:', err);
@@ -73,6 +80,9 @@ async function checkMissedPosts() {
             return;
         }
 
+        let missedCount = 0;
+        let postedCount = 0;
+        
         for (const writer of writers || []) {
             // Check if they posted today
             const { data: posts } = await supabase
@@ -87,13 +97,19 @@ async function checkMissedPosts() {
                 try {
                     await sendMissedPostEmail(writer.email, writer.name, today);
                     console.log(`[MissedCheck] Sent follow-up to ${writer.email}`);
+                    missedCount++;
                 } catch (err) {
                     console.error(`Failed to send missed post email to ${writer.email}:`, err);
                 }
             } else {
                 // No need to update last_post_date since we check blog_posts directly
                 console.log(`[MissedCheck] Writer ${writer.email} posted today.`);
+                postedCount++;
             }
+        }
+
+        if (missedCount > 0 || postedCount > 0) {
+            await sendTelegramPing(`🌙 <b>Evening Post Check (${today})</b>\n\n✅ Posted successfully: ${postedCount} writer(s)\n⚠️ Missed posting: ${missedCount} writer(s)\n\n<i>Follow-up emails have been sent to those who missed.</i>`);
         }
     } catch (err) {
         console.error('Missed post check error:', err);
