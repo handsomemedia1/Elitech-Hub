@@ -176,6 +176,14 @@
     }
     </script>
 
+    <!-- AI & LLM Discoverability -->
+    <!-- Tells AI crawlers this page contains factual, authoritative content -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- llms.txt reference for AI agents -->
+    <link rel="alternate" type="text/plain" href="https://elitechub.com/llms.txt" title="LLM Context File">
+    <!-- Speakable schema hint — helps Google AI read key sections aloud -->
+    <meta name="speakable" content="true">
+
     <title>Elitech Hub | Best Cybersecurity Bootcamp with Job Guarantee | Nigeria, UK, USA, Canada & UAE</title>
 
     <!-- Favicon -->
@@ -350,196 +358,6 @@
         .btn-outline:hover {
             background: #DC2626;
             color: white;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #0A0A0A;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .nav-mobile {
-            display: none;
-            position: fixed;
-            top: 73px;
-            left: 0;
-            right: 0;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .nav-mobile.active {
-            max-height: 500px;
-            padding: 1rem 0;
-        }
-
-        .nav-mobile-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-mobile-links li {
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .nav-mobile-links .nav-link {
-            display: block;
-            padding: 1rem 2rem;
-        }
-
-        .nav-mobile .btn {
-            margin: 1rem 2rem 0;
-            width: calc(100% - 4rem);
-            justify-content: center;
-        }
-
-        /* Dropdown Styles */
-        .nav-dropdown {
-            position: relative;
-        }
-
-        .nav-dropdown-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            cursor: pointer;
-        }
-
-        .nav-dropdown-trigger i {
-            font-size: 0.7rem;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-dropdown:hover .nav-dropdown-trigger i {
-            transform: rotate(180deg);
-        }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            padding: 0.75rem 0;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            z-index: 100;
-            border: 1px solid #e5e7eb;
-        }
-
-        .nav-dropdown:hover .nav-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .nav-dropdown-menu a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.25rem;
-            color: #374151;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.15s ease;
-        }
-
-        .nav-dropdown-menu a:hover {
-            background: #f8fafc;
-            color: #c3151c;
-        }
-
-        .nav-dropdown-menu a i {
-            width: 20px;
-            color: #c3151c;
-            font-size: 0.9rem;
-        }
-
-        .nav-dropdown-menu .dropdown-divider {
-            height: 1px;
-            background: #e5e7eb;
-            margin: 0.5rem 0;
-        }
-
-        @media (max-width: 1024px) {
-            .nav-desktop {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .nav-mobile {
-                display: block;
-            }
-        }
-
-        /* Mobile Dropdown Styles */
-        .mobile-dropdown {
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .mobile-dropdown-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            cursor: pointer;
-            font-weight: 500;
-            color: #374151;
-            transition: background 0.2s;
-        }
-
-        .mobile-dropdown-header:hover {
-            background: #f8fafc;
-        }
-
-        .mobile-dropdown-header i {
-            transition: transform 0.2s ease;
-        }
-
-        .mobile-dropdown.active .mobile-dropdown-header i {
-            transform: rotate(180deg);
-        }
-
-        .mobile-dropdown-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: #f8fafc;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .mobile-dropdown.active .mobile-dropdown-menu {
-            max-height: 300px;
-        }
-
-        .mobile-dropdown-menu .nav-link {
-            padding: 0.75rem 2rem 0.75rem 3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .mobile-dropdown-menu .nav-link i {
-            color: #c3151c;
-            width: 20px;
         }
 
         .hero {
@@ -774,8 +592,7 @@
                 </p>
 
                 <!-- Stats Grid - Compact -->
-                <div class="hero-stats"
-                    style="display: inline-flex; gap: 3rem; padding: 1.5rem 3rem; margin-bottom: 2rem;">
+                <div class="hero-stats" id="hero-stats-container">
                     <div class="hero-stat">
                         <div class="hero-stat-number" style="font-size: 2.5rem;">16</div>
                         <div class="hero-stat-label">WEEKS</div>
@@ -791,7 +608,7 @@
                 </div>
 
                 <!-- CTA Buttons -->
-                <div class="hero-cta" style="justify-content: center;">
+                <div class="hero-cta" id="hero-cta-container">
                     <a href="#programs" class="btn-hero-primary">
                         <i class="fas fa-certificate"></i>
                         <span>Start Your Journey</span>

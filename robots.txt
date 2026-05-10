@@ -17,5 +17,44 @@ Allow: /assets/
 Allow: /css/
 Allow: /js/
 
+# === AI & LLM Crawlers — explicitly allowed ===
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# OpenAI web browsing (ChatGPT with browsing)
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+# Claude (web)
+User-agent: Claude-Web
+Allow: /
+
+# Google Bard / Gemini
+User-agent: Google-Extended
+Allow: /
+
+# Common Crawl (used to train many LLMs)
+User-agent: CCBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
 # Sitemap
 Sitemap: https://elitechub.com/sitemap.xml
+Sitemap: https://elitechub.com/blog-sitemap.xml

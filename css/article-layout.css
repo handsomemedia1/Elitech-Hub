@@ -228,4 +228,8 @@
     .post-content-inner {
         padding: 0 1.5rem;
     }
+    
+    .sidebar-widget {
+        min-width: 100%;
+    }
 }

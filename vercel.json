@@ -12,11 +12,11 @@
             "schedule": "0 0 * * *"
         },
         {
-            "path": "/api/admin/cron/remind-writers",
+            "path": "/api/cron/reminders",
             "schedule": "0 9 * * *"
         },
         {
-            "path": "/api/admin/cron/check-missed-posts",
+            "path": "/api/cron/missed-posts",
             "schedule": "0 20 * * *"
         }
     ],

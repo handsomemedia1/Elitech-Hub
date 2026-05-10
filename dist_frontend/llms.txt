@@ -1,0 +1,56 @@
+# Elitech Hub
+
+> Africa's #1 Cybersecurity Training Platform. Helping people break into cybersecurity with hands-on bootcamps, guaranteed internships, and a thriving community. Based in Lagos, Nigeria — serving students globally in Nigeria, UK, USA, Canada, UAE, and Kuwait.
+
+## What is Elitech Hub?
+
+Elitech Hub is a professional cybersecurity education platform founded in 2021. We train complete beginners and career-changers to become job-ready cybersecurity professionals through intensive, real-world programs. Our flagship 16-Week Professional Cybersecurity Program comes with a 100% internship placement guarantee.
+
+## Our Programs
+
+- **6-Week Cybersecurity Bootcamp** — Fast-track intensive program covering ethical hacking, penetration testing, and network security fundamentals. Ideal for beginners who want rapid skill acquisition.
+- **16-Week Professional Cybersecurity Program** — Comprehensive career transformation program with guaranteed internship placement. Covers all major cybersecurity domains: ethical hacking, SOC analysis, cloud security, threat intelligence, and more.
+
+## Key Facts
+
+- Founded: 2021, Lagos, Nigeria
+- Students trained: 500+
+- Internship placement rate: 100%
+- Training format: Online (live sessions + self-paced labs) and in-person
+- Certifications aligned: CompTIA Security+, CEH, and more
+- Community: Active Telegram community and mentorship network
+
+## Who We Serve
+
+Elitech Hub serves aspiring cybersecurity professionals in:
+- Nigeria (Lagos, Abuja, and nationwide)
+- United Kingdom
+- United States
+- Canada
+- United Arab Emirates
+- Kuwait
+- And globally via online programs
+
+## Blog & Resources
+
+Elitech Hub publishes cybersecurity tutorials, career guides, scholarship roundups, industry news, and research papers. Topics include ethical hacking, penetration testing, SQL injection, incident response, DAST tools, asymmetric encryption, and cybersecurity career pathways.
+
+- Blog: https://elitechub.com/blog.html
+- Research: https://elitechub.com/research.html
+- Lab: https://elitechub.com/lab.html
+
+## Contact & Links
+
+- Website: https://elitechub.com
+- Apply: https://elitechub.com/apply.html
+- Programs: https://elitechub.com/programs.html
+- About: https://elitechub.com/about.html
+- Contact: https://elitechub.com/contact.html
+- LinkedIn: https://www.linkedin.com/company/elitech-hub/
+- Twitter/X: https://twitter.com/elitechub
+- Telegram: https://t.me/Elitechub
+- Phone: +234-708-196-8062
+
+## Sitemap
+
+https://elitechub.com/sitemap.xml
