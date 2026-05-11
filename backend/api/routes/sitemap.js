@@ -13,6 +13,7 @@ const SITE_URL = 'https://elitechub.com';
 // All static pages with SEO metadata
 const staticPages = [
     { url: '/',                         priority: 1.0, changefreq: 'daily' },
+    { url: '/uk-web.html',              priority: 0.9, changefreq: 'monthly' },
     { url: '/about.html',               priority: 0.8, changefreq: 'monthly' },
     { url: '/blog.html',                priority: 0.9, changefreq: 'daily' },
     { url: '/programs.html',            priority: 0.9, changefreq: 'weekly' },

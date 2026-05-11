@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Websites That Help UK Small Businesses Get Found and Win More Customers">
+    <meta name="theme-color" content="#c3151c">
+    <title>Premium Websites for UK Small Businesses | Elitechub</title>
+    
+    <!-- UK SEO Targeting -->
+    <link rel="alternate" hreflang="en-gb" href="https://elitechub.com/uk-web.html" />
+    <link rel="canonical" href="https://elitechub.com/uk-web.html" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Premium Websites for UK Small Businesses | Elitechub" />
+    <meta property="og:description" content="Fast, stunning, mobile-first websites for UK restaurants, fitness businesses, and service providers. Fixed pricing. Delivered in 2 weeks." />
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --brand: #c3151c;
+            --brand-light: #e6232b;
+            --brand-dark: #8b0d12;
+            --navy: #0a0a0f;
+            --navy-light: #12121a;
+            --navy-lighter: #1a1a24;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--navy);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+        }
+
+        /* --- Scroll Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brand);
+        }
+
+        /* --- Global Utilities --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(195, 21, 28, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(195, 21, 28, 0.5);
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-brand {
+            color: var(--brand);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 0 4rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('assets/images/uk-hero.png') center/cover no-repeat;
+            z-index: 0;
+            opacity: 0.5;
+            animation: pulse 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(10,10,15,0.2) 0%, var(--navy) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            height: 55px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(195, 21, 28, 0.1);
+            border: 1px solid rgba(195, 21, 28, 0.3);
+            color: var(--brand-light);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        /* --- Social Proof Bar --- */
+        .social-proof {
+            position: relative;
+            z-index: 3;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.5rem 0;
+            margin-top: -2px; /* Pull up slightly */
+        }
+
+        .proof-track {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .proof-item i {
+            color: var(--brand);
+        }
+
+        .proof-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--brand);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--brand);
+        }
+
+        /* --- Projects Section --- */
+        .section-padding {
+            padding: 8rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--navy-light);
+            border-radius: 1.5rem;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--brand), transparent, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-img-wrapper {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+        }
+
+        .project-img-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, var(--navy-light) 100%);
+            pointer-events: none;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.08);
+        }
+
+        .project-info {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: rgba(195, 21, 28, 0.1);
+            color: var(--brand-light);
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: white;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        .project-link i {
+            transition: transform 0.3s;
+            color: var(--brand);
+        }
+
+        .project-link:hover {
+            color: var(--brand-light);
+        }
+
+        .project-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* --- Process Section (New) --- */
+        .process {
+            background: var(--navy-light);
+            position: relative;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .process-item {
+            position: relative;
+        }
+
+        .process-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--brand);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .process-item:hover .process-icon {
+            background: rgba(195, 21, 28, 0.1);
+            border-color: rgba(195, 21, 28, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(195, 21, 28, 0.15);
+        }
+
+        .process-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- Pricing Section --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pricing-card {
+            background: var(--navy-light);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.popular {
+            background: linear-gradient(180deg, rgba(195,21,28,0.05) 0%, var(--navy-light) 100%);
+            border: 1px solid rgba(195, 21, 28, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(195,21,28,0.1);
+            z-index: 10;
+        }
+
+        @media (max-width: 992px) {
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+            color: white;
+            padding: 0.4rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            box-shadow: 0 5px 15px rgba(195,21,28,0.4);
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            min-height: 45px;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            margin-left: 0.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features i {
+            color: var(--brand);
+            margin-top: 0.25rem;
+        }
+
+        .btn-outline {
+            width: 100%;
+            display: block;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--brand);
+            color: white;
+            padding: 1rem;
+            border-radius: 3rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--brand);
+            color: white;
+        }
+
+        .popular .btn-outline {
+            background: var(--brand);
+        }
+
+        .popular .btn-outline:hover {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+        }
+
+        /* --- Contact Section --- */
+        .contact {
+            background: url('assets/images/portfolio-hero.png') center/cover;
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--navy) 0%, rgba(10,10,15,0.95) 100%);
+        }
+
+        .contact-container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand);
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 0 4px rgba(195, 21, 28, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--brand);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: #050508;
+            padding: 5rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .footer-logo {
+            height: 45px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-about {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-link:hover {
+            background: var(--brand);
+            border-color: var(--brand);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--brand);
+            margin-top: 0.25rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .hero { padding-top: 6rem; }
+            .section-padding { padding: 4rem 0; }
+        }
+        
+        #formMessage {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 1rem 0; transition: all 0.3s ease;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <img src="assets/images/logo.png" alt="Elitechub" style="height: 35px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 800; color: white; font-size: 1.25rem;">Elitech<span style="color: #c3151c;">ub</span></span>
+            </a>
+            <div style="display: flex; gap: 2rem; align-items: center;" class="nav-links">
+                <a href="#projects" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#c3151c'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Work</a>
+                <a href="#pricing" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s;" onmouseover="this.style.color='#c3151c'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Pricing</a>
+                <a href="#contact" class="btn btn-primary" style="padding: 0.6rem 1.5rem; font-size: 0.95rem; box-shadow: none;">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
+    <style>
+        @media (max-width: 576px) { .nav-links { display: none !important; } }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content reveal">
+            <img src="assets/images/logo.png" alt="Elitechub" class="hero-logo">
+            <div class="badge"><i class="fas fa-rocket" style="margin-right: 0.5rem;"></i> UK Business Expansion</div>
+            <h1 class="text-gradient">Websites That Help UK Small Businesses Win More Customers.</h1>
+            <p>Fast, stunning, mobile-first websites for restaurants, fitness businesses, and service providers. Fixed pricing. Delivered in 2 weeks. Zero jargon.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#projects" class="btn btn-primary">See Our Work <i class="fas fa-arrow-right"></i></a>
+                <a href="#pricing" class="btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Intro -->
+    <section style="background: var(--navy-light); padding: 2.5rem 0; border-bottom: 1px solid var(--glass-border); position: relative; z-index: 5;">
+        <div class="container">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; text-align: center;">
+                <img src="assets/images/official pic.png" alt="Elijah" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--brand); box-shadow: 0 5px 15px rgba(195, 21, 28, 0.3);">
+                <div style="text-align: left;">
+                    <h3 style="color: white; font-size: 1.3rem; margin-bottom: 0.2rem; font-family: 'Space Grotesk', sans-serif;">"Hi, I'm Elijah."</h3>
+                    <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">I build websites for small businesses across the UK.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <div class="social-proof">
+        <div class="container">
+            <div class="proof-track">
+                <div class="proof-item"><i class="fas fa-check-circle"></i> UK & Global Delivery</div>
+                <div class="proof-dot"></div>
+                <div class="proof-item" style="color: white;"><i class="fas fa-bolt"></i> Most projects delivered in 2 weeks</div>
+                <div class="proof-dot"></div>
+                <div class="proof-item"><i class="fas fa-lock"></i> Fixed Pricing</div>
+                <div class="proof-dot"></div>
+                <div class="proof-item"><i class="fas fa-users"></i> Trusted by businesses in Nigeria, UK, & beyond</div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.95rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                <strong style="color: white;">100% Remote.</strong> I'm based in Nigeria and have delivered projects for UK clients entirely online with regular updates via email and WhatsApp throughout.
+            </div>
+        </div>
+    </div>
+
+    <!-- Process Section -->
+    <section class="process section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="text-gradient">How We Build</h2>
+                <p>A streamlined, stress-free process designed specifically for busy business owners.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-item reveal" style="transition-delay: 0.1s;">
+                    <div class="process-icon"><i class="fas fa-comments"></i></div>
+                    <h3>1. Discovery Call</h3>
+                    <p>We discuss your brand, your goals, and what makes your business unique. No technical jargon, just business.</p>
+                </div>
+                <div class="process-item reveal" style="transition-delay: 0.2s;">
+                    <div class="process-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>2. Design & Build</h3>
+                    <p>We craft a stunning, high-converting design tailored to your specific industry and audience.</p>
+                </div>
+                <div class="process-item reveal" style="transition-delay: 0.3s;">
+                    <div class="process-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>3. Launch & Grow</h3>
+                    <p>We launch your lightning-fast site and ensure you're equipped to capture leads and grow your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="text-gradient">Featured Work</h2>
+                <p>Explore recent projects where we transformed online presences into powerful lead-generation engines.</p>
+            </div>
+            
+            <div class="projects-grid">
+                
+                <!-- Project 1 -->
+                <div class="project-card reveal">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/portfolio/hiim.png" alt="HIIM" class="project-img" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Service Business</span>
+                        <h3 class="project-title">HIIM Framework</h3>
+                        <p class="project-desc">A highly responsive, modern application built to capture leads and drive customer interaction.</p>
+                        <a href="https://hiim.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card reveal" style="transition-delay: 0.1s;">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/portfolio/primero.png" alt="Primero Solutions" class="project-img" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Corporate</span>
+                        <h3 class="project-title">Primero Solutions</h3>
+                        <p class="project-desc">A professional business presence that establishes trust and drives B2B engagement.</p>
+                        <a href="https://primerosolutionsllc.com/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card reveal" style="transition-delay: 0.2s;">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/portfolio/mercy-ogunwale.png" alt="Mercy Ogunwale" class="project-img" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Professional</span>
+                        <h3 class="project-title">Mercy Ogunwale</h3>
+                        <p class="project-desc">A premium portfolio designed to highlight expertise and build personal brand authority.</p>
+                        <a href="https://comfy-tanuki-d6a142.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card reveal" style="transition-delay: 0.3s;">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/portfolio/mamadd.png" alt="Mama DD's" class="project-img" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Restaurant</span>
+                        <h3 class="project-title">Mama DD's Cuisine</h3>
+                        <p class="project-desc">A vibrant culinary website that attracts local customers and showcases offerings beautifully.</p>
+                        <a href="https://mamadd.com/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding" style="background: var(--navy-lighter);">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="text-gradient">Simple, Transparent Pricing</h2>
+                <p>No hidden fees. You know exactly what you're getting before we write a single line of code.</p>
+            </div>
+            
+            <div class="pricing-grid">
+                
+                <!-- Starter -->
+                <div class="pricing-card reveal">
+                    <h3 class="pricing-title">Starter</h3>
+                    <p class="pricing-desc">Best for new businesses needing their first professional online footprint.</p>
+                    <div class="pricing-price">£350<span>/fixed</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Up to 5 Custom Pages</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile & Tablet Responsive</li>
+                        <li><i class="fas fa-check-circle"></i> Basic SEO Setup</li>
+                        <li><i class="fas fa-check-circle"></i> Secure Contact Form</li>
+                        <li><i class="fas fa-check-circle"></i> 2 Revision Rounds</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline">Choose Starter</a>
+                </div>
+
+                <!-- Standard -->
+                <div class="pricing-card popular reveal" style="transition-delay: 0.1s;">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <h3 class="pricing-title">Standard</h3>
+                    <p class="pricing-desc">Ideal for established businesses wanting bookings and deep integrations.</p>
+                    <div class="pricing-price">£600<span>/fixed</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Everything in Starter</li>
+                        <li><i class="fas fa-check-circle"></i> Online Booking System</li>
+                        <li><i class="fas fa-check-circle"></i> Social Media Feed Sync</li>
+                        <li><i class="fas fa-check-circle"></i> Google Business/Maps Embed</li>
+                        <li><i class="fas fa-check-circle"></i> Advanced Speed Optimization</li>
+                        <li><i class="fas fa-check-circle"></i> 3 Revision Rounds</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline">Choose Standard</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="pricing-card reveal" style="transition-delay: 0.2s;">
+                    <h3 class="pricing-title">Premium</h3>
+                    <p class="pricing-desc">For full online dominance with ordering capabilities and priority support.</p>
+                    <div class="pricing-price">£950<span>/fixed</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check-circle"></i> Everything in Standard</li>
+                        <li><i class="fas fa-check-circle"></i> Online Ordering/E-commerce</li>
+                        <li><i class="fas fa-check-circle"></i> Automated Newsletter Capture</li>
+                        <li><i class="fas fa-check-circle"></i> 1 Month VIP Post-Launch Support</li>
+                        <li><i class="fas fa-check-circle"></i> Unlimited Revisions (During Build)</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline">Choose Premium</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="text-gradient">Let's Build Something Great</h2>
+                <p>Tell me a little about your business and I'll get back to you within 24 hours.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 4rem; max-width: 1100px; margin: 0 auto; align-items: start;">
+                
+                <!-- Trust & About -->
+                <div class="reveal" style="background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 2.5rem; border-radius: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+                    <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">Why Work With Me?</h3>
+                    <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem;">I'm a web developer based in Nigeria working with small businesses remotely across the UK. I've built websites for fitness instructors, corporate brands, and service businesses. <strong style="color: white;">Every project is handled personally by me from start to finish.</strong></p>
+                    
+                    <div style="background: rgba(195, 21, 28, 0.1); border-left: 4px solid var(--brand); padding: 1.25rem; margin-bottom: 2rem; border-radius: 0 0.5rem 0.5rem 0;">
+                        <p style="margin: 0; color: white; font-weight: 600; font-size: 0.95rem;">Not happy with the first draft? We revise until you are.</p>
+                    </div>
+
+                    <h4 style="color: white; margin-bottom: 0.5rem; font-size: 1.1rem; font-family: 'Space Grotesk', sans-serif;">Prefer to chat?</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">Send me a quick message on WhatsApp and I'll reply instantly.</p>
+                    <a href="https://wa.me/2347081968062" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #25D366; color: white; padding: 0.8rem 1.5rem; border-radius: 3rem; text-decoration: none; font-weight: 700; transition: transform 0.3s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> Message me on WhatsApp
+                    </a>
+                </div>
+
+                <!-- Form -->
+                <div class="contact-container reveal" style="margin: 0; width: 100%;">
+                    <form id="ukContactForm">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="businessName">Your Business Name</label>
+                            <input type="text" id="businessName" name="businessName" class="form-control" placeholder="Doe's Bakery" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="needs">Tell me about your website needs</label>
+                            <textarea id="needs" name="needs" class="form-control" rows="5" placeholder="I need a website that allows customers to view our menu and book tables..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            Send Message <i class="fas fa-paper-plane" style="margin-left: 0.5rem;"></i>
+                        </button>
+                    </form>
+                    <div id="formMessage"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- Brand -->
+                <div class="footer-col">
+                    <img src="assets/images/logo.png" alt="Elitechub" class="footer-logo">
+                    <p class="footer-about">We build high-performance, conversion-focused websites for ambitious UK small businesses. We handle the tech so you can focus on your business.</p>
+                    <div class="social-links">
+                        <a href="https://twitter.com/elitechub" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/company/elitech-hub" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com/elitechub" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Our Focus</h4>
+                    <ul class="footer-links">
+                        <li><a href="#projects">Restaurant Websites</a></li>
+                        <li><a href="#projects">Service Provider Sites</a></li>
+                        <li><a href="#projects">Corporate Profiles</a></li>
+                        <li><a href="#pricing">Web Development Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="policies.html">Privacy Policy</a></li>
+                        <li><a href="policies.html">Terms of Service</a></li>
+                        <li><a href="policies.html">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-col">
+                    <h4 class="footer-title">Get In Touch</h4>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-globe-europe"></i>
+                        <span>Serving UK & Global Clients Remotely</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:elijah@elitechub.com" style="color: inherit; text-decoration: none;">elijah@elitechub.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Response within 24 hours</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Elitechub. All rights reserved.</p>
+                <p>Developed by <span style="color: var(--brand); font-weight: 700;">Elitech Hub</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form Submission Logic
+        document.getElementById('ukContactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Collect form data
+            const formData = {
+                contactName: form.name.value,
+                email: form.email.value,
+                organizationName: form.businessName.value,
+                partnerType: 'UK Web Service Lead',
+                message: form.needs.value
+            };
+
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sending...';
+            formMessage.style.display = 'none';
+
+            try {
+                // Connect to existing elitechub API
+                const response = await fetch('https://api.elitechub.com/api/inquiries/partner', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent';
+                    formMessage.style.display = 'block';
+                    formMessage.style.background = 'rgba(16, 185, 129, 0.1)';
+                    formMessage.style.color = '#10b981';
+                    formMessage.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+                    formMessage.innerHTML = '<i class="fas fa-check-circle" style="margin-right:0.5rem;"></i> Incredible! Your message is sent. I will review it and reply within 24 hours.';
+                    form.reset();
+                } else {
+                    throw new Error('Failed');
+                }
+            } catch (error) {
+                formMessage.style.display = 'block';
+                formMessage.style.background = 'rgba(195, 21, 28, 0.1)';
+                formMessage.style.color = '#ef4444';
+                formMessage.style.border = '1px solid rgba(195, 21, 28, 0.3)';
+                formMessage.innerHTML = '<i class="fas fa-exclamation-circle" style="margin-right:0.5rem;"></i> Something went wrong. Please email me directly at elijah@elitechub.com.';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+            
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+                if (!submitBtn.disabled) {
+                    submitBtn.innerHTML = originalText;
+                }
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
