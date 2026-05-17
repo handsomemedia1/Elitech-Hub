@@ -10,6 +10,8 @@ const PAGE_CONFIG = {
     'index.html':               { priority: '1.0', changefreq: 'daily' },
     'blog.html':                { priority: '0.9', changefreq: 'daily' },
     'programs.html':            { priority: '0.9', changefreq: 'weekly' },
+    'ai-training.html':         { priority: '0.9', changefreq: 'weekly' },
+    'uk-web.html':              { priority: '0.8', changefreq: 'weekly' },
     'about.html':               { priority: '0.8', changefreq: 'monthly' },
     'contact.html':             { priority: '0.7', changefreq: 'monthly' },
     'services.html':            { priority: '0.8', changefreq: 'weekly' },
