@@ -57,4 +57,3 @@ Allow: /
 
 # Sitemap
 Sitemap: https://elitechub.com/sitemap.xml
-Sitemap: https://elitechub.com/blog-sitemap.xml
