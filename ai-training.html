@@ -878,13 +878,36 @@
 
 
     <!-- Live LinkedIn Testimonial -->
-    <section class="section" style="padding: 4rem 2rem; background: var(--bg-dark); text-align: center;">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <p style="font-size: 0.85rem; font-weight: 700; color: var(--brand-cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;" data-aos="fade-up">Live Student Success</p>
-            <h2 style="font-size: 2.5rem; font-family: 'Syne', sans-serif; font-weight: 800; color: white; margin-bottom: 2rem;" data-aos="fade-up" data-aos-delay="100">Real Results, <span style="color: var(--brand-red);">Real People.</span></h2>
+    <section class="section" style="padding: 6rem 2rem; background: var(--bg-dark); text-align: center; position: relative; overflow: hidden;">
+        <!-- Decorative Glow -->
+        <div style="position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 60%; height: 50%; background: radial-gradient(circle, rgba(195,21,28,0.05) 0%, rgba(0,0,0,0) 70%); pointer-events: none;"></div>
+
+        <div style="max-width: 900px; margin: 0 auto; position: relative; z-index: 2;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: var(--brand-cyan); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;" data-aos="fade-up">Proof of Work</p>
             
-            <div style="display: flex; justify-content: center; overflow: hidden; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);" data-aos="zoom-in" data-aos-delay="200">
-                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7353777252897099777" height="817" width="504" frameborder="0" allowfullscreen="" title="Embedded post" style="max-width: 100%;"></iframe>
+            <h2 style="font-size: clamp(2rem, 5vw, 3rem); font-family: 'Syne', sans-serif; font-weight: 800; color: white; margin-bottom: 1.5rem; line-height: 1.2;" data-aos="fade-up" data-aos-delay="100">
+                This Is What <span class="highlight-red">4 Weeks</span> Looks Like.
+            </h2>
+            
+            <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 750px; margin: 0 auto 3rem; line-height: 1.8;" data-aos="fade-up" data-aos-delay="200">
+                Roy Innocent joined as a cybersecurity student with no prior project experience. In 4 weeks, he built a fully functioning <strong>AI-powered security dashboard</strong> from scratch — real-time CPU monitoring, USB device detection, suspicious activity alerts, and a live SQLite database. He did not watch videos. He built something real, under direct mentorship, line by line.
+            </p>
+
+            <div style="display: flex; justify-content: center; overflow: hidden; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.05); margin-bottom: 4rem;" data-aos="zoom-in" data-aos-delay="300">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7353777252897099777" height="817" width="504" frameborder="0" allowfullscreen="" title="Embedded post" style="max-width: 100%; background: white;"></iframe>
+            </div>
+
+            <div style="background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 3rem; text-align: center; max-width: 700px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="400">
+                <p style="font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 1rem; font-family: 'Syne', sans-serif;">
+                    What will you build in the next cohort?
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
+                    10 seats. <span style="color: var(--brand-cyan); font-weight: 600;">$100.</span> Cohort starts June 8.<br>
+                    Roy's spot is taken. Yours is not — yet.
+                </p>
+                <button onclick="openModal()" class="cta-btn pulse" style="font-size: 1.1rem; padding: 1rem 2.5rem; width: 100%; max-width: 300px;">
+                    Reserve My Spot
+                </button>
             </div>
         </div>
     </section>
