@@ -373,45 +373,9 @@
     padding: var(--space-2);
 }
 
-/* Mobile Navigation */
-.nav-mobile {
-    display: none;
-    position: fixed;
-    top: 73px;
-    left: 0;
-    right: 0;
-    background: white;
-    border-bottom: 1px solid var(--gray-200);
-    box-shadow: var(--shadow-lg);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--duration-medium) var(--ease-out);
-}
+/* Mobile Navigation - MOVED TO css/navbar.css (drawer pattern) */
+/* .nav-mobile styles are fully managed in navbar.css */
 
-.nav-mobile.active {
-    max-height: 500px;
-    padding: var(--space-4) 0;
-}
-
-.nav-mobile-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-mobile-links li {
-    border-bottom: 1px solid var(--gray-100);
-}
-
-.nav-mobile-links .nav-link {
-    display: block;
-    padding: var(--space-4) var(--space-8);
-}
-
-.nav-mobile .btn {
-    margin: var(--space-4) var(--space-8) 0;
-    width: calc(100% - var(--space-16));
-}
 
 /* ============================================
    5. FORMS - Clean Inputs

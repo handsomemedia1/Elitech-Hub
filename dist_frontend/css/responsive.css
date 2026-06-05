@@ -74,9 +74,8 @@
         display: none;
     }
 
-    .nav-mobile {
-        display: none;
-    }
+    /* .nav-mobile managed by navbar.css drawer */
+
 
     /* Hero full size */
     .hero {
@@ -133,10 +132,8 @@
         display: block;
     }
 
-    /* Show mobile nav */
-    .nav-mobile {
-        display: block;
-    }
+    /* .nav-mobile managed by navbar.css drawer */
+
 
     /* Reduce section padding */
     .section {
@@ -389,15 +386,8 @@
         padding: var(--space-4);
     }
 
-    /* Navigation */
-    .nav-mobile {
-        top: 60px;
-    }
+    /* Landscape nav adjustments handled by navbar.css */
 
-    .nav-mobile.active {
-        max-height: 60vh;
-        overflow-y: auto;
-    }
 }
 
 /* ============================================
