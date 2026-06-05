@@ -1,116 +1,126 @@
 """
-Navbar Injection Script
-Injects the navbar HTML directly into all pages that use navbar-placeholder
+Navbar Injection Script v2
+Reads the canonical navbar from components/navbar.html and injects it into
+EVERY html page in the project — both pages with navbar-placeholder AND
+pages that already have a hardcoded nav (replaces existing nav block).
 """
 import os
 import re
 
-NAVBAR_HTML = '''    <!-- Navigation (Direct Injection) -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="Elitech Hub" style="height: 40px; width: auto; margin-right: 0.5rem;">
-                <span>Elitech<span class="logo-highlight">Hub</span></span>
-            </a>
-            <ul class="nav-desktop">
-                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
-                <li class="nav-dropdown">
-                    <span class="nav-link nav-dropdown-trigger">Learn <i class="fas fa-chevron-down"></i></span>
-                    <div class="nav-dropdown-menu">
-                        <a href="programs.html" data-page="programs"><i class="fas fa-graduation-cap"></i> Programs</a>
-                        <a href="blog.html" data-page="blog"><i class="fas fa-newspaper"></i> Blog</a>
-                        <a href="research.html" data-page="research"><i class="fas fa-flask"></i> Research</a>
-                        <a href="researcher.html" data-page="researcher" style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a>
-                    </div>
-                </li>
-                <li class="nav-dropdown">
-                    <span class="nav-link nav-dropdown-trigger">Company <i class="fas fa-chevron-down"></i></span>
-                    <div class="nav-dropdown-menu">
-                        <a href="about.html" data-page="about"><i class="fas fa-users"></i> About Us</a>
-                        <a href="services.html" data-page="services"><i class="fas fa-cogs"></i> Services</a>
-                        <a href="portfolio.html" data-page="portfolio"><i class="fas fa-laptop-code"></i> Portfolio</a>
-                        <a href="security.html" data-page="security"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a>
-                    </div>
-                </li>
-                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;" data-page="get-involved">Get Involved</a></li>
-                <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
-                <a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-        <div class="nav-mobile" id="mobileNav">
-            <ul class="nav-mobile-links">
-                <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
-                <li class="mobile-dropdown">
-                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Learn</span><i class="fas fa-chevron-down"></i></div>
-                    <ul class="mobile-dropdown-menu">
-                        <li><a href="programs.html" class="nav-link"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                        <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> Blog</a></li>
-                        <li><a href="research.html" class="nav-link"><i class="fas fa-flask"></i> Research</a></li>
-                        <li><a href="researcher.html" class="nav-link" style="color: #7C3AED;"><i class="fas fa-microscope"></i> Researcher Portal</a></li>
-                    </ul>
-                </li>
-                <li class="mobile-dropdown">
-                    <div class="mobile-dropdown-header" onclick="toggleMobileDropdown(this)"><span>Company</span><i class="fas fa-chevron-down"></i></div>
-                    <ul class="mobile-dropdown-menu">
-                        <li><a href="about.html" class="nav-link"><i class="fas fa-users"></i> About Us</a></li>
-                        <li><a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a></li>
-                        <li><a href="portfolio.html" class="nav-link"><i class="fas fa-laptop-code"></i> Portfolio</a></li>
-                        <li><a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security &amp; Trust</a></li>
-                    </ul>
-                </li>
-                <li><a href="get-involved.html" class="nav-link" style="color: #c3151c; font-weight: 700;">Get Involved</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-            </ul>
-            <a href="https://forms.gle/elitech-application" class="btn btn-primary">Apply Now</a>
-        </div>
-    </nav>'''
+ROOT = os.path.dirname(os.path.abspath(__file__))
+COMPONENT_PATH = os.path.join(ROOT, 'components', 'navbar.html')
 
-# Pages to update (excluding index.html and programs.html which are already done)
-PAGES = [
-    'about.html', 'blog.html', 'contact.html', 'services.html', 
-    'portfolio.html', 'research.html', 'get-involved.html', 'security.html', 
-    'volunteer.html', 'mentor-application.html', 'policies.html', 
-    'research-paper.html', 'payment.html'
-]
+# Pages that live in subfolders need path prefixes adjusted
+SUBFOLDERS = ['blog-posts']
 
-def inject_navbar():
+# Pages to SKIP (non-visitor pages)
+SKIP_PAGES = {
+    'admin.html', 'dashboard.html', 'login.html', 'members.html',
+    'thank-you.html', 'yandex_6d910a5f997cec90.html'
+}
+
+def get_navbar_html(prefix=''):
+    """Read the component and optionally prefix relative links for subfolders."""
+    with open(COMPONENT_PATH, 'r', encoding='utf-8') as f:
+        html = f.read()
+    if prefix:
+        # Adjust relative hrefs and srcs
+        html = re.sub(r'href="(?!http|#|mailto|javascript)([^"]+)"', 
+                      lambda m: f'href="{prefix}{m.group(1)}"', html)
+        html = re.sub(r'src="(?!http|data)([^"]+)"', 
+                      lambda m: f'src="{prefix}{m.group(1)}"', html)
+    return html
+
+def inject_into_file(filepath, navbar_html):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    original = content
+
+    # Strategy 1: Replace existing <nav class="navbar"...>...</nav> block
+    nav_pattern = re.compile(
+        r'[ \t]*<!--\s*Navigation[^>]*-->\s*\n?[ \t]*<!--[^>]*-->\s*\n?[ \t]*<nav[^>]*class="navbar"[^>]*>.*?</nav>',
+        re.DOTALL
+    )
+    if nav_pattern.search(content):
+        content = nav_pattern.sub(navbar_html, content, count=1)
+
+    # Strategy 2: Replace simpler <nav class="navbar"...>...</nav> block (no comments)
+    elif re.search(r'<nav[^>]*class="navbar"[^>]*>', content):
+        nav_simple = re.compile(r'<nav[^>]*class="navbar"[^>]*>.*?</nav>', re.DOTALL)
+        content = nav_simple.sub(navbar_html, content, count=1)
+
+    # Strategy 3: Replace navbar-placeholder div
+    elif '<div id="navbar-placeholder"></div>' in content:
+        content = content.replace('<div id="navbar-placeholder"></div>', navbar_html, 1)
+
+    # Strategy 4: Insert after <body> opening tag
+    elif re.search(r'<body[^>]*>', content):
+        content = re.sub(r'(<body[^>]*>)', r'\1\n' + navbar_html, content, count=1)
+
+    else:
+        print(f"  [SKIP] No injection point found: {os.path.basename(filepath)}")
+        return False
+
+    if content != original:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+        return True
+    return False
+
+def run():
+    print("=== Navbar Injection v2 ===\n")
     updated = []
     skipped = []
-    
-    for page in PAGES:
-        filepath = page
-        if not os.path.exists(filepath):
-            print(f"  Skipped (not found): {page}")
+    errors = []
+
+    # Process root-level HTML files
+    navbar_html = get_navbar_html()
+    for fname in os.listdir(ROOT):
+        if not fname.endswith('.html'):
             continue
-            
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Check if already has direct injection
-        if 'Navigation (Direct Injection)' in content:
-            skipped.append(page)
+        if fname in SKIP_PAGES:
+            print(f"  [SKIP] {fname}")
+            skipped.append(fname)
             continue
-            
-        # Replace placeholder with navbar
-        pattern = r'<div id="navbar-placeholder"></div>'
-        if re.search(pattern, content):
-            new_content = re.sub(pattern, NAVBAR_HTML, content)
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(new_content)
-            updated.append(page)
-            print(f"  [OK] Updated: {page}")
-        else:
-            print(f"  Skipped (no placeholder): {page}")
-    
-    print(f"\nDone! Updated {len(updated)} pages.")
-    if skipped:
-        print(f"Skipped {len(skipped)} (already injected): {skipped}")
-    return updated
+        fpath = os.path.join(ROOT, fname)
+        try:
+            result = inject_into_file(fpath, navbar_html)
+            if result:
+                print(f"  [OK]   {fname}")
+                updated.append(fname)
+            else:
+                print(f"  [--]   {fname} (no change needed)")
+                skipped.append(fname)
+        except Exception as e:
+            print(f"  [ERR]  {fname}: {e}")
+            errors.append(fname)
+
+    # Process subfolder HTML files
+    for subfolder in SUBFOLDERS:
+        sfpath = os.path.join(ROOT, subfolder)
+        if not os.path.isdir(sfpath):
+            continue
+        navbar_sub = get_navbar_html(prefix='../')
+        for fname in os.listdir(sfpath):
+            if not fname.endswith('.html'):
+                continue
+            fpath = os.path.join(sfpath, fname)
+            try:
+                result = inject_into_file(fpath, navbar_sub)
+                if result:
+                    print(f"  [OK]   {subfolder}/{fname}")
+                    updated.append(f"{subfolder}/{fname}")
+                else:
+                    print(f"  [--]   {subfolder}/{fname} (no change needed)")
+                    skipped.append(f"{subfolder}/{fname}")
+            except Exception as e:
+                print(f"  [ERR]  {subfolder}/{fname}: {e}")
+                errors.append(fname)
+
+    print(f"\n=== Done! Updated {len(updated)} files, skipped {len(skipped)}, errors {len(errors)} ===")
+    if errors:
+        print(f"Errors in: {errors}")
 
 if __name__ == '__main__':
-    print("Injecting navbar into pages...")
-    inject_navbar()
+    run()
