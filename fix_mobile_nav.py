@@ -141,6 +141,13 @@ def process_file(filepath):
             content = content.replace('</body>', MOBILE_NAV_JS + '\n</body>', 1)
             changes.append('mobile-js')
 
+    # 4. Fix certificate badges z-index so they don't cover the mobile drawer
+    new_content = content.replace('id="certificateBadges"\n        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;', 'id="certificateBadges"\n        style="position: fixed; bottom: 20px; right: 20px; z-index: 900;')
+    new_content = new_content.replace('id="certificateBadges" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;', 'id="certificateBadges" style="position: fixed; bottom: 20px; right: 20px; z-index: 900;')
+    if new_content != content:
+        content = new_content
+        changes.append('badges-zindex')
+
     if content != original:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)

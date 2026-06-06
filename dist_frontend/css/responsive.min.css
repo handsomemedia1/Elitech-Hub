@@ -1,1 +1,580 @@
-@media (min-width:768px){.container{padding-left:var(--space-6);padding-right:var(--space-6);max-width:100%}h1{font-size:var(--text-5xl)}h2{font-size:var(--text-4xl)}h3{font-size:var(--text-3xl)}.hero{min-height:80vh}.stats-box{grid-template-columns:repeat(auto-fit, minmax(200px, 1fr))}.footer-grid{grid-template-columns:repeat(auto-fit, minmax(250px, 1fr))}}@media (min-width:1024px){.container{padding-left:var(--space-8);padding-right:var(--space-8)}.nav-desktop{display:flex}.mobile-menu-btn{display:none}.nav-mobile{display:none}.hero{min-height:100vh}h1{font-size:var(--text-6xl)}h2{font-size:var(--text-5xl)}.footer-grid{grid-template-columns:repeat(4, 1fr)}}@media (min-width:1280px){.container{max-width:var(--container-xl)}h1{font-size:var(--text-7xl)}h2{font-size:var(--text-6xl)}}@media (max-width:1023px){.nav-desktop{display:none}.mobile-menu-btn{display:block}.nav-mobile{display:block}.section{padding-top:var(--space-12);padding-bottom:var(--space-12)}.grid-3, .grid-4{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr;gap:var(--space-8)}.btn-row{flex-direction:column}.btn-row .btn{width:100%}}@media (max-width:767px){html{font-size:15px}.container{padding-left:var(--space-4);padding-right:var(--space-4)}h1{font-size:var(--text-4xl)}h2{font-size:var(--text-3xl)}h3{font-size:var(--text-2xl)}h4{font-size:var(--text-xl)}.nav-container{padding:var(--space-3) var(--space-4)}.logo{font-size:var(--text-xl)}.hero{min-height:auto;padding:var(--space-24) 0 var(--space-16)}.stats-box{grid-template-columns:1fr;gap:var(--space-6);padding:var(--space-6)}.stat-number{font-size:var(--text-5xl)}.card{padding:var(--space-6)}.card-feature{padding:var(--space-6);min-height:auto}.btn{padding:var(--space-3) var(--space-4);font-size:var(--text-sm)}.btn-lg{padding:var(--space-4) var(--space-6);font-size:var(--text-base)}.footer{padding:var(--space-12) var(--space-4) var(--space-6)}.footer-grid{grid-template-columns:1fr;gap:var(--space-8);margin-bottom:var(--space-8)}.form-input, .form-textarea, .form-select{font-size:var(--text-base)}.badge{font-size:var(--text-xs);padding:var(--space-1) var(--space-3)}.terminal{padding:var(--space-4);font-size:0.75rem}.card-pricing.featured{transform:none}}@media (max-width:400px){.container{padding-left:var(--space-3);padding-right:var(--space-3);width:100%;max-width:100%;overflow-x:hidden}h1{font-size:var(--text-2xl) !important}h2{font-size:var(--text-xl) !important}h3{font-size:var(--text-lg) !important}.hero-title{font-size:2.5rem !important;word-break:break-word}.hero-stats{padding:var(--space-3)}.btn{width:100%;padding:0.5rem 1rem;font-size:0.875rem}.skill-cards, .hero-video-overlay::before{display:none !important}* [style*="padding:2rem"], * [style*="padding:3rem"], * [style*="padding:4rem"], * [style*="gap:3rem"]{padding:1rem !important;gap:1rem !important}* [style*="max-width"], * [style*="min-width"], *{max-width:100% !important;min-width:0 !important;word-wrap:break-word !important;overflow-wrap:break-word !important}html, body{overflow-x:hidden !important}[style*="grid-template-columns"], [style*="display:grid"]{grid-template-columns:1fr !important}[style*="display:flex"]{flex-direction:column !important}}@media (max-width:1023px) and (orientation:landscape){.hero{min-height:auto;padding:var(--space-16) 0}.stats-box{grid-template-columns:repeat(3, 1fr);padding:var(--space-4)}.nav-mobile{top:60px}.nav-mobile.active{max-height:60vh;overflow-y:auto}}@media print{.navbar, .mobile-menu-btn, .btn, .footer{display:none}.hero{min-height:auto;padding:var(--space-8) 0;background:white;color:black}.section{page-break-inside:avoid}.card{box-shadow:none;border:1px solid #ccc}}@media (-webkit-min-device-pixel-ratio:2), (min-resolution:192dpi){body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.card, .btn{border-width:1px}}@media (hover:none) and (pointer:coarse){.btn{min-height:44px;min-width:44px}.nav-link{padding:var(--space-4)}.card:hover{transform:none}.btn:hover{transform:none}.form-input, .form-textarea, .form-select{min-height:44px;font-size:16px}}@media (prefers-color-scheme:dark){}@media (prefers-reduced-data:reduce){.hero::before{display:none}*{animation:none !important;transition:none !important}}@media (prefers-contrast:high){.btn-outline{border-width:3px}.card{border-width:2px}.card-elevated{box-shadow:0 4px 8px rgba(0, 0, 0, 0.3)}}@media (max-width:767px){.hide-mobile{display:none !important}}@media (min-width:768px) and (max-width:1023px){.hide-tablet{display:none !important}}@media (min-width:1024px){.hide-desktop{display:none !important}}.show-mobile{display:block}@media (min-width:768px){.show-mobile{display:none !important}}.show-tablet{display:none}@media (min-width:768px) and (max-width:1023px){.show-tablet{display:block !important}}.show-desktop{display:none}@media (min-width:1024px){.show-desktop{display:block !important}}
+/* ============================================
+   ELITECH HUB - RESPONSIVE DESIGN
+   Mobile-First Responsive Breakpoints
+   ============================================ */
+
+/* ============================================
+   BREAKPOINT SYSTEM:
+   - Mobile: < 768px (default, mobile-first)
+   - Tablet: 768px - 1023px
+   - Desktop: 1024px - 1279px
+   - Large Desktop: >= 1280px
+   ============================================ */
+
+/* ============================================
+   1. TABLET & UP (min-width: 768px)
+   ============================================ */
+@media (min-width: 768px) {
+
+    /* Container adjustments */
+    .container {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+        max-width: 100%;
+        /* Ensure fluid width on tablets */
+    }
+
+    /* Typography scale */
+    h1 {
+        font-size: var(--text-5xl);
+    }
+
+    h2 {
+        font-size: var(--text-4xl);
+    }
+
+    h3 {
+        font-size: var(--text-3xl);
+    }
+
+    /* Hero adjustments */
+    .hero {
+        min-height: 80vh;
+        /* Slightly reduced from 90vh */
+    }
+
+    /* Stats grid - Safer Auto-fit */
+    .stats-box {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    /* Footer grid - Safer Auto-fit */
+    .footer-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* ============================================
+   2. DESKTOP & UP (min-width: 1024px)
+   ============================================ */
+@media (min-width: 1024px) {
+
+    /* Container */
+    .container {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
+
+    /* Navigation - show desktop nav */
+    .nav-desktop {
+        display: flex;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    /* .nav-mobile managed by navbar.css drawer */
+
+
+    /* Hero full size */
+    .hero {
+        min-height: 100vh;
+    }
+
+    /* Typography */
+    h1 {
+        font-size: var(--text-6xl);
+    }
+
+    h2 {
+        font-size: var(--text-5xl);
+    }
+
+    /* Footer grid */
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============================================
+   3. LARGE DESKTOP & UP (min-width: 1280px)
+   ============================================ */
+@media (min-width: 1280px) {
+
+    /* Container max width */
+    .container {
+        max-width: var(--container-xl);
+    }
+
+    /* Typography */
+    h1 {
+        font-size: var(--text-7xl);
+    }
+
+    h2 {
+        font-size: var(--text-6xl);
+    }
+}
+
+/* ============================================
+   4. MOBILE & TABLET ONLY (max-width: 1023px)
+   ============================================ */
+@media (max-width: 1023px) {
+
+    /* Hide desktop navigation */
+    .nav-desktop {
+        display: none;
+    }
+
+    /* Show mobile menu button */
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* .nav-mobile managed by navbar.css drawer */
+
+
+    /* Reduce section padding */
+    .section {
+        padding-top: var(--space-12);
+        padding-bottom: var(--space-12);
+    }
+
+    /* Stack grids */
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hero adjustments */
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    /* Button stack */
+    .btn-row {
+        flex-direction: column;
+    }
+
+    .btn-row .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   5. MOBILE ONLY (max-width: 767px)
+   ============================================ */
+@media (max-width: 767px) {
+
+    /* Root font size */
+    html {
+        font-size: 15px;
+    }
+
+    /* Container */
+    .container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+
+    /* Typography */
+    h1 {
+        font-size: var(--text-4xl);
+    }
+
+    h2 {
+        font-size: var(--text-3xl);
+    }
+
+    h3 {
+        font-size: var(--text-2xl);
+    }
+
+    h4 {
+        font-size: var(--text-xl);
+    }
+
+    /* Navigation adjustments */
+    .nav-container {
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .logo {
+        font-size: var(--text-xl);
+    }
+
+    /* Hero */
+    .hero {
+        min-height: auto;
+        padding: var(--space-24) 0 var(--space-16);
+    }
+
+    /* Stats grid - stack on mobile */
+    .stats-box {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+        padding: var(--space-6);
+    }
+
+    .stat-number {
+        font-size: var(--text-5xl);
+    }
+
+    /* Cards */
+    .card {
+        padding: var(--space-6);
+    }
+
+    .card-feature {
+        padding: var(--space-6);
+        min-height: auto;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    .btn-lg {
+        padding: var(--space-4) var(--space-6);
+        font-size: var(--text-base);
+    }
+
+    /* Footer */
+    .footer {
+        padding: var(--space-12) var(--space-4) var(--space-6);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        margin-bottom: var(--space-8);
+    }
+
+    /* Forms */
+    .form-input,
+    .form-textarea,
+    .form-select {
+        font-size: var(--text-base);
+    }
+
+    /* Badges */
+    .badge {
+        font-size: var(--text-xs);
+        padding: var(--space-1) var(--space-3);
+    }
+
+    /* Terminal */
+    .terminal {
+        padding: var(--space-4);
+        font-size: 0.75rem;
+    }
+
+    /* Pricing cards - remove scale on mobile */
+    .card-pricing.featured {
+        transform: none;
+    }
+}
+
+/* ============================================
+   6. SMALL MOBILE (SAMSUNG FOLD COVER) (max-width: 400px)
+   ============================================ */
+@media (max-width: 400px) {
+
+    /* Ultra-narrow container */
+    .container {
+        padding-left: var(--space-3);
+        padding-right: var(--space-3);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
+    }
+
+    /* Reduce font sizes mainly for headers */
+    h1 {
+        font-size: var(--text-2xl) !important;
+    }
+
+    h2 {
+        font-size: var(--text-xl) !important;
+    }
+
+    h3 {
+        font-size: var(--text-lg) !important;
+    }
+
+    /* Fix Hero Section */
+    .hero-title {
+        font-size: 2.5rem !important;
+        /* Force smaller title */
+        word-break: break-word;
+        /* Prevent overflow */
+    }
+
+    .hero-stats {
+        padding: var(--space-3);
+    }
+
+    /* Buttons full width */
+    .btn {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    /* Hide complex floating elements */
+    .skill-cards,
+    .hero-video-overlay::before {
+        display: none !important;
+    }
+
+    /* Override inline styles for every element with excessive padding */
+    * [style*="padding: 2rem"],
+    * [style*="padding: 3rem"],
+    * [style*="padding: 4rem"],
+    * [style*="gap: 3rem"] {
+        padding: 1rem !important;
+        gap: 1rem !important;
+    }
+
+    /* Force max-width on everything to prevent overflow */
+    * [style*="max-width"],
+    * [style*="min-width"],
+    * {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    /* Ensure no element causes horizontal scroll */
+    html,
+    body {
+        overflow-x: hidden !important;
+    }
+
+    /* Make all grids single column */
+    [style*="grid-template-columns"],
+    [style*="display: grid"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stack flex containers */
+    [style*="display: flex"] {
+        flex-direction: column !important;
+    }
+}
+
+/* ============================================
+   7. LANDSCAPE ORIENTATION
+   ============================================ */
+@media (max-width: 1023px) and (orientation: landscape) {
+
+    /* Reduce hero height in landscape */
+    .hero {
+        min-height: auto;
+        padding: var(--space-16) 0;
+    }
+
+    /* Adjust stats */
+    .stats-box {
+        grid-template-columns: repeat(3, 1fr);
+        padding: var(--space-4);
+    }
+
+    /* Landscape nav adjustments handled by navbar.css */
+
+}
+
+/* ============================================
+   8. PRINT STYLES
+   ============================================ */
+@media print {
+
+    /* Hide interactive elements */
+    .navbar,
+    .mobile-menu-btn,
+    .btn,
+    .footer {
+        display: none;
+    }
+
+    /* Adjust spacing */
+    .hero {
+        min-height: auto;
+        padding: var(--space-8) 0;
+        background: white;
+        color: black;
+    }
+
+    /* Show all content */
+    .section {
+        page-break-inside: avoid;
+    }
+
+    /* Remove shadows and effects */
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+/* ============================================
+   9. HIGH RESOLUTION DISPLAYS
+   ============================================ */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+    /* Optimize for Retina displays */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Sharper borders */
+    .card,
+    .btn {
+        border-width: 1px;
+    }
+}
+
+/* ============================================
+   10. TOUCH DEVICES
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .nav-link {
+        padding: var(--space-4);
+    }
+
+    /* Remove hover effects on touch devices */
+    .card:hover {
+        transform: none;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    /* Larger form inputs */
+    .form-input,
+    .form-textarea,
+    .form-select {
+        min-height: 44px;
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+    }
+}
+
+/* ============================================
+   11. DARK MODE SUPPORT (Optional)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    /* Add dark mode styles here if needed */
+    /* Currently using light mode only */
+}
+
+/* ============================================
+   12. REDUCED DATA MODE
+   ============================================ */
+@media (prefers-reduced-data: reduce) {
+
+    /* Reduce heavy assets */
+    .hero::before {
+        display: none;
+    }
+
+    /* Simplify animations */
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================================
+   13. CONTRAST PREFERENCES
+   ============================================ */
+@media (prefers-contrast: high) {
+
+    /* Increase contrast for accessibility */
+    .btn-outline {
+        border-width: 3px;
+    }
+
+    .card {
+        border-width: 2px;
+    }
+
+    /* Stronger shadows */
+    .card-elevated {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* ============================================
+   14. UTILITY RESPONSIVE CLASSES
+   ============================================ */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Hide on tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Show only on mobile */
+.show-mobile {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .show-mobile {
+        display: none !important;
+    }
+}
+
+/* Show only on tablet */
+.show-tablet {
+    display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .show-tablet {
+        display: block !important;
+    }
+}
+
+/* Show only on desktop */
+.show-desktop {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .show-desktop {
+        display: block !important;
+    }
+}

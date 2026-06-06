@@ -11,7 +11,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid #e5e7eb;
-    z-index: 9999;
+    z-index: 9999 !important;
     transition: box-shadow 0.3s ease;
 }
 
@@ -382,8 +382,8 @@
 .mobile-dropdown-menu li { border-top: 1px solid #f3f4f6; }
 
 .mobile-dropdown-menu .nav-link {
-    padding: 0.875rem 1.5rem 0.875rem 2.5rem;
-    display: flex;
+    padding: 0.875rem 1.5rem 0.875rem 2.5rem !important;
+    display: flex !important;
     align-items: center;
     gap: 0.75rem;
     font-size: 0.9375rem;
