@@ -802,7 +802,20 @@
     </footer>
 
     <!-- Scripts -->
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Scroll reveal for lab sections
+            const reveals = document.querySelectorAll('.lab-reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
+        });
+    </script>
     <script src="js/navbar.js"></script>
     <script src="js/security.js"></script>
     <script src="js/seo.js"></script>
