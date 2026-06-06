@@ -1,0 +1,12 @@
+{
+  "name": "elitech-hub-static",
+  "version": "1.0.0",
+  "description": "Elitech Hub Static Site",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"No build command needed for static site\""
+  },
+  "type": "commonjs",
+  "author": "",
+  "license": "ISC"
+}
