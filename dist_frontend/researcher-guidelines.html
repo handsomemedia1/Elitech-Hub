@@ -603,34 +603,7 @@
     </script>
 
     <!-- Navbar Script -->
-    <script>
-        // Mobile dropdown toggle for inline navbar
-        function toggleMobileDropdown(header) {
-            const dropdown = header.parentElement;
-            dropdown.classList.toggle('active');
-        }
-
-        // Initialize mobile menu button
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileNav = document.getElementById('mobileNav');
-
-            if (mobileMenuBtn && mobileNav) {
-                mobileMenuBtn.addEventListener('click', function () {
-                    const icon = this.querySelector('i');
-                    mobileNav.classList.toggle('active');
-
-                    if (mobileNav.classList.contains('active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
-                    } else {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-            }
-        });
-    </script>
+    
     <script src="js/navbar.js"></script>
     <script src="js/popup-engine.js"></script>
     <script src="js/cookie-consent.js"></script>
