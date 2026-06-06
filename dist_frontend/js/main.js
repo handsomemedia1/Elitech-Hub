@@ -86,7 +86,7 @@
         });
         */
 
-
+        /*
         // Close on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && navLinks.classList.contains('active')) {
@@ -96,6 +96,7 @@
                 document.body.style.overflow = '';
             }
         });
+        */
     }
 
     /* ============================================
