@@ -58,6 +58,8 @@ async function loadNavbar() {
 
 // Initialize navbar functionality
 function initNavbar() {
+    // Disabled: Mobile nav is now handled by the inline drawer JS (fix_mobile_nav.py)
+    /*
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileNav = document.getElementById('mobileNav');
@@ -88,6 +90,8 @@ function initNavbar() {
             }
         });
     });
+    */
+
 
     // Navbar scroll effect
     window.addEventListener('scroll', function () {

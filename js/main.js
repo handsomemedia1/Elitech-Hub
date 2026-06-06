@@ -42,6 +42,8 @@
        ============================================ */
 
     function initMobileNav() {
+        // Disabled: Mobile nav is now handled by the inline drawer JS (fix_mobile_nav.py)
+        /*
         const navToggle = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('mobileNav');
 
@@ -82,6 +84,8 @@
                 document.body.style.overflow = '';
             }
         });
+        */
+
 
         // Close on escape key
         document.addEventListener('keydown', (e) => {
