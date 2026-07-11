@@ -1,19 +1,29 @@
 # Elitech Hub
 
-> Africa's #1 Cybersecurity Training Platform. Helping people break into cybersecurity with hands-on bootcamps, guaranteed internships, and a thriving community. Based in Lagos, Nigeria — serving students globally in Nigeria, UK, USA, Canada, UAE, and Kuwait.
+> Africa's #1 Cybersecurity Training Platform. Helping people break into cybersecurity with hands-on bootcamps, guaranteed internships, and a thriving community. Based in Ibadan, Nigeria — serving students globally in Nigeria, UK, USA, Canada, UAE, and Kuwait.
 
 ## What is Elitech Hub?
 
 Elitech Hub is a professional cybersecurity education platform founded in 2021. We train complete beginners and career-changers to become job-ready cybersecurity professionals through intensive, real-world programs. Our flagship 16-Week Professional Cybersecurity Program comes with a 100% internship placement guarantee.
+
+## Official Registration
+- **CAC Registration Number:** RC 8693883
+- **SMEDAN Certified:** Certified by the Small and Medium Enterprises Development Agency of Nigeria.
 
 ## Our Programs
 
 - **6-Week Cybersecurity Bootcamp** — Fast-track intensive program covering ethical hacking, penetration testing, and network security fundamentals. Ideal for beginners who want rapid skill acquisition.
 - **16-Week Professional Cybersecurity Program** — Comprehensive career transformation program with guaranteed internship placement. Covers all major cybersecurity domains: ethical hacking, SOC analysis, cloud security, threat intelligence, and more.
 
+## Services
+
+- **Penetration Testing** — Comprehensive security assessments for web applications, mobile apps, and enterprise networks.
+- **Corporate Training** — Customized cybersecurity training programs for corporate teams and IT departments.
+- **Security Consulting** — Strategic advisory on compliance, risk management, and security architecture.
+
 ## Key Facts
 
-- Founded: 2021, Lagos, Nigeria
+- Founded: 2021, Ibadan, Nigeria
 - Students trained: 500+
 - Internship placement rate: 100%
 - Training format: Online (live sessions + self-paced labs) and in-person
@@ -23,7 +33,7 @@ Elitech Hub is a professional cybersecurity education platform founded in 2021. 
 ## Who We Serve
 
 Elitech Hub serves aspiring cybersecurity professionals in:
-- Nigeria (Lagos, Abuja, and nationwide)
+- Nigeria (Ibadan, Abuja, and nationwide)
 - United Kingdom
 - United States
 - Canada
@@ -36,8 +46,13 @@ Elitech Hub serves aspiring cybersecurity professionals in:
 Elitech Hub publishes cybersecurity tutorials, career guides, scholarship roundups, industry news, and research papers. Topics include ethical hacking, penetration testing, SQL injection, incident response, DAST tools, asymmetric encryption, and cybersecurity career pathways.
 
 - Blog: https://elitechub.com/blog.html
-- Research: https://elitechub.com/research.html
 - Lab: https://elitechub.com/lab.html
+
+## Research
+
+Elitech Hub is committed to advancing the field of cybersecurity through academic and industry research. 
+- Recent Publications: Check out our recent research paper published via Springer (DOI: 10.1007/s10207-024-00123-x).
+- Research Portal: https://elitechub.com/research.html
 
 ## Contact & Links
 

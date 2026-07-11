@@ -165,7 +165,11 @@
 .mobile-menu-btn:hover { background: rgba(0,0,0,0.06); }
 
 /* ── DESKTOP DROPDOWN ── */
-.nav-dropdown { position: relative; }
+.nav-dropdown { 
+    position: relative; 
+    padding-bottom: 24px;
+    margin-bottom: -24px;
+}
 
 .nav-dropdown-trigger {
     display: flex;
@@ -182,11 +186,21 @@
 
 .nav-dropdown:hover .nav-dropdown-trigger i { transform: rotate(180deg); }
 
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: 0;
+    width: 100%;
+    height: 16px;
+}
+
 .nav-dropdown-menu {
     position: absolute;
-    top: calc(100% + 12px);
+    top: 100%;
+    margin-top: -10px;
     left: 50%;
-    transform: translateX(-50%) translateY(-6px);
+    transform: translateX(-50%) translateY(0);
     background: white;
     border-radius: 12px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);

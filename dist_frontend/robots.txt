@@ -35,6 +35,10 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+
 # Claude (web)
 User-agent: Claude-Web
 Allow: /

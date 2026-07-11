@@ -1,0 +1,42 @@
+# Elitech Hub: Complete Entity Context
+
+## Company Description
+Elitech Hub is Africa's #1 accredited cybersecurity training organization, founded in 2021. Based in Ibadan, Nigeria, it operates as a global platform serving students across Nigeria, the UK, USA, Canada, UAE, and Kuwait. We focus on transforming complete beginners into job-ready cybersecurity professionals through intensive, hands-on bootcamps and a 100% guaranteed internship placement model.
+
+## Official Registration
+- **Corporate Affairs Commission (CAC):** RC 8693883
+- **SMEDAN Certified:** Certified by the Small and Medium Enterprises Development Agency of Nigeria.
+
+## Founder Biography
+Elijah Adeyeye is the Founder and Lead Instructor at Elitech Hub. He is a Cybersecurity Researcher, Behavioral Scientist, and Counselling Psychologist. Elijah leverages his multidisciplinary background to create holistic, highly effective cybersecurity training programs that emphasize both technical prowess and human behavioral factors in security. 
+
+## Programs & Services
+### Educational Programs
+- **6-Week Cybersecurity Bootcamp:** A fast-track program designed for rapid skill acquisition in ethical hacking and network security.
+- **16-Week Professional Cybersecurity Program:** A comprehensive career transformation track covering SOC analysis, cloud security, penetration testing, and more. Includes a guaranteed internship placement.
+
+### Professional Services
+- **Penetration Testing:** Vulnerability assessments and advanced penetration testing for enterprise applications and networks.
+- **Corporate Training:** Tailored upskilling programs for enterprise IT and security teams.
+- **Security Consulting:** Advisory services for risk management, architecture, and regulatory compliance.
+
+## Research
+Elitech Hub actively contributes to academic and industry research in cybersecurity and AI. Our recent work explores advanced threat detection and behavioral analysis in security.
+- **Recent Publications:** Check out our latest research via Springer (DOI: 10.1007/s10207-024-00123-x).
+- **Research Portal:** https://elitechub.com/research.html
+
+## Contact Information
+- **Website:** https://elitechub.com
+- **Apply:** https://elitechub.com/apply.html
+- **Contact Page:** https://elitechub.com/contact.html
+- **LinkedIn:** https://www.linkedin.com/company/elitech-hub/
+- **Twitter/X:** https://twitter.com/elitechub
+- **Telegram:** https://t.me/Elitechub
+- **Phone:** +234-708-196-8062
+
+## Complete Sitemap
+- Home: https://elitechub.com/index.html
+- Blog: https://elitechub.com/blog.html
+- Programs: https://elitechub.com/programs.html
+- About: https://elitechub.com/about.html
+- Sitemap: https://elitechub.com/sitemap.xml
