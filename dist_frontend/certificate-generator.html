@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elitech Hub Certificate Generator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <style>
+        :root {
+            --brand-color: #c3151c;
+            --brand-terminal: #00ff41;
+            --brand-dark: #9e1115;
+            --bg-color: #0d0f12;
+            --bg-panel: #111317;
+            --text-color: #f1f5f9;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.15);
+            --cert-bg: #0d0f12;
+            --cert-border: #c3151c;
+        }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: 'IBM Plex Mono', monospace; 
+            background: var(--bg-color); 
+            color: var(--text-color); 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+        }
+        
+        .header { 
+            background: rgba(7, 13, 26, 0.98); 
+            color: white; 
+            padding: 1rem 2rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10; 
+        }
+        .header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+        
+        .app-container { display: flex; flex: 1; overflow: hidden; }
+        
+        /* Form Sidebar */
+        .sidebar { 
+            width: 350px; 
+            background: var(--bg-panel); 
+            border-right: 1px solid var(--border-color); 
+            padding: 1.5rem; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1.25rem; 
+        }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-group label { font-size: 0.875rem; font-weight: 600; color: #e2e8f0; }
+        .form-group input, .form-group select { 
+            padding: 0.65rem; 
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            border: 1px solid var(--border-color); 
+            border-radius: 0.5rem; 
+            font-family: 'Inter', sans-serif; 
+            font-size: 0.875rem; 
+            transition: all 0.2s; 
+        }
+        .form-group input:focus, .form-group select:focus { 
+            outline: none; 
+            border-color: var(--brand-color); 
+            box-shadow: 0 0 0 2px rgba(195, 21, 28, 0.2); 
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .form-group small { font-size: 0.75rem; color: var(--text-muted); }
+        
+        .button-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.75rem; 
+            margin-top: 0.5rem; 
+            padding-top: 1.5rem; 
+            border-top: 1px solid var(--border-color); 
+        }
+        .btn { 
+            padding: 0.75rem 1rem; 
+            border: none; 
+            border-radius: 0.5rem; 
+            font-weight: 600; 
+            font-size: 0.875rem; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        .btn-primary { background: var(--brand-color); color: white; }
+        .btn-primary:hover { background: var(--brand-dark); }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: #f8fafc; border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        
+        .bulk-upload { 
+            border: 2px dashed rgba(255,255,255,0.2); 
+            padding: 1.5rem; 
+            border-radius: 0.5rem; 
+            text-align: center; 
+            background: rgba(195, 21, 28, 0.05); 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bulk-upload:hover { border-color: var(--brand-color); background: rgba(195, 21, 28, 0.1); }
+        
+        /* Preview Area */
+        .main-content { 
+            flex: 1; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 2rem; 
+            background: radial-gradient(circle, rgba(195,21,28,0.05) 0%, rgba(0,0,0,0) 70%), var(--bg-color); 
+            overflow: auto; 
+        }
+        
+        /* Certificate Elements */
+        .cert-wrapper { 
+            width: 1056px; height: 816px;
+            background: var(--cert-bg); 
+            border: 4px solid var(--cert-border);
+            color: var(--text-color);
+            font-family: 'IBM Plex Mono', monospace;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5); 
+            flex-shrink: 0;
+            transform-origin: top center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Geometric Background Shapes (Replaced with SVG in HTML) */
+
+        .cert-inner-border {
+            position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            z-index: 2; pointer-events: none;
+        }
+
+        .cert-content {
+            position: relative; z-index: 10;
+            width: 100%;
+            padding: 60px 80px 40px 80px;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        
+        .cert-logo { height: 70px; margin-bottom: 25px; object-fit: contain; }
+        
+        .cert-header { margin-bottom: 1.5rem; }
+        .cert-header h1 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.8rem;
+            color: var(--brand-color);
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .cert-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .cert-presented {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin: 2rem 0 1rem;
+        }
+        
+        .cert-name-container {
+            width: 70%;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 2.5rem;
+        }
+        .cert-name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+        
+        .cert-body {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            max-width: 750px;
+            line-height: 1.8;
+            margin-bottom: auto;
+        }
+        .cert-body strong { color: #ffffff; font-weight: 700; }
+        .cert-highlight {
+            color: var(--brand-terminal);
+            font-weight: 600;
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+        }
+        
+        .cert-footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-left { align-items: flex-start; text-align: left; }
+        .footer-right { align-items: flex-end; text-align: right; width: 250px; }
+        
+        /* Terminal Verification Block */
+        .verification-block {
+            background: #000000;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 12px 15px;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--brand-terminal);
+            line-height: 1.6;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+        }
+        
+        .date-container { width: 100%; display: flex; flex-direction: column; justify-content: flex-end; margin-bottom: 5px; }
+        .date-line { font-family: 'IBM Plex Mono', monospace; width: 100%; margin-bottom: 5px; padding-bottom: 5px; font-size: 1.1rem; font-weight: 600; color: #ffffff; text-align: right; }
+        .date-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; text-align: right; width: 100%; }
+        
+        /* Print styles */
+        @media print {
+            body { background: white; }
+            .header, .sidebar { display: none; }
+            .main-content { padding: 0; background: var(--cert-bg); display: block; overflow: visible; align-items: flex-start; justify-content: flex-start; }
+            .cert-wrapper { 
+                width: 100%; height: 100%; padding: 0; box-shadow: none; transform: none !important; 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            @page { size: landscape; margin: 0; }
+        }
+        
+        /* Responsive scaling */
+        @media (max-width: 1400px) {
+            .cert-wrapper { transform: scale(0.8); }
+        }
+        @media (max-width: 1100px) {
+            .cert-wrapper { transform: scale(0.65); }
+        }
+        @media (max-width: 900px) {
+            .app-container { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); height: auto; max-height: 40vh; }
+            .main-content { max-height: 60vh; }
+            .cert-wrapper { transform: scale(0.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Elitech Hub Certificate Generator</h1>
+        <div style="font-size: 0.875rem; color: #cbd5e1;">Local Client-Side Mode</div>
+    </div>
+    
+    <div class="app-container">
+        <!-- Form Controls -->
+        <div class="sidebar">
+            <div class="form-group">
+                <label for="certType">Certificate Type</label>
+                <select id="certType">
+                    <option value="appreciation">Certificate of Appreciation</option>
+                    <option value="learning" selected>Certificate of Learning</option>
+                    <option value="internship">Certificate of Internship</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" value="John Doe" placeholder="e.g. John Doe">
+            </div>
+            
+            <div class="form-group">
+                <label for="roleName">Role or Program Name</label>
+                <input type="text" id="roleName" value="Cybersecurity Professional Program" placeholder="e.g. Cybersecurity Bootcamp">
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Duration or Date Range</label>
+                <input type="text" id="duration" value="Jan 2026 - May 2026" placeholder="e.g. 16 Weeks or Jan - May">
+            </div>
+            
+            <div class="form-group">
+                <label for="highlight">Highlight Line (Optional)</label>
+                <input type="text" id="highlight" value="Mastering Ethical Hacking & Security Operations" placeholder="e.g. Mastering Ethical Hacking">
+                <small>Appears in green within the body.</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="issueDate">Issue Date</label>
+                <input type="date" id="issueDate">
+            </div>
+            
+            <div class="form-group">
+                <label for="signatoryName">Signatory Details</label>
+                <input type="text" id="signatoryName" value="Elijah Adeyeye" placeholder="Name">
+                <input type="text" id="signatoryTitle" value="Founder, Elitech Hub" placeholder="Title" style="margin-top: 0.25rem;">
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" id="btnDownloadPDF">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                    Download PDF
+                </button>
+                <button class="btn btn-secondary" id="btnDownloadPNG">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    Download PNG
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Print Document
+                </button>
+            </div>
+            
+            <div class="button-group">
+                <label class="bulk-upload">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--brand-color); margin-bottom: 0.5rem;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <div style="font-weight: 600; font-size: 0.875rem;">Bulk Generate Zip (CSV)</div>
+                    <small>Cols: name, type, role, duration, highlight, date</small>
+                    <input type="file" id="csvFile" accept=".csv" style="display: none;">
+                </label>
+            </div>
+        </div>
+        
+        <!-- Live Preview -->
+        <div class="main-content">
+            <div class="cert-wrapper" id="certificate">
+                <div class="cert-inner-border"></div>
+                
+                <div class="cert-content">
+                    <img src="assets/images/logo.png" alt="Elitech Hub Logo" class="cert-logo" crossorigin="anonymous" onerror="this.src='https://ui-avatars.com/api/?name=Elitech+Hub&background=c3151c&color=fff&size=128'">
+                    
+                    <div class="cert-header">
+                        <h1 id="certTitle">Certificate of Learning</h1>
+                        <div class="cert-subtitle" id="certSubtitle">In recognition of successful course completion</div>
+                    </div>
+                    
+                    <div class="cert-presented">This certificate is awarded to</div>
+                    
+                    <div class="cert-name-container">
+                        <h2 class="cert-name" id="displayFullName">John Doe</h2>
+                    </div>
+                    
+                    <div class="cert-body">
+                        <span id="displayBody">confirms completion of <strong>Cybersecurity Professional Program</strong> over <strong>Jan 2026 - May 2026</strong></span>
+                        <span class="cert-highlight" id="displayHighlight">covering Mastering Ethical Hacking & Security Operations</span>
+                    </div>
+                    
+                    <div class="cert-footer">
+                        <div class="footer-left">
+                            <div class="verification-block">
+                                <div>[AUTH] Certificate verified ✓</div>
+                                <div>[SIGN] <span id="displaySigName">Elijah Adeyeye</span> (<span id="displaySigTitle">Founder, Elitech Hub</span>)</div>
+                                <div>[ID]&nbsp;&nbsp;&nbsp;<span id="displayCertId">EH-2026-00001</span></div>
+                                <div style="display:none;" id="displaySigText"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-right" style="display: flex; align-items: flex-end; gap: 15px;">
+                            <div id="qrcode" style="background: white; padding: 4px; border-radius: 4px;"></div>
+                            <div>
+                                <div class="date-container">
+                                    <div class="date-line" id="displayDate">July 11, 2026</div>
+                                </div>
+                                <div class="date-label">Date of Issue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // --- State Management ---
+        const currentYear = new Date().getFullYear();
+        let certCount = parseInt(localStorage.getItem('eh_cert_count') || '1');
+        
+        document.getElementById('issueDate').valueAsDate = new Date();
+        
+        // --- Helpers ---
+        function formatCertId(num) {
+            return `EH-${currentYear}-${String(num).padStart(5, '0')}`;
+        }
+        
+        function consumeCertId() {
+            const id = formatCertId(certCount);
+            certCount++;
+            localStorage.setItem('eh_cert_count', certCount);
+            updatePreview(); 
+            return id;
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateStr);
+            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        let qrcodeInstance = null;
+        function generateQRCode(certId) {
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+            qrcodeInstance = new QRCode(qrContainer, {
+                text: `https://elitechub.com/verify?id=${certId}`,
+                width: 64,
+                height: 64,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.L
+            });
+        }
+        
+        async function saveCertificateToDB(data, currentId) {
+            try {
+                // In production, this targets the live domain API. Locally it targets the local express server.
+                const apiUrl = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' 
+                    ? 'http://localhost:5000/api/certificates' 
+                    : '/api/certificates';
+                    
+                await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cert_id: currentId,
+                        recipient_name: data.name,
+                        cert_type: data.type,
+                        course_name: data.role,
+                        issue_date: data.date
+                    })
+                });
+            } catch (err) {
+                console.error("Failed to save certificate to database:", err);
+            }
+        }
+
+        function getCertConfig(type, role, duration) {
+            if (type === 'appreciation') {
+                return {
+                    title: 'Certificate of Appreciation',
+                    subtitle: 'In recognition of volunteer content contribution',
+                    body: `acknowledges volunteering as <strong>${role}</strong> for <strong>${duration}</strong>, contributing to Elitech Hub's mission`
+                };
+            } else if (type === 'internship') {
+                return {
+                    title: 'Certificate of Internship',
+                    subtitle: 'In recognition of internship completion',
+                    body: `confirms internship as <strong>${role}</strong> from <strong>${duration}</strong>`
+                };
+            } else {
+                return {
+                    title: 'Certificate of Learning',
+                    subtitle: 'In recognition of successful course completion',
+                    body: `confirms completion of <strong>${role}</strong> over <strong>${duration}</strong>`
+                };
+            }
+        }
+        
+        // --- UI Updates ---
+        function updatePreview(overrideData = null) {
+            const data = overrideData || {
+                type: document.getElementById('certType').value,
+                name: document.getElementById('fullName').value || '...',
+                role: document.getElementById('roleName').value || '...',
+                duration: document.getElementById('duration').value || '...',
+                highlight: document.getElementById('highlight').value,
+                date: document.getElementById('issueDate').value,
+                sigName: document.getElementById('signatoryName').value || 'Elijah Adeyeye',
+                sigTitle: document.getElementById('signatoryTitle').value || 'Founder, Elitech Hub',
+            };
+            
+            const config = getCertConfig(data.type, data.role, data.duration);
+            
+            document.getElementById('certTitle').textContent = config.title;
+            document.getElementById('certSubtitle').textContent = config.subtitle;
+            document.getElementById('displayFullName').textContent = data.name;
+            document.getElementById('displayBody').innerHTML = config.body + (data.highlight ? ',' : '.');
+            
+            const hlEl = document.getElementById('displayHighlight');
+            if (data.highlight) {
+                let text = '';
+                if (data.type === 'learning') text = `covering ${data.highlight}`;
+                else if (data.type === 'internship') text = `demonstrating ${data.highlight}`;
+                else text = `Special recognition: ${data.highlight}`;
+                
+                hlEl.textContent = text + '.';
+                hlEl.style.display = 'block';
+            } else {
+                hlEl.style.display = 'none';
+            }
+            
+            document.getElementById('displayDate').textContent = formatDate(data.date);
+            document.getElementById('displaySigName').textContent = data.sigName;
+            document.getElementById('displaySigText').textContent = data.sigName; 
+            document.getElementById('displaySigTitle').textContent = data.sigTitle;
+            
+            // Only update ID if we're not overriding for bulk generation
+            let currentId = document.getElementById('displayCertId').textContent;
+            if (!overrideData) {
+                currentId = formatCertId(certCount);
+                document.getElementById('displayCertId').textContent = currentId;
+            }
+            generateQRCode(currentId);
+        }
+        
+        function getCurrentData() {
+            return {
+                type: document.getElementById('certType').value,
+                name: document.getElementById('fullName').value || '...',
+                role: document.getElementById('roleName').value || '...',
+                duration: document.getElementById('duration').value || '...',
+                highlight: document.getElementById('highlight').value,
+                date: document.getElementById('issueDate').value,
+                sigName: document.getElementById('signatoryName').value || 'Elijah Adeyeye',
+                sigTitle: document.getElementById('signatoryTitle').value || 'Founder, Elitech Hub',
+            };
+        }
+        
+        // --- Listeners ---
+        const inputs = ['certType', 'fullName', 'roleName', 'duration', 'highlight', 'issueDate', 'signatoryName', 'signatoryTitle'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', () => updatePreview());
+        });
+        
+        // Initial setup
+        updatePreview();
+        
+        // --- Capture & Export ---
+        async function captureCertificate() {
+            const certEl = document.getElementById('certificate');
+            
+            // Temporarily reset transform for clean capture
+            const originalTransform = certEl.style.transform;
+            certEl.style.transform = 'scale(1)';
+            
+            const canvas = await html2canvas(certEl, {
+                scale: 2, 
+                useCORS: true,
+                backgroundColor: '#ffffff'
+            });
+            
+            certEl.style.transform = originalTransform;
+            return canvas;
+        }
+        
+        document.getElementById('btnDownloadPNG').addEventListener('click', async (e) => {
+            const btn = e.currentTarget;
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = 'Generating...';
+            
+            try {
+                const currentId = formatCertId(certCount);
+                const data = getCurrentData();
+                const canvas = await captureCertificate();
+                
+                // Save to DB
+                await saveCertificateToDB(data, currentId);
+                
+                const link = document.createElement('a');
+                link.download = `${currentId}-${document.getElementById('fullName').value.replace(/[^a-z0-9]/gi, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                consumeCertId();
+            } finally {
+                btn.innerHTML = originalHtml;
+            }
+        });
+        
+        document.getElementById('btnDownloadPDF').addEventListener('click', async (e) => {
+            const btn = e.currentTarget;
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = 'Generating...';
+            
+            try {
+                const currentId = formatCertId(certCount);
+                const data = getCurrentData();
+                const canvas = await captureCertificate();
+                const imgData = canvas.toDataURL('image/png');
+                
+                // Save to DB
+                await saveCertificateToDB(data, currentId);
+                
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'in',
+                    format: [11, 8.5]
+                });
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, 11, 8.5);
+                pdf.save(`${currentId}-${document.getElementById('fullName').value.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+                
+                consumeCertId();
+            } finally {
+                btn.innerHTML = originalHtml;
+            }
+        });
+        
+        // --- Bulk CSV Parser ---
+        function parseCSVLine(text) {
+            const result = [];
+            let cur = '', inQuotes = false;
+            for (let i = 0; i < text.length; i++) {
+                if (text[i] === '"') inQuotes = !inQuotes;
+                else if (text[i] === ',' && !inQuotes) {
+                    result.push(cur.trim());
+                    cur = '';
+                } else {
+                    cur += text[i];
+                }
+            }
+            result.push(cur.trim());
+            return result.map(s => s.replace(/^"|"$/g, '').trim()); // remove wrapping quotes
+        }
+        
+        // --- Bulk CSV Upload ---
+        document.getElementById('csvFile').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const text = event.target.result;
+                const lines = text.split(/\r?\n/);
+                
+                if (lines.length < 2) {
+                    alert("CSV is empty or missing headers.");
+                    return;
+                }
+                
+                const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase());
+                const zip = new JSZip();
+                let processed = 0;
+                
+                // Show generating state
+                const uploadLabel = document.querySelector('.bulk-upload');
+                const originalLabel = uploadLabel.innerHTML;
+                uploadLabel.innerHTML = '<div style="font-weight: 600;">Generating ZIP... Please wait.</div>';
+                
+                try {
+                    for (let i = 1; i < lines.length; i++) {
+                        if (!lines[i].trim()) continue;
+                        const row = parseCSVLine(lines[i]);
+                        
+                        const data = {
+                            name: row[headers.indexOf('name')] || '',
+                            type: row[headers.indexOf('type')]?.toLowerCase() || 'learning',
+                            role: row[headers.indexOf('role')] || '',
+                            duration: row[headers.indexOf('duration')] || '',
+                            highlight: row[headers.indexOf('highlight')] || '',
+                            date: row[headers.indexOf('date')] || document.getElementById('issueDate').value,
+                            sigName: document.getElementById('signatoryName').value,
+                            sigTitle: document.getElementById('signatoryTitle').value
+                        };
+                        
+                        if (!data.name) continue;
+                        
+                        // Render UI with this row's data
+                        updatePreview(data);
+                        
+                        const currentId = formatCertId(certCount);
+                        document.getElementById('displayCertId').textContent = currentId;
+                        generateQRCode(currentId);
+                        
+                        const canvas = await captureCertificate();
+                        const imgData = canvas.toDataURL('image/png').split(',')[1];
+                        
+                        await saveCertificateToDB(data, currentId);
+                        
+                        zip.file(`${currentId}-${data.name.replace(/[^a-z0-9]/gi, '_')}.png`, imgData, {base64: true});
+                        consumeCertId();
+                        processed++;
+                    }
+                    
+                    if (processed > 0) {
+                        const content = await zip.generateAsync({type: 'blob'});
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(content);
+                        link.download = `ElitechHub_Certificates_${new Date().getTime()}.zip`;
+                        link.click();
+                    } else {
+                        alert('No valid rows found in CSV (check column names).');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error generating certificates.');
+                } finally {
+                    // Reset UI
+                    uploadLabel.innerHTML = originalLabel;
+                    updatePreview();
+                    e.target.value = '';
+                }
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>

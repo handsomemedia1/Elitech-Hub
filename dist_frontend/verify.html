@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Certificate - Elitech Hub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --brand-color: #c3151c;
+            --brand-terminal: #00ff41;
+            --bg-color: #0d0f12;
+            --bg-panel: #111317;
+            --text-color: #f1f5f9;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-color); 
+            color: var(--text-color); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .verify-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verify-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: var(--brand-color);
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .status-valid { color: var(--brand-terminal); }
+        .status-invalid { color: var(--brand-color); }
+        .status-loading { color: var(--text-muted); }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cert-details {
+            margin-top: 30px;
+            text-align: left;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 20px;
+            display: none;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 40%;
+        }
+
+        .detail-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 600;
+            width: 60%;
+            text-align: right;
+        }
+
+        .error-message {
+            color: var(--text-muted);
+            margin-top: 15px;
+            display: none;
+            line-height: 1.6;
+        }
+
+        /* Terminal blinking cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background: var(--brand-terminal);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="verify-container">
+        <img src="assets/images/logo.png" alt="Elitech Hub" class="logo" onerror="this.src='https://ui-avatars.com/api/?name=Elitech+Hub&background=c3151c&color=fff&size=128'">
+        
+        <div id="loadingState">
+            <i class="fas fa-circle-notch fa-spin status-icon status-loading"></i>
+            <h1>VERIFYING<span class="cursor"></span></h1>
+            <p style="color: var(--text-muted); margin-top: 10px;">Querying certificate database...</p>
+        </div>
+
+        <div id="validState" style="display: none;">
+            <i class="fas fa-check-circle status-icon status-valid"></i>
+            <h1 class="status-valid">CERTIFICATE VALID</h1>
+            
+            <div class="cert-details" id="certDetails" style="display: block;">
+                <div class="detail-row">
+                    <div class="detail-label">Certificate ID</div>
+                    <div class="detail-value" id="valId" style="color: var(--brand-terminal);">EH-2026-00000</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recipient</div>
+                    <div class="detail-value" id="valName">John Doe</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Program</div>
+                    <div class="detail-value" id="valCourse">Cybersecurity Professional</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Issue Date</div>
+                    <div class="detail-value" id="valDate">July 11, 2026</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Issuer</div>
+                    <div class="detail-value">Elitech Hub</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="invalidState" style="display: none;">
+            <i class="fas fa-times-circle status-icon status-invalid"></i>
+            <h1 class="status-invalid">INVALID RECORD</h1>
+            <p class="error-message" id="errorMessage" style="display: block;">
+                We could not find a matching certificate in our secure database. 
+                This certificate may be forged or the ID is incorrect.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const certId = urlParams.get('id');
+
+            const loadingState = document.getElementById('loadingState');
+            const validState = document.getElementById('validState');
+            const invalidState = document.getElementById('invalidState');
+
+            if (!certId) {
+                loadingState.style.display = 'none';
+                invalidState.style.display = 'block';
+                document.getElementById('errorMessage').innerHTML = 'No Certificate ID provided in the URL.<br>Please scan the QR code directly.';
+                return;
+            }
+
+            try {
+                // Production API URL handling
+                const apiUrl = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' 
+                    ? `http://localhost:5000/api/certificates/${certId}` 
+                    : `/api/certificates/${certId}`;
+
+                const response = await fetch(apiUrl);
+                
+                loadingState.style.display = 'none';
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    document.getElementById('valId').textContent = data.cert_id;
+                    document.getElementById('valName').textContent = data.recipient_name;
+                    document.getElementById('valCourse').textContent = data.course_name;
+                    
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const date = new Date(data.issue_date);
+                    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+                    document.getElementById('valDate').textContent = date.toLocaleDateString('en-US', options);
+
+                    validState.style.display = 'block';
+                } else {
+                    invalidState.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                loadingState.style.display = 'none';
+                invalidState.style.display = 'block';
+                document.getElementById('errorMessage').innerHTML = 'A network error occurred while verifying the certificate.<br>Please try again later.';
+            }
+        });
+    </script>
+</body>
+</html>
