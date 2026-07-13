@@ -11,5 +11,9 @@
 # Blog post URLs should serve the article renderer page
 /blog-posts/*  /article.html  200
 
+# Specific page routes (must come BEFORE the catch-all)
+/verify              /verify.html              200
+/certificate-generator  /certificate-generator.html  200
+
 # SPA fallback - serve index.html for all other routes
 /*      /index.html  200
