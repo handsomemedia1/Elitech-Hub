@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found | Elitech Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #c3151c;
+            --brand-green: #00ff41;
+            --brand-bg: #0d0f12;
+            --brand-surface: #111317;
+            --text-muted: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--brand-bg);
+            color: var(--brand-green);
+            font-family: 'IBM Plex Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px;
+            background: var(--brand-surface);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.8);
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .error-code {
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--brand-red);
+            text-shadow: 0 0 10px rgba(195, 21, 28, 0.5);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .terminal-text {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: #000;
+            border-left: 3px solid var(--brand-red);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .terminal-line {
+            margin-bottom: 10px;
+        }
+
+        .terminal-prefix {
+            color: var(--brand-red);
+            margin-right: 10px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background: var(--brand-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .btn-home {
+            display: inline-block;
+            background: transparent;
+            color: var(--brand-green);
+            border: 1px solid var(--brand-green);
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-home:hover {
+            background: var(--brand-green);
+            color: var(--brand-bg);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html">
+            <img src="assets/images/logo.png" alt="Elitech Hub" class="logo" onerror="this.src='https://ui-avatars.com/api/?name=EH&background=c3151c&color=fff'">
+        </a>
+        
+        <div class="glitch-wrapper">
+            <div class="error-code">404</div>
+        </div>
+        
+        <div class="error-title">Sector Not Found</div>
+
+        <div class="terminal-text">
+            <div class="terminal-line">
+                <span class="terminal-prefix">[SYSTEM]</span> Attempting to locate requested resource...
+            </div>
+            <div class="terminal-line" style="color: var(--text-muted);">
+                <span class="terminal-prefix">[TRACE]</span> Target path: <span id="path-display">unknown</span>
+            </div>
+            <div class="terminal-line" style="color: var(--brand-red);">
+                <span class="terminal-prefix">[ERROR]</span> Resource has been deleted, moved, or never existed.
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-prefix">[ACTION]</span> Re-routing connection to main hub<span class="cursor"></span>
+            </div>
+        </div>
+
+        <a href="index.html" class="btn-home">Return to Mainframe</a>
+    </div>
+
+    <script>
+        // Display the attempted path
+        document.getElementById('path-display').textContent = window.location.pathname;
+    </script>
+</body>
+</html>
