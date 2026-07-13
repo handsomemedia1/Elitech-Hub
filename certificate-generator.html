@@ -448,12 +448,14 @@
         
         async function saveCertificateToDB(data, currentId) {
             try {
-                // In production, this targets the live domain API. Locally it targets the local express server.
-                const apiUrl = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' 
-                    ? 'http://localhost:5000/api/certificates' 
-                    : '/api/certificates';
+                let apiUrl = '/api/certificates';
+                if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+                    apiUrl = 'http://localhost:5000/api/certificates';
+                } else if (window.location.protocol === 'file:') {
+                    apiUrl = 'https://elitech-hub.vercel.app/api/certificates';
+                }
                     
-                await fetch(apiUrl, {
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -464,8 +466,15 @@
                         issue_date: data.date
                     })
                 });
+
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    if (errData.error === 'Certificate ID already exists') return; // ignore duplicate
+                    throw new Error(errData.error || `Failed with status ${response.status}`);
+                }
             } catch (err) {
                 console.error("Failed to save certificate to database:", err);
+                alert("WARNING: The certificate was NOT saved to the verification database!\n\nError: " + err.message + "\n\nYou might be offline, or the backend is unreachable. You can still download the image, but it won't be verifiable.");
             }
         }
 
