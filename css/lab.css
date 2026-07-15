@@ -166,7 +166,7 @@
 /* --- Lab Overview Section --- */
 .lab-overview {
     padding: 5rem 2rem;
-    background: white;
+    background: var(--bg-secondary);
 }
 
 .lab-overview-content {
@@ -274,7 +274,7 @@
 }
 
 .lab-unit {
-    background: white;
+    background: var(--bg-secondary);
     border-radius: 1.25rem;
     padding: 2.25rem;
     border: 1px solid #e2e8f0;
@@ -412,7 +412,7 @@
 /* --- Methodology Section --- */
 .lab-methodology {
     padding: 5rem 2rem;
-    background: white;
+    background: var(--bg-secondary);
 }
 
 .lab-methodology-header {
@@ -454,7 +454,7 @@
 }
 
 .methodology-step:hover {
-    background: white;
+    background: var(--bg-secondary);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
     transform: translateY(-3px);
 }
@@ -695,7 +695,7 @@
 /* --- Ethics Section --- */
 .lab-ethics {
     padding: 4rem 2rem;
-    background: white;
+    background: var(--bg-secondary);
 }
 
 .lab-ethics-content {
