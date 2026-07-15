@@ -228,7 +228,7 @@
     <link rel="stylesheet" href="css/navbar.css">
 
     <style>
-        /* Minimal critical CSS for above-fold content */
+        /* Minimal critical CSS for above-fold content — Dark Theme */
         body {
             margin: 0;
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -251,7 +251,7 @@
         }
 
         .navbar.scrolled {
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -264,10 +264,10 @@
         }
 
         .logo {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Syne', 'Montserrat', sans-serif;
             font-size: 1.5rem;
-            font-weight: 700;
-            color: #242424;
+            font-weight: 800;
+            color: #ffffff;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -296,7 +296,7 @@
         .search-trigger {
             background: none;
             border: none;
-            color: #374151;
+            color: #94a3b8;
             font-size: 1.1rem;
             cursor: pointer;
             padding: 0.5rem;
@@ -305,14 +305,14 @@
         }
 
         .search-trigger:hover {
-            color: #DC2626;
-            background: rgba(220, 38, 38, 0.1);
+            color: #06B6D4;
+            background: rgba(6, 182, 212, 0.1);
         }
 
         .nav-link {
             font-weight: 500;
             font-size: 0.9375rem;
-            color: #374151;
+            color: #f8fafc;
             text-decoration: none;
             transition: color 0.2s;
             position: relative;
@@ -320,7 +320,7 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: #DC2626;
+            color: #06B6D4;
         }
 
         .nav-link.active::after {
@@ -330,7 +330,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: #DC2626;
+            background: #06B6D4;
         }
 
         .btn {
@@ -342,31 +342,33 @@
             font-size: 0.9375rem;
             text-decoration: none;
             border-radius: 0.5rem;
-            transition: all 0.2s;
+            transition: all 0.3s;
             cursor: pointer;
             border: none;
         }
 
         .btn-primary {
-            background: #DC2626;
+            background: #c3151c;
             color: white;
+            box-shadow: 0 0 15px rgba(195, 21, 28, 0.4);
         }
 
         .btn-primary:hover {
-            background: #B91C1C;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgb(220 38 38 / 0.3);
+            background: #e51a22;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(195, 21, 28, 0.6);
         }
 
         .btn-outline {
-            background: transparent;
-            color: #DC2626;
-            border: 2px solid #DC2626;
+            background: rgba(6, 182, 212, 0.1);
+            color: #06B6D4;
+            border: 2px solid #06B6D4;
         }
 
         .btn-outline:hover {
-            background: #DC2626;
+            background: rgba(6, 182, 212, 0.2);
             color: white;
+            border-color: white;
         }
 
         .hero {
@@ -374,7 +376,7 @@
             display: flex;
             align-items: center;
             padding-top: 80px;
-            background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #070d1a 0%, #0f172a 100%);
             position: relative;
             overflow: hidden;
         }
@@ -387,8 +389,8 @@
             right: 0;
             bottom: 0;
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 135, 81, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(195, 21, 28, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
         }
 
         .container {
@@ -649,14 +651,14 @@
     </section>
 
     <!-- Our Promise Section -->
-    <section style="padding: 4rem 2rem; background: #ffffff; text-align: center; border-bottom: 1px solid #e2e8f0;">
+    <section style="padding: 4rem 2rem; background: #070d1a; text-align: center; border-bottom: 1px solid #e2e8f0;">
         <div class="container" style="max-width: 800px; margin: 0 auto;">
             <p
                 style="font-size: 0.875rem; font-weight: 700; color: #c3151c; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">
                 Our Promise
             </p>
             <h2
-                style="font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; color: #0f172a; line-height: 1.2; margin-bottom: 1.5rem;">
+                style="font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 800; color: #f8fafc; line-height: 1.2; margin-bottom: 1.5rem;">
                 We don't just teach cybersecurity;<br>
                 <span style="color: #c3151c;">we build careers.</span>
             </h2>
@@ -682,7 +684,7 @@
                         style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: rgba(255,255,255,0.15); border-radius: 0.5rem;">Research</span>
                     <span style="font-size: 1.5rem; font-weight: 700;">=</span>
                     <span
-                        style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: white; color: #c3151c; border-radius: 0.5rem;">Innovation</span>
+                        style="font-size: 1.5rem; font-weight: 700; padding: 0.5rem 1.25rem; background: #070d1a; color: #c3151c; border-radius: 0.5rem;">Innovation</span>
                 </div>
                 <!-- Description -->
                 <p style="font-size: 1rem; line-height: 1.6; opacity: 0.95; margin: 0;">
@@ -701,7 +703,7 @@
             <!-- Header -->
             <div style="text-align: center; margin-bottom: 3rem;">
                 <h2
-                    style="font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+                    style="font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.75rem;">
                     Choose Your Path
                 </h2>
                 <p style="font-size: 1.1rem; color: #64748b; max-width: 500px; margin: 0 auto;">
@@ -715,14 +717,14 @@
 
                 <!-- 6-Week Bootcamp -->
                 <div
-                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+                    style="background: #070d1a; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1);">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
                         <div
                             style="width: 48px; height: 48px; background: linear-gradient(135deg, #12346b, #1a4a99); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-bolt" style="color: white; font-size: 1.25rem;"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">6-Week Bootcamp
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0;">6-Week Bootcamp
                             </h3>
                             <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Fast-Track Skills</p>
                         </div>
@@ -760,7 +762,7 @@
 
                 <!-- 16-Week Professional (Featured) -->
                 <div
-                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 20px rgba(195, 21, 28, 0.15); position: relative; border-top: 4px solid #c3151c;">
+                    style="background: #070d1a; border-radius: 1rem; padding: 2rem; box-shadow: 0 4px 20px rgba(195, 21, 28, 0.15); position: relative; border-top: 4px solid #c3151c;">
                     <div
                         style="position: absolute; top: -12px; right: 1.5rem; background: #c3151c; color: white; padding: 0.375rem 1rem; border-radius: 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;">
                         RECOMMENDED
@@ -772,7 +774,7 @@
                             <i class="fas fa-shield-alt" style="color: white; font-size: 1.25rem;"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">16-Week
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0;">16-Week
                                 Professional</h3>
                             <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Complete Career Transformation
                             </p>
@@ -793,7 +795,7 @@
                             16-week program
                         </li>
                         <li
-                            style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #0f172a;">
+                            style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #f8fafc;">
                             <i class="fas fa-check" style="color: #c3151c; font-size: 0.75rem;"></i> Guaranteed
                             internship
                         </li>
@@ -818,14 +820,14 @@
 
                 <!-- Corporate Training -->
                 <div
-                    style="background: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+                    style="background: #070d1a; border-radius: 1rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1);">
                     <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
                         <div
                             style="width: 48px; height: 48px; background: linear-gradient(135deg, #12346b, #1a4a99); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
                             <i class="fas fa-building" style="color: white; font-size: 1.25rem;"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Corporate
+                            <h3 style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin: 0;">Corporate
                                 Training</h3>
                             <p style="font-size: 0.875rem; color: #64748b; margin: 0;">Team Development</p>
                         </div>
@@ -874,7 +876,7 @@
                     Beyond Training
                 </p>
                 <h2
-                    style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+                    style="font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.75rem;">
                     We Also <span style="color: #8B5CF6;">Build</span> & <span style="color: #008751;">Secure</span>
                 </h2>
                 <p style="color: #64748b; max-width: 500px; margin: 0 auto; font-size: 0.95rem;">
@@ -887,7 +889,7 @@
 
                 <!-- Web Development Card -->
                 <div
-                    style="background: white; border-radius: 1rem; padding: 1.75rem; border: 2px solid #E5E7EB; transition: all 0.3s; position: relative; overflow: hidden;">
+                    style="background: #070d1a; border-radius: 1rem; padding: 1.75rem; border: 2px solid #E5E7EB; transition: all 0.3s; position: relative; overflow: hidden;">
                     <div
                         style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 70%); border-radius: 0 0 0 100%;">
                     </div>
@@ -898,7 +900,7 @@
                             <i class="fas fa-code" style="color: white; font-size: 1.25rem;"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem 0;">
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #f8fafc; margin: 0 0 0.25rem 0;">
                                 Secure Web Development</h3>
                             <p style="font-size: 0.8rem; color: #8B5CF6; margin: 0; font-weight: 600;">Security-First
                                 Approach</p>
@@ -929,7 +931,7 @@
 
                 <!-- Security Consulting Card -->
                 <div
-                    style="background: white; border-radius: 1rem; padding: 1.75rem; border: 2px solid #E5E7EB; transition: all 0.3s; position: relative; overflow: hidden;">
+                    style="background: #070d1a; border-radius: 1rem; padding: 1.75rem; border: 2px solid #E5E7EB; transition: all 0.3s; position: relative; overflow: hidden;">
                     <div
                         style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 135, 81, 0.1) 0%, transparent 70%); border-radius: 0 0 0 100%;">
                     </div>
@@ -940,7 +942,7 @@
                             <i class="fas fa-shield-alt" style="color: white; font-size: 1.25rem;"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem 0;">
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #f8fafc; margin: 0 0 0.25rem 0;">
                                 Security Consulting</h3>
                             <p style="font-size: 0.8rem; color: #008751; margin: 0; font-weight: 600;">Protect Your
                                 Business</p>
@@ -1102,7 +1104,7 @@
                     <div
                         style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.15); border-radius: 2rem; margin-bottom: 1.5rem; font-size: 0.8rem; font-weight: 600;">
                         <span
-                            style="display: inline-block; width: 8px; height: 8px; background: #fff; border-radius: 50%;"></span>
+                            style="display: inline-block; width: 8px; height: 8px; background: #070d1a; border-radius: 50%;"></span>
                         Limited Spots Available
                     </div>
 
@@ -1136,7 +1138,7 @@
                     <!-- CTA Buttons -->
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <a href="apply.html"
-                            style="padding: 1.25rem 2.5rem; background: white; color: #c3151c; text-decoration: none; border-radius: 0.5rem; font-weight: 800; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.75rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                            style="padding: 1.25rem 2.5rem; background: #070d1a; color: #c3151c; text-decoration: none; border-radius: 0.5rem; font-weight: 800; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 0.75rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
                             Apply Now <i class="fas fa-arrow-right"></i>
                         </a>
                         <a href="https://wa.me/2347081968062"
@@ -1193,7 +1195,7 @@
 
                     <!-- CTA -->
                     <a href="apply.html"
-                        style="display: block; text-align: center; margin-top: 2rem; padding: 1rem; background: white; color: #12346b; border-radius: 0.5rem; font-weight: 700; text-decoration: none;">
+                        style="display: block; text-align: center; margin-top: 2rem; padding: 1rem; background: #070d1a; color: #12346b; border-radius: 0.5rem; font-weight: 700; text-decoration: none;">
                         Secure Your Spot <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -1404,7 +1406,7 @@
         <div class="container" style="max-width: 900px; margin: 0 auto; position: relative; z-index: 2;">
             <p style="font-size: 0.875rem; font-weight: 700; color: #c3151c; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;" data-aos="fade-up">Student Work</p>
             
-            <h2 style="font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; line-height: 1.2;" data-aos="fade-up" data-aos-delay="100">
+            <h2 style="font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 800; color: #f8fafc; margin-bottom: 1.5rem; line-height: 1.2;" data-aos="fade-up" data-aos-delay="100">
                 Real Skills. Real Projects. <span style="color: #c3151c;">Real Results.</span>
             </h2>
             
@@ -1412,11 +1414,11 @@
                 In just 4 weeks, our students go from IT professionals to builders. Roy built a fully functioning cybersecurity dashboard with AI-powered threat detection — under live mentorship from our founder.
             </p>
 
-            <div style="display: flex; justify-content: center; overflow: hidden; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; margin-bottom: 4rem; max-width: 504px; margin-left: auto; margin-right: auto;" data-aos="zoom-in" data-aos-delay="300">
-                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7353777252897099777" height="817" width="504" frameborder="0" allowfullscreen="" title="Embedded post" style="max-width: 100%; background: white;"></iframe>
+            <div style="display: flex; justify-content: center; overflow: hidden; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 4rem; max-width: 504px; margin-left: auto; margin-right: auto;" data-aos="zoom-in" data-aos-delay="300">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7353777252897099777" height="817" width="504" frameborder="0" allowfullscreen="" title="Embedded post" style="max-width: 100%; background: #070d1a;"></iframe>
             </div>
 
-            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); max-width: 600px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="400">
+            <div style="background: #070d1a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); max-width: 600px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="400">
                 <p style="font-size: 1.1rem; color: #334155; font-weight: 500; margin-bottom: 1.5rem;">
                     The next cohort starts June 8. Only <strong>10 seats</strong> available.
                 </p>
@@ -1467,7 +1469,7 @@
                                 <div>[ID]&nbsp;&nbsp;&nbsp;EH-2026-00001</div>
                             </div>
                             <div style="display: flex; gap: 10px; align-items: center;">
-                                <div style="background: white; width: 40px; height: 40px; display: grid; place-items: center;">
+                                <div style="background: #070d1a; width: 40px; height: 40px; display: grid; place-items: center;">
                                     <i class="fas fa-qrcode" style="color: black; font-size: 1.5rem;"></i>
                                 </div>
                                 <div style="text-align: right; color: white;">
@@ -1504,7 +1506,7 @@
         </div>
     </section>
     <!-- Testimonials Section - Auto-Scrolling -->
-    <section style="padding: 0; background: white; overflow: hidden;">
+    <section style="padding: 0; background: #070d1a; overflow: hidden;">
 
         <!-- Dark Header with Stats -->
         <div style="background: #12346b; padding: 4rem 2rem; text-align: center;">
@@ -1539,7 +1541,7 @@
             <div class="scroll-row-left"
                 style="display: flex; animation: scrollLeft 40s linear infinite; width: max-content; margin-bottom: 1.5rem;">
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From zero IT
                         experience to Security Analyst at PayStack in 5 months! Changed my life."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1547,13 +1549,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             AO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Adebayo Oluwaseun</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Adebayo Oluwaseun</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, Proton</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Phenomenal
                         instructors! Real-world scenarios every week. Passed CEH on my first attempt!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1561,13 +1563,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             CN</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Chioma Nwosu</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Chioma Nwosu</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Pen Tester, Hiddenlayer</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Non-technical
                         background, zero coding. By week 3, I built my own security lab!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1575,13 +1577,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             IM</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ibrahim Mohammed</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Ibrahim Mohammed</div>
                             <div style="font-size: 0.7rem; color: #64748b;">SOC Analyst, Cyberville</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Now earning 3x
                         my previous salary! Networking with industry experts was invaluable."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1589,13 +1591,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             FA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Fatima Abubakar</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Fatima Abubakar</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Consultant, Accenture</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Career
                         switcher here! My internship turned into a full-time role. Forever grateful!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1603,13 +1605,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             OB</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Oluwatobi Bankole</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Oluwatobi Bankole</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Threat Analyst, Epix Initiative</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
                         unemployed graduate to Bug Bounty Hunter earning in dollars!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1617,14 +1619,14 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             NG</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ngozi Okafor</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Ngozi Okafor</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Bug Hunter, HackerOne</div>
                         </div>
                     </div>
                 </div>
                 <!-- Duplicate for seamless loop -->
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From zero IT
                         experience to Security Analyst at PayStack in 5 months! Changed my life."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1632,13 +1634,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             AO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Adebayo Oluwaseun</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Adebayo Oluwaseun</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, Proton</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Phenomenal
                         instructors! Real-world scenarios every week. Passed CEH on my first attempt!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1646,13 +1648,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             CN</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Chioma Nwosu</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Chioma Nwosu</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Pen Tester, Hiddenlayer</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Non-technical
                         background, zero coding. By week 3, I built my own security lab!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1660,13 +1662,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             IM</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ibrahim Mohammed</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Ibrahim Mohammed</div>
                             <div style="font-size: 0.7rem; color: #64748b;">SOC Analyst, Interswitch</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Now earning 3x
                         my previous salary! Networking with industry experts was invaluable."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1674,13 +1676,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             FA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Fatima Abubakar</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Fatima Abubakar</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Consultant, Accenture</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Career
                         switcher here! My internship turned into a full-time role. Forever grateful!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1688,13 +1690,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             OB</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Oluwatobi Bankole</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Oluwatobi Bankole</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Threat Analyst, MTN</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
                         unemployed graduate to Bug Bounty Hunter earning in dollars!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1702,7 +1704,7 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             NG</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Ngozi Okafor</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Ngozi Okafor</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Bug Hunter, HackerOne</div>
                         </div>
                     </div>
@@ -1713,7 +1715,7 @@
             <div class="scroll-row-right"
                 style="display: flex; animation: scrollRight 40s linear infinite; width: max-content;">
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The hands-on
                         labs simulated real attacks. I felt job-ready before my internship!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1721,13 +1723,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             EO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Emmanuel Okonkwo</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Emmanuel Okonkwo</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Engineer, Proton</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Best
                         investment I've made. The mentorship connected me with industry veterans!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1735,13 +1737,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             AA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Amina Abdullahi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Amina Abdullahi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">GRC Analyst, Hiddenlayer</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The
                         psychology-first approach helped me understand attackers' mindset. Game changer!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1749,13 +1751,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             TO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Tunde Ogunleye</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Tunde Ogunleye</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Threat Hunter, Access Bank</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Graduated on
                         Friday, started my new role on Monday! Career support is unmatched."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1763,13 +1765,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             BN</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Blessing Nnamdi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Blessing Nnamdi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, GTBank</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"I came in
                         skeptical but left transformed. Community support continues after graduation!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1777,13 +1779,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             KA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Kayode Adeyemi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Kayode Adeyemi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Red Team, Deloitte</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
                         accountant to cybersecurity pro! The structured curriculum made the switch seamless."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1791,14 +1793,14 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             SE</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Sarah Eze</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Sarah Eze</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Incident Responder, UBA</div>
                         </div>
                     </div>
                 </div>
                 <!-- Duplicate for seamless loop -->
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The hands-on
                         labs simulated real attacks. I felt job-ready before my internship!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1806,13 +1808,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             EO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Emmanuel Okonkwo</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Emmanuel Okonkwo</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Engineer, Flutterwave</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Best
                         investment I've made. The mentorship connected me with industry veterans!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1820,13 +1822,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             AA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Amina Abdullahi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Amina Abdullahi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">GRC Analyst, KPMG</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"The
                         psychology-first approach helped me understand attackers' mindset. Game changer!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1834,13 +1836,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             TO</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Tunde Ogunleye</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Tunde Ogunleye</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Threat Hunter, Access Bank</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"Graduated on
                         Friday, started my new role on Monday! Career support is unmatched."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1848,13 +1850,13 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             BN</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Blessing Nnamdi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Blessing Nnamdi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Security Analyst, GTBank</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #12346b; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"I came in
                         skeptical but left transformed. Community support continues after graduation!"</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1862,13 +1864,13 @@
                             style="width: 36px; height: 36px; background: #12346b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             KA</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Kayode Adeyemi</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Kayode Adeyemi</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Red Team, Deloitte</div>
                         </div>
                     </div>
                 </div>
                 <div
-                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: white; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
+                    style="flex-shrink: 0; width: 320px; margin: 0 0.75rem; background: #070d1a; border-radius: 0.75rem; padding: 1.5rem; border-top: 3px solid #c3151c; box-shadow: 0 2px 15px rgba(0,0,0,0.06);">
                     <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 1rem;">"From
                         accountant to cybersecurity pro! The structured curriculum made the switch seamless."</p>
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -1876,7 +1878,7 @@
                             style="width: 36px; height: 36px; background: #c3151c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.75rem;">
                             SE</div>
                         <div>
-                            <div style="font-weight: 600; color: #0f172a; font-size: 0.85rem;">Sarah Eze</div>
+                            <div style="font-weight: 600; color: #f8fafc; font-size: 0.85rem;">Sarah Eze</div>
                             <div style="font-size: 0.7rem; color: #64748b;">Incident Responder, UBA</div>
                         </div>
                     </div>
@@ -1885,7 +1887,7 @@
         </div>
 
         <!-- Companies Bar -->
-        <div style="padding: 2.5rem 2rem; border-top: 1px solid #e2e8f0; background: white;">
+        <div style="padding: 2.5rem 2rem; border-top: 1px solid #e2e8f0; background: #070d1a;">
             <div style="max-width: 900px; margin: 0 auto; text-align: center;">
                 <p
                     style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem;">
@@ -2090,14 +2092,14 @@
                         <span style="width:8px; height:8px; background:#c3151c; border-radius:50%; animation:pulse 2s infinite;"></span>
                         <span style="color:#c3151c; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em;">This Week</span>
                     </div>
-                    <h2 style="font-family:'Montserrat',sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:800; color:#0f172a; margin:0;">🔥 Most Read Article</h2>
+                    <h2 style="font-family:'Montserrat',sans-serif; font-size:clamp(1.5rem,3vw,2rem); font-weight:800; color: #f8fafc; margin:0;">🔥 Most Read Article</h2>
                 </div>
                 <a href="blog.html" style="display:inline-flex; align-items:center; gap:0.5rem; color:#c3151c; font-weight:600; font-size:0.9rem; text-decoration:none;" onmouseover="this.style.gap='0.75rem'" onmouseout="this.style.gap='0.5rem'">View All Articles <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div id="home-trending-card" style="background:white; border-radius:1.25rem; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.08); border:1px solid #E2E8F0; display:grid; grid-template-columns:1fr 1fr; min-height:220px;">
+            <div id="home-trending-card" style="background: #070d1a; border-radius:1.25rem; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,0.08); border: 1px solid rgba(255, 255, 255, 0.1); display:grid; grid-template-columns:1fr 1fr; min-height:220px;">
                 <div style="padding:2.5rem;">
                     <span id="home-trending-cat" style="display:inline-block; padding:0.3rem 0.85rem; background:rgba(195,21,28,0.08); color:#c3151c; border-radius:2rem; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1rem;">Loading...</span>
-                    <h3 id="home-trending-title" style="font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:800; color:#0f172a; line-height:1.3; margin:0 0 0.75rem;">Fetching most read post...</h3>
+                    <h3 id="home-trending-title" style="font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:800; color: #f8fafc; line-height:1.3; margin:0 0 0.75rem;">Fetching most read post...</h3>
                     <p id="home-trending-excerpt" style="color:#64748b; font-size:0.95rem; line-height:1.6; margin:0 0 1.5rem; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;"></p>
                     <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
                         <span id="home-trending-author" style="color:#475569; font-size:0.85rem;"><i class="far fa-user" style="margin-right:0.35rem; color:#c3151c;"></i></span>
@@ -2644,26 +2646,26 @@
     <div id="certificateBadges"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 900; display: flex; flex-direction: column; gap: 10px;">
         <div class="cert-badge" onclick="openCertModal('cac')"
-            style="background: white; border: 2px solid #DC2626; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            style="background: #070d1a; border: 2px solid #c3151c; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
             <div
-                style="width: 40px; height: 40px; background: linear-gradient(135deg, #DC2626, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                style="width: 40px; height: 40px; background: linear-gradient(135deg, #c3151c, #991B1B); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
                 <i class="fas fa-certificate"></i>
             </div>
             <div>
                 <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">CAC Registered</div>
-                <div style="font-size: 0.625rem; color: #6B7280;">RC: 8693883</div>
+                <div style="font-size: 0.625rem; color: #64748b;">RC: 8693883</div>
             </div>
         </div>
 
         <div class="cert-badge" onclick="openCertModal('smedan')"
-            style="background: white; border: 2px solid #008751; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
+            style="background: #070d1a; border: 2px solid #008751; border-radius: 0.75rem; padding: 0.75rem 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s; display: flex; align-items: center; gap: 0.75rem;">
             <div
                 style="width: 40px; height: 40px; background: linear-gradient(135deg, #008751, #006B3F); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
                 <i class="fas fa-shield-alt"></i>
             </div>
             <div>
                 <div style="font-weight: 700; font-size: 0.75rem; color: #0A0A0A;">SMEDAN Certified</div>
-                <div style="font-size: 0.625rem; color: #6B7280;">Verified</div>
+                <div style="font-size: 0.625rem; color: #64748b;">Verified</div>
             </div>
         </div>
     </div>
@@ -2672,10 +2674,10 @@
     <div id="certModal"
         style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; align-items: center; justify-content: center;"
         onclick="closeCertModal()">
-        <div style="position: relative; max-width: 90%; max-height: 90%; background: white; border-radius: 1rem; padding: 2rem;"
+        <div style="position: relative; max-width: 90%; max-height: 90%; background: #070d1a; border-radius: 1rem; padding: 2rem;"
             onclick="event.stopPropagation()">
             <button onclick="closeCertModal()"
-                style="position: absolute; top: 1rem; right: 1rem; background: #DC2626; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                style="position: absolute; top: 1rem; right: 1rem; background: #c3151c; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;">
                 <i class="fas fa-times"></i>
             </button>
             <div id="certModalContent" style="text-align: center;">

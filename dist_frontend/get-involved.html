@@ -59,15 +59,15 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(7, 13, 26, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar.scrolled {
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -83,7 +83,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #242424;
+            color: #f8fafc;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -112,7 +112,7 @@
         .search-trigger {
             background: none;
             border: none;
-            color: #374151;
+            color: #94a3b8;
             font-size: 1.1rem;
             cursor: pointer;
             padding: 0.5rem;
@@ -121,14 +121,14 @@
         }
 
         .search-trigger:hover {
-            color: #DC2626;
+            color: #c3151c;
             background: rgba(220, 38, 38, 0.1);
         }
 
         .nav-link {
             font-weight: 500;
             font-size: 0.9375rem;
-            color: #374151;
+            color: #94a3b8;
             text-decoration: none;
             transition: color 0.2s;
             position: relative;
@@ -136,7 +136,7 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: #DC2626;
+            color: #c3151c;
         }
 
         .nav-link.active::after {
@@ -146,7 +146,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: #DC2626;
+            background: #c3151c;
         }
 
         .btn {
@@ -164,12 +164,12 @@
         }
 
         .btn-primary {
-            background: #DC2626;
+            background: #c3151c;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #B91C1C;
+            background: #9e1115;
             transform: translateY(-1px);
             box-shadow: 0 4px 6px -1px rgb(220 38 38 / 0.3);
         }
@@ -179,7 +179,7 @@
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: #0A0A0A;
+            color: #f8fafc;
             cursor: pointer;
             padding: 0.5rem;
         }
@@ -190,9 +190,9 @@
             top: 73px;
             left: 0;
             right: 0;
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            background: #0f172a;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
@@ -210,7 +210,7 @@
         }
 
         .nav-mobile-links li {
-            border-bottom: 1px solid #f3f4f6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-mobile-links .nav-link {
@@ -240,7 +240,7 @@
 
         /* Page Styles */
         body {
-            background: linear-gradient(180deg, #fff 0%, #f8f9fc 50%, #fff 100%);
+            background: linear-gradient(180deg, #070d1a 0%, #0f172a 50%, #070d1a 100%);
         }
 
         .page-header {
@@ -264,7 +264,7 @@
         }
 
         .tab-btn {
-            background: white;
+            background: #1e293b;
             color: var(--dark);
             border: none;
             padding: 1rem 2rem;
@@ -322,11 +322,11 @@
         }
 
         .opp-card {
-            background: white;
+            background: #0f172a;
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eee;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -349,7 +349,7 @@
         }
 
         .form-section {
-            background: #f9fafb;
+            background: #1e293b;
             padding: 3rem;
             border-radius: 16px;
             margin-top: 3rem;
@@ -691,19 +691,19 @@
             <h3 style="text-align: center; margin-bottom: 2rem;">Become a Partner</h3>
             <form id="partnerForm" style="max-width: 600px; margin: 0 auto; display: grid; gap: 1rem;">
                 <input type="text" name="organizationName" placeholder="Organization Name" required
-                    style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
+                    style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: #0f172a; color: #f8fafc;">
                 <input type="text" name="contactName" placeholder="Your Name" required
                     style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
                 <input type="email" name="email" placeholder="Work Email" required
                     style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
-                <select name="partnerType" required style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
+                <select name="partnerType" required style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: #0f172a; color: #f8fafc;">
                     <option value="">Select Partner Type</option>
                     <option value="Academic">Academic</option>
                     <option value="Corporate">Corporate</option>
                     <option value="Technology">Technology</option>
                 </select>
                 <textarea name="message" placeholder="How would you like to partner?" rows="4" required
-                    style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                    style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: #0f172a; color: #f8fafc;"></textarea>
                 <button type="submit"
                     style="background: #0A0A0A; color: #ffffff !important; padding: 1rem; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
                     <i class="fas fa-paper-plane" style="color: #ffffff;"></i>
@@ -790,17 +790,17 @@
             </div>
             <div style="flex: 1; min-width: 300px;">
                 <div
-                    style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--primary);">
+                    style="background: #0f172a; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-top: 5px solid var(--primary);">
                     <h3 style="text-align: center; margin-bottom: 2rem;">Host Registration</h3>
                     <form id="hostForm" style="display: grid; gap: 1rem;">
                         <input type="text" name="companyName" placeholder="Company Name" required
-                            style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
+                            style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: #1e293b; color: #f8fafc;">
                         <input type="text" name="contactPerson" placeholder="HR / Contact Person" required
                             style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
                         <input type="email" name="email" placeholder="Official Email" required
                             style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
                         <select name="rolesNeeded" required
-                            style="padding: 1rem; border: 1px solid #ddd; border-radius: 5px;">
+                            style="padding: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; background: #1e293b; color: #f8fafc;">
                             <option value="">Select Roles Needed</option>
                             <option value="SOC Analyst">SOC Analyst</option>
                             <option value="Penetration Tester">Penetration Tester</option>
@@ -833,7 +833,7 @@
                 and equipment for talented individuals from underrepresented communities.
             </p>
             <div
-                style="margin-top: 1rem; display: inline-block; background: #e6fffa; color: var(--success); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;">
+                style="margin-top: 1rem; display: inline-block; background: rgba(16, 185, 129, 0.15); color: var(--success); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem;">
                 <i class="fas fa-check-circle"></i> Eligible for CSR & Diversity Impact Reporting
             </div>
         </div>
@@ -877,7 +877,7 @@
 
         <!-- Impact Metrics for credibility -->
         <div
-            style="margin-top: 4rem; text-align: center; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            style="margin-top: 4rem; text-align: center; background: #070d1a; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <h4 style="margin-bottom: 1.5rem;">Our Impact So Far</h4>
             <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;">
                 <div>

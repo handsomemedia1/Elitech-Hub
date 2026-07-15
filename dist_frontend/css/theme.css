@@ -1,20 +1,21 @@
 /* ==================================
    ELITECH HUB - THEME VARIABLES
-   Light Mode Only (Simplified)
+   Dark Cybersecurity Mode
    ================================== */
 
 :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #F9FAFB;
-    --bg-tertiary: #F3F4F6;
-    --bg-dark: #0f172a;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
+    --bg-primary: #070d1a;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --bg-dark: #070d1a;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
     --text-tertiary: #64748b;
-    --border-color: #e2e8f0;
+    --border-color: rgba(255, 255, 255, 0.1);
     --accent-red: #c3151c;
-    --accent-blue: #12346b;
-    --shadow: rgba(0, 0, 0, 0.1);
+    --accent-cyan: #06B6D4;
+    --accent-blue: #06B6D4;
+    --shadow: rgba(0, 0, 0, 0.4);
 }
 
 /* Apply theme variables to body */
@@ -25,21 +26,22 @@ body {
 
 /* Navbar */
 .navbar {
-    background: var(--bg-primary) !important;
-    border-bottom-color: var(--border-color) !important;
+    background: rgba(7, 13, 26, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-bottom-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 .nav-link {
-    color: var(--text-secondary) !important;
+    color: #f8fafc !important;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: var(--accent-red) !important;
+    color: #06B6D4 !important;
 }
 
 .logo {
-    color: var(--text-primary) !important;
+    color: #ffffff !important;
 }
 
 /* Mobile Navigation Drawer - theming only, structure in navbar.css */
@@ -47,21 +49,41 @@ body {
     background: var(--bg-primary);
 }
 
+/* Dropdown menus */
+.nav-dropdown-menu {
+    background: #0f172a !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+.nav-dropdown-menu a {
+    color: #cbd5e1 !important;
+}
+
+.nav-dropdown-menu a:hover {
+    background: rgba(6, 182, 212, 0.1) !important;
+    color: #06B6D4 !important;
+}
+
+.nav-dropdown-menu a i {
+    color: #06B6D4 !important;
+}
 
 /* Buttons */
 .btn-outline {
-    border-color: var(--accent-red);
-    color: var(--accent-red);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
 }
 
 .btn-outline:hover {
-    background: var(--accent-red);
+    background: var(--accent-cyan);
     color: white;
 }
 
 /* Certificate Badges */
 .cert-badge {
-    background: var(--bg-primary) !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Footer always has white text */
@@ -72,4 +94,19 @@ footer * {
 
 footer a:hover {
     color: var(--accent-red) !important;
+}
+
+/* Search trigger */
+.search-trigger {
+    color: #94a3b8 !important;
+}
+
+.search-trigger:hover {
+    color: #06B6D4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+    color: #f8fafc !important;
 }
