@@ -9,10 +9,6 @@
 
 .pricing-section {
     padding: 5rem 2rem;
-    background: var(--bg-secondary);
-}
-
-:root[data-theme="dark"] .pricing-section {
     background: #0F172A;
 }
 
@@ -26,18 +22,13 @@
 }
 
 .pricing-card {
-    background: var(--bg-secondary);
-    border: 2px solid #E5E7EB;
+    background: #0f172a;
+    border: 2px solid rgba(255, 255, 255, 0.08);
     border-radius: 1.5rem;
     padding: 2.5rem;
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
-}
-
-:root[data-theme="dark"] .pricing-card {
-    background: #1E293B;
-    border-color: #334155;
 }
 
 .pricing-card::before {
@@ -59,25 +50,16 @@
 
 .pricing-card:hover {
     transform: translateY(-12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    border-color: #DC2626;
-}
-
-:root[data-theme="dark"] .pricing-card:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border-color: #DC2626;
 }
 
 /* Featured Card - Most Popular */
 .pricing-card.featured {
-    background: var(--bg-secondary);
+    background: #1e293b;
     border-color: #DC2626;
     border-width: 3px;
     transform: scale(1.03);
-    box-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
-}
-
-:root[data-theme="dark"] .pricing-card.featured {
-    background: #1E293B;
     box-shadow: 0 25px 50px rgba(220, 38, 38, 0.3);
 }
 
@@ -138,23 +120,15 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 1.75rem;
     font-weight: 800;
-    color: #0A0A0A;
+    color: #f8fafc;
     margin-bottom: 0.5rem;
 }
 
-:root[data-theme="dark"] .pricing-header h3 {
-    color: var(--bg-secondary);
-}
-
 .pricing-subtitle {
-    color: #6B7280;
+    color: #cbd5e1;
     font-size: 1rem;
     margin-bottom: 2rem;
     font-weight: 500;
-}
-
-:root[data-theme="dark"] .pricing-subtitle {
-    color: #94A3B8;
 }
 
 .pricing-price {
@@ -181,14 +155,10 @@
 .pricing-period {
     display: block;
     font-size: 0.875rem;
-    color: #6B7280;
+    color: #94a3b8;
     font-weight: 600;
     margin-bottom: 2rem;
     margin-top: 0.5rem;
-}
-
-:root[data-theme="dark"] .pricing-period {
-    color: #94A3B8;
 }
 
 .pricing-features {
@@ -199,27 +169,18 @@
 
 .pricing-features li {
     padding: 1rem 0;
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #374151;
+    color: #cbd5e1;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 
-:root[data-theme="dark"] .pricing-features li {
-    border-bottom-color: #334155;
-    color: #CBD5E1;
-}
-
 .pricing-features li:hover {
     padding-left: 0.5rem;
-    color: #0A0A0A;
-}
-
-:root[data-theme="dark"] .pricing-features li:hover {
-    color: var(--bg-secondary);
+    color: #f8fafc;
 }
 
 .pricing-features li i {
@@ -229,12 +190,8 @@
 }
 
 .pricing-features li strong {
-    color: #0A0A0A;
+    color: #f8fafc;
     font-weight: 700;
-}
-
-:root[data-theme="dark"] .pricing-features li strong {
-    color: var(--bg-secondary);
 }
 
 .pricing-cta {
@@ -361,7 +318,7 @@
 }
 
 .testimonial-card {
-    background: var(--bg-primary);
+    background: #070d1a;
     border: 2px solid var(--border-color);
     border-radius: 2rem;
     padding: 3rem;
@@ -524,17 +481,11 @@
    ============================================ */
 
 .navbar {
-    background: var(--bg-primary) !important;
+    background: rgba(7, 13, 26, 0.9) !important;
     backdrop-filter: blur(30px) saturate(180%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 40px rgba(0, 0, 0, 0.02);
-    border-bottom: 1px solid var(--border-color);
-    padding: 0.75rem 0 !important;
-}
-
-:root[data-theme="dark"] .navbar {
-    background: rgba(18, 31, 53, 0.98) !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 10px 40px rgba(0, 0, 0, 0.4);
-    border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 0 !important;
 }
 
 .nav-container {
@@ -666,7 +617,7 @@
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--bg-secondary) !important;
+    background: #0f172a; !important;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -833,21 +784,8 @@
 }
 
 /* ============================================
-   DARK MODE SPECIFIC ENHANCEMENTS
+   DARK MODE SHADOW ENHANCEMENTS
    ============================================ */
-
-
-:root[data-theme="dark"] .testimonial-card {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-:root[data-theme="dark"] .testimonial-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-:root[data-theme="dark"] .pricing-badge {
-    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.6);
-}
 
 /* ============================================
    FOLD 4 AND SMALL MOBILE SCREENS (< 400px)
@@ -904,3 +842,4 @@
         font-size: 0.75rem !important;
     }
 }
+
