@@ -281,7 +281,7 @@ body {
 }
 
 .hero-cta .btn-secondary:hover {
-    background: var(--dark);
+    background: #070d1a;
     color: white;
     border-color: #f8fafc;
     transform: translateY(-2px);
@@ -404,7 +404,7 @@ body {
 
 .visual-content .visual-link:hover {
     gap: 1.25rem;
-    background: white;
+    background: #0f172a;
     color: var(--primary);
     box-shadow: 0 8px 25px rgba(255, 255, 255, 0.5);
 }
@@ -420,7 +420,7 @@ body {
     display: flex;
     gap: 3rem;
     padding: 2rem;
-    background: white;
+    background: #0f172a;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
@@ -497,7 +497,7 @@ body {
     margin-bottom: 3rem;
     flex-wrap: wrap;
     padding-bottom: 2rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid  rgba(255, 255, 255, 0.1);
 }
 
 .blog-tab {
@@ -505,7 +505,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.875rem 1.75rem;
-    background: white;
+    background: #0f172a;
     color: #94a3b8;
     border: 2px solid transparent;
     border-radius: 12px;
@@ -635,7 +635,7 @@ body {
 }
 
 .read-more-btn {
-    background: white;
+    background: #0f172a;
     color: var(--primary);
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
@@ -651,7 +651,7 @@ body {
 }
 
 .read-more-btn:hover {
-    background: var(--dark);
+    background: #070d1a;
     color: white;
 }
 
