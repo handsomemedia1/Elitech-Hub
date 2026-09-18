@@ -11,6 +11,7 @@ import ScrollNavbar from "@/components/ScrollNavbar";
 import LeadPopup from "@/components/LeadPopup";
 import PublicWidgets from "@/components/PublicWidgets";
 import CloudflareAnalytics from "@/components/CloudflareAnalytics";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -311,6 +312,7 @@ export default function RootLayout({
           <PublicWidgets />
         </PricingProvider>
         <CloudflareAnalytics />
+        <Analytics />
       </body>
     </html>
   );

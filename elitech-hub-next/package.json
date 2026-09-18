@@ -21,6 +21,7 @@
     "@tiptap/starter-kit": "^3.28.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@vercel/analytics": "^2.0.1",
     "ai": "^7.0.37",
     "bcryptjs": "^3.0.3",
     "framer-motion": "^12.42.2",
