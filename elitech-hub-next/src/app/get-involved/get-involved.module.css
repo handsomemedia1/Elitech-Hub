@@ -1,0 +1,354 @@
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #c3151c;
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 2px solid #c3151c;
+}
+.btnPrimary:hover {
+  background: #a01118;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(195, 21, 28, 0.3);
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+.btnOutline:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Impact Section */
+.impactSection {
+  background: rgba(195, 21, 28, 0.05);
+  border-top: 1px solid rgba(195, 21, 28, 0.15);
+  border-bottom: 1px solid rgba(195, 21, 28, 0.15);
+  padding: 3rem 2rem;
+}
+.impactRow {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.statBox {
+  text-align: center;
+}
+.statNumber {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #c3151c;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(195, 21, 28, 0.3);
+}
+.statLabel {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Section Wrapper */
+.involvementSection {
+  padding: 5rem 2rem;
+}
+.altSection {
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sectionInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.sectionTag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  border: 1px solid;
+  margin-bottom: 2rem;
+}
+.sectionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+.sectionTitle {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.sectionDesc {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 4rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+.contentText { }
+.benefitsList {
+  list-style: none;
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.benefitsList li {
+  color: #94a3b8;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.95rem;
+}
+.benefitsList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #c3151c;
+  font-weight: 800;
+}
+.actionButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Cohort Card */
+.contentCard { }
+.cohortCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.cohortCard h3 {
+  color: white;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+.cohortItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+.cohortItem:last-of-type { border-bottom: none; }
+.cohortLabel {
+  color: #64748b;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.availableStatus {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Opportunity Grid */
+.oppGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  .oppGrid { grid-template-columns: 1fr; }
+}
+.oppCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.oppCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.oppIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.oppTitle {
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.oppList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.oppList li {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+.oppList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #475569;
+}
+.partnerCta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Two Cards */
+.twoCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+@media (max-width: 600px) {
+  .twoCards { grid-template-columns: 1fr; }
+}
+.miniCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+.miniCard h4 {
+  color: white;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* Sponsor Card */
+.sponsorCard {
+  background: linear-gradient(135deg, rgba(195, 21, 28, 0.08), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(195, 21, 28, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+.sponsorIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.sponsorCard h3 {
+  color: white;
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+.sponsorCard p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.sponsorStat {
+  background: rgba(195, 21, 28, 0.1);
+  border: 1px solid rgba(195, 21, 28, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sponsorNumber {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #c3151c;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.sponsorStat span:last-child {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* CTA Banner */
+.ctaBanner {
+  background: linear-gradient(135deg, rgba(195, 21, 28, 0.15), rgba(7, 13, 26, 0.8));
+  border-top: 1px solid rgba(195, 21, 28, 0.25);
+  text-align: center;
+  padding: 5rem 2rem;
+}
+.ctaBanner h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 900;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 1rem;
+}
+.ctaBanner p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.ctaActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

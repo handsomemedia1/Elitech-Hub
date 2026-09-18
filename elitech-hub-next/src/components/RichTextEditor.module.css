@@ -1,0 +1,125 @@
+.editorWrapper {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.toolBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolBtn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.activeTool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #eff6ff;
+  border: none;
+  color: #2563eb;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #e2e8f0;
+  margin: 0 8px;
+}
+
+.contentContainer {
+  padding: 24px;
+  min-height: 400px;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.tiptapEditor {
+  outline: none;
+  font-size: 1rem;
+  color: #0f172a;
+  line-height: 1.6;
+}
+
+.tiptapEditor > *:first-child {
+  margin-top: 0;
+}
+
+/* TipTap ProseMirror specific styling */
+.tiptapEditor p {
+  margin-bottom: 1rem;
+}
+
+.tiptapEditor h1 {
+  font-size: 2rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.tiptapEditor h2 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.tiptapEditor h3 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.tiptapEditor ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tiptapEditor ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tiptapEditor blockquote {
+  border-left: 4px solid #e2e8f0;
+  padding-left: 1rem;
+  color: #64748b;
+  font-style: italic;
+  margin: 1.5rem 0;
+}
+
+.editorLink {
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,348 @@
+/* ==========================================
+   PREMIUM SERVICES PAGE
+   ========================================== */
+
+.heroFeature {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.heroFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--color-bg-panel);
+  padding: 1.25rem 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.heroFeatureItem:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.heroFeatureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+
+.heroFeatureText {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.heroFeatureText strong {
+  color: var(--color-text-primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.heroFeatureText span {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Cost Section */
+.costSection {
+  background: var(--color-bg-base);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 5%;
+}
+
+.costSection::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, rgba(195, 21, 28, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.hardTruthLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #ef4444;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.textGradientRed {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sectionDesc {
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+/* Grid Layouts */
+.grid2Col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.grid3Col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+}
+
+/* Cards */
+.riskCard, .investCard {
+  border-radius: 1.5rem;
+  padding: 3rem 2.5rem;
+  transition: transform 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+}
+
+.riskCard {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(0,0,0,0.5));
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.investCard {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(0,0,0,0.5));
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.riskCard:hover, .investCard:hover {
+  transform: translateY(-8px);
+}
+
+.riskIndicator {
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: #ef4444;
+}
+
+.investIndicator {
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: #10b981;
+}
+
+.riskCardTitle, .investCardTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iconRed { color: #ef4444; }
+.iconGreen { color: #10b981; }
+
+.riskList, .investList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+}
+
+.riskList li, .investList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.riskList li:last-child, .investList li:last-child {
+  border-bottom: none;
+}
+
+.riskList li span, .investList li span {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.textRed { color: #ef4444; font-family: monospace; font-weight: 700; font-size: 1.1rem; }
+.textGreen { color: #10b981; font-family: monospace; font-weight: 700; font-size: 1.1rem; }
+
+.riskTotal {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.investTotal {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.investTotal a {
+  color: #10b981;
+  font-weight: 800;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: gap 0.2s;
+}
+
+.investTotal a:hover { gap: 0.75rem; }
+
+/* Service Cards */
+.serviceCard {
+  background: var(--color-bg-panel);
+  border: 1px solid;
+  border-radius: 1.5rem;
+  padding: 3rem 2.5rem;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.serviceIcon {
+  width: 4rem;
+  height: 4rem;
+  color: white;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.serviceTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.serviceDesc {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.serviceGroup {
+  margin-bottom: 2rem;
+}
+
+.serviceGroup h4 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+}
+
+.serviceGroup ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.serviceGroup li {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.serviceActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary, .btnGreen, .btnBlue, .btnOutline {
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  flex: 1;
+  text-align: center;
+  transition: all 0.3s;
+  font-size: 0.95rem;
+  min-width: 120px;
+}
+
+.btnPrimary { background: #c3151c; color: white; border: 1px solid #c3151c; }
+.btnPrimary:hover { background: #a01118; border-color: #a01118; box-shadow: 0 4px 15px rgba(195,21,28,0.4); }
+
+.btnGreen { background: #10b981; color: white; border: 1px solid #10b981; }
+.btnGreen:hover { background: #059669; border-color: #059669; box-shadow: 0 4px 15px rgba(16,185,129,0.4); }
+
+.btnBlue { background: #3b82f6; color: white; border: 1px solid #3b82f6; }
+.btnBlue:hover { background: #2563eb; border-color: #2563eb; box-shadow: 0 4px 15px rgba(59,130,246,0.4); }
+
+.btnOutline {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+.btnOutline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+

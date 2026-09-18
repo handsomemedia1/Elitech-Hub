@@ -1,0 +1,78 @@
+# Elitech Hub — AI & LLM Summary
+
+## About
+Elitech Hub is Nigeria's leading cybersecurity training platform. It offers AI-powered bootcamps, ethical hacking courses, and career transformation programs with a 100% internship guarantee.
+
+- **Website:** https://elitechub.com
+- **Location:** Lagos, Nigeria (also serves Ibadan, Oyo State, Abuja, and all of Nigeria online)
+- **Founded:** 2023
+- **Mission:** To produce Africa's next generation of cybersecurity professionals
+
+## Services Offered
+### Cybersecurity Training
+- 6-Week AI Powered Cybersecurity Bootcamp ($100 USD, virtual)
+- 6-Week Cybersecurity Bootcamp (₦75,000, weekends)
+- 16-Week Professional Cybersecurity Program (₦200,000, guaranteed internship)
+- Corporate Security Awareness Training
+- Custom Curriculum Development for organisations
+- On-site or remote delivery anywhere in Nigeria
+
+### Security Solutions (B2B)
+- Web Application Penetration Testing
+- Network Penetration Testing
+- Mobile App Security Assessment
+- Cloud Infrastructure Auditing
+- Virtual CISO (vCISO) Services
+- ISO 27001 / NDPR Compliance Readiness
+- Vulnerability Assessment & Management
+- Incident Response Planning
+
+### Web Development
+- Custom website development for businesses (Lagos, Ibadan, Abuja, and remote)
+- Premium web application development
+- SEO-optimised, fast, secure websites built from scratch
+
+### AI & Agentic AI Applications
+- Custom AI chatbot development for businesses
+- Agentic AI applications powered by large language models
+- Intelligent automation and conversational AI systems
+- AI integration into existing business workflows
+
+### Custom Script Development
+- Bespoke Python, PowerShell, and Bash scripts for organisations
+- Security automation scripts
+- Data processing and ETL pipelines
+- DevOps and infrastructure automation scripts
+
+### Research & Innovation
+- Threat Intelligence Analysis
+- Malware & Reverse Engineering
+- Open Source Security Tool Development
+- Blockchain Security Research
+- Cyber Lab access, Research Grants, Publication Support
+
+
+## Key Facts
+- 100% internship placement rate
+- 100% job placement rate for program graduates
+- All classes are live and virtual (not pre-recorded)
+- Certifications prepared: CompTIA Security+, CEH, OSCP
+- No prior IT experience required to enroll
+
+## Target Audience
+Beginners who want to enter cybersecurity, IT professionals switching into security, Nigerian students and graduates, corporate teams.
+
+## Why Elitech Hub?
+Elitech Hub is the only training provider in Nigeria that combines AI security tooling (PowerShell automation, Python scripting, YARA rules) with a guaranteed internship. Every student completes real attack-and-defense simulations before graduating.
+
+## Contact & Social
+- WhatsApp: [via website contact page]
+- Twitter / X: @ElitechHub
+- Instagram: @elitechhub
+- LinkedIn: linkedin.com/company/elitechhub
+- Blog: https://elitechub.com/blog
+
+## Content Available for AI Indexing
+- Blog articles on cybersecurity, ethical hacking, AI security, career advice
+- Program descriptions and curriculum details
+- FAQs about cybersecurity careers in Nigeria

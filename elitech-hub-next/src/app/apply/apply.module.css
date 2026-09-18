@@ -1,0 +1,519 @@
+/* =========================================================================
+   APPLY PAGE - CYBER PREMIUM
+   ========================================================================= */
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 6%;
+}
+
+/* =========================================================================
+   HERO
+   ========================================================================= */
+.hero {
+  text-align: center;
+  margin-bottom: 5rem;
+  padding-top: 2rem;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-accent-dim);
+  color: var(--color-accent-bright);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-accent-glow);
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* =========================================================================
+   STEPS (PROGRESS TRACKER)
+   ========================================================================= */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 5rem;
+  position: relative;
+  max-width: 900px;
+}
+
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-border);
+  z-index: 1;
+}
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background: var(--color-bg-main);
+  padding: 0 1rem;
+  gap: 0.75rem;
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: all 0.3s ease;
+}
+
+.stepItem.active .stepNumber {
+  background: var(--color-accent-bright);
+  border-color: var(--color-accent-bright);
+  color: #000;
+  box-shadow: var(--shadow-glow);
+}
+
+.stepText {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.stepItem.active .stepText {
+  color: var(--color-text-primary);
+}
+
+/* =========================================================================
+   FORM CONTAINER
+   ========================================================================= */
+.formContainer {
+  max-width: 700px;
+  margin: 0 auto 6rem;
+}
+
+.formWrapper {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 3rem;
+  box-shadow: var(--shadow-panel);
+}
+
+.progressContainer {
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--color-accent-bright);
+  transition: width 0.4s ease;
+}
+
+/* =========================================================================
+   FORM ELEMENTS
+   ========================================================================= */
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: var(--color-bg-panel);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.formGroup select option {
+  background: var(--color-bg-panel);
+  color: var(--color-text-primary);
+}
+
+/* =========================================================================
+   BUTTONS
+   ========================================================================= */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.btn {
+  padding: 0.75rem 1.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnBack {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.btnBack:hover {
+  background: var(--color-bg-raised);
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
+}
+
+.btnNext {
+  background: var(--color-accent-bright);
+  border: none;
+  color: #000;
+}
+
+.btnNext:hover {
+  background: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.btnNext:disabled {
+  background: var(--color-bg-raised);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================================================================
+   REVIEW & CHECKBOX
+   ========================================================================= */
+.reviewSection {
+  background: var(--color-bg-raised);
+  border-radius: 6px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.reviewItem {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.reviewLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.reviewValue {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--color-accent-bright);
+  flex-shrink: 0;
+}
+
+.checkbox label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* =========================================================================
+   SUCCESS SCREEN
+   ========================================================================= */
+.successScreen {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.successIcon {
+  width: 72px;
+  height: 72px;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  color: var(--color-success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+}
+
+.successTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+}
+
+.successText {
+  color: var(--color-text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #25D366;
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.whatsappBtn:hover {
+  background: #1da851;
+}
+
+/* =========================================================================
+   WHY APPLY GRID
+   ========================================================================= */
+.whyApplyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.card {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.cardIcon {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  color: var(--color-accent-bright);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.cardText {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* =========================================================================
+   TESTIMONIAL & INFO (BOTTOM)
+   ========================================================================= */
+.bottomSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.testimonialCard,
+.infoCard {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 2.5rem;
+  position: relative;
+}
+
+.quoteIcon {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  color: var(--color-bg-raised);
+}
+
+.quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-secondary);
+}
+
+.author {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+}
+
+.authorRole {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.infoTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.infoList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.infoList li:last-child { margin-bottom: 0; }
+
+.infoIcon {
+  color: var(--color-accent-bright);
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-accent-glow);
+  padding: 0.2rem;
+  border-radius: 4px;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 992px) {
+  .steps {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .steps::before {
+    top: 0; bottom: 0;
+    left: 24px;
+    width: 1px;
+    height: auto;
+  }
+
+  .stepItem {
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .bottomSection {
+    grid-template-columns: 1fr;
+  }
+}
+

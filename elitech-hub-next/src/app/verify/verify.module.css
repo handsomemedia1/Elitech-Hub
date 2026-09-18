@@ -1,0 +1,119 @@
+.pageWrapper {
+  font-family: 'Inter', sans-serif;
+  background: #0d0f12;
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 20px;
+}
+
+.verifyContainer {
+  background: #111317;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.verifyContainer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: #c3151c;
+}
+
+.logoContainer {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.stateBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stateTitle {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2rem;
+  background: #00ff41;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.certDetails {
+  margin-top: 30px;
+  text-align: left;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 20px;
+  width: 100%;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.detailRow:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detailLabel {
+  color: #64748b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 40%;
+}
+
+.detailValue {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  width: 60%;
+  text-align: right;
+  word-break: break-word;
+}
+
+.errorMessage {
+  color: #64748b;
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+.loadingFallback {
+  color: #f1f5f9;
+  font-size: 1.2rem;
+}

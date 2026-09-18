@@ -1,0 +1,126 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.quickNav {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.75rem;
+}
+.quickNavLink {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.35rem 0.875rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s;
+}
+.quickNavLink:hover {
+  color: white;
+  background: rgba(195, 21, 28, 0.15);
+  border-color: rgba(195, 21, 28, 0.3);
+}
+
+.policySection {
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.policySection:last-of-type {
+  border-bottom: none;
+}
+
+.policyTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(195, 21, 28, 0.3);
+}
+
+.subTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 2rem 0 0.75rem;
+}
+
+.policyText {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.policyList {
+  list-style: none;
+  margin: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.policyList li {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.policyList li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #c3151c;
+  font-weight: 800;
+}
+.policyList strong {
+  color: #e2e8f0;
+}
+
+.highlightBox {
+  background: rgba(195, 21, 28, 0.08);
+  border-left: 4px solid #c3151c;
+  padding: 1rem 1.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1.5rem 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.highlightBox strong {
+  color: white;
+}
+
+.contactBox {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+.contactBox h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+.contactBox p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+.contactBox a {
+  color: #c3151c;
+  text-decoration: underline;
+}

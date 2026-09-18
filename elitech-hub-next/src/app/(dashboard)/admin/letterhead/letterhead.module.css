@@ -1,0 +1,174 @@
+.container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg-alt);
+  min-height: 100%;
+}
+
+.headerRow {
+  width: 100%;
+  max-width: 210mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text-main);
+}
+
+.printBtn {
+  background: #c3151c;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(195, 21, 28, 0.2);
+}
+.printBtn:hover {
+  background: #a01015;
+  transform: translateY(-1px);
+}
+
+.a4Page {
+  width: 210mm;
+  min-height: 297mm;
+  background: white;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  position: relative;
+  box-sizing: border-box;
+  padding: 25mm 20mm 20mm 20mm;
+  display: flex;
+  flex-direction: column;
+  color: #1e293b;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Beautiful Dual-Tone Accent Bar at the top edge of the paper */
+.topAccentBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(to right, #0f172a 35%, #c3151c 35%);
+}
+
+.watermark {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.03;
+  pointer-events: none;
+  width: 55%;
+  height: auto;
+  z-index: 0;
+  filter: grayscale(100%);
+}
+
+.docHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  height: 65px;
+  width: auto;
+  object-fit: contain;
+}
+
+.contactInfo {
+  text-align: right;
+  font-size: 9.5pt;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.contactIcon {
+  color: #c3151c;
+}
+
+.content {
+  flex-grow: 1;
+  font-size: 11pt;
+  color: #1e293b;
+  line-height: 1.7;
+  outline: none;
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
+  padding: 0 10mm;
+}
+
+.content p {
+  margin: 0 0 1rem 0;
+}
+
+.content:empty:before {
+  content: "Click here to start typing your letter...";
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.docFooter {
+  margin-top: 40px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footerPrimary {
+  font-size: 10pt;
+  color: #0f172a;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.footerSecondary {
+  font-size: 8.5pt;
+  color: #64748b;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.footerSecondary span {
+  color: #c3151c;
+  font-weight: 600;
+}
+
+.noPrint {
+  display: flex;
+}

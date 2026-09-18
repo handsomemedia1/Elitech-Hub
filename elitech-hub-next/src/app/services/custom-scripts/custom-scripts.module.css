@@ -1,0 +1,637 @@
+.breadcrumbWrapper {
+  padding: calc(80px + 1rem) 0 1rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-base);
+}
+
+.breadcrumbLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  flex-direction: row-reverse;
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-primary);
+}
+
+.breadcrumbIcon {
+  width: 16px;
+  height: 16px;
+  transform: rotate(180deg);
+}
+
+/* Hero Section */
+.heroSection {
+  padding: 4rem 0 6rem;
+  position: relative;
+  background: var(--color-bg-main);
+  overflow: hidden;
+}
+
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    linear-gradient(rgba(195, 21, 28, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(195, 21, 28, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.heroGrid > div {
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: rgba(195, 21, 28, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(195, 21, 28, 0.3);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(195, 21, 28, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.heroTitle {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.textAccent {
+  background: linear-gradient(135deg, #ef4444 0%, #c3151c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(195, 21, 28, 0.4);
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 100%;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-bright);
+  color: #ffffff;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(195, 21, 28, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.primaryButton::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.primaryButton:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(195, 21, 28, 0.5);
+}
+
+.primaryButton:hover::after {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
+}
+
+/* Terminal Window */
+.terminalWindow {
+  background: #050505;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow-x: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(195, 21, 28, 0.2);
+  font-family: var(--font-mono);
+  position: relative;
+  word-break: break-word;
+  white-space: pre-wrap;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.terminalWindow::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: inset 0 0 80px rgba(0, 255, 65, 0.05);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.terminalHeader {
+  background: #111;
+  padding: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
+}
+
+.terminalBody {
+  padding: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 2;
+}
+
+.command {
+  color: #f8fafc;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.command span {
+  color: var(--color-success);
+  margin-right: 0.75rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.output {
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+}
+
+.success {
+  color: var(--color-success);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: var(--color-success);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Tools Section */
+.toolsSection {
+  padding: 3rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.toolsTrack {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.toolChip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.toolChip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toolIcon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+/* Services */
+.servicesSection {
+  padding: 8rem 0;
+  background: var(--color-bg-base);
+  position: relative;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 5rem;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 2.5rem;
+}
+
+.serviceCard {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.serviceCard:hover {
+  background: var(--color-bg-raised);
+  border-color: rgba(195, 21, 28, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4), 0 0 20px rgba(195, 21, 28, 0.1);
+}
+
+.serviceIcon {
+  width: 36px;
+  height: 36px;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.serviceCard h3 {
+  font-size: 1.4rem;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.serviceCard p {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Process Section */
+.processSection {
+  padding: 8rem 0;
+  background: var(--color-bg-main);
+}
+
+.processGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.sectionTitleLeft {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 3.5rem;
+}
+
+.processSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.step {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+}
+
+.stepNum {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-accent-dim);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.step h4 {
+  font-size: 1.3rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.step p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.includedBox {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-accent-dim);
+  border-radius: 16px;
+  padding: 4rem 3rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.includedBox::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(135deg, rgba(195,21,28,0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.includedTitle {
+  font-size: 1.6rem;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.includedList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.includedList li {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+}
+
+.checkIcon {
+  color: var(--color-success);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* FAQ */
+.faqSection {
+  padding: 8rem 0;
+  background: var(--color-bg-base);
+}
+
+.faqGrid {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.faqItem {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.faqItem:hover {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.faqQuestion {
+  padding: 1.75rem 2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.faqQuestion::-webkit-details-marker {
+  display: none;
+}
+
+.faqIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  transition: transform 0.3s ease;
+}
+
+.faqItem[open] .faqIcon {
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  padding: 0 2rem 2rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.faqAnswer p {
+  margin: 0;
+}
+
+/* CTA Section */
+.ctaSection {
+  padding: 6rem 0 10rem;
+  background: var(--color-bg-main);
+}
+
+.ctaBox {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 6rem 3rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+.ctaBox::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: var(--color-primary);
+}
+
+.ctaTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.ctaDesc {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--color-text-primary);
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-primary);
+}
+
+.ctaButton:hover {
+  background: rgba(195, 21, 28, 0.15);
+  box-shadow: 0 0 24px rgba(195, 21, 28, 0.25);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 992px) {
+  .heroGrid, .processGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+  
+  .heroSection, .servicesSection, .processSection, .faqSection {
+    padding: 3rem 0;
+  }
+  
+  .sectionTitle, .sectionTitleLeft, .ctaTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .terminalWindow {
+    font-size: 0.85rem;
+  }
+
+  .ctaBox {
+    padding: 3rem 1.5rem;
+  }
+  
+  .includedBox {
+    padding: 3rem 1.5rem;
+  }
+  
+  .serviceCard {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Added Pricing & CTA Group */
+.ctaGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .ctaGroup {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .ctaGroup a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.pricingSection {
+  padding: 6rem 0;
+  border-top: 1px solid var(--color-border);
+}
+

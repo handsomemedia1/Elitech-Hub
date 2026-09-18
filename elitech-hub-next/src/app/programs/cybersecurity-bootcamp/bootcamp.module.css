@@ -1,0 +1,190 @@
+/* =========================================
+   6-WEEK CYBERSECURITY BOOTCAMP PAGE
+   Premium Dark-Red Cyber Theme
+   ========================================= */
+
+/* BREADCRUMB */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 5%;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+.breadcrumb a span {
+  color: var(--color-accent-bright);
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+.breadcrumb a:hover span { opacity: 0.7; }
+.breadcrumbSep { color: var(--color-border); }
+.breadcrumbCurrent { color: white; font-weight: 600; }
+
+/* HERO META */
+.heroBadge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255, 42, 85, 0.15); color: var(--color-accent-bright);
+  border: 1px solid var(--color-accent); border-radius: 20px;
+  padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.heroMeta {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 2rem; margin: 2rem 0;
+}
+.heroMetaItem {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: var(--color-text-secondary); font-weight: 600; font-size: 1rem;
+}
+.heroPriceRow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap;
+}
+.heroPrice {
+  display: flex; align-items: baseline; gap: 0.25rem;
+  font-size: 3rem; font-weight: 900; color: white; line-height: 1;
+  flex-direction: column;
+}
+.priceCurrency { font-size: 1.5rem; color: var(--color-accent-bright); }
+.priceNote { font-size: 0.85rem; color: var(--color-text-secondary); font-weight: 600; margin-top: 0.25rem; }
+
+.pricingBox {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 2.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.priceAmount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-accent-bright, #ff4d6d);
+}
+
+.priceDesc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #94a3b8);
+  margin-bottom: 1rem;
+}
+/* SECTION SHARED */
+.sectionTitle {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 900; color: white; text-align: center;
+  margin-bottom: 1rem; letter-spacing: -0.02em;
+}
+.sectionSub {
+  text-align: center; color: var(--color-text-secondary);
+  font-size: 1.1rem; max-width: 600px; margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+/* INCLUDES */
+.includesSection { padding: 6rem 5%; }
+.includesGrid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.includeCard {
+  display: flex; align-items: flex-start; gap: 1.25rem;
+  background: var(--color-bg-panel); border: 1px solid var(--color-border);
+  border-radius: 14px; padding: 1.5rem; transition: all 0.3s;
+}
+.includeCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(255, 42, 85, 0.1);
+  transform: translateY(-3px);
+}
+.includeIcon {
+  color: var(--color-accent-bright); flex-shrink: 0;
+  width: 44px; height: 44px; background: rgba(255, 42, 85, 0.1);
+  border-radius: 10px; display: grid; place-items: center;
+}
+.includeCard h4 { color: white; font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+.includeCard p { color: var(--color-text-secondary); font-size: 0.875rem; }
+
+/* CURRICULUM */
+.curriculumSection { padding: 6rem 5%; background: rgba(255,255,255,0.01); }
+.curriculumGrid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
+}
+.phaseCard {
+  background: var(--color-bg-panel); border: 1px solid;
+  border-radius: 16px; padding: 2rem; transition: all 0.3s;
+}
+.phaseCard:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+.phaseWeek { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+.phaseTitle { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 1.25rem; }
+.phaseList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.phaseList li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--color-text-secondary); font-size: 0.95rem; }
+
+/* TOOLS */
+.toolsSection { padding: 5rem 5%; }
+.toolsGrid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+.toolChip {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(255, 42, 85, 0.1); border: 1px solid rgba(255, 42, 85, 0.3);
+  color: white; padding: 0.6rem 1.25rem; border-radius: 30px;
+  font-weight: 700; font-size: 0.95rem; transition: all 0.3s;
+}
+.toolChip:hover { background: rgba(255, 42, 85, 0.2); transform: scale(1.05); }
+
+/* FOR YOU */
+.forYouSection { padding: 6rem 5%; }
+.forYouGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto; }
+.forYouBox {
+  background: var(--color-bg-panel); border: 1px solid var(--color-border);
+  border-radius: 16px; padding: 2rem;
+}
+.forYouTitle { font-size: 1.15rem; font-weight: 800; margin-bottom: 1.25rem; }
+.forYouList { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.forYouList li { color: var(--color-text-secondary); font-size: 0.95rem; padding-left: 0.5rem; border-left: 2px solid var(--color-border); }
+.upgradeHint {
+  text-align: center; color: var(--color-text-secondary);
+  margin-top: 2rem; font-size: 1rem;
+}
+.upgradeHint a { color: var(--color-accent-bright); font-weight: 700; }
+
+/* FAQ */
+.faqSection { padding: 6rem 5%; max-width: 800px; margin: 0 auto; }
+.faqList { display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+.faqItem {
+  background: var(--color-bg-panel); border: 1px solid var(--color-border);
+  border-radius: 12px; overflow: hidden; transition: border-color 0.3s;
+}
+.faqItem[open] { border-color: var(--color-accent); }
+.faqQ {
+  padding: 1.25rem 1.5rem; font-weight: 700; color: white;
+  cursor: pointer; list-style: none; display: flex;
+  align-items: center; justify-content: space-between; font-size: 1rem;
+}
+.faqQ::-webkit-details-marker { display: none; }
+.faqA { padding: 0 1.5rem 1.25rem; color: var(--color-text-secondary); line-height: 1.7; }
+
+/* FINAL CTA */
+.ctaSection {
+  padding: 8rem 5%; text-align: center;
+  background: radial-gradient(ellipse at center, rgba(255, 42, 85, 0.08) 0%, transparent 70%);
+}
+.ctaIcon { color: var(--color-accent-bright); margin: 0 auto 1.5rem; display: block; }
+.ctaTitle { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: white; margin-bottom: 1rem; }
+.ctaSub { color: var(--color-text-secondary); font-size: 1.15rem; max-width: 550px; margin: 0 auto 2.5rem; }
+.ctaButtons { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.ctaSecondary { color: var(--color-accent-bright); font-weight: 700; font-size: 1rem; transition: opacity 0.2s; }
+.ctaSecondary:hover { opacity: 0.7; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .includesGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .includesGrid, .curriculumGrid, .forYouGrid { grid-template-columns: 1fr; }
+  .heroPriceRow { flex-direction: column; }
+  .heroMeta { gap: 1rem; }
+}

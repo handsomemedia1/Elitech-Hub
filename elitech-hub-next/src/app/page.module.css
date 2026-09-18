@@ -1,0 +1,742 @@
+/* =========================================================================
+   HOME PAGE - CYBER PREMIUM
+   ========================================================================= */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: var(--color-bg-main);
+}
+
+/* =========================================================================
+   PROMO BANNER
+   ========================================================================= */
+.promoBanner {
+  margin-top: 80px;
+  background: var(--color-bg-base);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 6%;
+  gap: 1.5rem;
+}
+
+.promoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-accent-dim);
+  color: var(--color-accent-bright);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.3rem 0.85rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--color-accent-glow);
+}
+
+.promoTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+.promoSub {
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.promoRight {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.promoPriceWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.promoPrice {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-accent-bright);
+  line-height: 1;
+  font-family: var(--font-mono);
+}
+
+.promoGuarantee {
+  font-size: 0.72rem;
+  color: var(--color-success);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.2rem;
+}
+
+/* =========================================================================
+   HERO STACKING ILLUSION
+   ========================================================================= */
+.heroWrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.heroSticky {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 6% 6rem;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-main);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .heroSticky {
+    padding: 6rem 1.25rem 4rem;
+    align-items: flex-start;
+  }
+  .heroContent {
+    width: 100%;
+    max-width: 100%;
+  }
+  .heroTitle {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    letter-spacing: -0.02em;
+  }
+  .heroSubtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .heroStatsRow {
+    gap: 0.75rem;
+  }
+  .heroStatCard {
+    padding: 0.9rem 1.25rem;
+    min-width: 80px;
+  }
+  .heroActions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .heroActions a {
+    width: 100%;
+    justify-content: center;
+  }
+  .trustBadges {
+    gap: 0.5rem;
+  }
+  .trustBadge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+/* Subtle grid texture for hacker feel */
+.heroSticky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 42, 85, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 42, 85, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,12,0.4) 0%, var(--color-bg-main) 100%);
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 950px;
+  position: relative;
+  z-index: 2;
+}
+
+.trustBadges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.trustBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 7vw, 5.25rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.75rem;
+  color: var(--color-text-primary);
+}
+
+.heroTitle .accent {
+  color: var(--color-accent-bright);
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  max-width: 650px;
+  margin: 0 auto 3rem;
+}
+
+.heroStatsRow {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.heroStatCard {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-light);
+  padding: 1.25rem 2rem;
+  border-radius: 6px;
+  min-width: 130px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.heroStatCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.heroStatNum {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-accent-bright);
+  line-height: 1;
+  font-family: var(--font-mono);
+}
+
+.heroStatLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* =========================================================================
+   SECTION FOUNDATIONS
+   ========================================================================= */
+.sectionWrapper {
+  position: relative;
+  z-index: 2; /* Sits above sticky hero */
+  background-color: var(--color-bg-main);
+  box-shadow: 0 -20px 40px rgba(0,0,0,0.5); /* Cast shadow on hero */
+}
+
+.section {
+  padding: 7rem 6%;
+  position: relative;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 1.25rem;
+  }
+  .sectionTitle {
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
+  }
+  .sectionHeader {
+    margin-bottom: 2rem;
+  }
+  .bentoGrid {
+    display: flex;
+    flex-direction: column;
+  }
+  .promoBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+    margin-top: 64px;
+  }
+  .promoRight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+}
+
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-accent-bright);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--color-accent-glow);
+  border-radius: 4px;
+  background: var(--color-accent-dim);
+}
+
+.sectionTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+  line-height: 1.08;
+  color: var(--color-text-primary);
+}
+
+.sectionBody {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* =========================================================================
+   PROGRAMS BENTO GRID
+   ========================================================================= */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bentoPro {
+  grid-column: span 8;
+  border-radius: 8px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Accent top bar on the featured card */
+.bentoPro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-blue));
+}
+
+.bentoBootcamp {
+  grid-column: span 4;
+  border-radius: 8px;
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border);
+}
+
+.bentoCorp {
+  grid-column: span 12;
+  border-radius: 8px;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+}
+
+@media (max-width: 900px) {
+  .bentoPro, .bentoBootcamp, .bentoCorp {
+    grid-column: span 12;
+  }
+}
+
+.bentoIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: var(--color-accent-bright);
+}
+
+.bentoTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.bentoPrice {
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 1.75rem;
+  font-family: var(--font-mono);
+}
+
+.bentoFeatures {
+  list-style: none;
+  margin-bottom: 2.5rem;
+  flex: 1;
+}
+
+.bentoFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+/* =========================================================================
+   R&D / FEATURES GRID
+   ========================================================================= */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featureCard {
+  padding: 2.25rem 2rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.featureCard:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+.featureIcon {
+  color: var(--color-accent-bright);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.featureTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.featureBody {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+/* =========================================================================
+   MARQUEE TESTIMONIALS
+   ========================================================================= */
+.marqueeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.marqueeWrap::before,
+.marqueeWrap::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 12%;
+  z-index: 2;
+  pointer-events: none;
+}
+.marqueeWrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-main), transparent);
+}
+.marqueeWrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-main), transparent);
+}
+
+.marqueeRow {
+  display: flex;
+  width: max-content;
+  gap: 1.5rem;
+}
+
+.marqueeLeft  { animation: scrollLeft 45s linear infinite; }
+.marqueeRight { animation: scrollRight 45s linear infinite; }
+
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scrollRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.marqueeCard {
+  width: 400px;
+  max-width: 85vw;
+  padding: 2rem;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.2s;
+}
+
+.marqueeCard:hover {
+  border-color: var(--color-border-light);
+}
+
+.marqueeQuote {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.marqueeAuthorRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.marqueeAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-accent-dim);
+  border: 1px solid var(--color-accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--color-accent-bright);
+  font-size: 0.95rem;
+}
+
+.marqueeAuthorName {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-size: 0.92rem;
+}
+
+.marqueeAuthorRole {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+/* =========================================================================
+   COMMUNITY / TELEGRAM BANNER
+   ========================================================================= */
+.communityBanner {
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  padding: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.communityBanner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-blue));
+}
+
+.communityContent { max-width: 500px; }
+
+.communityBanner h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.communityBanner p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.communityUpdates {
+  padding: 1.75rem;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  max-width: 380px;
+}
+
+@media (max-width: 900px) {
+  .communityBanner {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+}
+
+/* =========================================================================
+   FOOTER
+   ========================================================================= */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: 5rem 6% 2.5rem;
+  background: var(--color-bg-base);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .footerGrid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+@media (max-width: 640px) {
+  .footerGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+.footerBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.footerBrand span { color: var(--color-accent-bright); }
+
+.footerDesc {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 0.88rem;
+  max-width: 300px;
+}
+
+.footerTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+
+.footerLinks {
+  list-style: none;
+}
+
+.footerLinks li { margin-bottom: 0.7rem; }
+
+.footerLinks a {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  transition: color 0.2s;
+}
+
+.footerLinks a:hover { color: var(--color-accent-bright); }
+
+.footerBottom {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  text-align: center;
+}
+

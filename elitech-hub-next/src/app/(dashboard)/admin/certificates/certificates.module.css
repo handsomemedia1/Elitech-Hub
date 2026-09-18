@@ -1,0 +1,365 @@
+.managerWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.header p {
+  color: #64748b;
+  margin: 0;
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .appContainer {
+    flex-direction: row;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border: 1px solid #1e293b;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 350px;
+    flex-shrink: 0;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formGroup label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.formGroup input, .formGroup select {
+  padding: 0.65rem;
+  background: #070d1a;
+  color: #ffffff;
+  border: 1px solid #1e293b;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.formGroup input:focus, .formGroup select:focus {
+  outline: none;
+  border-color: #ff2a55;
+  box-shadow: 0 0 0 2px rgba(255, 42, 85, 0.2);
+  background: #0f172a;
+}
+
+.formGroup small {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #1e293b;
+}
+
+.btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btnPrimary {
+  background: #ff2a55;
+  color: white;
+}
+
+.btnPrimary:hover {
+  background: #e60023;
+}
+
+.btnSecondary {
+  background: #070d1a;
+  color: #ffffff;
+  border: 1px solid #1e293b;
+}
+
+.btnSecondary:hover {
+  background: #e2e8f0;
+}
+
+.bulkUpload {
+  border: 2px dashed #cbd5e1;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  background: #070d1a;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #cbd5e1;
+}
+
+.bulkUpload:hover {
+  border-color: #ff2a55;
+  background: #fff1f2;
+}
+
+/* Certificate Preview area */
+.mainContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background: #1e293b;
+  border-radius: 12px;
+  overflow: auto;
+  border: 1px solid #1e293b;
+  min-height: 500px;
+}
+
+/* 
+  The raw certificate UI ported from old admin
+  It is styled for a 1056x816 container scaled down using transform
+*/
+.certWrapper {
+  width: 1056px;
+  height: 816px;
+  background: #0d0f12;
+  border: 4px solid #ff2a55;
+  color: #f1f5f9;
+  font-family: 'IBM Plex Mono', monospace;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  transform-origin: top center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.certInnerBorder {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.certContent {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 60px 80px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.certLogo {
+  height: 70px;
+  margin-bottom: 25px;
+  object-fit: contain;
+}
+
+.certHeader {
+  margin-bottom: 1.5rem;
+}
+
+.certHeader h1 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 2.8rem;
+  color: #ff2a55;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.certSubtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.certPresented {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 2rem 0 1rem;
+}
+
+.certNameContainer {
+  width: 70%;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  padding-bottom: 15px;
+  margin-bottom: 2.5rem;
+}
+
+.certName {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+.certBody {
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  max-width: 750px;
+  line-height: 1.8;
+  margin-bottom: auto;
+}
+
+.certBody strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.certHighlight {
+  color: #00ff41;
+  font-weight: 600;
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.certFooter {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.footerLeft {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footerRight {
+  align-items: flex-end;
+  text-align: right;
+  width: 250px;
+  display: flex;
+  gap: 15px;
+}
+
+.verificationBlock {
+  background: #000000;
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  padding: 12px 15px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 0.85rem;
+  color: #00ff41;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+.dateContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.dateLine {
+  font-family: 'IBM Plex Mono', monospace;
+  width: 100%;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: right;
+}
+
+.dateLabel {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+  width: 100%;
+}
+
+.qrCodeContainer {
+  background: #070d1a;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+/* Scaling wrapper for responsive preview */
+.scalingWrapper {
+  transform: scale(0.65);
+  transform-origin: top center;
+}
+
+@media (max-width: 1400px) {
+  .scalingWrapper { transform: scale(0.55); }
+}
+
+@media (max-width: 1100px) {
+  .scalingWrapper { transform: scale(0.45); }
+}
+
+@media (max-width: 768px) {
+  .scalingWrapper { transform: scale(0.35); }
+}
