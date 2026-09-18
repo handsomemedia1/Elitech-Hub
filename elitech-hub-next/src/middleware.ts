@@ -92,7 +92,7 @@ export function middleware(request: NextRequest) {
     }
   }
   
-  if (path.startsWith('/writer') && path !== '/writer/login') {
+  if (path.startsWith('/writer') && path !== '/writer/login' && path !== '/writer/signup') {
     if (!request.cookies.has('elitech_token')) {
       return NextResponse.redirect(new URL('/writer/login', request.url));
     }
