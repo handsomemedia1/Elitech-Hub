@@ -44,10 +44,25 @@ export default function Footer() {
         <div>
           <h4 className={styles.footerColTitle}>Programs</h4>
           <ul className={styles.footerLinks}>
-            <li><Link href="/programs"><i className="fas fa-graduation-cap" /><span>6‑Week Bootcamp</span></Link></li>
-            <li><Link href="/programs"><i className="fas fa-user-shield" /><span>16‑Week Professional</span></Link></li>
-            <li><Link href="/programs"><i className="fas fa-building" /><span>Corporate Training</span></Link></li>
+            <li><Link href="/before-cybersecurity"><i className="fas fa-compass" /><span>Before Cybersecurity</span></Link></li>
+            <li><Link href="/ai-training"><i className="fas fa-robot" /><span>AI Cybersecurity (6 Weeks)</span></Link></li>
+            <li><Link href="/programs#ai-security"><i className="fas fa-shield-alt" /><span>AI Security and Reverse Vulnerability</span></Link></li>
+            <li><Link href="/programs/professional"><i className="fas fa-user-shield" /><span>16‑Week Professional</span></Link></li>
+            <li><Link href="/programs/corporate-training"><i className="fas fa-building" /><span>Corporate Training</span></Link></li>
             <li><Link href="/apply"><i className="fas fa-rocket" /><span>Apply Now</span></Link></li>
+          </ul>
+        </div>
+
+        {/* Consultation & Services */}
+        <div>
+          <h4 className={styles.footerColTitle}>Advisory &amp; Services</h4>
+          <ul className={styles.footerLinks}>
+            <li><Link href="/consultation"><i className="fas fa-calendar-check" /><span>1-on-1 Consultation</span></Link></li>
+            <li><Link href="/coaching"><i className="fas fa-user-graduate" /><span>Career Coaching</span></Link></li>
+            <li><Link href="/services"><i className="fas fa-cogs" /><span>All Enterprise Services</span></Link></li>
+            <li><Link href="/services/penetration-testing"><i className="fas fa-shield-virus" /><span>Penetration Testing</span></Link></li>
+            <li><Link href="/services/ai-chatbots"><i className="fas fa-brain" /><span>AI Chatbots</span></Link></li>
+            <li><Link href="/services/web-development"><i className="fas fa-laptop-code" /><span>Web Development</span></Link></li>
           </ul>
         </div>
 
@@ -59,7 +74,6 @@ export default function Footer() {
             <li><Link href="/research"><i className="fas fa-flask" /><span>Research</span></Link></li>
             <li><Link href="/resources"><i className="fas fa-file-alt" /><span>Resources</span></Link></li>
             <li><Link href="/lab"><i className="fas fa-microscope" /><span>Security Lab</span></Link></li>
-            <li><Link href="/security-check"><i className="fas fa-shield-alt" /><span>Security Check</span></Link></li>
             <li><Link href="/blog"><i className="fas fa-blog" /><span>Blog</span></Link></li>
             <li><Link href="/faq"><i className="fas fa-question-circle" /><span>FAQ</span></Link></li>
             <li><Link href="/contact"><i className="fas fa-phone" /><span>Contact</span></Link></li>

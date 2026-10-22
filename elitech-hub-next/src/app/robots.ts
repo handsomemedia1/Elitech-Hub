@@ -5,8 +5,27 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/research/', '/lab/'],
-        disallow: ['/admin/', '/api/', '/dashboard/', '/thank-you', '/verify', '/researcher/', '/writer/'],
+        allow: ['/', '/research/', '/lab/', '/authors/', '/writers/'],
+        disallow: [
+          '/admin/',
+          '/admin',
+          '/api/',
+          '/dashboard/',
+          '/thank-you',
+          '/verify',
+          '/researcher/',
+          '/writer/',
+          '/before-cybersecurity/dashboard',
+          '/before-cybersecurity/account',
+          '/before-cybersecurity/report',
+          '/before-cybersecurity/roadmap',
+          '/before-cybersecurity/guide',
+          '/before-cybersecurity/resources',
+          '/before-cybersecurity/assessment',
+          '/before-cybersecurity/results',
+          '/testimonials/collect/',
+          '/certificate/',
+        ],
       },
       // --- LLM / AI Crawlers: explicitly allow for indexing ---
       // This is what gets you into ChatGPT, Perplexity, Gemini etc.
@@ -39,6 +58,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://elitechub.com/sitemap.xml',
+    sitemap: 'https://www.elitechub.com/sitemap.xml',
   };
 }

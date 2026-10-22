@@ -13,7 +13,16 @@ export default function ScrollNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Hide the public navbar on all dashboard/admin/writer/researcher routes
-  const isDashboard = pathname.startsWith('/admin') || pathname.startsWith('/writer') || pathname.startsWith('/researcher');
+  const isDashboard = 
+    pathname.startsWith('/admin') || 
+    pathname.startsWith('/writer') || 
+    pathname.startsWith('/researcher') ||
+    pathname.startsWith('/before-cybersecurity/dashboard') ||
+    pathname.startsWith('/before-cybersecurity/guide') ||
+    pathname.startsWith('/before-cybersecurity/report') ||
+    pathname.startsWith('/before-cybersecurity/roadmap') ||
+    pathname.startsWith('/before-cybersecurity/resources') ||
+    pathname.startsWith('/before-cybersecurity/account');
   
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -64,10 +73,17 @@ export default function ScrollNavbar() {
       label: "Programs",
       dropdown: [
         { href: "/programs", label: "View All Programs" },
-        { href: "/programs/cybersecurity-bootcamp", label: "6-Week Bootcamp" },
+        { href: "/ai-training", label: "AI Cybersecurity (6 Weeks)" },
+        { href: "/programs#ai-security", label: "AI Security and Reverse Vulnerability" },
         { href: "/programs/professional", label: "16-Week Professional" },
         { href: "/programs/corporate-training", label: "Corporate Training" },
-        { href: "/ai-training", label: "AI Cybersecurity" },
+      ]
+    },
+    {
+      label: "Consultation",
+      dropdown: [
+        { href: "/consultation", label: "1-on-1 Consultation" },
+        { href: "/coaching", label: "Career Coaching & Mentorship" },
       ]
     },
     {
@@ -83,6 +99,7 @@ export default function ScrollNavbar() {
     {
       label: "Resources",
       dropdown: [
+        { href: "/before-cybersecurity", label: "Before Cybersecurity" },
         { href: "/resources", label: "Resources Library" },
         { href: "/laptops", label: "Laptops Catalog" },
         { href: "/about", label: "About Us" },

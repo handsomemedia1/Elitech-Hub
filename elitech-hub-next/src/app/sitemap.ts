@@ -1,363 +1,443 @@
 import { MetadataRoute } from 'next';
 import { getSupabaseServerClient } from '@/lib/supabase';
+import { createServiceClient } from '@/lib/supabase-server';
 
-// All routes with their priority and change frequency
-// Higher priority = Google crawls more often
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://elitechub.com';
-  const now = new Date().toISOString();
-  
-  let blogPosts = null;
-  let researchPapers = null;
-  let caseStudies = null;
-  let labEntries = null;
-  let laptops = null;
-
+// Safely format and validate ISO modification timestamps from genuine database records.
+// According to Google Search Central sitemap guidelines, <lastmod> should be omitted
+// if an accurate, verifiable modification date cannot be established.
+function parseReliableDate(dateStr?: string | null): string | undefined {
+  if (!dateStr || typeof dateStr !== 'string') return undefined;
   try {
-    const supabase = getSupabaseServerClient();
-    
-    // Fetch dynamic blog posts
-    const { data: bPosts } = await supabase
-      .from('blog_posts')
-      .select('slug, updated_at, published_at')
-      .eq('published', true);
-    blogPosts = bPosts;
-      
-    // Fetch dynamic research papers (only published)
-    const { data: rPapers } = await supabase
-      .from('research')
-      .select('slug, updated_at, created_at')
-      .or('published.eq.true,publication_status.eq.published');
-    researchPapers = rPapers;
+    const d = dateStr.endsWith('Z') || dateStr.includes('+') ? dateStr : dateStr + 'Z';
+    const parsed = new Date(d);
+    if (isNaN(parsed.getTime()) || parsed.getFullYear() < 2020) return undefined;
+    return parsed.toISOString();
+  } catch {
+    return undefined;
+  }
+}
 
-    // Fetch dynamic case studies
-    const { data: cStudies } = await supabase
-      .from('web_case_studies')
-      .select('slug, created_at')
-      .eq('published', true);
-    caseStudies = cStudies;
-    // Fetch published labs
-    const { data: lData } = await supabase
-      .from('labs')
-      .select('slug, updated_at, published_at')
-      .eq('status', 'published');
-    labEntries = lData;
+// Enable Incremental Static Regeneration (hourly) so newly published database records automatically reflect in sitemap.xml
+export const revalidate = 3600;
 
-    // Fetch published laptops
-    const { data: laptopData } = await supabase
-      .from('laptops')
-      .select('slug, updated_at')
-      .eq('published', true)
-      .eq('archived', false);
-    laptops = laptopData;
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = 'https://www.elitechub.com';
 
-  } catch (error) {
-    console.error('Failed to fetch dynamic routes for sitemap:', error);
+  // Deterministic deduplication map guaranteeing unique URLs across static and dynamic entries
+  const sitemapMap = new Map<string, MetadataRoute.Sitemap[number]>();
+
+  function registerRoute(entry: MetadataRoute.Sitemap[number]) {
+    if (!entry || !entry.url) return;
+    const normalizedUrl = entry.url.trim();
+    if (!normalizedUrl.startsWith(baseUrl)) {
+      console.warn(`[sitemap] Rejecting invalid non-canonical host: ${normalizedUrl}`);
+      return;
+    }
+    sitemapMap.set(normalizedUrl, {
+      ...entry,
+      url: normalizedUrl,
+    });
   }
 
-  const routes: MetadataRoute.Sitemap = [
+  // 1. Static core routes
+  // Notice: lastModified is omitted for static routes because Next.js omits <lastmod>
+  // when undefined, preventing misleading static date claims per Google Search Central.
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/programs`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
       url: `${baseUrl}/programs/cybersecurity-bootcamp`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
       url: `${baseUrl}/programs/professional`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
       url: `${baseUrl}/programs/corporate-training`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: now,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/apply`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/get-involved`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
       url: `${baseUrl}/services`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/services/web-development`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/services/ai-chatbots`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/services/penetration-testing`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/services/custom-scripts`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/research`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/ai-training`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/portfolio/cyberoutreach-agent`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/portfolio/elitech-admin-bot`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/portfolio/rusty-threads-bot`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/get-involved`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.65,
     },
     {
       url: `${baseUrl}/lab`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/verify`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/researcher-guidelines`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.55,
-    },
-    {
-      url: `${baseUrl}/security`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
       url: `${baseUrl}/security-check`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/testimonials`,
-      lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/faq`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/founder`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/advisors`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/writers`,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/consultation`,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/coaching`,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/resources`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/before-cybersecurity`,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/research/membership`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/research/membership/apply`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.75,
     },
     {
+      url: `${baseUrl}/research/behavioral-cybersecurity`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/research-paper`,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/researcher-guidelines`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/security`,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/volunteer`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/policies`,
-      lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/laptops`,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
   ];
 
-  if (blogPosts) {
-    const blogUrls: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.updated_at || post.published_at || now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }));
-    routes.push(...blogUrls);
+  for (const route of staticRoutes) {
+    registerRoute(route);
   }
 
-  // Add /laptops catalog explicitly
-  routes.push({
-    url: `${baseUrl}/laptops`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.9,
-  });
-
-  if (laptops) {
-    const laptopUrls: MetadataRoute.Sitemap = (laptops as any[]).map((laptop) => ({
-      url: `${baseUrl}/laptops/${laptop.slug}`,
-      lastModified: laptop.updated_at || now,
-      changeFrequency: 'daily',
-      priority: 0.85,
-    }));
-    routes.push(...laptopUrls);
-  }
-
-  if (researchPapers) {
-    const researchUrls: MetadataRoute.Sitemap = researchPapers.map((paper) => ({
-      url: `${baseUrl}/research/${paper.slug}`,
-      lastModified: paper.updated_at || paper.created_at || now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    }));
-    routes.push(...researchUrls);
-  }
-
-  // Add static portfolio routes explicitly
-  routes.push(
-    { url: `${baseUrl}/portfolio/cyberoutreach-agent`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/portfolio/elitech-admin-bot`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/portfolio/rusty-threads-bot`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 }
-  );
-
-  if (caseStudies) {
-    const caseStudyUrls: MetadataRoute.Sitemap = caseStudies.map((cs) => ({
-      url: `${baseUrl}/portfolio/${cs.slug}`,
-      lastModified: cs.created_at || now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    }));
-    routes.push(...caseStudyUrls);
-  }
-
-  
-  if (labEntries) {
-    const labUrls: MetadataRoute.Sitemap = labEntries.map((lab) => ({
-      url: `${baseUrl}/lab/${lab.slug}`,
-      lastModified: lab.updated_at || lab.published_at || now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }));
-    routes.push(...labUrls);
-  }
+  // Slugs that are permanently redirected (308) in next.config.ts must be excluded
+  // to prevent Google Search Console "Submitted URL has redirect" indexing warnings.
+  const REDIRECTED_BLOG_SLUGS = new Set([
+    'step-by-step-cybersecurity-guide-for-overwhelmed-beginners-moftm94x',
+  ]);
 
   try {
-    const supabase = getSupabaseServerClient();
-    
-    // Add individual advisor profile pages (dynamic slugs from DB)
-    const { data: advisors } = await supabase.from('advisors').select('slug, updated_at').eq('status', 'active');
-    if (advisors) {
-      routes.push(...advisors.map(a => ({
-        url: `${baseUrl}/advisors/${a.slug}`,
-        lastModified: a.updated_at || now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.7
-      })));
+    const supabase = createServiceClient() || getSupabaseServerClient();
+
+    // 2. Dynamic Blog Posts
+    const { data: bPosts, error: bError } = await supabase
+      .from('blog_posts')
+      .select('slug, updated_at, published_at')
+      .eq('published', true);
+
+    if (bError) {
+      console.warn('[sitemap] blog_posts query notice:', bError.message);
+    } else if (Array.isArray(bPosts)) {
+      for (const post of bPosts) {
+        if (!post.slug || REDIRECTED_BLOG_SLUGS.has(post.slug)) continue;
+        const lastMod = parseReliableDate(post.updated_at || post.published_at);
+        registerRoute({
+          url: `${baseUrl}/blog/${post.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        });
+      }
     }
 
-    // NOTE: /founder, /advisors, /research/membership are already added as static routes above.
+    // 3. Dynamic Research Papers (published only)
+    const { data: rPapers, error: rError } = await supabase
+      .from('research')
+      .select('slug, updated_at, created_at')
+      .or('published.eq.true,publication_status.eq.published');
 
-    // Add Topics (no dedicated topics table yet — skip for now)
-
-    // Add Resources
-    const { data: resources } = await supabase.from('resources').select('slug, updated_at').eq('status', 'published');
-    if (resources) {
-      routes.push(...resources.map(r => ({
-        url: `${baseUrl}/resources/${r.slug}`,
-        lastModified: r.updated_at || now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.7
-      })));
+    if (rError) {
+      console.warn('[sitemap] research query notice:', rError.message);
+    } else if (Array.isArray(rPapers)) {
+      for (const paper of rPapers) {
+        if (!paper.slug) continue;
+        const lastMod = parseReliableDate(paper.updated_at || paper.created_at);
+        registerRoute({
+          url: `${baseUrl}/research/${paper.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
     }
 
-    // Add Researchers
-    const { data: researchers } = await supabase.from('researchers').select('slug, updated_at').eq('status', 'active');
-    if (researchers) {
-      routes.push(...researchers.map(r => ({
-        url: `${baseUrl}/researcher/${r.slug}`,
-        lastModified: r.updated_at || now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.7
-      })));
+    // 4. Dynamic Laptops Catalog
+    const { data: laptopData, error: lError } = await supabase
+      .from('laptops')
+      .select('slug, updated_at')
+      .eq('published', true)
+      .eq('archived', false);
+
+    if (lError) {
+      console.warn('[sitemap] laptops query notice:', lError.message);
+    } else if (Array.isArray(laptopData)) {
+      for (const laptop of laptopData) {
+        if (!laptop.slug) continue;
+        const lastMod = parseReliableDate(laptop.updated_at);
+        registerRoute({
+          url: `${baseUrl}/laptops/${laptop.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'daily',
+          priority: 0.85,
+        });
+      }
     }
-  } catch (e) {
-    console.error('Failed to add ecosystem routes to sitemap', e);
+
+    // 5. Dynamic Case Studies (Web Development)
+    const { data: cStudies, error: csError } = await supabase
+      .from('web_case_studies')
+      .select('slug, created_at')
+      .eq('published', true);
+
+    if (csError) {
+      console.warn('[sitemap] web_case_studies query notice:', csError.message);
+    } else if (Array.isArray(cStudies)) {
+      for (const cs of cStudies) {
+        if (!cs.slug) continue;
+        const lastMod = parseReliableDate(cs.created_at);
+        registerRoute({
+          url: `${baseUrl}/portfolio/${cs.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
+    }
+
+    // 6. Dynamic Contributing Writers (Approved + Public profile)
+    const { data: writers, error: wError } = await supabase
+      .from('writers')
+      .select('slug, last_profile_update_at, created_at')
+      .eq('status', 'approved')
+      .eq('is_public', true)
+      .not('slug', 'is', null);
+
+    if (wError) {
+      console.warn('[sitemap] writers query notice:', wError.message);
+    } else if (Array.isArray(writers)) {
+      for (const writer of writers) {
+        if (!writer.slug) continue;
+        const lastMod = parseReliableDate(writer.last_profile_update_at || writer.created_at);
+        registerRoute({
+          url: `${baseUrl}/authors/${writer.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'monthly',
+          priority: 0.75,
+        });
+      }
+    }
+
+    // 7. Dynamic Labs (Defensively queried)
+    const { data: labEntries, error: labError } = await supabase
+      .from('labs')
+      .select('slug, updated_at, published_at')
+      .eq('status', 'published');
+
+    if (labError) {
+      console.warn('[sitemap] labs query notice:', labError.message);
+    } else if (Array.isArray(labEntries)) {
+      for (const lab of labEntries) {
+        if (!lab.slug) continue;
+        const lastMod = parseReliableDate(lab.updated_at || lab.published_at);
+        registerRoute({
+          url: `${baseUrl}/lab/${lab.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        });
+      }
+    }
+
+    // 8. Dynamic Advisors (Defensively queried)
+    const { data: advisors, error: advError } = await supabase
+      .from('advisors')
+      .select('slug, updated_at')
+      .eq('status', 'active');
+
+    if (advError) {
+      console.warn('[sitemap] advisors query notice:', advError.message);
+    } else if (Array.isArray(advisors)) {
+      for (const advisor of advisors) {
+        if (!advisor.slug) continue;
+        const lastMod = parseReliableDate(advisor.updated_at);
+        registerRoute({
+          url: `${baseUrl}/advisors/${advisor.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
+    }
+
+    // 9. Dynamic Resources (Defensively queried)
+    const { data: resources, error: resError } = await supabase
+      .from('resources')
+      .select('slug, updated_at')
+      .eq('status', 'published');
+
+    if (resError) {
+      console.warn('[sitemap] resources query notice:', resError.message);
+    } else if (Array.isArray(resources)) {
+      for (const resource of resources) {
+        if (!resource.slug) continue;
+        const lastMod = parseReliableDate(resource.updated_at);
+        registerRoute({
+          url: `${baseUrl}/resources/${resource.slug}`,
+          ...(lastMod && { lastModified: lastMod }),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        });
+      }
+    }
+
+    console.log(`[sitemap] Dynamic summary: blog_posts=${bPosts?.length ?? 0}, laptops=${laptopData?.length ?? 0}, research=${rPapers?.length ?? 0}, writers=${writers?.length ?? 0}, total_urls=${sitemapMap.size}`);
+  } catch (error) {
+    console.error('[sitemap] Fatal unexpected error during dynamic route collection:', error);
   }
 
-  return routes;
+  return Array.from(sitemapMap.values());
 }
